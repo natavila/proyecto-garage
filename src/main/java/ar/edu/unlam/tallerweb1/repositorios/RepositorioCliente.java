@@ -17,6 +17,7 @@ public interface RepositorioCliente {
 	
 	Cliente consultarPorId(Long id);
 	
+<<<<<<< HEAD
 <<<<<<< Upstream, based on branch 'master' of https://github.com/natavila/proyecto-garage.git
 <<<<<<< HEAD
 =======
@@ -25,6 +26,8 @@ public interface RepositorioCliente {
 >>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
 =======
 >>>>>>> e61c56b ge remote-tracking branch 'origin/SantosGaston' into ramaNataly
+=======
+>>>>>>> branch 'ramaNataly' of https://github.com/natavila/proyecto-garage.git
 	Cliente verificarCorreo(Cliente cliente);
 	
 	void registrarCliente(Cliente cliente);

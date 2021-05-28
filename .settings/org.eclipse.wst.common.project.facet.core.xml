@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <<<<<<< Upstream, based on branch 'master' of https://github.com/natavila/proyecto-garage.git
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
@@ -17,6 +18,8 @@
 </faceted-project>
 >>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
 =======
+=======
+>>>>>>> branch 'ramaNataly' of https://github.com/natavila/proyecto-garage.git
 <?xml version="1.0" encoding="UTF-8"?>
 <faceted-project>
   <fixed facet="wst.jsdt.web"/>
@@ -33,4 +36,7 @@
   <installed facet="jst.web" version="3.0"/>
 </faceted-project>
 >>>>>>> refs/remotes/origin/SantosGaston
+<<<<<<< HEAD
 >>>>>>> e61c56b ge remote-tracking branch 'origin/SantosGaston' into ramaNataly
+=======
+>>>>>>> branch 'ramaNataly' of https://github.com/natavila/proyecto-garage.git

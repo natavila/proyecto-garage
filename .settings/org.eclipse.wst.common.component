@@ -5,6 +5,13 @@
                         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+<<<<<<< HEAD
+=======
+        <wb-resource deploy-path="/" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/" source-path="/src/test/java"/>
+        <wb-resource deploy-path="/" source-path="/src/test/resources"/>
+>>>>>>> branch 'ramaNataly' of https://github.com/natavila/proyecto-garage.git
                         
         
         <property name="java-output-path" value="/proyecto-garage/target/classes"/>
