@@ -126,10 +126,6 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 				.uniqueResult();
 	}
 
-<<<<<<< HEAD
-<<<<<<< Upstream, based on branch 'master' of https://github.com/natavila/proyecto-garage.git
-<<<<<<< HEAD
-=======
 	@Override
 	public Cliente buscarClientePorDni(Integer dni) {
 		final Session session = sessionFactory.getCurrentSession();
@@ -138,11 +134,6 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 				.uniqueResult();
 	}
 
->>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
-=======
->>>>>>> e61c56b ge remote-tracking branch 'origin/SantosGaston' into ramaNataly
-=======
->>>>>>> branch 'ramaNataly' of https://github.com/natavila/proyecto-garage.git
 
 
 	
