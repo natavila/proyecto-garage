@@ -17,6 +17,11 @@ public interface RepositorioCliente {
 	
 	Cliente consultarPorId(Long id);
 	
+<<<<<<< HEAD
+=======
+	Cliente buscarClientePorDni(Integer dni);
+	
+>>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
 	Cliente verificarCorreo(Cliente cliente);
 	
 	void registrarCliente(Cliente cliente);

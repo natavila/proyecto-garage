@@ -53,6 +53,7 @@ public class ControladorLogin {
 		// hace una llamada a otro action a través de la URL correspondiente a ésta
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
 		if (usuarioBuscado != null) {
+<<<<<<< HEAD
 			if(usuarioBuscado.getRoll().equals("admin")) {
 				request.getSession().setAttribute("ROL", usuarioBuscado.getId());
 				model.addAttribute("admin", usuarioBuscado);
@@ -69,6 +70,13 @@ public class ControladorLogin {
 		}else {
 			model.put("Error", "Usuario o clave incorrecta");
 			// si el usuario no existe agrega un mensaje de error en el modelo.
+=======
+			request.getSession().setAttribute("ROL", usuarioBuscado.getId());
+			return new ModelAndView("redirect:/home");
+		} else {
+			// si el usuario no existe agrega un mensaje de error en el modelo.
+			model.put("Error", "Usuario o clave incorrecta");
+>>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
 		}
 		return new ModelAndView("login", model);
 	}
@@ -78,10 +86,13 @@ public class ControladorLogin {
 	public ModelAndView irAHome() {
 		return new ModelAndView("home");
 	}
+<<<<<<< HEAD
 	@RequestMapping(path = "/homeAdmin", method = {RequestMethod.GET, RequestMethod.PUT})
 	public ModelAndView irAHomeAdmin() {
 		return new ModelAndView("homeAdmin");
 	}
+=======
+>>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)

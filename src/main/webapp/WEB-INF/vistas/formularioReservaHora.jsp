@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -24,4 +25,32 @@
 
 </div>
 </body>
+=======
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+<title>Billetera</title>
+</head>
+<body>
+<div class="container">
+<form:form action="${pageContext.request.contextPath}/realizarReservaHora/${garage.id}" method="GET" modelAttribute="ticket">
+
+<h2>Horario Desde</h2>
+<form:input type="time" name="horaDesde" path="horaDesde"/>
+<h2>Horario Hasta</h2>
+<form:input type="time" name="horaHasta" path="horaHasta"/>
+
+
+<button type="submit">Calcular</button><br>
+</form:form>
+
+</div>
+</body>
+>>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
 </html>
