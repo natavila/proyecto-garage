@@ -76,7 +76,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		Auto a2 = serv2.consultarAuto(auto1) ;
 		if(g2!=null && a2 !=null && g2.getCapacidad()>g2.getContador()) {
 			
-			a2.setGarage(g2);
+			a2.setAlquiler(g2);;
 			g2.setContador(g2.getContador()+1);
 			
 			serv2.consultarAuto(auto1).setGarage(g2);
