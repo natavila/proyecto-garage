@@ -15,6 +15,7 @@ public interface RepositorioGarage {
 	Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 	
 	Garage contultarUnGarage(Garage garage1);
+	Garage buscarGaragePorId(Long id);
 	Boolean sacarAutoDegarage(Auto auto, Garage garage);
 	Auto BuscarAutoEnGarage(Auto auto, Garage garage);
 	List<Auto> consultarAutosEnGarage(Garage garage1);

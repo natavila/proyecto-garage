@@ -23,5 +23,7 @@ public interface ServicioCobrarTickets {
 	List<Garage> consultarGarage();
 	
 	Garage contultarUnGarage(Garage garage1);
+	
+	Ticket buscarTicketPertenencienteAlGarage(Long id);
 
 }

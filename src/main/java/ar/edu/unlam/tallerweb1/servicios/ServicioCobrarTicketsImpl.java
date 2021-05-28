@@ -68,6 +68,12 @@ public class ServicioCobrarTicketsImpl implements ServicioCobrarTickets{
 		return servicioCobrarTickets.contultarUnGarage(garage1);
 	}
 
+	@Override
+	public Ticket buscarTicketPertenencienteAlGarage(Long id) {
+		
+		return servicioCobrarTickets.buscarTicketPertenencienteAlGarage(id);
+	}
+
 	
 
 
