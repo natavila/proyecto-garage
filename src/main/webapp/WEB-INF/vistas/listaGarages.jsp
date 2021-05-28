@@ -12,7 +12,9 @@
 <body>
 <div class="container mt-3">
 		<table class="table table-hover">
-		<h1>Garages registrados</h1>  
+		
+		<h1>HOLA:  ${nombre} </h1>
+		<h3>Garages registrados</h3>  
 	  <thead>
 	    <tr>
 	       		<th scope="col">Id</th>

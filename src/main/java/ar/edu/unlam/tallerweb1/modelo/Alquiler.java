@@ -15,7 +15,7 @@ public class Alquiler {
 	
 	@ManyToOne
 	private Usuario usuario;
-
+	
 	public Usuario getUsuario() {
 		return usuario;
 	}

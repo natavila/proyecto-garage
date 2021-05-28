@@ -25,7 +25,7 @@ public class Cliente{
 	private String sexo;
 	private String email;
 	private String password;
-
+	private String roll;
 	@OneToMany
 	List<Auto> autos;
 	
@@ -78,6 +78,14 @@ public class Cliente{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	
+	public String getRoll() {
+		return roll;
+	}
+	public void setRoll(String roll) {
+		this.roll = roll;
 	}
 	@Override
 	public String toString() {

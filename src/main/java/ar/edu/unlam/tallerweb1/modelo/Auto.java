@@ -21,7 +21,7 @@ public class Auto {
 	private Cliente cliente;
 	
 	@ManyToOne
-	private Garage garage;
+	private Alquiler alquiler;
 	
 
 	public Long getId() {
@@ -40,13 +40,7 @@ public class Auto {
 		this.cliente = cliente;
 	}
 
-	public Garage getGarage() {
-		return garage;
-	}
-
-	public void setGarage(Garage garage) {
-		this.garage = garage;
-	}
+	
 
 	public String getPatente() {
 		return patente;
@@ -58,7 +52,15 @@ public class Auto {
 
 	@Override
 	public String toString() {
-		return "Auto [id=" + id + ", patente=" + patente + ", cliente=" + cliente + ", garage=" + garage + "]";
+		return "Auto [id=" + id + ", patente=" + patente + ", cliente=" + cliente +  "]";
+	}
+
+	public Alquiler getAlquiler() {
+		return alquiler;
+	}
+
+	public void setAlquiler(Alquiler alquiler) {
+		this.alquiler = alquiler;
 	}
 
 	

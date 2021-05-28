@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -130,10 +131,14 @@ public class ControladorGarage {
 	
 	}
 	
-	@RequestMapping("/mostrarGarages")
-	public String garagesParaReservar(Model modelo){
-		modelo.addAttribute("garages", servicioGarage.consultarGarage());
-		return ("listaGarages");
+	@RequestMapping("/mostrarGarages/{id}/{nombre}")
+	public ModelAndView garagesParaReservar(Model modelo,@PathVariable("id")Long id,
+			@PathVariable("nombre")String nombre){
+		ModelMap modelo1 = new ModelMap();
+		modelo1.addAttribute(nombre);
+		modelo1.addAttribute(id);
+		modelo1.addAttribute("garages", servicioGarage.consultarGarage());
+		return new ModelAndView ("listaGarages", modelo1);
 	}
 	
 	/*@RequestMapping("/formularioAgregarGarage")

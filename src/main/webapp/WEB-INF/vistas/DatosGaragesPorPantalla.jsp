@@ -24,6 +24,9 @@
                 <th scope="col">Precio Hora $$</th>
                 <th scope="col">Precio Estadia $$</th>
                 <th scope="col">Precio Mes $$</th>
+                <th scope="col">Capacidad $$</th>
+                <th scope="col">Contador</th>
+                
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -39,16 +42,18 @@
                     <td>${garage.precioHora}</td>
                     <td>${garage.precioEstadia}</td>
                     <td>${garage.precioMes}</td>
-						<td><a href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}">Eliminar</a></td>
-						<td> <a href="${pageContext.request.contextPath}/mostrarAutosDeUnGarage/${garage.id}">Autos en garaje</a> </td>
-   						<td> <a href="${pageContext.request.contextPath}/mostrarGarage/${garage.id}">Agregar auto</a> </td>
+                    <td>${garage.capacidad}</td>
+                    <td>${garage.contador}</td>
+					<td><a href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}">Eliminar Garage</a></td>
+					<td> <a href="${pageContext.request.contextPath}/mostrarAutosDeUnGarage/${garage.id}">Autos en garaje</a> </td>
+   					<td> <a href="">Modificar Garage</a> </td>
 						
 	                </tr>
 	                
 	            </c:forEach>
 	  </tbody>
 	</table>
-	<a class="btn btn-primary" href="home" role="button">Volver</a>
+	<a class="btn btn-primary" href="homeAdmin" role="button">Volver</a>
 		</div>
     <footer th:replace="layout/layout::footer" class="bg-dark"></footer>
 </body>

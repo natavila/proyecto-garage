@@ -38,13 +38,15 @@ public class ControladorRegistroAuto {
 	
 	
 	
-	@RequestMapping("/mostrarRegistroAuto/{id}")
-	public 	ModelAndView registro(@PathVariable("id") Long id) {
+	@RequestMapping("/mostrarRegistroAuto/{id}/{nombre}")
+	public 	ModelAndView registro(@PathVariable("id") Long id, 
+			@PathVariable("nombre") String nombre) {
 		ModelMap modelo = new ModelMap(); //Agrupa todo para mandarlo a vista
 		Auto auto = new Auto(); //Se crea un usuario vacio para mandarlo vacio para que el formulario se vaya llenando
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		if(cliente != null) {
 			modelo.addAttribute("cliente", cliente);
+			
 			auto.setCliente(cliente);
 			modelo.put("auto", auto);
 			return new ModelAndView("registroAuto", modelo);
