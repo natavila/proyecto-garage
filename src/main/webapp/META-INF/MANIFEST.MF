@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< Upstream, based on branch 'master' of https://github.com/natavila/proyecto-garage.git
 Manifest-Version: 1.0
 Class-Path: 
 
@@ -7,3 +8,13 @@ Manifest-Version: 1.0
 Class-Path: 
 
 >>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
+=======
+Manifest-Version: 1.0
+Class-Path: 
+
+=======
+Manifest-Version: 1.0
+Class-Path: 
+
+>>>>>>> refs/remotes/origin/SantosGaston
+>>>>>>> e61c56b ge remote-tracking branch 'origin/SantosGaston' into ramaNataly

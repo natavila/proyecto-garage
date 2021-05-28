@@ -126,6 +126,7 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 				.uniqueResult();
 	}
 
+<<<<<<< Upstream, based on branch 'master' of https://github.com/natavila/proyecto-garage.git
 <<<<<<< HEAD
 =======
 	@Override
@@ -137,6 +138,8 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 	}
 
 >>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
+=======
+>>>>>>> e61c56b ge remote-tracking branch 'origin/SantosGaston' into ramaNataly
 
 
 	
