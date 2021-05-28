@@ -84,16 +84,36 @@ public class ControladorRegistroAuto {
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
 					servicioRegistro.registrarAuto(auto);
-					modelo.put("error", "Auto registrado correctamente.");
+					modelo.put("error", "auto registrado correctamente");
 					return new ModelAndView("confirmacionRegistroAuto", modelo);
 				 
 			 	}else {
 			 		
-			 		modelo.put("error", "Auto ya registrado. Ingrese otro numero de patente.");
+			 		modelo.put("error", "error al registrar auto");
 			 		return new ModelAndView("confirmacionRegistroAuto", modelo);
 			 	}
 
 			
 	}
+	/*@RequestMapping(path="/procesarRegistroAuto/{id}", method=RequestMethod.POST)
+	public ModelAndView procesarRegistroAuto(
+			@ModelAttribute("auto") Auto auto,
+			@PathVariable("id") Long id){
+		ModelMap modelo = new ModelMap();
+		List<Cliente> clienteBuscado = servicioRegistro.listaCliente();		
+		for(Cliente cliente : clienteBuscado) {
+			 if(cliente.getId().equals(id)) {
+				 modelo.addAttribute("cliente", servicioRegistro.consultarClientePorId(cliente));
+				 auto.setCliente(cliente);
+				 servicioRegistro.registrarAuto(auto);
+				 modelo.put("auto", auto);
+				 
+			 }
+		}
+		
+		return new ModelAndView("redirect:/home", modelo);
+			
+	}*/
+	
 	
 }

@@ -26,20 +26,9 @@ public class Cliente{
 	private String email;
 	private String password;
 
-	@OneToOne
-	Billetera billetera; 
-	
 	@OneToMany
 	List<Auto> autos;
 	
-	
-	
-	public Billetera getBilletera() {
-		return billetera;
-	}
-	public void setBilletera(Billetera billetera) {
-		this.billetera = billetera;
-	}
 	public List<Auto> getAutos() {
 		return autos;
 	}

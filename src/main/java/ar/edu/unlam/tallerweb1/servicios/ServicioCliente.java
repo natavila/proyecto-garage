@@ -15,8 +15,6 @@ public interface ServicioCliente {
 
 	public Cliente consultarClientePorId(Long id);
 	
-	public Cliente buscarClientePorDni(Integer dni);
-	
 	
 
 }
