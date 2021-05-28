@@ -25,21 +25,10 @@ public class Cliente{
 	private String sexo;
 	private String email;
 	private String password;
-
-	@OneToOne
-	Billetera billetera; 
-	
+	private String roll;
 	@OneToMany
 	List<Auto> autos;
 	
-	
-	
-	public Billetera getBilletera() {
-		return billetera;
-	}
-	public void setBilletera(Billetera billetera) {
-		this.billetera = billetera;
-	}
 	public List<Auto> getAutos() {
 		return autos;
 	}
@@ -89,6 +78,14 @@ public class Cliente{
 	}
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	
+	public String getRoll() {
+		return roll;
+	}
+	public void setRoll(String roll) {
+		this.roll = roll;
 	}
 	@Override
 	public String toString() {

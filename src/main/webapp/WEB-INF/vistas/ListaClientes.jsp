@@ -33,13 +33,14 @@
 	                    <td>${cliente.apellido}</td>
 	                    <td>${cliente.dni}</td>
 	                    <td>${cliente.email}</td>
-						<td><a href="${pageContext.request.contextPath}/mostrarRegistroAuto/${cliente.id}">Agregar auto</a></td>
+						<td><a href="">Modificar Cliente</a></td>
+						<td><a href="">Eliminar Cliente</a></td>
 	                </tr>
 	                
 	            </c:forEach>
 	  </tbody>
 	</table>
-	<a class="btn btn-primary" href="home" role="button">Volver</a>
+	<a class="btn btn-primary" href="homeAdmin" role="button">Volver</a>
 		</div>
 </body>
 </html>

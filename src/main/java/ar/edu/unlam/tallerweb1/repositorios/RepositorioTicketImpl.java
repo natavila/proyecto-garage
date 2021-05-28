@@ -102,16 +102,6 @@ public class RepositorioTicketImpl implements RepositorioTicket{
 	
 			
 		}
-
-	@Override
-	public Ticket buscarTicketPertenencienteAlGarage(Long id) {
-		final Session session = sessionFactory.getCurrentSession();
-		return (Ticket) session.createCriteria(Ticket.class)
-				.createAlias("garage", "garageBuscado")
-				.createAlias("garageBuscado.id", "garageEncontrado")
-				.add(Restrictions.eq("garageEncontrado", id))
-				.uniqueResult();
-	}
 	
 
 }

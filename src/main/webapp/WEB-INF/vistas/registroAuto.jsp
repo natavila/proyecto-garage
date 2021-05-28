@@ -29,6 +29,7 @@
 		<main class="container"> <!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
 			<form:form  action="${pageContext.request.contextPath}/procesarRegistroAuto/${cliente.id}" method="POST" modelAttribute="auto" class="row g-3">
 			<h1 class="mt-3">Registro de auto</h1>
+			<h3> ${cliente.nombre} </h3>
 				<div class="col-md-6">			
 		    <label for="patente" class="form-label control-label" required>Patente</label>
 		    <form:input type="text" class="form-control" id="patente" path="patente"/>

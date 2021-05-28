@@ -23,9 +23,9 @@ public class Usuario {
 	@OneToMany
 	private List<Cliente> cliente;
 	
-	@OneToMany
+	/*@OneToMany
 	private List<DuenioCochera> duenio;
-	
+	*/
 	public Long getId() {
 		return id;
 	}
@@ -38,6 +38,7 @@ public class Usuario {
 	public void setCliente(List<Cliente> cliente) {
 		this.cliente = cliente;
 	}
+	/*
 	public List<DuenioCochera> getDuenio() {
 		return duenio;
 	}
@@ -46,6 +47,6 @@ public class Usuario {
 	}
 	
 	
-	
+	*/
 
 }
