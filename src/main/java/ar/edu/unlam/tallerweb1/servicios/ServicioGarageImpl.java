@@ -91,6 +91,12 @@ private RepositorioGarage repositorioGarage;
 		
 		return repositorioGarage.BuscarAutoEnGarage(auto1, garage1);
 	}
+
+	@Override
+	public Garage buscarGaragePorId(Long id) {
+		
+		return repositorioGarage.buscarGaragePorId(id);
+	}
 	
 
 	

@@ -31,7 +31,7 @@ public class Ticket {
 	private Auto auto;
 	
 	@ManyToOne
-	private Garage garage1;
+	private Garage garage;
 	
 	@ManyToOne
 	private Alquiler alquiler;
@@ -97,10 +97,10 @@ public class Ticket {
 	public void setAuto(Auto auto) {
 		this.auto = auto;
 	}
-	public Garage getGarage1() {
-		return garage1;
+	public Garage getGarage() {
+		return garage;
 	}
-	public void setGarage1(Garage garage1) {
-		this.garage1 = garage1;
+	public void setGarage(Garage garage1) {
+		this.garage = garage1;
 	}
 }

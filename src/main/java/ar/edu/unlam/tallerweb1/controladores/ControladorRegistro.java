@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
@@ -32,6 +33,7 @@ public class ControladorRegistro {
 		ModelMap modelo = new ModelMap(); //Agrupa todo para mandarlo a vista
 		Cliente cliente = new Cliente();//Se crea un usuario vacio para mandarlo vacio para que el formulario se vaya llenando
 		modelo.put("cliente", cliente);
+		
 		return new ModelAndView("registro", modelo); //Se le envia a la vista registro el modelo con el objeto usuario
 	}
 	@RequestMapping(path="/procesarRegistro", method=RequestMethod.POST)
@@ -44,7 +46,7 @@ public class ControladorRegistro {
 		Cliente verif = servicioLogin.verificarCorreo(cliente);
 		if(cliente.getPassword().equals(repass) && verif == null) {
 			modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
-				servicioRegistro.agregarCliente(cliente);
+				servicioRegistro.agregarCliente(cliente);	
 				
 		}else {
 			modelo.put("mensaje", "Error. No coinciden las passwords");

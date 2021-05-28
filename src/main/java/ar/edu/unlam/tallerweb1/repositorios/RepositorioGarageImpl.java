@@ -182,6 +182,13 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		return salio;
 
 	}
+
+	@Override
+	public Garage buscarGaragePorId(Long id) {
+		final Session session = sessionFactory.getCurrentSession();
+		return session.get(Garage.class, id);
+		
+	}
 		
 	
 	

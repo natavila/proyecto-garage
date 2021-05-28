@@ -44,4 +44,10 @@ public class ServicioClienteImpl implements ServicioCliente{
 		return servicioCliente.consultarPorId(id);
 	}
 
+	@Override
+	public Cliente buscarClientePorDni(Integer dni) {
+		
+		return servicioCliente.buscarClientePorDni(dni);
+	}
+
 }

@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Localidad;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioBilletera;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
 
 @Service("servicioRegistro")
@@ -79,6 +81,8 @@ public class ServicioRegistroImpl implements ServicioRegistro{
 		
 		return servicioRegistro.consultarAuto(auto);
 	}
+
+	
 	
 	
 
