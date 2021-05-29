@@ -104,6 +104,7 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 		 final Session session = sessionFactory.getCurrentSession();
 		  
 		   List<Cliente> listaClientes = session.createCriteria(Cliente.class)
+				   .add(Restrictions.eq("roll", "cliente"))
 				  .list();
 				return listaClientes;  
 	}
@@ -126,17 +127,6 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 				.uniqueResult();
 	}
 
-<<<<<<< HEAD
-=======
-	@Override
-	public Cliente buscarClientePorDni(Integer dni) {
-		final Session session = sessionFactory.getCurrentSession();
-		return (Cliente) session.createCriteria(Cliente.class)
-				.add(Restrictions.eq("dni", dni))
-				.uniqueResult();
-	}
-
->>>>>>> b7f08d3865a369885f4ff345531403514a4216cb
 
 
 	
