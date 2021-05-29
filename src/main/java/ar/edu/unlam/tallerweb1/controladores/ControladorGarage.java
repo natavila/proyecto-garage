@@ -103,7 +103,7 @@ public class ControladorGarage {
 		if(g1.getId().equals(id)) {
 			for(Auto autos: listaAuto) {
 				if(autos.getPatente().equals(patente)) {
-					modelo.addAttribute("garage",servicioGarage.asignarAutoaGarage(g1, auto));
+					//modelo.addAttribute("garage",servicioGarage.asignarAutoaGarage(g1, auto));
 					return new ModelAndView("redirect:/lista");
 				}
 			}
