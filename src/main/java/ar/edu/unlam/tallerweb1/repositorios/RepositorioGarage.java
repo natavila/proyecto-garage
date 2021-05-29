@@ -12,10 +12,10 @@ public interface RepositorioGarage {
 	Boolean EliminarGarage(Long id);
 	Boolean agregarGarage(Garage garage1);
 
-	Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
+	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 	
 	Garage contultarUnGarage(Garage garage1);
-	Boolean sacarAutoDegarage(Auto auto, Garage garage);
+	//Boolean sacarAutoDegarage(Auto auto, Garage garage);
 	Auto BuscarAutoEnGarage(Auto auto, Garage garage);
 	List<Auto> consultarAutosEnGarage(Garage garage1);
 

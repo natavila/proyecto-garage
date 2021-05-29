@@ -104,6 +104,7 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 		 final Session session = sessionFactory.getCurrentSession();
 		  
 		   List<Cliente> listaClientes = session.createCriteria(Cliente.class)
+				   .add(Restrictions.eq("roll", "cliente"))
 				  .list();
 				return listaClientes;  
 	}

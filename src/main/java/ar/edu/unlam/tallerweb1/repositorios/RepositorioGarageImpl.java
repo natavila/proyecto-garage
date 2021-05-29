@@ -64,7 +64,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 	}
 
 
-	@Override
+	/*@Override
 	public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {
 		RepositorioClienteImpl repo2 = new RepositorioClienteImpl(sessionFactory);
 		ServicioRegistroImpl serv2 = new ServicioRegistroImpl(repo2);
@@ -90,7 +90,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		}
 		return agrego;
 
-	}
+	}*/
 	
 	
 	
@@ -160,7 +160,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 
 	}
 
-	@Override
+	/*@Override
 	public Boolean sacarAutoDegarage(Auto auto, Garage garage) {
 		//List<Auto> lista = consultarAutosEnGarage(garage);
 		
@@ -181,7 +181,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		}
 		return salio;
 
-	}
+	}*/
 		
 	
 	
