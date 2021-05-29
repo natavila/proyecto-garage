@@ -16,9 +16,9 @@ public interface ServicioGarage {
 
 	Garage contultarUnGarage(Garage garage1);
 	
-	Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
+	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 	public abstract List<Auto> consultarAutosEnGarage(Garage garage1);
-	Boolean sacarAutoDegarage(Auto auto, Garage garage);
+	//Boolean sacarAutoDegarage(Auto auto, Garage garage);
 
 	Auto BuscarAutoEnGarage(Auto auto1, Garage garage1);
 	
