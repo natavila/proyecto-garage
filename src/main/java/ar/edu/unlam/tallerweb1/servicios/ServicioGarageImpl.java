@@ -38,11 +38,11 @@ private RepositorioGarage repositorioGarage;
 		return repositorioGarage.consultarGarage();
 	}
 	
-	@Override
+	/*@Override
 	public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {
 		
 		return repositorioGarage.asignarAutoaGarage(garage1, auto1);
-	}
+	}*/
 
 	@Override
 	public Garage contultarUnGarage(Garage garage1) {
@@ -56,11 +56,11 @@ private RepositorioGarage repositorioGarage;
 		return repositorioGarage.consultarAutosEnGarage(garage1);
 	}
 
-	@Override
+	/*@Override
 	public Boolean sacarAutoDegarage(Auto auto, Garage garage) {
 		
 		return repositorioGarage.sacarAutoDegarage(auto, garage);
-	}	
+	}*/	
 
 	@Override
 	public List<Garage> buscarPorPrecioHora(Double precio1, Double precio2) {
