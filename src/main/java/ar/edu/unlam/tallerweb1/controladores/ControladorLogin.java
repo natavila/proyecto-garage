@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import antlr.collections.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,10 +26,11 @@ public class ControladorLogin {
 	// dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
 	// applicationContext.xml
 	private ServicioLogin servicioLogin;
-
+	private ServicioAuto servicioAuto;
 	@Autowired
-	public ControladorLogin(ServicioLogin servicioLogin){
+	public ControladorLogin(ServicioLogin servicioLogin, ServicioAuto servicioAuto){
 		this.servicioLogin = servicioLogin;
+		this.servicioAuto =servicioAuto;
 	}
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -52,6 +57,7 @@ public class ControladorLogin {
 		// invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
 		// hace una llamada a otro action a través de la URL correspondiente a ésta
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
+		
 		if (usuarioBuscado != null) {
 			if(usuarioBuscado.getRoll().equals("admin")) {
 				request.getSession().setAttribute("ROL", usuarioBuscado.getId());
@@ -60,8 +66,9 @@ public class ControladorLogin {
 				
 				
 			}else {
-				request.getSession().setAttribute("ROL", usuarioBuscado.getId());
-				model.addAttribute("cliente", usuarioBuscado);
+				//request.getSession().setAttribute("ROL", usuarioBuscado.getId());
+				
+				model.put("cliente", usuarioBuscado);
 				
 				return new ModelAndView("home", model);
 			}
@@ -74,10 +81,11 @@ public class ControladorLogin {
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.
-	@RequestMapping(path = "/home", method = {RequestMethod.GET, RequestMethod.PUT})
+	/*@RequestMapping(path = "/home", method = {RequestMethod.GET, RequestMethod.PUT})
 	public ModelAndView irAHome() {
 		return new ModelAndView("home");
 	}
+	*/
 	@RequestMapping(path = "/homeAdmin", method = {RequestMethod.GET, RequestMethod.PUT})
 	public ModelAndView irAHomeAdmin() {
 		return new ModelAndView("homeAdmin");

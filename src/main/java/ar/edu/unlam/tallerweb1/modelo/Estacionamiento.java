@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Ticket {
+public class Estacionamiento {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,16 +27,13 @@ public class Ticket {
 	private String horaHasta;
 	private Double precioAPagar;
 	
-	@OneToOne
+	@ManyToOne
 	private Auto auto;
 	
 	@ManyToOne
 	private Garage garage1;
 	
-	@ManyToOne
-	private Alquiler alquiler;
 	
-
 	public Double getPrecioAPagar() {
 		return precioAPagar;
 	}
@@ -67,12 +64,7 @@ public class Ticket {
 	public void setHoraHasta(String horaHasta) {
 		this.horaHasta = horaHasta;
 	}
-	public Alquiler getAlquiler() {
-		return alquiler;
-	}
-	public void setAlquiler(Alquiler alquiler) {
-		this.alquiler = alquiler;
-	}
+
 	public Long getId() {
 		return id;
 	}

@@ -26,15 +26,8 @@ public class Cliente{
 	private String email;
 	private String password;
 	private String roll;
-	@OneToMany
-	List<Auto> autos;
 	
-	public List<Auto> getAutos() {
-		return autos;
-	}
-	public void setAutos(List<Auto> autos) {
-		this.autos = autos;
-	}
+	
 	public String getEmail() {
 		return email;
 	}
@@ -90,7 +83,7 @@ public class Cliente{
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", sexo=" + sexo
-				+ ", email=" + email + ", password=" + password + ", autos=" + autos + "]";
+				+ ", email=" + email + ", password=" + password + "]";
 	}
 	
 	

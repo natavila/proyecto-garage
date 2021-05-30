@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -23,14 +25,53 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 
 	
 	
+
+	 
+	@Override
+		public void registrarAuto(Auto auto) { 
+	    		
+				final Session session = sessionFactory.getCurrentSession();
+				session.save(auto);
+			
+			
+		}
+	
+	@Override
+	public List<Auto> listaDeAutos() {
+		
+		final Session session = sessionFactory.getCurrentSession();
+		  
+		   List<Auto> listaAutos = session.createCriteria(Auto.class)
+				  .list();
+				return listaAutos;  
+	}
+
 	@Override
 	public Auto consultarAuto(Auto auto) {
-		
 		final Session session = sessionFactory.getCurrentSession();
 		return (Auto) session.createCriteria(Auto.class)
 				.add(Restrictions.eq("patente", auto.getPatente()))
 				.uniqueResult();
 	}
+
+
+
+
+
+	@Override
+	public List<Auto> ConsultarAutoDeCliente(Cliente cliente) {
+		final Session session = sessionFactory.getCurrentSession();
+		List <Auto> lista = session.createCriteria(Auto.class)
+				.createAlias("cliente", "clienteBuscado")
+				.add(Restrictions.eq("clienteBuscado.id", cliente.getId()))
+				.list();
+				
+		
+		return lista;
+		
+	}
+	
+	
 
 	
 }

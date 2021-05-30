@@ -7,7 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.DuenioCochera;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Localidad;
-import ar.edu.unlam.tallerweb1.modelo.Ticket;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 // Interface que define los metodos del Repositorio de Usuarios.
@@ -21,16 +21,16 @@ public interface RepositorioCliente {
 	
 	void registrarCliente(Cliente cliente);
 	
-	public void registrarAuto(Auto auto);
+	
 	
 	List<Cliente> listaDeClientes();
 	
-	List<Auto> listaDeAutos();
 	
-	public Auto consultarAuto(Auto auto);
+	
+	
 	
 	// El usuario podra pagar la reserva solo si eligio un garaje, lugar de estacionamiento y plan de alquiler.
-	Cliente pagarReserva(Ticket  ticket);
+	Cliente pagarReserva(Estacionamiento  ticket);
 	
 	// Se mostrara en un mapa todos los garajes que esten registrados en el sistema y el usuario  podra elegir uno de ellos.
 	// Al seleccionarlo se desplegara una ventana donde se detalla el garaje como su nombre y planes de alquiler(por hora, semana o mes).

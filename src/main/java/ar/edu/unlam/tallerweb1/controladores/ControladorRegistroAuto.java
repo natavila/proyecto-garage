@@ -85,7 +85,7 @@ public class ControladorRegistroAuto {
 				 modelo.addAttribute("cliente", cliente);
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
-					servicioRegistro.registrarAuto(auto);
+					servicioAuto.registrarAuto(auto);
 					modelo.put("error", "auto registrado correctamente");
 					return new ModelAndView("confirmacionRegistroAuto", modelo);
 				 

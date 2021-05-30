@@ -12,8 +12,6 @@ public interface ServicioRegistro {
 	
 	public abstract void agregarCliente(Cliente cliente);
 	
-	public abstract void registrarAuto(Auto auto);
-	
 	public abstract void asignarAuto(Auto auto, Cliente cliente);
 	
 	public abstract void registrarGarage(Garage garage);
@@ -24,7 +22,7 @@ public interface ServicioRegistro {
 	
 	public abstract Cliente consultarClientePorId(Long id);
 
-	List<Auto> listaAuto();
 	
-	public abstract Auto consultarAuto(Auto auto);
+	
+	
 }

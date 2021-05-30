@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioTicket;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
 
 @Service
 @Transactional

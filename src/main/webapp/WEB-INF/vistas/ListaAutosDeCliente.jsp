@@ -12,30 +12,26 @@
 <body>
 	<div class="container mt-3">
 		<table class="table table-hover">
-		<h1>Clientes registrados</h1>
+		<h1>Autos De Clientes</h1>
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
-	      <th scope="col">Nombre</th>
-	      <th scope="col">Apellido</th>
-	      <th scope="col">DNI</th>
-	      <th scope="col">Email</th>
-	       <th scope="col"></th>
+	      <th scope="col">Patente</th>
+	      
 	    </tr>
 	  </thead>
 	  <tbody>
-	  <c:forEach var="cliente" 
-	             items="${clientes}"
+	  <c:forEach var="auto" 
+	             items="${auto}"
 	             varStatus="status">
 	                <tr>
-	                    <td><b>${cliente.id}</b></td>
-	                    <td>${cliente.nombre}</td>
-	                    <td>${cliente.apellido}</td>
-	                    <td>${cliente.dni}</td>
-	                    <td>${cliente.email}</td>
-	                    <td><a href="${pageContext.request.contextPath}/mostrarAutosClientes/${cliente.id}">Mostrar Autos De Clientes</a></td>
-						<td><a href="">Modificar Cliente</a></td>
-						<td><a href="">Eliminar Cliente</a></td>
+	                    <td><b>${auto.id}</b></td>
+	                    <td>${auto.patente}</td>
+	                  
+	                  
+	                
+						<td><a href="">Modificar Auto</a></td>
+						<td><a href="">Eliminar Auto</a></td>
 	                </tr>
 	                
 	            </c:forEach>
