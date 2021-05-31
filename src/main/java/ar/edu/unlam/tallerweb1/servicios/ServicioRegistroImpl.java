@@ -33,11 +33,7 @@ public class ServicioRegistroImpl implements ServicioRegistro{
 	}
 
 
-	@Override
-	public void registrarAuto(Auto auto) {
-		servicioRegistro.registrarAuto(auto);
-		
-	}
+	
 
 	@Override
 	public void asignarAuto(Auto auto, Cliente cliente) {
@@ -63,10 +59,7 @@ public class ServicioRegistroImpl implements ServicioRegistro{
 		return servicioRegistro.listaDeClientes();
 	}
 	
-	@Override
-	public List<Auto> listaAuto(){
-		return servicioRegistro.listaDeAutos();
-	}
+	
 
 	@Override
 	public Cliente consultarClientePorId(Long id) {
@@ -74,11 +67,6 @@ public class ServicioRegistroImpl implements ServicioRegistro{
 		return servicioRegistro.consultarPorId(id);
 	}
 
-	@Override
-	public Auto consultarAuto(Auto auto) {
-		
-		return servicioRegistro.consultarAuto(auto);
-	}
 	
 	
 

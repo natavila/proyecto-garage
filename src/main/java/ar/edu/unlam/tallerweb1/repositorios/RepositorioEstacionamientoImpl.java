@@ -14,14 +14,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
-import ar.edu.unlam.tallerweb1.modelo.Ticket;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 
-@Repository("repositorioTicket")
-public class RepositorioTicketImpl implements RepositorioTicket{
+@Repository("repositorioEstacionamiento")
+public class RepositorioEstacionamientoImpl implements RepositorioEstacionamiento{
 	private SessionFactory sessionFactory;
 	
 	 @Autowired
-		public RepositorioTicketImpl(SessionFactory sessionFactory){
+		public RepositorioEstacionamientoImpl(SessionFactory sessionFactory){
 			this.sessionFactory = sessionFactory;
 		}
 	 
@@ -74,7 +74,7 @@ public class RepositorioTicketImpl implements RepositorioTicket{
 	}
 
 	@Override
-	public void registrarTicket(Ticket ticket) {
+	public void registrarTicket(Estacionamiento ticket) {
 		
 		final Session session = sessionFactory.getCurrentSession();
 		sessionFactory.getCurrentSession().save(ticket);
@@ -86,7 +86,6 @@ public class RepositorioTicketImpl implements RepositorioTicket{
 		  final Session session = sessionFactory.getCurrentSession();
 		  
 		   List<Garage> listaGarage = session.createCriteria(Garage.class)
-				  //.add(Restrictions.eq("nombre", garage1.getNombre()))
 				  .list();
 				return listaGarage;  
 	  }
@@ -102,6 +101,12 @@ public class RepositorioTicketImpl implements RepositorioTicket{
 	
 			
 		}
+	 
+	 
+	 
+	 
+	 
+	 
 	
 
 }

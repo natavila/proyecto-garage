@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
-import ar.edu.unlam.tallerweb1.modelo.Ticket;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobrarTickets;
 
 @Controller
@@ -28,7 +28,7 @@ public class ControladorPagarGarage {
 	public ModelAndView mostrarFormularioReservaEstadia(@PathVariable("id") Long id) {
 		
 		ModelMap modelo = new ModelMap();
-		Ticket ticket = new Ticket();
+		Estacionamiento ticket = new Estacionamiento();
 		
 		List<Garage> listaGarage = servicioCobrarTickets.consultarGarage();
 		
@@ -46,7 +46,7 @@ public class ControladorPagarGarage {
 									@RequestParam(value="fechaHasta")String fechaHasta,
 									@PathVariable("id") Long id){
 		ModelMap modelo = new ModelMap();
-		Ticket ticket = new Ticket();
+		Estacionamiento ticket = new Estacionamiento();
 		List<Garage> garageBuscado = servicioCobrarTickets.consultarGarage();
 		for(Garage garage : garageBuscado) {
 			if(garage.getId().equals(id)) {
@@ -78,7 +78,7 @@ public class ControladorPagarGarage {
 	public ModelAndView mostrarFormularioReservaHora(@PathVariable("id") Long id) {
 		
 		ModelMap modelo = new ModelMap();
-		Ticket ticket = new Ticket();
+		Estacionamiento ticket = new Estacionamiento();
 		
 		List<Garage> listaGarage = servicioCobrarTickets.consultarGarage();
 		
@@ -97,7 +97,7 @@ public class ControladorPagarGarage {
 									@RequestParam(value="horaHasta")String horaHasta,
 									@PathVariable("id") Long id){
 		ModelMap modelo = new ModelMap();
-		Ticket ticket = new Ticket();
+		Estacionamiento ticket = new Estacionamiento();
 		List<Garage> garageBuscado = servicioCobrarTickets.consultarGarage();
 		for(Garage garage : garageBuscado) {
 			if(garage.getId().equals(id)) {

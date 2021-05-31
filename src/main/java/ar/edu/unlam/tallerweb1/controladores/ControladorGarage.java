@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
@@ -24,11 +25,12 @@ public class ControladorGarage {
 	
 	private ServicioGarage servicioGarage;
 	private ServicioRegistro servicioRegistro;
-
+	private ServicioAuto servicioAuto;
 	@Autowired
-	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro){
+	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro,ServicioAuto servicioAuto ){
 		this.servicioGarage = servicioGarage;
 		this.servicioRegistro = servicioRegistro;
+		this.servicioAuto =servicioAuto;
 	}
 	
 	@RequestMapping("/homeGarages")
@@ -97,8 +99,7 @@ public class ControladorGarage {
 		
 		ModelMap modelo = new ModelMap();
 		List<Garage> listaGarage = servicioGarage.consultarGarage();
-		List<Auto> listaAuto = servicioRegistro.listaAuto();
-		
+		List<Auto> listaAuto = servicioAuto.listaDeAutos();
 	for(Garage g1: listaGarage ) {
 		if(g1.getId().equals(id)) {
 			for(Auto autos: listaAuto) {

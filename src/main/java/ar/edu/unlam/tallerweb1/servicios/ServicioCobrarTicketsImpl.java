@@ -10,18 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
-import ar.edu.unlam.tallerweb1.modelo.Ticket;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
-import ar.edu.unlam.tallerweb1.repositorios.RepositorioTicket;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
 
 @Service
 @Transactional
 public class ServicioCobrarTicketsImpl implements ServicioCobrarTickets{
 
-	private RepositorioTicket servicioCobrarTickets;
+	private RepositorioEstacionamiento servicioCobrarTickets;
 	
 	@Autowired
-	public ServicioCobrarTicketsImpl(RepositorioTicket servicioCobrarTickets){
+	public ServicioCobrarTicketsImpl(RepositorioEstacionamiento servicioCobrarTickets){
 		this.servicioCobrarTickets = servicioCobrarTickets;
 	}
 
@@ -50,7 +50,7 @@ public class ServicioCobrarTicketsImpl implements ServicioCobrarTickets{
 	}
 
 	@Override
-	public void registrarTicket(Ticket ticket) {
+	public void registrarTicket(Estacionamiento ticket) {
 		
 		servicioCobrarTickets.registrarTicket(ticket);
 		

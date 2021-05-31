@@ -3,9 +3,9 @@ package ar.edu.unlam.tallerweb1.repositorios;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
-import ar.edu.unlam.tallerweb1.modelo.Ticket;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 
-public interface RepositorioTicket {
+public interface RepositorioEstacionamiento {
 
 	Long calcularDias(String desde, String hasta);
 	
@@ -15,7 +15,7 @@ public interface RepositorioTicket {
 	
 	Double calcularPrecioPorHora(Double precio, String desde, String hasta);
 	
-	void registrarTicket(Ticket ticket);
+	void registrarTicket(Estacionamiento ticket);
 	
 	List<Garage> consultarGarage();
 	
