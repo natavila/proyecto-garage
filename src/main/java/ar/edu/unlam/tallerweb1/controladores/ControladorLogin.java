@@ -66,7 +66,7 @@ public class ControladorLogin {
 				
 				
 			}else {
-				//request.getSession().setAttribute("ROL", usuarioBuscado.getId());
+				request.getSession().setAttribute("ROL", usuarioBuscado.getId());
 				
 				model.put("cliente", usuarioBuscado);
 				

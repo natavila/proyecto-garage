@@ -14,17 +14,58 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
+import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 
 @Repository("repositorioEstacionamiento")
 public class RepositorioEstacionamientoImpl implements RepositorioEstacionamiento{
 	private SessionFactory sessionFactory;
+	private ServicioAuto servicioAuto;
+	private ServicioGarage servicioGarage;
 	
 	 @Autowired
 		public RepositorioEstacionamientoImpl(SessionFactory sessionFactory){
 			this.sessionFactory = sessionFactory;
 		}
+	 	
+	 @Override
+	 public void registrarEstacionamiento(Estacionamiento est) {
+		 final Session session = sessionFactory.getCurrentSession();
+		 session.save(est);
+	 }
 	 
+	 @Override
+	
+		public Estacionamiento buscarEstacionamiento(Long id) {
+			final Session session = sessionFactory.getCurrentSession();
+			return session.get(Estacionamiento.class, id);
+		}
+	 /*@Override
+	 public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {
+		
+			final Session session = sessionFactory.getCurrentSession();
+			
+			Boolean agrego= false;
+			Estacionamiento est = new Estacionamiento();
+			Garage g2= servicioGarage.contultarUnGarage( garage1);
+			Auto a2 = servicioAuto.consultarAuto(auto1);
+			if(g2!=null && a2 !=null && g2.getCapacidad()>g2.getContador()) {
+				est.setGarage1(garage1);
+				a2.setEst(est);
+				g2.setContador(g2.getContador()+1);	
+				agrego = true;	
+			}else {
+				agrego= false;
+				
+			}
+			return agrego;
+
+		}
+	 
+	*/
 	@Override
 	public Long calcularDias(String desde, String hasta) {
 		

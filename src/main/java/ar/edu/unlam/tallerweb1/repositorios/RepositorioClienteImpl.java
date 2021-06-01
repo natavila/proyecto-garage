@@ -54,6 +54,14 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 				.uniqueResult();
 	}
 	
+	@Override 
+	public Cliente buscarCliente(Cliente cliente) {
+		final Session session = sessionFactory.getCurrentSession();
+		return  (Cliente) session.createCriteria(Cliente.class)
+				.add(Restrictions.eq("id",cliente.getId()))
+				.uniqueResult();
+		
+	}
 
 	@Override
 	public Cliente verificarCorreo(Cliente cliente) {

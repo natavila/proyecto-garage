@@ -13,7 +13,8 @@
 <div class="container mt-3">
 		<table class="table table-hover">
 		
-		<h1>HOLA:  ${nombre} </h1>
+		<h1>ID CLIENTE ${cliente.id} </h1>
+		<h1>ID Auto ${auto.id} </h1>
 		<h3>Garages registrados</h3>  
 	  <thead>
 	    <tr>
@@ -39,7 +40,7 @@
                     <td>${garage.numero}</td>
                     <td>${garage.precioHora}
                     <br>
-                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaHora/${garage.id}">Reservar</a>
+                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaHora/${cliente.id}/${auto.id}/${garage.id}">Reservar</a>
                     </td>                
                     <td>${garage.precioEstadia}
                     <br>

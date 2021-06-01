@@ -39,7 +39,6 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		@Override
 		public Garage  contultarUnGarage(Garage garage1) {
 			final Session session = sessionFactory.getCurrentSession();
-			
 			return (Garage) session.createCriteria(Garage.class)
 					.add(Restrictions.eq("id",garage1.getId()))
 					.uniqueResult();
@@ -92,7 +91,14 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 
 	}*/
 	
-	
+	@Override
+	public Garage buscarGarage(Long id) {
+		final Session session = sessionFactory.getCurrentSession();
+		return  (Garage) session.createCriteria(Garage.class)
+				.add(Restrictions.eq("id",id))
+				.uniqueResult();
+	}
+
 	
 	@Override
 	public List<Auto> consultarAutosEnGarage(Garage garage1){

@@ -12,5 +12,6 @@ public interface ServicioAuto{
 
 	void registrarAuto(Auto auto);
 	public List<Auto> consultarAutoDeCliente(Cliente cliente);
-
+	public Auto buscarAuto(Long id);
+	
 }

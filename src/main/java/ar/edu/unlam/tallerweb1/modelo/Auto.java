@@ -20,6 +20,8 @@ public class Auto {
 	@ManyToOne
 	private Cliente cliente;
 	
+	
+	
 	@ManyToOne
 	private Alquiler alquiler;
 	
@@ -50,10 +52,7 @@ public class Auto {
 		this.patente = patente;
 	}
 
-	@Override
-	public String toString() {
-		return "Auto [id=" + id + ", patente=" + patente + ", cliente=" + cliente +  "]";
-	}
+	
 
 	public Alquiler getAlquiler() {
 		return alquiler;
@@ -62,6 +61,11 @@ public class Auto {
 	public void setAlquiler(Alquiler alquiler) {
 		this.alquiler = alquiler;
 	}
+
+	
+
+
+
 
 	
 	

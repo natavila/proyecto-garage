@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -27,12 +28,12 @@ public class Estacionamiento {
 	private String horaHasta;
 	private Double precioAPagar;
 	
-	@ManyToOne
-	private Auto auto;
+	
 	
 	@ManyToOne
 	private Garage garage1;
-	
+	@ManyToOne
+	private Auto auto;
 	
 	public Double getPrecioAPagar() {
 		return precioAPagar;
@@ -83,16 +84,21 @@ public class Estacionamiento {
 	public void setHoraOperacion(LocalTime horaEntrada) {
 		this.horaOperacion = horaEntrada;
 	}
-	public Auto getAuto() {
-		return auto;
-	}
-	public void setAuto(Auto auto) {
-		this.auto = auto;
-	}
+	
 	public Garage getGarage1() {
 		return garage1;
 	}
 	public void setGarage1(Garage garage1) {
 		this.garage1 = garage1;
 	}
+	public Auto getAuto() {
+		return auto;
+	}
+	public void setAuto(Auto auto) {
+		this.auto = auto;
+	}
+	
+	
+	
+	
 }

@@ -14,6 +14,8 @@ public interface RepositorioAuto {
 	void registrarAuto(Auto auto);
 
 	public List<Auto> ConsultarAutoDeCliente(Cliente cliente);
+
+	Auto buscarAuto(Long id);
 	
 	
 }

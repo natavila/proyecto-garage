@@ -15,6 +15,6 @@ public interface ServicioCliente {
 
 	public Cliente consultarClientePorId(Long id);
 	
-	
-
+	Cliente consultarCliente(Cliente cliente);
+	Cliente buscarCliente(Cliente cliente);
 }

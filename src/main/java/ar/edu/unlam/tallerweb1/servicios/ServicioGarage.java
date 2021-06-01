@@ -11,7 +11,7 @@ public interface ServicioGarage {
 	Boolean agregarGarage(Garage garage1);
 	Boolean eliminarGarage(Long id);
 
-
+	 Garage buscarGarage(Long id);
 	
 
 	Garage contultarUnGarage(Garage garage1);

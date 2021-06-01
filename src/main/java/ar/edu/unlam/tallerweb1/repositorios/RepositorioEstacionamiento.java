@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 
 public interface RepositorioEstacionamiento {
@@ -20,5 +21,10 @@ public interface RepositorioEstacionamiento {
 	List<Garage> consultarGarage();
 	
 	Garage contultarUnGarage(Garage garage1);
+	
+	void registrarEstacionamiento(Estacionamiento est);
+
+	Estacionamiento buscarEstacionamiento(Long id);
+	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 	
 }

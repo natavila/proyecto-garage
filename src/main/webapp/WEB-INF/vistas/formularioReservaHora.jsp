@@ -11,7 +11,12 @@
 </head>
 <body>
 <div class="container">
-<form:form action="${pageContext.request.contextPath}/realizarReservaHora/${garage.id}" method="GET" modelAttribute="ticket">
+<h4>Garage: "${garage.nombre}"</h4>
+<h4>Patente: ${auto.patente}</h4>
+<h4>Nombre: ${cliente.nombre}</h4>
+
+
+<form:form action="${pageContext.request.contextPath}/realizarReservaHora/${garage.id}/${auto.id}/${cliente.id}" method="GET" modelAttribute="ticket">
 
 <h2>Horario Desde</h2>
 <form:input type="time" name="horaDesde" path="horaDesde"/>
@@ -19,7 +24,7 @@
 <form:input type="time" name="horaHasta" path="horaHasta"/>
 
 
-<button type="submit">Calcular</button><br>
+<button type="submit">Reservar</button><br>
 </form:form>
 
 </div>
