@@ -44,4 +44,16 @@ public class ServicioClienteImpl implements ServicioCliente{
 		return servicioCliente.consultarPorId(id);
 	}
 
+	@Override
+	public Cliente consultarCliente(Cliente cliente) {
+		
+		return servicioCliente.consultarCliente(cliente);
+	}
+
+	@Override
+	public Cliente buscarCliente(Cliente cliente) {
+		
+		return servicioCliente.buscarCliente(cliente);
+	}
+
 }

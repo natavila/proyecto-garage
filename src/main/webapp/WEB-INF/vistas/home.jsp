@@ -53,7 +53,7 @@
 		<div>
 		<h5>Cliente: ${cliente.nombre} </h5>
 		</div>
-		 
+		
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarAutosClientes/${cliente.id}" role="button">Mostrar Mis Autos<a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarRegistroAuto/${cliente.id}/${cliente.nombre}" role="button">Agregar Auto</a>

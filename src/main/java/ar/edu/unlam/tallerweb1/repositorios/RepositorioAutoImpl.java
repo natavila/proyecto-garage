@@ -24,7 +24,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	}
 
 	
-	
+		
 
 	 
 	@Override
@@ -71,6 +71,14 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 		
 	}
 	
+	@Override
+	public Auto buscarAuto(Long id) {
+		final Session session = sessionFactory.getCurrentSession();
+		return  (Auto) session.createCriteria(Auto.class)
+				.add(Restrictions.eq("id",id))
+				.uniqueResult();
+	}
+
 	
 
 	

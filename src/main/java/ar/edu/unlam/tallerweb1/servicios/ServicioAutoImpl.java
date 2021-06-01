@@ -43,6 +43,11 @@ public class ServicioAutoImpl implements ServicioAuto{
 		
 		return servicioAuto.ConsultarAutoDeCliente( cliente);
 	}
+	@Override
+	public Auto buscarAuto(Long id) {
+	
+		return servicioAuto.buscarAuto(id);
+	}
 	
 	
 	

@@ -40,5 +40,7 @@ public interface RepositorioCliente {
 	// A su vez se mostrara el horario en el que sera desocupado el lugar.
 	Cliente elegirUnLugarParaEstacionar();
 
+	Cliente buscarCliente(Cliente cliente);
+
 	
 }

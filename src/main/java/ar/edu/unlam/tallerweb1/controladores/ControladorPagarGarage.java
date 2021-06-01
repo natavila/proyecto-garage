@@ -1,3 +1,4 @@
+
 package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.List;
@@ -7,21 +8,35 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobrarTickets;
+import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
+import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 
 @Controller
 public class ControladorPagarGarage {
-	
+	private ServicioEstacionamiento servicioEst;
 	private ServicioCobrarTickets servicioCobrarTickets;
+	private ServicioAuto servicioAuto;
+	private ServicioCliente servicioCliente;
+	private ServicioGarage servicioGarage;
 	
 	@Autowired
-	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets) {
-		this.servicioCobrarTickets = servicioCobrarTickets; 
+	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioEstacionamiento servicioEst,ServicioGarage servicioGarage) {
+		this.servicioCobrarTickets = servicioCobrarTickets;
+		this.servicioAuto = servicioAuto;
+		this.servicioCliente = servicioCliente;
+		this.servicioEst = servicioEst;
+		this.servicioGarage= servicioGarage;
 	}
 	
 	@RequestMapping("mostrarFormularioReservaEstadia/{id}")
@@ -74,54 +89,75 @@ public class ControladorPagarGarage {
 		return new ModelAndView("pagarMontoEstadia", modelo);
 	}
 	
-	@RequestMapping("mostrarFormularioReservaHora/{id}")
-	public ModelAndView mostrarFormularioReservaHora(@PathVariable("id") Long id) {
+	@RequestMapping(path="/mostrarFormularioReservaHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
+	public ModelAndView mostrarFormularioReservaHora(
+			@PathVariable("cliente.id") Long idCliente,
+			@PathVariable("auto.id") Long idAuto,
+			@PathVariable("garage.id") Long idGarage) {
 		
 		ModelMap modelo = new ModelMap();
 		Estacionamiento ticket = new Estacionamiento();
+		Auto auto1 = servicioAuto.buscarAuto(idAuto);
+		Cliente cliente1 = servicioCliente.consultarClientePorId(idCliente);
+		Garage garage = servicioGarage.buscarGarage(idGarage);
 		
-		List<Garage> listaGarage = servicioCobrarTickets.consultarGarage();
-		
-		for(Garage garage : listaGarage) {
-			if(garage.getId().equals(id)) {
-				modelo.addAttribute("garage", servicioCobrarTickets.contultarUnGarage(garage));
+			if(auto1 !=null && cliente1 !=null && garage !=null) {
+				
+				modelo.put("auto", auto1);
+				modelo.put("cliente", cliente1);
 				modelo.put("ticket", ticket);
+				modelo.put("garage", garage);
+				
+				return new ModelAndView("formularioReservaHora", modelo);
 			}
-		}
+		
 		
 		return new ModelAndView("formularioReservaHora", modelo);
 	}
 	
-	@RequestMapping(path="/realizarReservaHora/{id}")
+	@RequestMapping(path="/realizarReservaHora/{id}/{auto}/{cliente}")
 	public ModelAndView procesarPagoHora(@RequestParam(value="horaDesde")String horaDesde,
 									@RequestParam(value="horaHasta")String horaHasta,
-									@PathVariable("id") Long id){
+									@PathVariable("id") Long idGarage,
+									@PathVariable("auto") Long idAuto,
+									@PathVariable("cliente") Long idCliente){
 		ModelMap modelo = new ModelMap();
-		Estacionamiento ticket = new Estacionamiento();
-		List<Garage> garageBuscado = servicioCobrarTickets.consultarGarage();
-		for(Garage garage : garageBuscado) {
-			if(garage.getId().equals(id)) {
-				modelo.addAttribute("garage", servicioCobrarTickets.contultarUnGarage(garage));
-				ticket.setHoraDesde(horaDesde);
-				ticket.setHoraHasta(horaHasta);
-				ticket.setGarage1(garage);
+		Estacionamiento est = new Estacionamiento();
+		
+		Auto auto = servicioAuto.buscarAuto(idCliente);
+		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		Garage garage = servicioGarage.buscarGarage(idGarage);
+		est.setAuto(auto);
+		est.setGarage1(garage);
+			if(garage !=null && auto!=null) {
+				modelo.put("auto", auto);
+				modelo.put("cliente", cliente);
+				modelo.put("garage", garage);
+				est.setHoraDesde(horaDesde);
+				est.setHoraHasta(horaHasta);
+				est.setGarage1(garage);
 				
-				Long horas = servicioCobrarTickets.calcularHoras(ticket.getHoraDesde(), ticket.getHoraHasta());
+				//Poner ACAA servicioEst.asignarGarage(garage, auto);
+				
+				
+				Long horas = servicioCobrarTickets.calcularHoras(est.getHoraDesde(), est.getHoraHasta());
 				
 				Double precio = servicioCobrarTickets.calcularPrecioPorHora(garage.getPrecioHora(), horaDesde, horaHasta);
 				
-				ticket.setPrecioAPagar(precio);
+				est.setPrecioAPagar(precio);
 				
-				modelo.put("ticket", ticket);
+				modelo.put("ticket", est);
 				
 				modelo.put("precio", precio);
 				
 				modelo.put("horas", horas);
 				
-				servicioCobrarTickets.registrarTicket(ticket);
+				servicioCobrarTickets.registrarTicket(est);
+				return new ModelAndView("pagarMontoHora", modelo);
 			}
-		}
+		
 		
 		return new ModelAndView("pagarMontoHora", modelo);
 	}
+	
 }
