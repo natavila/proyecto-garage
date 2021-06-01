@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Billetera</title>
+<title>Mi billetera</title>
 </head>
 <body>
-
+		<h1>Mi billetera</h1>
+		<h1>${alias}</h1>
+	  
 </body>
 </html>

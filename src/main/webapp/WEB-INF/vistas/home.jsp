@@ -57,6 +57,8 @@
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarAutosClientes/${cliente.id}" role="button">Mostrar Mis Autos<a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarRegistroAuto/${cliente.id}/${cliente.nombre}" role="button">Agregar Auto</a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/registroBilletera/${cliente.id}" role="button">Generar billetera</a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>

@@ -15,6 +15,29 @@ public class Billetera {
 	
 	private Double saldo;
 	
+	private String alias;
+	
+	@OneToOne
+	private Cliente cliente;
+	
+	
+	
+	
+	public String getAlias() {
+		return alias;
+	}
+
+	public void setAlias(String alias) {
+		this.alias = alias;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public Long getId() {
 		return id;

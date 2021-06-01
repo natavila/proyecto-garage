@@ -1,12 +1,15 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 
 public interface ServicioBilletera {
 	
 	void registrarBilletera(Billetera billetera);
 
 	Billetera buscarBilleteraPorId(Long id);
+	
+	Billetera consultarBilleteraDeCliente(Cliente cliente);
 	
 	Double pagarReserva(Double precio, Double saldo);
 	

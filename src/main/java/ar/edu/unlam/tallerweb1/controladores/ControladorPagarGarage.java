@@ -153,6 +153,7 @@ public class ControladorPagarGarage {
 				modelo.put("horas", horas);
 				
 				servicioCobrarTickets.registrarTicket(est);
+				
 				return new ModelAndView("pagarMontoHora", modelo);
 			}
 		

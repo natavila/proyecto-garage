@@ -42,7 +42,7 @@ public class ControladorClientes {
 			@PathVariable("id")Long id) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
-		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
+		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente));
 		return new ModelAndView("ListaAutosDeCliente", modelo);
 }
 			
