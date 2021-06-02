@@ -43,6 +43,19 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 			final Session session = sessionFactory.getCurrentSession();
 			return session.get(Estacionamiento.class, id);
 		}
+	 @Override
+	 public List<Estacionamiento> buscarAutosDeUnGarage(Garage garage1) {
+		 final Session session = sessionFactory.getCurrentSession();
+		 List<Estacionamiento> garage =  (List<Estacionamiento>) session.createCriteria(Estacionamiento.class)
+				 .createAlias("garage1","garageBuscado")
+				 .add(Restrictions.eq("garageBuscado.id",garage1.getId()))
+				 .list(); 
+		 return garage;		 
+	 }
+	
+
+	 	
+	 
 	 /*@Override
 	 public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {
 		

@@ -127,16 +127,19 @@ public class ControladorPagarGarage {
 		Auto auto = servicioAuto.buscarAuto(idCliente);
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
-		est.setAuto(auto);
-		est.setGarage1(garage);
-			if(garage !=null && auto!=null) {
+		                                       //Esto le puse Nuevo
+			if(garage !=null && auto!=null && garage.getCapacidad()>garage.getContador()) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
 				modelo.put("garage", garage);
 				est.setHoraDesde(horaDesde);
 				est.setHoraHasta(horaHasta);
 				est.setGarage1(garage);
+				//Esto Tambien
+				garage.setContador(+1);
 				
+				est.setAuto(auto);
+				est.setGarage1(garage);
 				//Poner ACAA servicioEst.asignarGarage(garage, auto);
 				
 				

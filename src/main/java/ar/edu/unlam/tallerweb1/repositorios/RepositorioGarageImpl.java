@@ -110,6 +110,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		return lista;
 	}
 	
+	
 	@Override
 	//Falta Hacer
 	public Auto BuscarAutoEnGarage(Auto auto1, Garage garage1) {

@@ -16,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
@@ -31,13 +33,15 @@ public class ControladorGarage {
 	private ServicioAuto servicioAuto;
 	private ServicioCliente servicioCliente;
 	private ServicioLogin servicioLogin;
+	private ServicioEstacionamiento servicioEst;
 	@Autowired
-	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioLogin servicioLogin ){
+	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioLogin servicioLogin,ServicioEstacionamiento servicioEst ){
 		this.servicioGarage = servicioGarage;
 		this.servicioRegistro = servicioRegistro;
 		this.servicioAuto =servicioAuto;
 		this.servicioCliente = servicioCliente;
 		this.servicioLogin = servicioLogin;
+		this.servicioEst = servicioEst;
 	}
 	
 	@RequestMapping("/homeGarages")
@@ -98,47 +102,21 @@ public class ControladorGarage {
 		
 		return new ModelAndView("DatosDeUnGaragePorPantalla", modelo);
 	}
-	/*
-	@RequestMapping(path="/agregarAutoAGarage/{id}", method=RequestMethod.POST)
-	public ModelAndView agregarAutoAGarage( @PathVariable("id")Long id,
-			@RequestParam(value="patente", required=false)String patente,
-			@ModelAttribute("auto") Auto auto) {
-		
-		ModelMap modelo = new ModelMap();
-		List<Garage> listaGarage = servicioGarage.consultarGarage();
-		List<Auto> listaAuto = servicioAuto.listaDeAutos();
-	for(Garage g1: listaGarage ) {
-		if(g1.getId().equals(id)) {
-			for(Auto autos: listaAuto) {
-				if(autos.getPatente().equals(patente)) {
-					modelo.addAttribute("garage",servicioGarage.asignarAutoaGarage(g1, auto));
-					return new ModelAndView("redirect:/lista");
-				}
-			}
-		}		
-	}		
-		
-	return new ModelAndView("DatosDeUnGaragePorPantalla", modelo);
-	}
+
 	
-		*/
-	/*
 	@RequestMapping(path="/mostrarAutosDeUnGarage/{id}", method=RequestMethod.GET)
 	public ModelAndView MostrarAutosDeGarage( @PathVariable("id")Long id){
-		List<Garage> listaGarage = servicioGarage.consultarGarage();
+		
 		ModelMap modelo = new ModelMap();
-			for(Garage g1: listaGarage) {
-				if(g1.getId().equals(id)) {
-					String nombre= g1.getNombre();
-					List<Auto> autosEnGarage = servicioGarage.consultarAutosEnGarage(g1);
-					modelo.addAttribute("autos", autosEnGarage);
-					modelo.addAttribute("nombre", nombre);
-				}
-			}
-			return new ModelAndView("DatosAutosEnGarage", modelo);
+			Garage garage2 = servicioGarage.buscarGarage(id);
+			List<Auto> autos = servicioEst.buscarAutosDeUnGarage(garage2);
+		
+			modelo.put("auto", autos);
+			
+			return new ModelAndView("ListaAutosEnGarage", modelo);
 	
 	}
-	*/
+	
 	
 	@RequestMapping( path="/mostrarGarages/{id}/{nombre}", method=RequestMethod.GET)
 	public ModelAndView garagesParaReservar(@PathVariable("id")Long id,
