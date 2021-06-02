@@ -53,7 +53,26 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 				.add(Restrictions.eq("patente", auto.getPatente()))
 				.uniqueResult();
 	}
-
+	
+	
+	@Override
+	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
+		final Session session = sessionFactory.getCurrentSession();
+			Auto auto1 =	(Auto) session.createCriteria(Auto.class)
+				.add(Restrictions.eq("patente", auto.getPatente()))
+				.uniqueResult();
+			
+			if(auto1.getUsandoGarage().equals(false)) {
+				auto1.setUsandoGarage(true);
+			}else {
+				if(auto1.getUsandoGarage().equals(true)){
+			}
+				auto1.setUsandoGarage(false);
+			}
+			
+	}
+	
+	
 
 
 

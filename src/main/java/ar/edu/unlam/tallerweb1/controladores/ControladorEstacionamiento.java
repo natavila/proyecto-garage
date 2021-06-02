@@ -32,13 +32,19 @@ public class ControladorEstacionamiento {
 	}
 	@RequestMapping(path="/sacarAutoDeGarage/{GarageId}/{AutoId}", method=RequestMethod.GET)
 	public ModelAndView SacarAutosDeGarage( @PathVariable("GarageId")Long Gid,
-			@PathVariable("Autoid")Long Aid){
+			@PathVariable("AutoId")Long Aid){
 		
 		ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(Gid);
-			List<Auto> autos = servicioEst.buscarAutosDeUnGarage(garage2);
-				
+			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+			Auto autoSalir = servicioAuto.buscarAuto(Aid);
+			//servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);	
 			modelo.put("auto", autos);
+			for(Auto e: autos) {
+				if(e.getId().equals(autoSalir.getId())) {
+					servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
+				}
+			}
 			
 			return new ModelAndView("redirect:/mostrarAutosDeUnGarage/{GarageId}", modelo);
 	}

@@ -115,16 +115,17 @@ public class ControladorPagarGarage {
 		return new ModelAndView("formularioReservaHora", modelo);
 	}
 	
-	@RequestMapping(path="/realizarReservaHora/{id}/{auto}/{cliente}")
+	@RequestMapping(path="/realizarReservaHora/{cliente.id}/{auto.id}/{garage.id}")
 	public ModelAndView procesarPagoHora(@RequestParam(value="horaDesde")String horaDesde,
 									@RequestParam(value="horaHasta")String horaHasta,
-									@PathVariable("id") Long idGarage,
-									@PathVariable("auto") Long idAuto,
-									@PathVariable("cliente") Long idCliente){
+									@PathVariable("cliente.id") Long idCliente,
+									@PathVariable("auto.id") Long idAuto,
+									@PathVariable("garage.id") Long idGarage
+									){
 		ModelMap modelo = new ModelMap();
 		Estacionamiento est = new Estacionamiento();
 		
-		Auto auto = servicioAuto.buscarAuto(idCliente);
+		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		                                       //Esto le puse Nuevo
@@ -136,10 +137,10 @@ public class ControladorPagarGarage {
 				est.setHoraHasta(horaHasta);
 				est.setGarage1(garage);
 				
-				
-				auto.setUsandoGarage(true);
-				
+				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+				//auto.setUsandoGarage(true);
 				garage.setContador(garage.getContador()+1);
+				
 				
 				est.setAuto(auto);
 				est.setGarage1(garage);

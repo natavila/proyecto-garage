@@ -48,6 +48,11 @@ public class ServicioAutoImpl implements ServicioAuto{
 	
 		return servicioAuto.buscarAuto(id);
 	}
+	@Override
+	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
+		servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+		
+	}
 	
 	
 	
