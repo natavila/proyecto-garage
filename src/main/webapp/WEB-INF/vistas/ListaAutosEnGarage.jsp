@@ -29,9 +29,8 @@
 	                    <td><b>${auto.patente}</b></td>
 	                  
 	                  
-	                
-						
-						<td><a href="">Sacar Auto</a></td>
+	               
+						<td><a href="${pageContext.request.contextPath}/sacarAutoDeGarage/${garage.id}/${auto.id}">Sacar Auto</a></td>
 	                </tr>
 	                
 	            </c:forEach>

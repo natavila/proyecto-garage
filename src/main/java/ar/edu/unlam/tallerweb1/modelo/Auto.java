@@ -20,12 +20,11 @@ public class Auto {
 	@ManyToOne
 	private Cliente cliente;
 	
-	
-	
 	@ManyToOne
 	private Alquiler alquiler;
 	
-
+	private Boolean usandoGarage=false;
+	
 	public Long getId() {
 		return id;
 	}
@@ -60,6 +59,14 @@ public class Auto {
 
 	public void setAlquiler(Alquiler alquiler) {
 		this.alquiler = alquiler;
+	}
+
+	public Boolean getUsandoGarage() {
+		return usandoGarage;
+	}
+
+	public void setUsandoGarage(Boolean usandoGarage) {
+		this.usandoGarage =usandoGarage;
 	}
 
 	

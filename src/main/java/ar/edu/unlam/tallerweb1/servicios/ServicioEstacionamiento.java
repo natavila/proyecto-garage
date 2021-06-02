@@ -12,4 +12,6 @@ public interface ServicioEstacionamiento {
 	Estacionamiento buscarEstacionamiento(Long id);
 	List<Auto> buscarAutosDeUnGarage(Garage garage1);
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
+
+	List<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
 }

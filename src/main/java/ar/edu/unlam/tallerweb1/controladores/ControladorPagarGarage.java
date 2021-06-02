@@ -128,23 +128,23 @@ public class ControladorPagarGarage {
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		                                       //Esto le puse Nuevo
-			if(garage !=null && auto!=null && garage.getCapacidad()>garage.getContador()) {
+			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
 				modelo.put("garage", garage);
 				est.setHoraDesde(horaDesde);
 				est.setHoraHasta(horaHasta);
 				est.setGarage1(garage);
-				//Esto Tambien
-				garage.setContador(+1);
+				
+				
+				auto.setUsandoGarage(true);
+				
+				garage.setContador(garage.getContador()+1);
 				
 				est.setAuto(auto);
 				est.setGarage1(garage);
-				//Poner ACAA servicioEst.asignarGarage(garage, auto);
-				
 				
 				Long horas = servicioCobrarTickets.calcularHoras(est.getHoraDesde(), est.getHoraHasta());
-				
 				Double precio = servicioCobrarTickets.calcularPrecioPorHora(garage.getPrecioHora(), horaDesde, horaHasta);
 				
 				est.setPrecioAPagar(precio);

@@ -45,11 +45,27 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
 				
 				for(Estacionamiento e: est) {
+	
 					autoLista.add(e.getAuto());
 				}
 				
 				return (List<Auto>) autoLista;
 			}
+			@Override
+			public List<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
+				List<Auto> autosActivos= buscarAutosDeUnGarage(garage1);
+				ArrayList<Auto> autoLista = new ArrayList<Auto>();
+				
+				for(Auto e: autosActivos) {
+					if(e.getUsandoGarage()==true) {
+						autoLista.add(e);
+					}
+					
+				}
+				
+				return (List<Auto>) autoLista;
+			}
+			
 
 			/*@Override
 			public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {

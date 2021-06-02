@@ -109,13 +109,15 @@ public class ControladorGarage {
 		
 		ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(id);
-			List<Auto> autos = servicioEst.buscarAutosDeUnGarage(garage2);
-		
+			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+			
+			modelo.put("garage", garage2);
 			modelo.put("auto", autos);
 			
 			return new ModelAndView("ListaAutosEnGarage", modelo);
-	
 	}
+	
+	
 	
 	
 	@RequestMapping( path="/mostrarGarages/{id}/{nombre}", method=RequestMethod.GET)
