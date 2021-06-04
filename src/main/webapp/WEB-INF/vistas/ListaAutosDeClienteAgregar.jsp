@@ -12,7 +12,7 @@
 <body>
 	<div class="container mt-3">
 		<table class="table table-hover">
-		<h1>Autos De Cliente</h1>
+		<h1>Mis Autos</h1>
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
@@ -30,8 +30,8 @@
 	                  
 	                  
 	                
-						<td><a href="${pageContext.request.contextPath}/ElegirGaragesEst/${cliente.id}/${auto.id}" role="button"> Elegir </a></td>
-					
+						<td><a href=""> Agregar </a></td>
+						<td><a href="">Eliminar Auto</a></td>
 	                </tr>
 	                
 	            </c:forEach>

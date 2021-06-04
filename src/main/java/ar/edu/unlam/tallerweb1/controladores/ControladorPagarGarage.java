@@ -3,6 +3,8 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -93,7 +95,12 @@ public class ControladorPagarGarage {
 	public ModelAndView mostrarFormularioReservaHora(
 			@PathVariable("cliente.id") Long idCliente,
 			@PathVariable("auto.id") Long idAuto,
-			@PathVariable("garage.id") Long idGarage) {
+			@PathVariable("garage.id") Long idGarage, 
+			HttpServletRequest request) {
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
+		
 		
 		ModelMap modelo = new ModelMap();
 		Estacionamiento ticket = new Estacionamiento();
@@ -110,9 +117,10 @@ public class ControladorPagarGarage {
 				
 				return new ModelAndView("formularioReservaHora", modelo);
 			}
-		
-		
+	
 		return new ModelAndView("formularioReservaHora", modelo);
+			}
+		return new ModelAndView("redirect:/login");
 	}
 	
 	@RequestMapping(path="/realizarReservaHora/{cliente.id}/{auto.id}/{garage.id}")
@@ -120,11 +128,16 @@ public class ControladorPagarGarage {
 									@RequestParam(value="horaHasta")String horaHasta,
 									@PathVariable("cliente.id") Long idCliente,
 									@PathVariable("auto.id") Long idAuto,
-									@PathVariable("garage.id") Long idGarage
+									@PathVariable("garage.id") Long idGarage,
+									HttpServletRequest request
 									){
+		
+		
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
 		ModelMap modelo = new ModelMap();
 		Estacionamiento est = new Estacionamiento();
-		
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
@@ -159,9 +172,11 @@ public class ControladorPagarGarage {
 				servicioCobrarTickets.registrarTicket(est);
 				return new ModelAndView("pagarMontoHora", modelo);
 			}
+			return new ModelAndView("AlertaAutoEnGarage", modelo);
 		
 		
-		return new ModelAndView("pagarMontoHora", modelo);
-	}
-	
+			}
+		return new ModelAndView("redirect:/login");	
+			
+}
 }

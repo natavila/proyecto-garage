@@ -3,6 +3,8 @@ package ar.edu.unlam.tallerweb1.controladores;
 import java.util.List;
 import java.util.Objects;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,7 +42,12 @@ public class ControladorRegistroAuto {
 	
 	@RequestMapping("/mostrarRegistroAuto/{id}/{nombre}")
 	public 	ModelAndView registro(@PathVariable("id") Long id, 
-			@PathVariable("nombre") String nombre) {
+			@PathVariable("nombre") String nombre,
+			HttpServletRequest request) {
+		
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
 		ModelMap modelo = new ModelMap(); //Agrupa todo para mandarlo a vista
 		Auto auto = new Auto(); //Se crea un usuario vacio para mandarlo vacio para que el formulario se vaya llenando
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
@@ -72,7 +79,9 @@ public class ControladorRegistroAuto {
 //			 }
 //			 
 //		 }
-		 return new ModelAndView("registroAuto", modelo); //Se le envia a la vista registro el modelo con el objeto usuario
+		 return new ModelAndView("registroAuto", modelo);
+			}
+		return new ModelAndView("redirect:/login");//Se le envia a la vista registro el modelo con el objeto usuario
 	}
 	
 	@RequestMapping(path="/procesarRegistroAuto/{id}", method=RequestMethod.POST)
