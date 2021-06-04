@@ -79,12 +79,16 @@ public class ControladorLogin {
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.
-	/*@RequestMapping(path = "/home", method = {RequestMethod.GET, RequestMethod.PUT})
+	@RequestMapping(path = "/home", method = {RequestMethod.GET, RequestMethod.PUT})
 	public ModelAndView irAHome() {
 		return new ModelAndView("home");
 	}
-	*/
+
+	
+	
+
 	/*@RequestMapping(path = "/homeAdmin", method = {RequestMethod.GET, RequestMethod.PUT})
+
 	public ModelAndView irAHomeAdmin() {
 		return new ModelAndView("homeAdmin");
 	}

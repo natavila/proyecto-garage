@@ -2,7 +2,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.modelo.DuenioCochera;
+import ar.edu.unlam.tallerweb1.modelo.Administrador;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Localidad;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
@@ -36,6 +36,12 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 	public void registrarCliente(Cliente cliente) {
 		
 		final Session session = sessionFactory.getCurrentSession();
+		String nombreUpp = cliente.getNombre().toUpperCase();
+		String apellidoUpp = cliente.getApellido().toUpperCase();
+		String emailUpp = cliente.getEmail().toUpperCase();
+		cliente.setNombre(nombreUpp);
+		cliente.setApellido(apellidoUpp);
+		cliente.setEmail(emailUpp);
 		session.save(cliente);
 	}
     
@@ -108,6 +114,25 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 				   .add(Restrictions.eq("roll", "cliente"))
 				  .list();
 				return listaClientes;  
+	}
+
+	@Override
+	public Administrador consultarAdministrador(Administrador administrador) {
+		
+		final Session session = sessionFactory.getCurrentSession();
+		return (Administrador) session.createCriteria(Administrador.class)
+				.add(Restrictions.eq("email", administrador.getEmail()))
+				.add(Restrictions.eq("password", administrador.getPassword()))
+				.uniqueResult();
+	}
+
+	@Override
+	public Cliente existeUsuario(Cliente cliente) {
+		final Session session = sessionFactory.getCurrentSession();
+		return (Cliente) session.createCriteria(Cliente.class)
+				.createAlias("usuario", "usuarioBuscado")
+				.add(Restrictions.eq("usuarioBuscado,id", cliente.getId()))
+				.uniqueResult();
 	}
 
 	

@@ -1,11 +1,14 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioBilletera;
 
 @Service
@@ -47,8 +50,20 @@ public class ServicioBilleteraImpl implements ServicioBilletera{
 
 	@Override
 	public void registrarBilletera(Billetera billetera) {
-		
+		if(servicioBilletera.consultarBilleteraDeCliente(billetera.getCliente()) == null) 
 		servicioBilletera.registrarBilletera(billetera);
+	}
+
+	@Override
+	public Billetera consultarBilleteraDeCliente(Cliente cliente) {
+		
+		return servicioBilletera.consultarBilleteraDeCliente(cliente);
+	}
+
+	@Override
+	public List<Billetera> consultarBilleteras() {
+		
+		return servicioBilletera.consultarBilleteras();
 	}
 
 }

@@ -53,8 +53,8 @@
 		  </div>
   		</form:form>
   		<%--Bloque que es visible si el elemento error no está vacío	--%>
-				<c:if test="${not empty error}">
-			        <h4><span>${error}</span></h4>
+				<c:if test="${not empty mensaje}">
+			        <h4><span>${mensaje}</span></h4>
 			        <br>
 		        </c:if>	
 	</main>

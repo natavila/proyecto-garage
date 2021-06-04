@@ -84,13 +84,14 @@ public class ControladorRegistroAuto {
 		return new ModelAndView("redirect:/login");//Se le envia a la vista registro el modelo con el objeto usuario
 	}
 	
-	@RequestMapping(path="/procesarRegistroAuto/{id}", method=RequestMethod.POST)
+	@RequestMapping(path="/procesarRegistroAuto/{id}/{nombre}", method=RequestMethod.POST)
 	public ModelAndView procesarRegistroAuto(
 			@ModelAttribute("auto") Auto auto,
-			@PathVariable("id") Long id){
+			@PathVariable("id") Long id,
+			@PathVariable("nombre") String nombre){
 			ModelMap modelo = new ModelMap();
 			Cliente cliente = servicioCliente.consultarClientePorId(id);
-			 if(cliente != null && servicioAuto.consultarAuto(auto) == null) {
+			 if(auto.getPatente() != "" && cliente != null && servicioAuto.consultarAuto(auto) == null) {
 				 modelo.addAttribute("cliente", cliente);
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
@@ -101,7 +102,7 @@ public class ControladorRegistroAuto {
 			 	}else {
 			 		
 			 		modelo.put("error", "error al registrar auto");
-			 		return new ModelAndView("confirmacionRegistroAuto", modelo);
+			 		return new ModelAndView("redirect:/mostrarRegistroAuto/{id}/{nombre}");
 			 	}
 
 			
