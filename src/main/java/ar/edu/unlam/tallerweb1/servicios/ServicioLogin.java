@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 
 import java.util.List;
 
+import ar.edu.unlam.tallerweb1.modelo.Administrador;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 
@@ -9,6 +10,8 @@ import ar.edu.unlam.tallerweb1.modelo.Cliente;
 public interface ServicioLogin {
 
 	Cliente consultarCliente(Cliente cliente);
+	
+	Administrador consultarAdministrador(Administrador administrador);
 	
 	Cliente verificarCorreo(Cliente cliente);
 	

@@ -10,8 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-
-
 @Entity
 public class Cliente{
 	
@@ -27,6 +25,8 @@ public class Cliente{
 	private String password;
 	private String roll;
 	
+	@ManyToOne
+	Usuario usuario;
 	
 	public String getEmail() {
 		return email;
