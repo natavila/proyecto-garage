@@ -44,54 +44,88 @@ public class ControladorPagarGarage {
 		this.servicioBilletera = servicioBilletera;
 	}
 	
-	@RequestMapping("mostrarFormularioReservaEstadia/{id}")
-	public ModelAndView mostrarFormularioReservaEstadia(@PathVariable("id") Long id) {
+	@RequestMapping(path="/mostrarFormularioReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
+	public ModelAndView mostrarFormularioReservaEstadia(@PathVariable("cliente.id") Long idCliente,
+														@PathVariable("auto.id") Long idAuto,
+														@PathVariable("garage.id") Long idGarage,
+														HttpServletRequest request) {
 		
-		ModelMap modelo = new ModelMap();
-		Estacionamiento ticket = new Estacionamiento();
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null) {
+			if(rol.equals("cliente")) {
+				ModelMap modelo = new ModelMap();
+				Estacionamiento ticket = new Estacionamiento();
+				Auto auto1 = servicioAuto.buscarAuto(idAuto);
+				Cliente cliente1 = servicioCliente.consultarClientePorId(idCliente);
+				Garage garage = servicioGarage.buscarGarage(idGarage);
+				if(auto1 !=null && cliente1 !=null && garage !=null) {
+					
+					modelo.put("auto", auto1);
+					modelo.put("cliente", cliente1);
+					modelo.put("ticket", ticket);
+					modelo.put("garage", garage);
+					
+					return new ModelAndView("formularioReservaEstadia", modelo);
+				}
 		
-		List<Garage> listaGarage = servicioCobrarTickets.consultarGarage();
-		
-		for(Garage garage : listaGarage) {
-			if(garage.getId().equals(id)) {
-				modelo.addAttribute("garage", servicioCobrarTickets.contultarUnGarage(garage));
-				modelo.put("ticket", ticket);
+			return new ModelAndView("formularioReservaEstadia", modelo);
+				}
+			
 			}
-		}
-		
-		return new ModelAndView("formularioReservaEstadia", modelo);
-	}
-	@RequestMapping(path="/realizarReservaEstadia/{id}")
+		return new ModelAndView("redirect:/login");
+	}	
+
+	@RequestMapping(path="/realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}")
 	public ModelAndView procesarPagoEstadia(@RequestParam(value="fechaDesde")String fechaDesde,
 									@RequestParam(value="fechaHasta")String fechaHasta,
-									@PathVariable("id") Long id){
+									@PathVariable("cliente.id") Long idCliente,
+									@PathVariable("auto.id") Long idAuto,
+									@PathVariable("garage.id") Long idGarage,
+									HttpServletRequest request){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
 		ModelMap modelo = new ModelMap();
-		Estacionamiento ticket = new Estacionamiento();
-		List<Garage> garageBuscado = servicioCobrarTickets.consultarGarage();
-		for(Garage garage : garageBuscado) {
-			if(garage.getId().equals(id)) {
-				modelo.addAttribute("garage", servicioCobrarTickets.contultarUnGarage(garage));
-				ticket.setFechaDesde(fechaDesde);
-				ticket.setFechaHasta(fechaHasta);
-				ticket.setGarage1(garage);
+		Estacionamiento est = new Estacionamiento();
+		Auto auto = servicioAuto.buscarAuto(idAuto);
+		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		Garage garage = servicioGarage.buscarGarage(idGarage);
 				
-				Long dias = servicioCobrarTickets.calcularDias(ticket.getFechaDesde(), ticket.getFechaHasta());
-				
-				Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), fechaDesde, fechaHasta);
-				
-				ticket.setPrecioAPagar(precio);
-				
-				modelo.put("ticket", ticket);
-				
-				modelo.put("precio", precio);
-				
-				modelo.put("dias", dias);
-				
-				servicioCobrarTickets.registrarTicket(ticket);
-			}
+		if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
+			modelo.put("auto", auto);
+			modelo.put("cliente", cliente);
+			modelo.put("garage", garage);
+			est.setHoraDesde(fechaDesde);
+			est.setHoraHasta(fechaHasta);
+			est.setGarage1(garage);
+			
+			servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+			//auto.setUsandoGarage(true);
+			garage.setContador(garage.getContador()+1);
+			
+			
+			est.setAuto(auto);
+			est.setGarage1(garage);
+			
+			Long horas = servicioCobrarTickets.calcularHoras(est.getHoraDesde(), est.getHoraHasta());
+			Double precio = servicioCobrarTickets.calcularPrecioPorHora(garage.getPrecioHora(), fechaDesde, fechaHasta);
+			
+			est.setPrecioAPagar(precio);
+			
+			modelo.put("ticket", est);
+			
+			modelo.put("precio", precio);
+			
+			modelo.put("horas", horas);
+			
+			servicioCobrarTickets.registrarTicket(est);
+			return new ModelAndView("pagarMontoHora", modelo);
 		}
-		
-		return new ModelAndView("pagarMontoEstadia", modelo);
+		return new ModelAndView("AlertaAutoEnGarage", modelo);
+	
+	
+		}
+	return new ModelAndView("redirect:/login");	
 	}
 	
 	@RequestMapping(path="/mostrarFormularioReservaHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
@@ -155,7 +189,7 @@ public class ControladorPagarGarage {
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 				//auto.setUsandoGarage(true);
-				garage.setContador(garage.getContador()+1);
+				
 				
 				
 				est.setAuto(auto);

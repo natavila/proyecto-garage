@@ -141,6 +141,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 
 	}
 
+
 	/*@Override
 	public Boolean sacarAutoDegarage(Auto auto, Garage garage) {
 		//List<Auto> lista = consultarAutosEnGarage(garage);

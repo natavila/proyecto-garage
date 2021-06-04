@@ -146,7 +146,7 @@ public class ControladorBilletera {
 			modelo.put("error", e.getMessage());
 			return new ModelAndView("registroBilletera", modelo);
 		}
-		
+		//TIRA ERROR 400
 		return new ModelAndView("redirect:/formularioSaldo/{id}");
 	}
 }
