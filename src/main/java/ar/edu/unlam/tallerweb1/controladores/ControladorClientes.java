@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,17 +35,35 @@ public class ControladorClientes {
 	}
 	
 	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
-		public String clientes(Model modelo) {
+		public String clientes(Model modelo,
+				HttpServletRequest request) {
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("admin")) {
 			modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
 			return("ListaClientes");
+			}
+		return ("redirect:/login");
 	}
 	@RequestMapping(path="/mostrarAutosClientes/{id}", method=RequestMethod.GET)
 	public ModelAndView AutosDeClientes(
-			@PathVariable("id")Long id) {
+			@PathVariable("id")Long id, 
+			HttpServletRequest request) {
+		
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente") || rol.equals("admin")) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
+<<<<<<< HEAD
 		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente));
 		return new ModelAndView("ListaAutosDeCliente", modelo);
+=======
+		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
+		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
+		}
+		return new ModelAndView("redirect:/login");
+>>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 }
 			
 	

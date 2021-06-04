@@ -16,6 +16,10 @@ public interface RepositorioAuto {
 	public List<Auto> ConsultarAutoDeCliente(Cliente cliente);
 
 	Auto buscarAuto(Long id);
+
+	
+	
+	void cambiarEstadoDeSiestaEnGarageOno(Auto auto);
 	
 	
 }

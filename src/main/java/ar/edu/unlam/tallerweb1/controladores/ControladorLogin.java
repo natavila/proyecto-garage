@@ -53,35 +53,47 @@ public class ControladorLogin {
 	@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Cliente cliente, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
-
-		// invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
-		// hace una llamada a otro action a través de la URL correspondiente a ésta
-		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
 		
+		
+		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
+		String rol = (String) request.getSession().getAttribute("roll");
 		if (usuarioBuscado != null) {
 			if(usuarioBuscado.getRoll().equals("admin")) {
-				request.getSession().setAttribute("ROL", usuarioBuscado.getId());
-				model.addAttribute("admin", usuarioBuscado);
+				
+				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
+				model.put("admin", usuarioBuscado);
 				return new ModelAndView("homeAdmin", model);
 				
+<<<<<<< HEAD
 				
 			}else if(usuarioBuscado.getRoll().equals("cliente")){
 				request.getSession().setAttribute("ROL", usuarioBuscado.getId());
+=======
+			}else {
+>>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 				
+				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				model.put("cliente", usuarioBuscado);
-				
 				return new ModelAndView("home", model);
 			}
 	
 		}else {
 			
 			model.put("Error", "Usuario o clave incorrecta");
+<<<<<<< HEAD
 			return new ModelAndView("redirect:/login", model);
 			// si el usuario no existe agrega un mensaje de error en el modelo.
+=======
+		//	 si el usuario no existe agrega un mensaje de error en el modelo.
+>>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 		}
+<<<<<<< HEAD
 		
 		return new ModelAndView("login", model);
 		
+=======
+		return new ModelAndView("redirect:/login", model);
+>>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.
@@ -89,15 +101,29 @@ public class ControladorLogin {
 	public ModelAndView irAHome() {
 		return new ModelAndView("home");
 	}
+<<<<<<< HEAD
 	
 	@RequestMapping(path = "/homeAdmin", method = {RequestMethod.GET, RequestMethod.PUT})
+=======
+	*/
+	/*@RequestMapping(path = "/homeAdmin", method = {RequestMethod.GET, RequestMethod.PUT})
+>>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 	public ModelAndView irAHomeAdmin() {
 		return new ModelAndView("homeAdmin");
 	}
+	*/
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/login");
 	}
+	
+	@RequestMapping(path = "/cerrarSesion", method = RequestMethod.GET)
+	public ModelAndView cerrarSesion(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return new ModelAndView("redirect:/login");
+	}
+	
+	
 }

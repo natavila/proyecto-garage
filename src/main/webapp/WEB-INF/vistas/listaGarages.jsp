@@ -12,9 +12,11 @@
 <body>
 <div class="container mt-3">
 		<table class="table table-hover">
+		<h1>Elegir GARAGE!!</h1>
 		
-		<h1>ID CLIENTE ${cliente.id} </h1>
-		<h1>ID Auto ${auto.id} </h1>
+		
+		<h2>Nombre ${cliente.nombre} </h2>
+		<h2> Auto ${auto.patente} </h3>
 		<h3>Garages registrados</h3>  
 	  <thead>
 	    <tr>

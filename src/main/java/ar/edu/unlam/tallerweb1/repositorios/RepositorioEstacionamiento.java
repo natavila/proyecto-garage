@@ -26,5 +26,5 @@ public interface RepositorioEstacionamiento {
 
 	Estacionamiento buscarEstacionamiento(Long id);
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
-	
+	List<Estacionamiento> buscarAutosDeUnGarage(Garage garage1);
 }

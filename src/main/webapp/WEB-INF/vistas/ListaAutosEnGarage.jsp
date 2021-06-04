@@ -7,16 +7,15 @@
 <head>
 <meta charset="ISO-8859-1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<title>Lista de Autos</title>
+<title>Autos En Garage</title>
 </head>
 <body>
 	<div class="container mt-3">
 		<table class="table table-hover">
-		<h1>Autos De Cliente</h1>
+		<h1>Autos En Garage</h1>
 	  <thead>
 	    <tr>
-	      <th scope="col">ID</th>
-	      <th scope="col">Patente</th>
+	      
 	      
 	    </tr>
 	  </thead>
@@ -26,12 +25,12 @@
 	             varStatus="status">
 	                <tr>
 	                    <td><b>${auto.id}</b></td>
-	                    <td>${auto.patente}</td>
+	                   
+	                    <td><b>${auto.patente}</b></td>
 	                  
 	                  
-	                
-						<td><a href="${pageContext.request.contextPath}/ElegirGaragesEst/${cliente.id}/${auto.id}" role="button"> Elegir </a></td>
-					
+	               
+						<td><a href="${pageContext.request.contextPath}/sacarAutoDeGarage/${garage.id}/${auto.id}">Sacar Auto</a></td>
 	                </tr>
 	                
 	            </c:forEach>
@@ -40,4 +39,4 @@
 	<a class="btn btn-primary" href="homeAdmin" role="button">Volver</a>
 		</div>
 </body>
-</html>
+</html></html>

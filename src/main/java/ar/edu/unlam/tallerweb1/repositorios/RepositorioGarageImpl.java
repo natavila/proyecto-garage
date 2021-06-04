@@ -63,33 +63,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 	}
 
 
-	/*@Override
-	public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {
-		RepositorioClienteImpl repo2 = new RepositorioClienteImpl(sessionFactory);
-		ServicioRegistroImpl serv2 = new ServicioRegistroImpl(repo2);
-		
-		final Session session = sessionFactory.getCurrentSession();
-		
-		Boolean agrego= false;
-		Garage g2= contultarUnGarage( garage1);
-		Auto a2 = serv2.consultarAuto(auto1) ;
-		if(g2!=null && a2 !=null && g2.getCapacidad()>g2.getContador()) {
-			
-			a2.setAlquiler(g2);;
-			g2.setContador(g2.getContador()+1);
-			
-			serv2.consultarAuto(auto1).setGarage(g2);
-			//contultarUnGarage( garage1).setContador(contultarUnGarage( garage1).getContador()+1);
-			
-			
-			agrego = true;	
-		}else {
-			agrego= false;
-			
-		}
-		return agrego;
-
-	}*/
+	
 	
 	@Override
 	public Garage buscarGarage(Long id) {
@@ -109,6 +83,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 							.list();
 		return lista;
 	}
+	
 	
 	@Override
 	//Falta Hacer

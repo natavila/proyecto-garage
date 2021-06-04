@@ -3,6 +3,8 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -93,7 +95,12 @@ public class ControladorPagarGarage {
 	public ModelAndView mostrarFormularioReservaHora(
 			@PathVariable("cliente.id") Long idCliente,
 			@PathVariable("auto.id") Long idAuto,
-			@PathVariable("garage.id") Long idGarage) {
+			@PathVariable("garage.id") Long idGarage, 
+			HttpServletRequest request) {
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
+		
 		
 		ModelMap modelo = new ModelMap();
 		Estacionamiento ticket = new Estacionamiento();
@@ -110,26 +117,32 @@ public class ControladorPagarGarage {
 				
 				return new ModelAndView("formularioReservaHora", modelo);
 			}
-		
-		
+	
 		return new ModelAndView("formularioReservaHora", modelo);
+			}
+		return new ModelAndView("redirect:/login");
 	}
 	
-	@RequestMapping(path="/realizarReservaHora/{id}/{auto}/{cliente}")
+	@RequestMapping(path="/realizarReservaHora/{cliente.id}/{auto.id}/{garage.id}")
 	public ModelAndView procesarPagoHora(@RequestParam(value="horaDesde")String horaDesde,
 									@RequestParam(value="horaHasta")String horaHasta,
-									@PathVariable("id") Long idGarage,
-									@PathVariable("auto") Long idAuto,
-									@PathVariable("cliente") Long idCliente){
+									@PathVariable("cliente.id") Long idCliente,
+									@PathVariable("auto.id") Long idAuto,
+									@PathVariable("garage.id") Long idGarage,
+									HttpServletRequest request
+									){
+		
+		
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
 		ModelMap modelo = new ModelMap();
 		Estacionamiento est = new Estacionamiento();
-		
-		Auto auto = servicioAuto.buscarAuto(idCliente);
+		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
-		est.setAuto(auto);
-		est.setGarage1(garage);
-			if(garage !=null && auto!=null) {
+		                                       //Esto le puse Nuevo
+			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
 				modelo.put("garage", garage);
@@ -137,11 +150,15 @@ public class ControladorPagarGarage {
 				est.setHoraHasta(horaHasta);
 				est.setGarage1(garage);
 				
-				//Poner ACAA servicioEst.asignarGarage(garage, auto);
+				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+				//auto.setUsandoGarage(true);
+				garage.setContador(garage.getContador()+1);
 				
+				
+				est.setAuto(auto);
+				est.setGarage1(garage);
 				
 				Long horas = servicioCobrarTickets.calcularHoras(est.getHoraDesde(), est.getHoraHasta());
-				
 				Double precio = servicioCobrarTickets.calcularPrecioPorHora(garage.getPrecioHora(), horaDesde, horaHasta);
 				
 				est.setPrecioAPagar(precio);
@@ -156,9 +173,11 @@ public class ControladorPagarGarage {
 				
 				return new ModelAndView("pagarMontoHora", modelo);
 			}
+			return new ModelAndView("AlertaAutoEnGarage", modelo);
 		
 		
-		return new ModelAndView("pagarMontoHora", modelo);
-	}
-	
+			}
+		return new ModelAndView("redirect:/login");	
+			
+}
 }

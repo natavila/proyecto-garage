@@ -16,7 +16,7 @@
 <h4>Nombre: ${cliente.nombre}</h4>
 
 
-<form:form action="${pageContext.request.contextPath}/realizarReservaHora/${garage.id}/${auto.id}/${cliente.id}" method="GET" modelAttribute="ticket">
+<form:form action="${pageContext.request.contextPath}/realizarReservaHora/${cliente.id}/${auto.id}/${garage.id}" method="GET" modelAttribute="ticket">
 
 <h2>Horario Desde</h2>
 <form:input type="time" name="horaDesde" path="horaDesde"/>

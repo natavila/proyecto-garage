@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,30 +22,33 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 public class ControladorEstacionamiento {
 	private ServicioAuto servicioAuto;
 	private ServicioGarage servicioGarage;
-	private ServicioEstacionamiento servicioEstacionamiento;
+	private ServicioEstacionamiento servicioEst;
 	
 	@Autowired
-	public ControladorEstacionamiento(ServicioGarage servicioGarage,ServicioAuto servicioAuto,ServicioEstacionamiento servicioEstacionamiento){
+	public ControladorEstacionamiento(ServicioGarage servicioGarage,ServicioAuto servicioAuto,ServicioEstacionamiento servicioEst){
 		this.servicioGarage= servicioGarage;
 		this.servicioAuto = servicioAuto;
-		this.servicioEstacionamiento = servicioEstacionamiento;
+		this.servicioEst = servicioEst;
 	}
-	/*
-	@RequestMapping(path="/Asignacion", method=RequestMethod.GET)
-	public ModelAndView asignacion(@PathVariable("auto") Long idAuto, 
-			@PathVariable("garage") Long IdGarage) {
-			ModelMap modelo = new ModelMap(); 
-			Garage garage = servicioGarage.buscarGarage(IdGarage);
-			Auto auto = servicioAuto.buscarAuto(idAuto);
-			if(garage!=null && auto !=null) {
-				servicioEstacionamiento.asignarAutoaGarage(garage, auto);
-				modelo.put("mensaje", "Asgnacion Correcta");
-			}else {modelo.put("mensaje", "NOOOOOO!!!!");
-				
+	@RequestMapping(path="/sacarAutoDeGarage/{GarageId}/{AutoId}", method=RequestMethod.GET)
+	public ModelAndView SacarAutosDeGarage( @PathVariable("GarageId")Long Gid,
+			@PathVariable("AutoId")Long Aid){
+		
+		ModelMap modelo = new ModelMap();
+			Garage garage2 = servicioGarage.buscarGarage(Gid);
+			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+			Auto autoSalir = servicioAuto.buscarAuto(Aid);
+			//servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);	
+			modelo.put("auto", autos);
+			for(Auto e: autos) {
+				if(e.getId().equals(autoSalir.getId())) {
+					servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
+				}
 			}
-			return new ModelAndView("confirmacionRegistroAuto", modelo);
 			
+			return new ModelAndView("redirect:/mostrarAutosDeUnGarage/{GarageId}", modelo);
 	}
-	*/
+	
+
 	
 }

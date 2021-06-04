@@ -47,7 +47,9 @@
 					<td><a href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}">Eliminar Garage</a></td>
 					<td> <a href="${pageContext.request.contextPath}/mostrarAutosDeUnGarage/${garage.id}">Autos en garaje</a> </td>
    					<td> <a href="">Modificar Garage</a> </td>
-						
+					<td> <a href="${pageContext.request.contextPath}/mostrarHistoricoDeUnGarage/${garage.id}">Hitorial</a> </td>	
+					
+					
 	                </tr>
 	                
 	            </c:forEach>
