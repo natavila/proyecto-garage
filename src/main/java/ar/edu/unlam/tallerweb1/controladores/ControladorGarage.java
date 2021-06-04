@@ -91,6 +91,8 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
+	
+	
 
 	@RequestMapping("/lista/eliminar/{id}")
 	public ModelAndView eliminaGarge(@PathVariable("id")Long id) {
@@ -130,11 +132,28 @@ public class ControladorGarage {
 		    ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(id);
 			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
-			
 			modelo.put("garage", garage2);
 			modelo.put("auto", autos);
 			
 			return new ModelAndView("ListaAutosEnGarage", modelo);
+			}
+		return new ModelAndView("redirect:/login");
+	}
+	
+	@RequestMapping(path="/mostrarHistoricoDeUnGarage/{id}", method=RequestMethod.GET)
+	public ModelAndView MostrarHistoricoDeGarage( @PathVariable("id")Long id,
+			HttpServletRequest request){
+		
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("admin")) {
+		    ModelMap modelo = new ModelMap();
+			Garage garage2 = servicioGarage.buscarGarage(id);
+			List<Auto> autos = servicioEst.buscarAutosDeUnGarage(garage2);
+			modelo.put("garage", garage2);
+			modelo.put("auto", autos);
+			
+			return new ModelAndView("ListaHistoricaDeAutosEnGarage", modelo);
 			}
 		return new ModelAndView("redirect:/login");
 	}

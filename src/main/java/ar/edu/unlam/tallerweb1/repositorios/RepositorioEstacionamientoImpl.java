@@ -56,29 +56,7 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 
 	 	
 	 
-	 /*@Override
-	 public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {
-		
-			final Session session = sessionFactory.getCurrentSession();
-			
-			Boolean agrego= false;
-			Estacionamiento est = new Estacionamiento();
-			Garage g2= servicioGarage.contultarUnGarage( garage1);
-			Auto a2 = servicioAuto.consultarAuto(auto1);
-			if(g2!=null && a2 !=null && g2.getCapacidad()>g2.getContador()) {
-				est.setGarage1(garage1);
-				a2.setEst(est);
-				g2.setContador(g2.getContador()+1);	
-				agrego = true;	
-			}else {
-				agrego= false;
-				
-			}
-			return agrego;
-
-		}
-	 
-	*/
+	
 	@Override
 	public Long calcularDias(String desde, String hasta) {
 		
