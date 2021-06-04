@@ -25,6 +25,8 @@ public class Cliente{
 	private String password;
 	private String roll;
 	
+	@ManyToOne
+	Usuario usuario;
 	
 	public String getEmail() {
 		return email;

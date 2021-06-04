@@ -21,8 +21,6 @@ public class Billetera {
 	private Cliente cliente;
 	
 	
-	
-	
 	public String getAlias() {
 		return alias;
 	}

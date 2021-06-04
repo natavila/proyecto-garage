@@ -67,7 +67,6 @@ public class ControladorGarage {
 	@RequestMapping("/lista")
 	public ModelAndView Listar(){
 		ModelMap modelo = new ModelMap();
-		//Garage garage = new Garage();
 		modelo.addAttribute("garages", servicioGarage.consultarGarage());
 		return new ModelAndView("DatosGaragesPorPantalla", modelo);
 	}

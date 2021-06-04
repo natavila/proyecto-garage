@@ -28,16 +28,14 @@ public class ControladorBilletera {
 		this.servicioCliente = servicioCliente;
 	}
 	
-	@RequestMapping(path="/registroBilletera/{id}")
+	@RequestMapping(path="/registroBilletera/{id}",  method=RequestMethod.GET)
 	public ModelAndView registro(@PathVariable("id")Long id) {
 
 		ModelMap modelo = new ModelMap();
 		Billetera billetera = new Billetera();
-		
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		if(cliente != null) {
 			modelo.addAttribute("cliente", cliente);
-			
 			billetera.setCliente(cliente);
 			modelo.put("billetera", billetera);
 			
@@ -55,22 +53,28 @@ public class ControladorBilletera {
 										@ModelAttribute("billetera") Billetera billetera) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		Billetera billeteraEncontrada = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
-		if(cliente != null && billetera.getAlias() != null) {
-			billetera.setSaldo(0.0);
-			billetera.setCliente(cliente);
-			servicioBilletera.registrarBilletera(billetera);
-			modelo.addAttribute("cliente", cliente);
-			modelo.put("billetera", billetera);
-			modelo.put("saldo", billetera.getSaldo());
-			
-			return new ModelAndView("confirmacionBilletera", modelo);
-		}else {
-			
-			modelo.put("error", "Cliente no registrado");
+		try {
+			if(cliente != null && billetera.getAlias() != "" && billeteraEncontrada == null) {
+				billetera.setSaldo(0.0);
+				billetera.setCliente(cliente);
+				servicioBilletera.registrarBilletera(billetera);
+				modelo.addAttribute("cliente", cliente);
+				modelo.put("billetera", billetera);
+				modelo.put("saldo", billetera.getSaldo());
+				return new ModelAndView("confirmacionBilletera", modelo);
 		}
 		
-		return new ModelAndView("confirmacionBilletera", modelo);
+		}catch(Exception e) {
+			
+			modelo.put("billetera", billetera);
+			modelo.put("error", e.getMessage());
+			
+		}
+		
+		return new ModelAndView("redirect:/registroBilletera/{id}");
+		
 	}
 	
 	@RequestMapping("/mostrarBilletera/{id}")
@@ -80,27 +84,69 @@ public class ControladorBilletera {
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
+		try {
+			
+			if(cliente != null && billetera != null) {
+				modelo.put("saldo", billetera.getSaldo());
+				modelo.put("nombre", cliente.getNombre());
+				modelo.put("apellido", cliente.getApellido());
+			
+			return new ModelAndView("miBilletera", modelo);
+		}
+			
+			}catch(Exception e) {
+				modelo.put("billetera", billetera);
+				modelo.put("error", e.getMessage());				
+	
+			}
 		
-			modelo.put("cliente", cliente);
-			modelo.put("alias", billetera.getAlias());
-			return new ModelAndView("miBilletera");
-		
-		
+		return new ModelAndView("redirect:/registroBilletera/{id}");
 	}
 	
-	@RequestMapping("/ingresarSaldo/{id}")
-	public ModelAndView ingresarSaldo(@PathVariable("id") Long id,
-									@RequestParam("monto") Double monto) {
+	@RequestMapping(path="/formularioSaldo/{id}", method=RequestMethod.GET)
+	public ModelAndView formularioSaldo(@PathVariable("id") Long id,
+										@ModelAttribute("billetera") Billetera billetera) {
 		ModelMap modelo = new ModelMap();
 		
-		Billetera billetera = servicioBilletera.buscarBilleteraPorId(id);
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
-		if(billetera != null) {
-			billetera.setSaldo(monto);
-			modelo.put("saldo", billetera.getSaldo());
+		try{
+			if(cliente != null & billetera != null)
+		
+			modelo.put("cliente", cliente);
+			return new ModelAndView("ingresarSaldo", modelo);	
+		} catch(Exception e) {
 			
+			modelo.put("cliente", cliente);
+			modelo.put("error", e.getMessage());
+		}
+			return new ModelAndView("redirect:/formularioSaldo/{id}");
+	}
+	
+	@RequestMapping(path="/procesarSaldo/{id}", method=RequestMethod.POST)
+	public ModelAndView ingresarSaldo(@PathVariable("id") Long id,
+									@ModelAttribute("billetera") Billetera billetera,
+									@RequestParam("monto") Double monto
+									) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+		
+		try {
+			if(cliente != null && billetera != null) {
+				servicioBilletera.ingresarSaldo(billetera, monto);
+				modelo.put("saldo", billetera.getSaldo());
+				
+				return new ModelAndView("confirmacionSaldo", modelo);	
+			}
+		} catch(Exception e) {
+			
+			modelo.put("mensaje", "Debe generar una billetera");
+			modelo.put("error", e.getMessage());
+			return new ModelAndView("registroBilletera", modelo);
 		}
 		
-		return new ModelAndView("redirect:/home");
+		return new ModelAndView("redirect:/formularioSaldo/{id}");
 	}
 }

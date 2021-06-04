@@ -18,5 +18,7 @@ public interface RepositorioBilletera {
 	Double consultarSaldo(Billetera saldo);
 	
 	void ingresarSaldo(Billetera billetera, Double monto);
+	
+	List<Billetera> consultarBilleteras(); 
 
 }

@@ -40,13 +40,9 @@
 				</form:form>
 				<%--Bloque que es visible si el elemento error no estÃ¡ vacÃ­o	--%>
 				<c:if test="${not empty Error}">
-				<div class="alert alert-danger d-flex align-items-center" role="alert">
-				  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-				  <div>
+				
 				    ${Error}
-				  </div>
-				</div>				        
-			        <br>				        	        
+				 				        	        
 		        </c:if>
 		        <p>¿Todavia no tenes cuenta? Registrate como <a href="mostrarRegistro">Cliente</a> o <a href="mostrarRegistro">Dueño</a></p>
 		        <a href="/mostrarOlvido">¿Olvidaste tu contraseña?</a>

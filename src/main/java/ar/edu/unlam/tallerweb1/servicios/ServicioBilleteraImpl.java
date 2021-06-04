@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,7 @@ public class ServicioBilleteraImpl implements ServicioBilletera{
 
 	@Override
 	public void registrarBilletera(Billetera billetera) {
-		
+		if(servicioBilletera.consultarBilleteraDeCliente(billetera.getCliente()) == null) 
 		servicioBilletera.registrarBilletera(billetera);
 	}
 
@@ -56,6 +58,12 @@ public class ServicioBilleteraImpl implements ServicioBilletera{
 	public Billetera consultarBilleteraDeCliente(Cliente cliente) {
 		
 		return servicioBilletera.consultarBilleteraDeCliente(cliente);
+	}
+
+	@Override
+	public List<Billetera> consultarBilleteras() {
+		
+		return servicioBilletera.consultarBilleteras();
 	}
 
 }

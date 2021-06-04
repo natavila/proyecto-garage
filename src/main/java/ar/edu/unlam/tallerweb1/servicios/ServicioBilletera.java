@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.List;
+
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 
@@ -16,5 +18,7 @@ public interface ServicioBilletera {
 	Double consultarSaldo(Billetera saldo);
 	
 	void ingresarSaldo(Billetera billetera, Double monto);
+	
+	List<Billetera> consultarBilleteras(); 
 	
 }

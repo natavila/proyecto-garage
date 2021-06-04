@@ -4,7 +4,7 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
-import ar.edu.unlam.tallerweb1.modelo.DuenioCochera;
+import ar.edu.unlam.tallerweb1.modelo.Administrador;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Localidad;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
@@ -15,13 +15,15 @@ public interface RepositorioCliente {
 	
 	Cliente consultarCliente (Cliente cliente);
 	
+	Administrador consultarAdministrador(Administrador administrador);
+	
 	Cliente consultarPorId(Long id);
 	
 	Cliente verificarCorreo(Cliente cliente);
 	
 	void registrarCliente(Cliente cliente);
 	
-	
+	Cliente existeUsuario(Cliente cliente);
 	
 	List<Cliente> listaDeClientes();
 	

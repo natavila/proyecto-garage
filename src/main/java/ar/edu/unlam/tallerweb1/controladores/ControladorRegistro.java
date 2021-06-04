@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
@@ -42,12 +43,15 @@ public class ControladorRegistro {
 		//Validar que la password sea igual a la repassword
 		ModelMap modelo = new ModelMap();
 		Cliente verif = servicioLogin.verificarCorreo(cliente);
-		if(cliente.getPassword().equals(repass) && verif == null) {
+		if(cliente.getPassword().equals(repass) && verif == null && cliente.getNombre() != "") {
 			modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
+				
+				cliente.setRoll("cliente");
 				servicioRegistro.agregarCliente(cliente);
 				
 		}else {
 			modelo.put("mensaje", "Error. No coinciden las passwords");
+			return new ModelAndView("redirect:/mostrarRegistro");
 		}
 		return new ModelAndView("confirmacionRegistro", modelo);
 			

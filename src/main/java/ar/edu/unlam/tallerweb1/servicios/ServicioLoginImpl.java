@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
+import ar.edu.unlam.tallerweb1.modelo.Administrador;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
@@ -50,6 +51,12 @@ public class ServicioLoginImpl implements ServicioLogin {
 	public List<Cliente> listaDeClientes() {
 		
 		return servicioLoginDao.listaDeClientes();
+	}
+
+	@Override
+	public Administrador consultarAdministrador(Administrador administrador) {
+		
+		return servicioLoginDao.consultarAdministrador(administrador);
 	}
 
 
