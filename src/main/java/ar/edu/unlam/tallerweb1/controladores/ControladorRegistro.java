@@ -45,8 +45,6 @@ public class ControladorRegistro {
 		Cliente verif = servicioLogin.verificarCorreo(cliente);
 		if(cliente.getPassword().equals(repass) && verif == null && cliente.getNombre() != "") {
 			modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
-				
-				cliente.setRoll("cliente");
 				servicioRegistro.agregarCliente(cliente);
 				
 		}else {

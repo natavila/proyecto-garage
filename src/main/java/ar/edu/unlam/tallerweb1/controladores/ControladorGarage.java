@@ -121,31 +121,6 @@ public class ControladorGarage {
 		return new ModelAndView("DatosDeUnGaragePorPantalla", modelo);
 	}
 
-	/*
-	@RequestMapping(path="/agregarAutoAGarage/{id}", method=RequestMethod.POST)
-	public ModelAndView agregarAutoAGarage( @PathVariable("id")Long id,
-			@RequestParam(value="patente", required=false)String patente,
-			@ModelAttribute("auto") Auto auto) {
-		
-		ModelMap modelo = new ModelMap();
-		List<Garage> listaGarage = servicioGarage.consultarGarage();
-		List<Auto> listaAuto = servicioAuto.listaDeAutos();
-	for(Garage g1: listaGarage ) {
-		if(g1.getId().equals(id)) {
-			for(Auto autos: listaAuto) {
-				if(autos.getPatente().equals(patente)) {
-					//modelo.addAttribute("garage",servicioGarage.asignarAutoaGarage(g1, auto));
-					return new ModelAndView("redirect:/lista");
-				}
-			}
-		}		
-	}		
-		
-	return new ModelAndView("DatosDeUnGaragePorPantalla", modelo);
-	}
-=======
-
->>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 	
 	@RequestMapping(path="/mostrarAutosDeUnGarage/{id}", method=RequestMethod.GET)
 	public ModelAndView MostrarAutosDeGarage( @PathVariable("id")Long id,
@@ -227,56 +202,4 @@ public class ControladorGarage {
 		return new ModelAndView("redirect:/login");
 	}
 	
-	
-	
-	
-	/*@RequestMapping("/formularioAgregarGarage")
-	public ModelAndView mostrarFormularioGaraga() {
-		ModelMap modelo = new ModelMap();
-		Garage garage1 = new Garage();
-		modelo.put("garage", garage1);
-		return new ModelAndView("agregarGarage", modelo);
-	}
-	
-	
-	
-	@RequestMapping(path="confirmarAgregarGarage", method = RequestMethod.POST)
-	public String agregarGarage(
-	@ModelAttribute ("garage") Garage garage1){
-	servicioGarage.agregarGarage(garage1);
-	return "redirect:/lista";
-		
-	}
-	
-	@RequestMapping("/buscarGarage")
-	public ModelAndView mostrarBuscarGaraga() {
-		ModelMap modelo = new ModelMap();
-		Garage garage= new Garage();
-		modelo.put("garage", garage);
-		return new ModelAndView("GaragesBD", modelo);
-	}
-	
-	@RequestMapping("/lista")
-	public String Lista(Model modelo){
-		modelo.addAttribute("garages", servicioGarage.consultarGarage());
-		return ("DatosGaragesPorPantalla");
-	}
-	
-	
-	
-	@RequestMapping("/mostrarGarages")
-	public String garagesParaReservar(Model modelo){
-		modelo.addAttribute("garages", servicioGarage.consultarGarage());
-		return ("listaGarages");
-	}
-	
-	@RequestMapping("/lista/eliminar/{id}")
-	public String eliminarGarage(@PathVariable("id")Long id, Model model) {
-		
-		servicioGarage.eliminarGarage(id);
-		return "redirect:/lista";
-	}*/
-	
-	
-
 }

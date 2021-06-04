@@ -27,7 +27,7 @@
 	</head>
 	<body>
 		<main class="container"> <!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
-			<form:form  action="${pageContext.request.contextPath}/procesarRegistroAuto/${cliente.id}" method="POST" modelAttribute="auto" class="row g-3">
+			<form:form  action="${pageContext.request.contextPath}/procesarRegistroAuto/${cliente.id}/${cliente.nombre}" method="POST" modelAttribute="auto" class="row g-3">
 			<h1 class="mt-3">Registro de auto</h1>
 			<h3> ${cliente.nombre} </h3>
 				<div class="col-md-6">			

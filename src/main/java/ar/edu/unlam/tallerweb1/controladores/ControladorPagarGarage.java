@@ -19,6 +19,7 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobrarTickets;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
@@ -31,14 +32,16 @@ public class ControladorPagarGarage {
 	private ServicioAuto servicioAuto;
 	private ServicioCliente servicioCliente;
 	private ServicioGarage servicioGarage;
+	private ServicioBilletera servicioBilletera;
 	
 	@Autowired
-	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioEstacionamiento servicioEst,ServicioGarage servicioGarage) {
+	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioEstacionamiento servicioEst,ServicioGarage servicioGarage, ServicioBilletera servicioBilletera) {
 		this.servicioCobrarTickets = servicioCobrarTickets;
 		this.servicioAuto = servicioAuto;
 		this.servicioCliente = servicioCliente;
 		this.servicioEst = servicioEst;
 		this.servicioGarage= servicioGarage;
+		this.servicioBilletera = servicioBilletera;
 	}
 	
 	@RequestMapping("mostrarFormularioReservaEstadia/{id}")
