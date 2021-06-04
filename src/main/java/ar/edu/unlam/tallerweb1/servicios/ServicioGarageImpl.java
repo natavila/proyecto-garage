@@ -98,6 +98,20 @@ private RepositorioGarage repositorioGarage;
 		return repositorioGarage.buscarGarage(id);
 	}
 	
+	@Override 
+	public void sumarContador(Garage garage) {
+		
+		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
+		garage1.setContador(garage1.getContador()+1);
+		
+	}
+	
+	@Override
+	public void restarContador(Garage garage) {
+		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
+		garage1.setContador(garage1.getContador()-1);
+	}
+	
 	
 
 	

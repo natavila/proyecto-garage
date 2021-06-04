@@ -43,6 +43,7 @@ public class ControladorEstacionamiento {
 			for(Auto e: autos) {
 				if(e.getId().equals(autoSalir.getId())) {
 					servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
+					servicioGarage.restarContador(garage2);
 				}
 			}
 			

@@ -141,7 +141,7 @@ public class ControladorPagarGarage {
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
-		                                       //Esto le puse Nuevo
+		                                       
 			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
@@ -151,7 +151,8 @@ public class ControladorPagarGarage {
 				est.setGarage1(garage);
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-				//auto.setUsandoGarage(true);
+				servicioGarage.sumarContador(garage);
+		
 				garage.setContador(garage.getContador()+1);
 				
 				

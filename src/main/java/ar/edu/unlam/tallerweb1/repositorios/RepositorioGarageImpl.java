@@ -43,6 +43,8 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 					.add(Restrictions.eq("id",garage1.getId()))
 					.uniqueResult();
 		}
+		
+		
 	@Override 
 	public Boolean agregarGarage(Garage garage1) {
 		
@@ -72,6 +74,8 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 				.add(Restrictions.eq("id",id))
 				.uniqueResult();
 	}
+	
+	
 
 	
 	@Override
