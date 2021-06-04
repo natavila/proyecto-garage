@@ -64,13 +64,7 @@ public class ControladorLogin {
 				model.put("admin", usuarioBuscado);
 				return new ModelAndView("homeAdmin", model);
 				
-<<<<<<< HEAD
-				
-			}else if(usuarioBuscado.getRoll().equals("cliente")){
-				request.getSession().setAttribute("ROL", usuarioBuscado.getId());
-=======
 			}else {
->>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 				
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				model.put("cliente", usuarioBuscado);
@@ -78,22 +72,10 @@ public class ControladorLogin {
 			}
 	
 		}else {
-			
 			model.put("Error", "Usuario o clave incorrecta");
-<<<<<<< HEAD
-			return new ModelAndView("redirect:/login", model);
-			// si el usuario no existe agrega un mensaje de error en el modelo.
-=======
 		//	 si el usuario no existe agrega un mensaje de error en el modelo.
->>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 		}
-<<<<<<< HEAD
-		
-		return new ModelAndView("login", model);
-		
-=======
 		return new ModelAndView("redirect:/login", model);
->>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.
@@ -101,13 +83,12 @@ public class ControladorLogin {
 	public ModelAndView irAHome() {
 		return new ModelAndView("home");
 	}
-<<<<<<< HEAD
+
 	
-	@RequestMapping(path = "/homeAdmin", method = {RequestMethod.GET, RequestMethod.PUT})
-=======
-	*/
+	
+
 	/*@RequestMapping(path = "/homeAdmin", method = {RequestMethod.GET, RequestMethod.PUT})
->>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
+
 	public ModelAndView irAHomeAdmin() {
 		return new ModelAndView("homeAdmin");
 	}

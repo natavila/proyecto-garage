@@ -55,15 +55,10 @@ public class ControladorClientes {
 			if(rol.equals("cliente") || rol.equals("admin")) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
-<<<<<<< HEAD
-		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente));
-		return new ModelAndView("ListaAutosDeCliente", modelo);
-=======
 		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}
 		return new ModelAndView("redirect:/login");
->>>>>>> branch 'master' of https://github.com/natavila/proyecto-garage.git
 }
 			
 	

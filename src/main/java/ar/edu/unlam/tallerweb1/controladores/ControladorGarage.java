@@ -120,7 +120,7 @@ public class ControladorGarage {
 		
 		return new ModelAndView("DatosDeUnGaragePorPantalla", modelo);
 	}
-<<<<<<< HEAD
+
 	/*
 	@RequestMapping(path="/agregarAutoAGarage/{id}", method=RequestMethod.POST)
 	public ModelAndView agregarAutoAGarage( @PathVariable("id")Long id,
