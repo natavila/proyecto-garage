@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.hibernate.mapping.Set;
+import org.hsqldb.lib.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +18,11 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioGarage;
 public class ServicioGarageImpl implements ServicioGarage{
 
 private RepositorioGarage repositorioGarage;
-	
+
 	@Autowired
-	public ServicioGarageImpl(RepositorioGarage repositorioGarage) {
+	public ServicioGarageImpl(RepositorioGarage repositorioGarage ) {
 		this.repositorioGarage = repositorioGarage;
+		
 	}
 	
 	@Override
@@ -108,7 +111,10 @@ private RepositorioGarage repositorioGarage;
 	
 	@Override
 	public void restarContador(Garage garage) {
+		
+		
 		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
+		
 		garage1.setContador(garage1.getContador()-1);
 	}
 	

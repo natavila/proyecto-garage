@@ -50,7 +50,13 @@ public class ServicioAutoImpl implements ServicioAuto{
 	}
 	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
-		servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+		
+		Auto auto1 = servicioAuto.consultarAuto(auto);
+		if(auto1.getUsandoGarage().equals(false)) {
+			auto1.setUsandoGarage(true);
+			}else {
+				auto1.setUsandoGarage(false);
+		}
 		
 	}
 	

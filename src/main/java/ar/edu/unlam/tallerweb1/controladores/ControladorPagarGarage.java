@@ -156,7 +156,7 @@ public class ControladorPagarGarage {
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 				servicioGarage.sumarContador(garage);
 		
-				garage.setContador(garage.getContador()+1);
+				//garage.setContador(garage.getContador()+1);
 				
 				
 				est.setAuto(auto);

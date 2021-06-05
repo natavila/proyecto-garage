@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
@@ -51,10 +52,11 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				
 				return (List<Auto>) autoLista;
 			}
+			
 			@Override
-			public List<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
+			public HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
 				List<Auto> autosActivos= buscarAutosDeUnGarage(garage1);
-				ArrayList<Auto> autoLista = new ArrayList<Auto>();
+				HashSet<Auto> autoLista = new HashSet<Auto>();
 				
 				for(Auto e: autosActivos) {
 					if(e.getUsandoGarage()==true) {
@@ -63,7 +65,7 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 					
 				}
 				
-				return (List<Auto>) autoLista;
+				return (HashSet<Auto>) autoLista;
 			}
 			
 
