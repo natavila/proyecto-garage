@@ -53,10 +53,6 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 		 return garage;		 
 	 }
 	
-
-	 	
-	 
-	
 	@Override
 	public Long calcularDias(String desde, String hasta) {
 		
@@ -80,14 +76,9 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 	}
 
 	@Override
-	public Double calcularPrecioPorEstadia(Double precio, String desde, String hasta) {
+	public Double calcularPrecioPorEstadia(Double precio, Estacionamiento estacionamiento) {
 		
-		LocalDate desdePars = LocalDate.parse(desde);
-		LocalDate hastaPars = LocalDate.parse(hasta);
-		
-		Long diasEnGarage = DAYS.between(desdePars, hastaPars);
-		
-		Double total = precio * diasEnGarage;
+		Double total = precio * this.calcularDias(estacionamiento.getFechaDesde(), estacionamiento.getFechaHasta());
 		
 		return total;
 	}

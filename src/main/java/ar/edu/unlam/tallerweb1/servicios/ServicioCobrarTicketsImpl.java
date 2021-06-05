@@ -38,9 +38,9 @@ public class ServicioCobrarTicketsImpl implements ServicioCobrarTickets{
 	}
 
 	@Override
-	public Double calcularPrecioPorEstadia(Double precio, String desde, String hasta) {
+	public Double calcularPrecioPorEstadia(Double precio, Estacionamiento estacionamiento) {
 		
-		return servicioCobrarTickets.calcularPrecioPorEstadia(precio, desde, hasta);
+		return servicioCobrarTickets.calcularPrecioPorEstadia(precio, estacionamiento);
 	}
 	
 	@Override

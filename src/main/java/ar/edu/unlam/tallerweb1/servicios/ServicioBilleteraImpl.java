@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
+import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioBilletera;
 
 @Service
@@ -30,9 +32,9 @@ public class ServicioBilleteraImpl implements ServicioBilletera{
 	}
 
 	@Override
-	public Double pagarReserva(Double precio, Double saldo) {
-		
-		return servicioBilletera.pagarReserva(precio, saldo);	
+	public void pagarReservaEstadia(Estacionamiento estacionamiento, Billetera billetera) {
+		if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) 
+		 servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);	
 	}
 
 	@Override
@@ -65,5 +67,7 @@ public class ServicioBilleteraImpl implements ServicioBilletera{
 		
 		return servicioBilletera.consultarBilleteras();
 	}
+
+	
 
 }

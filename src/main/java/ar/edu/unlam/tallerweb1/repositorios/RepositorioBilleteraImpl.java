@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
+import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCobrarTicketsImpl;
 
 @Repository("repositorioBilletera")
 public class RepositorioBilleteraImpl implements RepositorioBilletera{
@@ -35,11 +38,22 @@ public class RepositorioBilleteraImpl implements RepositorioBilletera{
 	}
 
 	@Override
-	public Double pagarReserva(Double precio, Double saldo) {
+	public void pagarReservaEstadia(Estacionamiento estacionamiento, Billetera billetera) {
+		RepositorioEstacionamientoImpl repositorioEstacionamiento = new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioCobrarTicketsImpl servicioCobrarTickets = new ServicioCobrarTicketsImpl(repositorioEstacionamiento);
 		
-		Double montoAPagar = saldo - precio;
-		
-		return montoAPagar;
+		final Session session = sessionFactory.getCurrentSession();
+		Double montoAPagar = billetera.getSaldo() - servicioCobrarTickets.calcularPrecioPorEstadia(estacionamiento.getPrecioAPagar(), estacionamiento);
+		billetera.setSaldo(montoAPagar);
+		session.update(billetera);
+	}
+	
+	@Override
+	public void pagarReservaHora(Garage garage, Billetera billetera) {
+		final Session session = sessionFactory.getCurrentSession();
+		Double montoAPagar = billetera.getSaldo() - garage.getPrecioHora();
+		billetera.setSaldo(montoAPagar);
+		session.update(billetera);
 	}
 
 	@Override
@@ -51,11 +65,8 @@ public class RepositorioBilleteraImpl implements RepositorioBilletera{
 	@Override
 	public void ingresarSaldo(Billetera billetera, Double monto) {
 		final Session session = sessionFactory.getCurrentSession();
-		
 		 Double saldoActual = billetera.getSaldo() + monto;
-		 
 		 billetera.setSaldo(saldoActual);
-		 
 		 session.update(billetera);
 	}
 	
@@ -71,11 +82,10 @@ public class RepositorioBilleteraImpl implements RepositorioBilletera{
 
 	@Override
 	public List<Billetera> consultarBilleteras() {
-		
 		  final Session session = sessionFactory.getCurrentSession();
 		   List<Billetera> listaBilletera = session.createCriteria(Billetera.class)
 				  .list();
-				return listaBilletera;
+		   return listaBilletera;
 	}
 
 	

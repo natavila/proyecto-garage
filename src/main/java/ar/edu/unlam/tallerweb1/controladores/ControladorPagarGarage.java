@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
@@ -128,6 +129,34 @@ public class ControladorPagarGarage {
 	return new ModelAndView("redirect:/login");	
 	}
 	
+	@RequestMapping(path="/pagarReservaEstadia/{cliente.id}/{estacionamiento.id}", method=RequestMethod.POST)
+	public ModelAndView pagarReservaEstadia(@PathVariable("cliente.id") Long idCliente,
+											@PathVariable("estacionamiento.id") Long idEstacionamiento) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+		Estacionamiento estacionamiento = servicioEst.buscarEstacionamiento(idEstacionamiento);
+		
+		try {
+			
+			if(cliente != null && billetera != null && estacionamiento != null) {
+				servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);
+				modelo.put("cliente", cliente.getNombre());
+				modelo.put("billetera", billetera.getSaldo());
+				modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
+				return new ModelAndView("confirmacionReserva", modelo);
+			}
+		} catch(Exception e) {
+			
+			modelo.put("cliente", cliente);
+			modelo.put("billetera", billetera);
+			modelo.put("estacionamiento", estacionamiento);
+			modelo.put("error", e.getMessage());
+		}
+		
+		return null;
+	}
+	
 	@RequestMapping(path="/mostrarFormularioReservaHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
 	public ModelAndView mostrarFormularioReservaHora(
 			@PathVariable("cliente.id") Long idCliente,
@@ -189,8 +218,6 @@ public class ControladorPagarGarage {
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 				//auto.setUsandoGarage(true);
-				
-				
 				
 				est.setAuto(auto);
 				est.setGarage1(garage);
