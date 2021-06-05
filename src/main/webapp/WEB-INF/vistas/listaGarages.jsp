@@ -46,7 +46,7 @@
                     </td>                
                     <td>${garage.precioEstadia}
                     <br>
-                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaEstadia/${garage.id}">Reservar</a>
+                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaEstadia/${garage.id}/${auto.id}/${garage.id}">Reservar</a>
                     </td>                                    
                     <td>${garage.precioMes}
                     <br>

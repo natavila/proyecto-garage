@@ -76,7 +76,7 @@ public class ControladorPagarGarage {
 		return new ModelAndView("redirect:/login");
 	}	
 
-	@RequestMapping(path="/realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}")
+	@RequestMapping(path="/realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
 	public ModelAndView procesarPagoEstadia(@RequestParam(value="fechaDesde")String fechaDesde,
 									@RequestParam(value="fechaHasta")String fechaHasta,
 									@PathVariable("cliente.id") Long idCliente,
@@ -108,8 +108,8 @@ public class ControladorPagarGarage {
 			est.setAuto(auto);
 			est.setGarage1(garage);
 			
-			Long horas = servicioCobrarTickets.calcularHoras(est.getHoraDesde(), est.getHoraHasta());
-			Double precio = servicioCobrarTickets.calcularPrecioPorHora(garage.getPrecioHora(), fechaDesde, fechaHasta);
+			Long horas = servicioCobrarTickets.calcularDias(est.getFechaDesde(), est.getFechaHasta());
+			Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), est);
 			
 			est.setPrecioAPagar(precio);
 			
@@ -120,7 +120,7 @@ public class ControladorPagarGarage {
 			modelo.put("horas", horas);
 			
 			servicioCobrarTickets.registrarTicket(est);
-			return new ModelAndView("pagarMontoHora", modelo);
+			return new ModelAndView("pagarMontoEstadia", modelo);
 		}
 		return new ModelAndView("AlertaAutoEnGarage", modelo);
 	

@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container">
-<form:form action="${pageContext.request.contextPath}/realizarReservaEstadia/${garage.id}" method="GET" modelAttribute="ticket">
+<form:form action="${pageContext.request.contextPath}/realizarReservaEstadia/${cliente.id}/${auto.id}/${garage.id}" method="GET" modelAttribute="ticket">
 
 <h2>Fecha Desde</h2>
 <form:input type="date" name="fechaDesde" path="fechaDesde"/>
