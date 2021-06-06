@@ -43,7 +43,7 @@ public class RepositorioBilleteraImpl implements RepositorioBilletera{
 		ServicioCobrarTicketsImpl servicioCobrarTickets = new ServicioCobrarTicketsImpl(repositorioEstacionamiento);
 		
 		final Session session = sessionFactory.getCurrentSession();
-		Double montoAPagar = billetera.getSaldo() - servicioCobrarTickets.calcularPrecioPorEstadia(estacionamiento.getPrecioAPagar(), estacionamiento);
+		Double montoAPagar = billetera.getSaldo() - servicioCobrarTickets.calcularPrecioPorEstadia(estacionamiento.getPrecioAPagar(), estacionamiento.getFechaDesde(), estacionamiento.getFechaHasta());
 		billetera.setSaldo(montoAPagar);
 		session.update(billetera);
 	}
