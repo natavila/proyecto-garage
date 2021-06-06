@@ -29,4 +29,5 @@ public interface ServicioGarage {
 	List <Garage> buscarPorPrecioHora(Double precio1, Double precio2);
 	List <Garage> buscarPorPrecioMes(Double precio1, Double precio2);
 	List <Garage> buscarPorPrecioEstadia(Double precio1, Double precio2);
+	void sumarContador(Garage garage);
 }

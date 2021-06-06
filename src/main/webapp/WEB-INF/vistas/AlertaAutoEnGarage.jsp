@@ -7,7 +7,8 @@
 <title>Auto En Garage</title>
 </head>
 <body>
-<h1>NO SE PUDO REGISTRAR AUTO EN ALGUN ESTACIONAMIENTO</h1>
+<h1>EL AUTO SELECCIONADO YA SE ENCUENTRA EN UN GARAGE</h1>
 <h1>SALIR DE ESTACIONAMIENTO PARA PODER ENTRAR</h1>
+<a class="btn btn-primary" href="home" role="button">Volver</a>
 </body>
 </html>

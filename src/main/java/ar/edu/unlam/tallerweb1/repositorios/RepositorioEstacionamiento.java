@@ -12,7 +12,7 @@ public interface RepositorioEstacionamiento {
 	
 	Long calcularHoras(String desde, String hasta);
 	
-	Double calcularPrecioPorEstadia(Double precio, Estacionamiento estacionamiento);
+	Double calcularPrecioPorEstadia(Double precio, String desde, String hasta);
 	
 	Double calcularPrecioPorHora(Double precio, String desde, String hasta);
 	

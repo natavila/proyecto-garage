@@ -76,9 +76,14 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 	}
 
 	@Override
-	public Double calcularPrecioPorEstadia(Double precio, Estacionamiento estacionamiento) {
+	public Double calcularPrecioPorEstadia(Double precio, String desde, String hasta) {
 		
-		Double total = precio * this.calcularDias(estacionamiento.getFechaDesde(), estacionamiento.getFechaHasta());
+		LocalDate desdePars = LocalDate.parse(desde);
+		LocalDate hastaPars = LocalDate.parse(hasta);
+		
+		Long diasEnGarage = DAYS.between(desdePars, hastaPars);
+		
+		Double total = precio * diasEnGarage;
 		
 		return total;
 	}
