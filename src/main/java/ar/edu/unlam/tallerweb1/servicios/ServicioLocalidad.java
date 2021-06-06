@@ -16,4 +16,10 @@ public interface ServicioLocalidad {
 
 	Boolean verificarSiExisteLocalidad(Localidad loc);
 
+
+
+	List<String> devolverNombresDeLocalidades();
+
+	
+
 }

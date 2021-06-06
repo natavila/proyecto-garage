@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -14,6 +15,7 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioLocalidad;
 @Transactional
 public class ServicioLocalidadImp implements ServicioLocalidad {
 private RepositorioLocalidad repositorioLocalidad;
+private List<String> listaLoc;
 @Autowired
 public ServicioLocalidadImp(RepositorioLocalidad repositorioLocalidad) {
 	this.repositorioLocalidad = repositorioLocalidad;
@@ -56,6 +58,19 @@ public Boolean verificarSiExisteLocalidad(Localidad loc) {
 		}
 	}
 	return repetido;
+}
+
+
+
+
+@Override
+public List<String> devolverNombresDeLocalidades(){
+	List<Localidad> lista = consultarLocalidad();
+	ArrayList<String> listaLoc = new ArrayList<String>();
+	for(Localidad e: lista) { 
+		  listaLoc.add(e.getLocalidad());
+	}
+	return  listaLoc;
 }
 
 	
