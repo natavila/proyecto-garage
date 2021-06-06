@@ -198,7 +198,8 @@ public class ControladorGarage {
 		
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
-		modelo.addAttribute("garages", servicioGarage.consultarGarage());
+		modelo.put("garages", servicioGarage.consultarGarage());
+		
 		return new ModelAndView ("listaGarages", modelo);
 		}
 		return new ModelAndView("redirect:/login");
