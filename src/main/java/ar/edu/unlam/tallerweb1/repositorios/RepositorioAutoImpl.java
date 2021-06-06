@@ -55,9 +55,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	}
 	
 	
-	
-	
-	/*@Override
+	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();
 			Auto auto1 =	(Auto) session.createCriteria(Auto.class)
@@ -71,11 +69,11 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 			}
 				auto1.setUsandoGarage(false);
 			}
-		
+			
 	}
 	
 	
-*/	
+
 
 
 
@@ -98,16 +96,6 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 		return  (Auto) session.createCriteria(Auto.class)
 				.add(Restrictions.eq("id",id))
 				.uniqueResult();
-	}
-
-
-
-
-
-	@Override
-	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	

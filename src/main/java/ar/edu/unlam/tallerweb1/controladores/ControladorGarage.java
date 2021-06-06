@@ -1,12 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,7 +131,7 @@ public class ControladorGarage {
 			if(rol.equals("admin")) {
 		    ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(id);
-			HashSet<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
 			modelo.put("garage", garage2);
 			modelo.put("auto", autos);
 			

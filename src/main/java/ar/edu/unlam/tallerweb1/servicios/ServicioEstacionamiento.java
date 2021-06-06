@@ -1,8 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
@@ -15,5 +13,5 @@ public interface ServicioEstacionamiento {
 	List<Auto> buscarAutosDeUnGarage(Garage garage1);
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 
-	HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
+	List<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
 }

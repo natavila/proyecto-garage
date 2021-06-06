@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
@@ -44,54 +45,116 @@ public class ControladorPagarGarage {
 		this.servicioBilletera = servicioBilletera;
 	}
 	
-	@RequestMapping("mostrarFormularioReservaEstadia/{id}")
-	public ModelAndView mostrarFormularioReservaEstadia(@PathVariable("id") Long id) {
+	@RequestMapping(path="/mostrarFormularioReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
+	public ModelAndView mostrarFormularioReservaEstadia(@PathVariable("cliente.id") Long idCliente,
+														@PathVariable("auto.id") Long idAuto,
+														@PathVariable("garage.id") Long idGarage,
+														HttpServletRequest request) {
 		
-		ModelMap modelo = new ModelMap();
-		Estacionamiento ticket = new Estacionamiento();
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null) {
+			if(rol.equals("cliente")) {
+				ModelMap modelo = new ModelMap();
+				Estacionamiento ticket = new Estacionamiento();
+				Auto auto1 = servicioAuto.buscarAuto(idAuto);
+				Cliente cliente1 = servicioCliente.consultarClientePorId(idCliente);
+				Garage garage = servicioGarage.buscarGarage(idGarage);
+				if(auto1 !=null && cliente1 !=null && garage !=null) {
+					
+					modelo.put("auto", auto1);
+					modelo.put("cliente", cliente1);
+					modelo.put("ticket", ticket);
+					modelo.put("garage", garage);
+					
+					return new ModelAndView("formularioReservaEstadia", modelo);
+				}
 		
-		List<Garage> listaGarage = servicioCobrarTickets.consultarGarage();
-		
-		for(Garage garage : listaGarage) {
-			if(garage.getId().equals(id)) {
-				modelo.addAttribute("garage", servicioCobrarTickets.contultarUnGarage(garage));
-				modelo.put("ticket", ticket);
+			return new ModelAndView("formularioReservaEstadia", modelo);
+				}
+			
 			}
-		}
-		
-		return new ModelAndView("formularioReservaEstadia", modelo);
-	}
-	@RequestMapping(path="/realizarReservaEstadia/{id}")
+		return new ModelAndView("redirect:/login");
+	}	
+
+	@RequestMapping(path="/realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
 	public ModelAndView procesarPagoEstadia(@RequestParam(value="fechaDesde")String fechaDesde,
 									@RequestParam(value="fechaHasta")String fechaHasta,
-									@PathVariable("id") Long id){
+									@PathVariable("cliente.id") Long idCliente,
+									@PathVariable("auto.id") Long idAuto,
+									@PathVariable("garage.id") Long idGarage,
+									HttpServletRequest request){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
 		ModelMap modelo = new ModelMap();
-		Estacionamiento ticket = new Estacionamiento();
-		List<Garage> garageBuscado = servicioCobrarTickets.consultarGarage();
-		for(Garage garage : garageBuscado) {
-			if(garage.getId().equals(id)) {
-				modelo.addAttribute("garage", servicioCobrarTickets.contultarUnGarage(garage));
-				ticket.setFechaDesde(fechaDesde);
-				ticket.setFechaHasta(fechaHasta);
-				ticket.setGarage1(garage);
+		Estacionamiento est = new Estacionamiento();
+		Auto auto = servicioAuto.buscarAuto(idAuto);
+		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		Garage garage = servicioGarage.buscarGarage(idGarage);
 				
-				Long dias = servicioCobrarTickets.calcularDias(ticket.getFechaDesde(), ticket.getFechaHasta());
-				
-				Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), fechaDesde, fechaHasta);
-				
-				ticket.setPrecioAPagar(precio);
-				
-				modelo.put("ticket", ticket);
-				
-				modelo.put("precio", precio);
-				
-				modelo.put("dias", dias);
-				
-				servicioCobrarTickets.registrarTicket(ticket);
+		if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
+			modelo.put("auto", auto);
+			modelo.put("cliente", cliente);
+			modelo.put("garage", garage);
+			est.setHoraDesde(fechaDesde);
+			est.setHoraHasta(fechaHasta);
+			est.setGarage1(garage);
+			
+			servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+			//auto.setUsandoGarage(true);
+			garage.setContador(garage.getContador()+1);
+			
+			
+			est.setAuto(auto);
+			est.setGarage1(garage);
+			
+			Long horas = servicioCobrarTickets.calcularDias(est.getFechaDesde(), est.getFechaHasta());
+			Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), est);
+			
+			est.setPrecioAPagar(precio);
+			
+			modelo.put("ticket", est);
+			
+			modelo.put("precio", precio);
+			
+			modelo.put("horas", horas);
+			
+			servicioCobrarTickets.registrarTicket(est);
+			return new ModelAndView("pagarMontoEstadia", modelo);
+		}
+		return new ModelAndView("AlertaAutoEnGarage", modelo);
+	
+	
+		}
+	return new ModelAndView("redirect:/login");	
+	}
+	
+	@RequestMapping(path="/pagarReservaEstadia/{cliente.id}/{estacionamiento.id}", method=RequestMethod.POST)
+	public ModelAndView pagarReservaEstadia(@PathVariable("cliente.id") Long idCliente,
+											@PathVariable("estacionamiento.id") Long idEstacionamiento) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+		Estacionamiento estacionamiento = servicioEst.buscarEstacionamiento(idEstacionamiento);
+		
+		try {
+			
+			if(cliente != null && billetera != null && estacionamiento != null) {
+				servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);
+				modelo.put("cliente", cliente.getNombre());
+				modelo.put("billetera", billetera.getSaldo());
+				modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
+				return new ModelAndView("confirmacionReserva", modelo);
 			}
+		} catch(Exception e) {
+			
+			modelo.put("cliente", cliente);
+			modelo.put("billetera", billetera);
+			modelo.put("estacionamiento", estacionamiento);
+			modelo.put("error", e.getMessage());
 		}
 		
-		return new ModelAndView("pagarMontoEstadia", modelo);
+		return null;
 	}
 	
 	@RequestMapping(path="/mostrarFormularioReservaHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
@@ -144,7 +207,7 @@ public class ControladorPagarGarage {
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
-		                                       
+		                                       //Esto le puse Nuevo
 			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
@@ -154,10 +217,7 @@ public class ControladorPagarGarage {
 				est.setGarage1(garage);
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-				servicioGarage.sumarContador(garage);
-		
-				//garage.setContador(garage.getContador()+1);
-				
+				//auto.setUsandoGarage(true);
 				
 				est.setAuto(auto);
 				est.setGarage1(garage);

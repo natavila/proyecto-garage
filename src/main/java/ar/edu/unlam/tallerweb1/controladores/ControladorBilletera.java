@@ -1,7 +1,5 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,14 +29,9 @@ public class ControladorBilletera {
 	}
 	
 	@RequestMapping(path="/registroBilletera/{id}",  method=RequestMethod.GET)
-	public ModelAndView registro(@PathVariable("id")Long id,
-			HttpServletRequest request) {
+	public ModelAndView registro(@PathVariable("id")Long id) {
 
-		String rol = (String) request.getSession().getAttribute("roll");
 		ModelMap modelo = new ModelMap();
-		if(rol != null)
-			if(rol.equals("cliente")) {
-		
 		Billetera billetera = new Billetera();
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		if(cliente != null) {
@@ -53,21 +46,15 @@ public class ControladorBilletera {
 		}
 		
 		return new ModelAndView("registroBilletera", modelo);
-			}
-		return new ModelAndView("redirect:/login", modelo);
 	}
 	
 	@RequestMapping(path="/procesarRegistroBilletera/{id}", method=RequestMethod.POST)
 	public ModelAndView procesarRegistro(@PathVariable("id") Long id,
-										@ModelAttribute("billetera") Billetera billetera,
-										HttpServletRequest request) {
+										@ModelAttribute("billetera") Billetera billetera) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		Billetera billeteraEncontrada = servicioBilletera.consultarBilleteraDeCliente(cliente);
-		String rol = (String) request.getSession().getAttribute("roll");
-
-		if(rol != null)
-			if(rol.equals("cliente")) {
+		
 		try {
 			if(cliente != null && billetera.getAlias() != "" && billeteraEncontrada == null) {
 				billetera.setSaldo(0.0);
@@ -87,22 +74,15 @@ public class ControladorBilletera {
 		}
 		
 		return new ModelAndView("redirect:/registroBilletera/{id}");
-			}
-		return new ModelAndView("redirect:/login", modelo);
+		
 	}
 	
 	@RequestMapping("/mostrarBilletera/{id}")
-	public ModelAndView mostrarBilletera(@PathVariable("id") Long id, 
-			HttpServletRequest request) {
+	public ModelAndView mostrarBilletera(@PathVariable("id") Long id) {
 
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
-		
-		String rol = (String) request.getSession().getAttribute("roll");
-
-		if(rol != null)
-			if(rol.equals("cliente")) {
 		
 		try {
 			
@@ -121,23 +101,15 @@ public class ControladorBilletera {
 			}
 		
 		return new ModelAndView("redirect:/registroBilletera/{id}");
-			}
-		return new ModelAndView("redirect:/login", modelo);
 	}
 	
 	@RequestMapping(path="/formularioSaldo/{id}", method=RequestMethod.GET)
 	public ModelAndView formularioSaldo(@PathVariable("id") Long id,
-										@ModelAttribute("billetera") Billetera billetera,
-										HttpServletRequest request) {
+										@ModelAttribute("billetera") Billetera billetera) {
 		ModelMap modelo = new ModelMap();
 		
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
-		
-		String rol = (String) request.getSession().getAttribute("roll");
-
-		if(rol != null)
-			if(rol.equals("cliente")) {
 		
 		try{
 			if(cliente != null & billetera != null)
@@ -150,24 +122,16 @@ public class ControladorBilletera {
 			modelo.put("error", e.getMessage());
 		}
 			return new ModelAndView("redirect:/formularioSaldo/{id}");
-			}
-		return new ModelAndView("redirect:/login", modelo);
 	}
 	
 	@RequestMapping(path="/procesarSaldo/{id}", method=RequestMethod.POST)
 	public ModelAndView ingresarSaldo(@PathVariable("id") Long id,
 									@ModelAttribute("billetera") Billetera billetera,
-									@RequestParam("monto") Double monto,
-									HttpServletRequest request
+									@RequestParam("monto") Double monto
 									) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
-		
-		String rol = (String) request.getSession().getAttribute("roll");
-
-		if(rol != null)
-			if(rol.equals("cliente")) {
 		
 		try {
 			if(cliente != null && billetera != null) {
@@ -182,9 +146,7 @@ public class ControladorBilletera {
 			modelo.put("error", e.getMessage());
 			return new ModelAndView("registroBilletera", modelo);
 		}
-		
+		//TIRA ERROR 400
 		return new ModelAndView("redirect:/formularioSaldo/{id}");
-			}
-		return new ModelAndView("redirect:/login", modelo);
 	}
 }

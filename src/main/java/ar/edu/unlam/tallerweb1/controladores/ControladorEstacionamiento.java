@@ -1,9 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
-import java.util.HashSet;
 import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,30 +32,21 @@ public class ControladorEstacionamiento {
 	}
 	@RequestMapping(path="/sacarAutoDeGarage/{GarageId}/{AutoId}", method=RequestMethod.GET)
 	public ModelAndView SacarAutosDeGarage( @PathVariable("GarageId")Long Gid,
-			@PathVariable("AutoId")Long Aid,
-			HttpServletRequest request
-			){
-		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
-			if(rol.equals("admin")) {
-				
-			
+			@PathVariable("AutoId")Long Aid){
+		
 		ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(Gid);
-			HashSet<Auto> autos = (HashSet<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
 			Auto autoSalir = servicioAuto.buscarAuto(Aid);
 			//servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);	
-			
+			modelo.put("auto", autos);
 			for(Auto e: autos) {
 				if(e.getId().equals(autoSalir.getId())) {
 					servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
-					servicioGarage.restarContador(garage2);
 				}
 			}
-			modelo.put("auto", autos);
+			
 			return new ModelAndView("redirect:/mostrarAutosDeUnGarage/{GarageId}", modelo);
-			}
-		return new ModelAndView("redirect:/login");
 	}
 	
 

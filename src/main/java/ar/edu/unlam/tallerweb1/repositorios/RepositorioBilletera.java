@@ -4,6 +4,8 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
+import ar.edu.unlam.tallerweb1.modelo.Garage;
 
 public interface RepositorioBilletera {
 	
@@ -13,7 +15,9 @@ public interface RepositorioBilletera {
 	
 	Billetera consultarBilleteraDeCliente(Cliente cliente);
 	
-	Double pagarReserva(Double precio, Double saldo);
+	void pagarReservaEstadia(Estacionamiento estacionamiento, Billetera billetera);
+	
+	void pagarReservaHora(Garage garage, Billetera billetera);
 	
 	Double consultarSaldo(Billetera saldo);
 	

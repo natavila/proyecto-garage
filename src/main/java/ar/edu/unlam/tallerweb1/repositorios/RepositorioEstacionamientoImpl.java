@@ -53,10 +53,6 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 		 return garage;		 
 	 }
 	
-
-	 	
-	 
-	
 	@Override
 	public Long calcularDias(String desde, String hasta) {
 		
