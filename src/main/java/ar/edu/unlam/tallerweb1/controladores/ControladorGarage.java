@@ -20,12 +20,10 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
-import ar.edu.unlam.tallerweb1.modelo.Localidad;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
-import ar.edu.unlam.tallerweb1.servicios.ServicioLocalidad;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
@@ -33,16 +31,17 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 public class ControladorGarage {
 	
 	private ServicioGarage servicioGarage;
-	
+	private ServicioRegistro servicioRegistro;
 	private ServicioAuto servicioAuto;
-	private ServicioLocalidad servicioLoc;
+	private ServicioCliente servicioCliente;
 	private ServicioLogin servicioLogin;
 	private ServicioEstacionamiento servicioEst;
 	@Autowired
-	public ControladorGarage(ServicioGarage servicioGarage, ServicioLocalidad servicioLoc,ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioLogin servicioLogin,ServicioEstacionamiento servicioEst ){
+	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioLogin servicioLogin,ServicioEstacionamiento servicioEst ){
 		this.servicioGarage = servicioGarage;
-		this.servicioLoc=servicioLoc;
+		this.servicioRegistro = servicioRegistro;
 		this.servicioAuto =servicioAuto;
+		this.servicioCliente = servicioCliente;
 		this.servicioLogin = servicioLogin;
 		this.servicioEst = servicioEst;
 	}
@@ -61,11 +60,6 @@ public class ControladorGarage {
 				ModelMap modelo = new ModelMap();
 				Garage garage1 = new Garage();
 				modelo.put("garage", garage1);
-				//List<Localidad> loc = servicioLoc.consultarLocalidad();
-				List <String> loc = servicioLoc.devolverNombresDeLocalidades();
-				
-				
-				modelo.put("loc", loc);
 				return new ModelAndView("agregarGarage", modelo);
 			}
 		return new ModelAndView("redirect:/login");	
@@ -202,8 +196,7 @@ public class ControladorGarage {
 		
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
-		modelo.put("garages", servicioGarage.consultarGarage());
-		
+		modelo.addAttribute("garages", servicioGarage.consultarGarage());
 		return new ModelAndView ("listaGarages", modelo);
 		}
 		return new ModelAndView("redirect:/login");

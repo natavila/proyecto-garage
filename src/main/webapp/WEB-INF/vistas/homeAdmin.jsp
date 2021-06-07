@@ -58,12 +58,10 @@
 		</div>
 		<a class="btn btn-primary" href="mostrarClientes" role="button">Mostrar clientes</a>
 		<br>
-		<br>
-		<a class="btn btn-primary" href="lista" role="button">Mostrar garages</a>
 		<br> 
-		<br>
-		<a class="btn btn-primary" href="mostrarRegistroLocalidad" role="button">Agregar Localidad</a>
-		<br> 
+		<a class="btn btn-primary" href="lista" role="button">Mostrar garajes</a>
+		
+		
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>

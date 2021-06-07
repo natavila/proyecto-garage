@@ -107,7 +107,25 @@ public class ControladorRegistroAuto {
 
 			
 	}
-	
+	/*@RequestMapping(path="/procesarRegistroAuto/{id}", method=RequestMethod.POST)
+	public ModelAndView procesarRegistroAuto(
+			@ModelAttribute("auto") Auto auto,
+			@PathVariable("id") Long id){
+		ModelMap modelo = new ModelMap();
+		List<Cliente> clienteBuscado = servicioRegistro.listaCliente();		
+		for(Cliente cliente : clienteBuscado) {
+			 if(cliente.getId().equals(id)) {
+				 modelo.addAttribute("cliente", servicioRegistro.consultarClientePorId(cliente));
+				 auto.setCliente(cliente);
+				 servicioRegistro.registrarAuto(auto);
+				 modelo.put("auto", auto);
+				 
+			 }
+		}
+		
+		return new ModelAndView("redirect:/home", modelo);
+			
+	}*/
 	
 	
 }
