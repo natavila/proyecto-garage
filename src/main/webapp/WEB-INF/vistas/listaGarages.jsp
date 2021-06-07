@@ -18,6 +18,11 @@
 		<h2>Nombre ${cliente.nombre} </h2>
 		<h2> Auto ${auto.patente} </h3>
 		<h3>Garages registrados</h3>  
+		<form class="d-flex">
+		        <input class="form-control me-2" type="search" placeholder="Buscar Garage" aria-label="Search">
+		        <button class="btn btn-outline-success" type="submit">Buscar</button>
+		      </form>
+		      
 	  <thead>
 	    <tr>
 	       		<th scope="col">Id</th>
