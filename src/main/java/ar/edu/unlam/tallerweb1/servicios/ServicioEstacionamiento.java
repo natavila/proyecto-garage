@@ -10,6 +10,7 @@ public interface ServicioEstacionamiento {
 	void registrarEstacionamiento(Estacionamiento est);
 
 	Estacionamiento buscarEstacionamiento(Long id);
+	Estacionamiento buscarEstacionamientoPorAuto(Auto auto);
 	List<Auto> buscarAutosDeUnGarage(Garage garage1);
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 

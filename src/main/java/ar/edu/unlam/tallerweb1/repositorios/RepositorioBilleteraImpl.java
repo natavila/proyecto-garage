@@ -49,9 +49,12 @@ public class RepositorioBilleteraImpl implements RepositorioBilletera{
 	}
 	
 	@Override
-	public void pagarReservaHora(Garage garage, Billetera billetera) {
+	public void pagarReservaHora(Estacionamiento estacionamiento, Billetera billetera) {
+		RepositorioEstacionamientoImpl repositorioEstacionamiento = new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioCobrarTicketsImpl servicioCobrarTickets = new ServicioCobrarTicketsImpl(repositorioEstacionamiento);
+		
 		final Session session = sessionFactory.getCurrentSession();
-		Double montoAPagar = billetera.getSaldo() - garage.getPrecioHora();
+		Double montoAPagar = billetera.getSaldo() - servicioCobrarTickets.calcularPrecioPorHora(estacionamiento.getPrecioAPagar(), estacionamiento.getHoraDesde(), estacionamiento.getHoraHasta());
 		billetera.setSaldo(montoAPagar);
 		session.update(billetera);
 	}

@@ -33,7 +33,7 @@ public class ServicioBilleteraImpl implements ServicioBilletera{
 
 	@Override
 	public void pagarReservaEstadia(Estacionamiento estacionamiento, Billetera billetera) {
-		if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) 
+		
 		 servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);	
 	}
 
@@ -66,6 +66,13 @@ public class ServicioBilleteraImpl implements ServicioBilletera{
 	public List<Billetera> consultarBilleteras() {
 		
 		return servicioBilletera.consultarBilleteras();
+	}
+
+	@Override
+	public void pagarReservaPorHora(Estacionamiento estacionamiento, Billetera billetera) {
+		
+		servicioBilletera.pagarReservaHora(estacionamiento, billetera);
+		
 	}
 
 	

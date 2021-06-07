@@ -25,6 +25,8 @@ public interface RepositorioEstacionamiento {
 	void registrarEstacionamiento(Estacionamiento est);
 
 	Estacionamiento buscarEstacionamiento(Long id);
-	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
+	
+	Estacionamiento buscarEstacionamientoPorAuto(Auto auto);
+	
 	List<Estacionamiento> buscarAutosDeUnGarage(Garage garage1);
 }

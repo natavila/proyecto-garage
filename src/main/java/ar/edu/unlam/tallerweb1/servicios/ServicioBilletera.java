@@ -17,6 +17,8 @@ public interface ServicioBilletera {
 	
 	void pagarReservaEstadia(Estacionamiento estacionamiento, Billetera billetera);
 	
+	void pagarReservaPorHora(Estacionamiento estacionamiento, Billetera billetera);
+	
 	Double consultarSaldo(Billetera saldo);
 	
 	void ingresarSaldo(Billetera billetera, Double monto);

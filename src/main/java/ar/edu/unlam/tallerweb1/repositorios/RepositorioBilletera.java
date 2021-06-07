@@ -17,7 +17,7 @@ public interface RepositorioBilletera {
 	
 	void pagarReservaEstadia(Estacionamiento estacionamiento, Billetera billetera);
 	
-	void pagarReservaHora(Garage garage, Billetera billetera);
+	void pagarReservaHora(Estacionamiento estacionamiento, Billetera billetera);
 	
 	Double consultarSaldo(Billetera saldo);
 	

@@ -65,6 +65,11 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				
 				return (List<Auto>) autoLista;
 			}
+
+			@Override
+			public Estacionamiento buscarEstacionamientoPorAuto(Auto auto) {
+				return repositorioEst.buscarEstacionamientoPorAuto(auto);
+			}
 			
 
 			/*@Override

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,29 +53,31 @@ public class ControladorPagarGarage {
 														HttpServletRequest request) {
 		
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null) {
+		if(rol != null)
 			if(rol.equals("cliente")) {
-				ModelMap modelo = new ModelMap();
-				Estacionamiento ticket = new Estacionamiento();
-				Auto auto1 = servicioAuto.buscarAuto(idAuto);
-				Cliente cliente1 = servicioCliente.consultarClientePorId(idCliente);
-				Garage garage = servicioGarage.buscarGarage(idGarage);
-				if(auto1 !=null && cliente1 !=null && garage !=null) {
-					
-					modelo.put("auto", auto1);
-					modelo.put("cliente", cliente1);
-					modelo.put("ticket", ticket);
-					modelo.put("garage", garage);
-					
-					return new ModelAndView("formularioReservaEstadia", modelo);
-				}
 		
-			return new ModelAndView("formularioReservaEstadia", modelo);
-				}
-			
+		
+		ModelMap modelo = new ModelMap();
+		Estacionamiento ticket = new Estacionamiento();
+		Auto auto1 = servicioAuto.buscarAuto(idAuto);
+		Cliente cliente1 = servicioCliente.consultarClientePorId(idCliente);
+		Garage garage = servicioGarage.buscarGarage(idGarage);
+		
+			if(auto1 !=null && cliente1 !=null && garage !=null) {
+				
+				modelo.put("auto", auto1);
+				modelo.put("cliente", cliente1);
+				modelo.put("ticket", ticket);
+				modelo.put("garage", garage);
+				
+				return new ModelAndView("formularioReservaEstadia", modelo);
+			}
+	
+		return new ModelAndView("formularioReservaEstadia", modelo);
 			}
 		return new ModelAndView("redirect:/login");
-	}	
+	}
+		
 
 	@RequestMapping(path="/realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
 	public ModelAndView procesarPagoEstadia(@RequestParam(value="fechaDesde")String fechaDesde,
@@ -91,71 +94,67 @@ public class ControladorPagarGarage {
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
-						
-		if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
-			modelo.put("auto", auto);
-			modelo.put("cliente", cliente);
-			modelo.put("garage", garage);
-			est.setFechaDesde(fechaDesde);
-			est.setFechaHasta(fechaHasta);
-			est.setGarage1(garage);
+		                                       //Esto le puse Nuevo
+			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
+				modelo.put("auto", auto);
+				modelo.put("cliente", cliente);
+				modelo.put("garage", garage);
+				est.setFechaDesde(fechaDesde);
+				est.setFechaHasta(fechaHasta);
+				est.setGarage1(garage);
+				
+				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+				servicioGarage.sumarContador(garage);
+				//auto.setUsandoGarage(true);
+				
+				est.setAuto(auto);
+				est.setGarage1(garage);
+				
+				Long dias = servicioCobrarTickets.calcularDias(est.getFechaDesde(), est.getFechaHasta());
+				Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), fechaDesde, fechaHasta);
+				
+				est.setPrecioAPagar(precio);
+				
+				modelo.put("ticket", est);
+				
+				modelo.put("precio", precio);
+				
+				modelo.put("dias", dias);
+				
+				servicioCobrarTickets.registrarTicket(est);
+				
+				return new ModelAndView("pagarMontoEstadia", modelo);
+			}
+			return new ModelAndView("AlertaAutoEnGarage", modelo);
+		
+		
+			}
+		return new ModelAndView("redirect:/login");	
 			
-			servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-			//auto.setUsandoGarage(true);
-			servicioGarage.sumarContador(garage);
-			
-			
-			est.setAuto(auto);
-			est.setGarage1(garage);
-			
-			
-			Long dias = servicioCobrarTickets.calcularDias(fechaDesde, fechaHasta);
-			Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), fechaDesde, fechaHasta);
-			
-			est.setPrecioAPagar(precio);
-			
-			modelo.put("ticket", est);
-			
-			modelo.put("precio", precio);
-			
-			modelo.put("dias", dias);
-			
-			servicioCobrarTickets.registrarTicket(est);
-			return new ModelAndView("pagarMontoEstadia", modelo);
-		}
-		return new ModelAndView("AlertaAutoEnGarage", modelo);
+}
 	
-	
-		}
-	return new ModelAndView("redirect:/login");	
-	}
-	
-	@RequestMapping(path="/pagarReservaEstadia/{cliente.id}/{estacionamiento.id}", method=RequestMethod.POST)
+	@RequestMapping(path="/pagarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
 	public ModelAndView pagarReservaEstadia(@PathVariable("cliente.id") Long idCliente,
-											@PathVariable("estacionamiento.id") Long idEstacionamiento) {
+											@PathVariable("auto.id") Long idAuto,
+											@PathVariable("garage.id") Long idGarage) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
-		Estacionamiento estacionamiento = servicioEst.buscarEstacionamiento(idEstacionamiento);
+		Garage garage = servicioGarage.buscarGarage(idGarage);
+		Auto auto = servicioAuto.buscarAuto(idAuto);
+		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
 		
-		try {
+		
 			
-			if(cliente != null && billetera != null && estacionamiento != null) {
+			if(billetera != null) {
 				servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);
 				modelo.put("cliente", cliente.getNombre());
 				modelo.put("billetera", billetera.getSaldo());
 				modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
-				return new ModelAndView("confirmacionReserva", modelo);
+				return new ModelAndView("confirmacionReservaEstadia", modelo);
 			}
-		} catch(Exception e) {
-			
-			modelo.put("cliente", cliente);
-			modelo.put("billetera", billetera);
-			modelo.put("estacionamiento", estacionamiento);
-			modelo.put("error", e.getMessage());
-		}
 		
-		return null;
+		return new ModelAndView("realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}");
 	}
 	
 	@RequestMapping(path="/mostrarFormularioReservaHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
@@ -246,4 +245,34 @@ public class ControladorPagarGarage {
 		return new ModelAndView("redirect:/login");	
 			
 }
+	
+	@RequestMapping(path="/pagarReservaPorHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
+	public ModelAndView pagarReservaPorHora(@PathVariable("cliente.id") Long idCliente,
+											@PathVariable("auto.id") Long idAuto,
+											@PathVariable("garage.id") Long idGarage) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+		Garage garage = servicioGarage.buscarGarage(idGarage);
+		Auto auto = servicioAuto.buscarAuto(idAuto);
+		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
+		
+		
+			
+			if(billetera != null && garage != null && auto != null) {
+				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
+					servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
+					modelo.put("cliente", cliente.getNombre());
+					modelo.put("billetera", billetera.getSaldo());
+					modelo.put("garage", garage.getNombre());
+					modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
+					return new ModelAndView("confirmacionReservaPorHora", modelo);
+				}else {
+					return new ModelAndView("saldoInsuficiente", modelo);
+				}
+				
+			}
+		
+		return new ModelAndView("realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}");
+	}
 }

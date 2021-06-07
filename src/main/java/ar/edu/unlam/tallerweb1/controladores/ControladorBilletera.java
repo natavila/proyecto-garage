@@ -103,8 +103,8 @@ public class ControladorBilletera {
 		return new ModelAndView("redirect:/registroBilletera/{id}");
 	}
 	
-	@RequestMapping(path="/formularioSaldo/{id}", method=RequestMethod.GET)
-	public ModelAndView formularioSaldo(@PathVariable("id") Long id,
+	@RequestMapping(path="/formularioSaldo/{cliente.id}", method=RequestMethod.GET)
+	public ModelAndView formularioSaldo(@PathVariable("cliente.id") Long id,
 										@ModelAttribute("billetera") Billetera billetera) {
 		ModelMap modelo = new ModelMap();
 		
