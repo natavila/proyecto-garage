@@ -24,8 +24,7 @@ public class ServicioPlanImpl implements ServicioPlan {
 
 	@Override
 	public void crearPlan(Plan plan) {
-		// TODO Auto-generated method stub
-
+		repositorioPlan.crearPlan(plan);
 	}
 
 	@Override
@@ -36,12 +35,18 @@ public class ServicioPlanImpl implements ServicioPlan {
 
 	@Override
 	public void darDeBajaPlan(Long id) {
-		// TODO Auto-generated method stub
+		repositorioPlan.darDeBajaPlan(id);
 
 	}
 
 	public List<Plan> obtenerPlanes() {
 		return repositorioPlan.listaDePlanes();
+	}
+
+	@Override
+	public Plan consultarPlan(Long id) {
+		return repositorioPlan.consultarPlan(id);
+
 	}
 
 }

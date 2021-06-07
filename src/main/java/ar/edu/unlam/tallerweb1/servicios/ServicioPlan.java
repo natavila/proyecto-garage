@@ -14,4 +14,6 @@ public interface ServicioPlan {
 	public void darDeBajaPlan(Long id);
 
 	public List<Plan> obtenerPlanes();
+
+	public Plan consultarPlan(Long id);
 }
