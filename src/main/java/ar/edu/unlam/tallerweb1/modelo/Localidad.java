@@ -28,8 +28,6 @@ public class Localidad {
 		this.id = id;
 	}
 
-
-
 	public String getLocalidad() {
 		return localidad;
 	}
@@ -37,16 +35,6 @@ public class Localidad {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-
-	public List<Garage> getGarage() {
-		return garage;
-	}
-
-	public void setGarage(List<Garage> garage) {
-		this.garage = garage;
-	}
-
-	
 	
 	
 }
