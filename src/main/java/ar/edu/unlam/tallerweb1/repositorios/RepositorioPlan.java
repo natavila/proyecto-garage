@@ -14,5 +14,7 @@ public interface RepositorioPlan {
 	public void darDeBajaPlan(Long id);
 
 	public List<Plan> listaDePlanes();
+	
+	public Plan consultarPlan(Long id);
 
 }

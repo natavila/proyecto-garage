@@ -51,10 +51,9 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 	public List<Plan> listaDePlanes() {
 		final Session session = sessionFactory.getCurrentSession();
 
-		/*
-		 * List<Plan> listaDePlanes = session.createCriteria(Plan.class) .list();
-		 */
-		return generarPlanesTruchos();
+		return session.createCriteria(Plan.class).list();
+
+		// return generarPlanesTruchos();
 	}
 
 	private List<Plan> generarPlanesTruchos() {
@@ -83,6 +82,13 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 		listaDePlanes.add(plan3);
 
 		return listaDePlanes;
+	}
+
+	@Override
+	public Plan consultarPlan(Long id) {
+		final Session session = sessionFactory.getCurrentSession();
+		return (Plan) session.createCriteria(Plan.class).add(Restrictions.eq("id", id)).uniqueResult();
+
 	}
 
 }
