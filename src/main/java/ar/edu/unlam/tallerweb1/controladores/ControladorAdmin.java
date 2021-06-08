@@ -24,13 +24,7 @@ public class ControladorAdmin {
 		this.servicioPlan = servicioPlan;
 	}
 
-	@RequestMapping(path = "/planes", method = RequestMethod.GET)
-	public ModelAndView planes() {
-		ModelMap modelo = new ModelMap();
-		modelo.put("planes", servicioPlan.obtenerPlanes());
-
-		return new ModelAndView("planes", modelo);
-	}
+	
 
 	@RequestMapping("/crearPlan")
 	public ModelAndView registroPlan() {
@@ -64,4 +58,6 @@ public class ControladorAdmin {
 		return new ModelAndView("crearPlan", modelo);
 	}
 
+	
+	
 }
