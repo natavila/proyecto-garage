@@ -63,6 +63,7 @@
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/registroBilletera/${cliente.id}" role="button">Generar billetera</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
 		 <a class="btn btn-primary" href="${pageContext.request.contextPath}/formularioSaldo/${cliente.id}" role="button">Ingresar dinero</a>
+		<a class="btn btn-primary" href="planes" role="button">Elegir Plan</a>
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>

@@ -17,7 +17,7 @@
 			<td>${plan.nombre}</td>
 			<br>
 
-
+<td><a href=""> Elegir </a></td>
 		</tr>
 
 	</c:forEach>
