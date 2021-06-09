@@ -16,4 +16,6 @@ public interface ServicioEstacionamiento {
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 
 	HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
+
+	void cambiarEstadoEstacionamiento(Estacionamiento est);
 }

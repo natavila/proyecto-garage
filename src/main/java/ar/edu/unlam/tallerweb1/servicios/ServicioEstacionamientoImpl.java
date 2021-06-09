@@ -19,12 +19,14 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
 @Transactional
 public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			private RepositorioEstacionamiento repositorioEst;
-			
+			private ServicioGarage servicioGarage;
+			private ServicioAuto servicioAuto;
 			
 			@Autowired 
-			public ServicioEstacionamientoImpl(RepositorioEstacionamiento repositorioEst) {
+			public ServicioEstacionamientoImpl(RepositorioEstacionamiento repositorioEst, ServicioGarage servicioGarage, ServicioAuto servicioAuto) {
 				this.repositorioEst=repositorioEst;
-				
+				this.servicioGarage = servicioGarage;
+				this.servicioAuto = servicioAuto;
 			}
 
 			@Override
@@ -51,30 +53,36 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				}
 				
 				return (List<Auto>) autoLista;
+				
 			}
 			
 			@Override
 			public HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
-				List<Auto> autosActivos= buscarAutosDeUnGarage(garage1);
+				//List<Auto> autosActivos= buscarAutosDeUnGarage(garage1);
 				HashSet<Auto> autoLista = new HashSet<Auto>();
 				
-				for(Auto e: autosActivos) {
-					if(e.getUsandoGarage()==true) {
-						autoLista.add(e);
-					}
-					
-				}
+				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
 				
+				for(Estacionamiento e: est) {
+					if(e.getActiva().equals(true) ) {
+						autoLista.add(e.getAuto());
+					}
+				}
+			
 				return (HashSet<Auto>) autoLista;
 			}
 			
-
-			/*@Override
-			public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {
+			@Override 
+			public void cambiarEstadoEstacionamiento(Estacionamiento est) {
 				
-				return repositorioEst.asignarAutoaGarage(garage1, auto1);
+				if(est.getActiva().equals(true)) {
+					repositorioEst.cambiarEstadoEstacionamiento(est);
+			
+			}else {
+				
 			}
 			
-			
-		*/
+
+		
+			}
 }

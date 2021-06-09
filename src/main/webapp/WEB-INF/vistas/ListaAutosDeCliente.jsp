@@ -12,7 +12,7 @@
 <body>
 	<div class="container mt-3">
 		<table class="table table-hover">
-		<h1>Autos De Cliente</h1>
+		<h3>HOLA ${cliente.nombre} CON QUE AUTO VAS A VIAJAR?</h3>
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
@@ -30,7 +30,7 @@
 	                  
 	                  
 	                
-						<td><a href="${pageContext.request.contextPath}/ElegirGaragesEst/${cliente.id}/${auto.id}" role="button"> Elegir </a></td>
+						<td><a href="${pageContext.request.contextPath}/BuscarGaragesEst/${cliente.id}/${auto.id}" role="button"> Elegir </a></td>
 					
 	                </tr>
 	                

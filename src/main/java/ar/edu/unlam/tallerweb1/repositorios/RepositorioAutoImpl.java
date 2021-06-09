@@ -22,11 +22,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	public RepositorioAutoImpl(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}
-
-	
-		
-
-	 
+    
 	@Override
 		public void registrarAuto(Auto auto) { 
 	    		
@@ -57,7 +53,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	
 	
 	
-	/*@Override
+	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();
 			Auto auto1 =	(Auto) session.createCriteria(Auto.class)
@@ -75,7 +71,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	}
 	
 	
-*/	
+
 
 
 
@@ -104,11 +100,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 
 
 
-	@Override
-	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	
 

@@ -44,7 +44,7 @@
 				    ${Error}
 				 				        	        
 		        </c:if>
-		        <p>¿Todavia no tenes cuenta? Registrate como <a href="mostrarRegistro">Cliente</a> o <a href="mostrarRegistro">Dueño</a></p>
+		        <p>¿Todavia no tenes cuenta? <a href="mostrarRegistro">Registrate</a></p>
 		        <a href="/mostrarOlvido">¿Olvidaste tu contraseña?</a>
 			</div>
 		</div>

@@ -36,13 +36,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 	
 	
 	
-		@Override
-		public Garage  contultarUnGarage(Garage garage1) {
-			final Session session = sessionFactory.getCurrentSession();
-			return (Garage) session.createCriteria(Garage.class)
-					.add(Restrictions.eq("id",garage1.getId()))
-					.uniqueResult();
-		}
+	
 		
 		
 	@Override 
@@ -75,7 +69,13 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 				.uniqueResult();
 	}
 	
-	
+	@Override
+	public Garage  contultarUnGarage(Garage garage1) {
+		final Session session = sessionFactory.getCurrentSession();
+		return (Garage) session.createCriteria(Garage.class)
+				.add(Restrictions.eq("id",garage1.getId()))
+				.uniqueResult();
+	}
 
 	
 	@Override
@@ -88,7 +88,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		return lista;
 	}
 	
-	
+	/*
 	@Override
 	//Falta Hacer
 	public Auto BuscarAutoEnGarage(Auto auto1, Garage garage1) {
@@ -107,6 +107,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 	
 		return buscado;
 }
+*/
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
 	public List<Garage> buscarPorLocalidad(Garage garage1) {
@@ -143,6 +144,12 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		.list();
 
 
+	}
+
+	@Override
+	public Auto BuscarAutoEnGarage(Auto auto, Garage garage) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/*@Override

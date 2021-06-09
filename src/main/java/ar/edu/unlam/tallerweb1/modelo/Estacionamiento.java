@@ -27,6 +27,7 @@ public class Estacionamiento {
 	private String horaDesde;
 	private String horaHasta;
 	private Double precioAPagar;
+	private Boolean activa;
 
 	@ManyToOne
 	private Garage garage1;
@@ -94,6 +95,12 @@ public class Estacionamiento {
 	}
 	public void setAuto(Auto auto) {
 		this.auto = auto;
+	}
+	public Boolean getActiva() {
+		return activa;
+	}
+	public void setActiva(Boolean activa) {
+		this.activa = activa;
 	}
 	
 	

@@ -30,7 +30,7 @@
 	                  
 	                  
 	               
-						<td><a href="${pageContext.request.contextPath}/sacarAutoDeGarage/${garage.id}/${auto.id}">Sacar Auto</a></td>
+						
 	                </tr>
 	                
 	            </c:forEach>
