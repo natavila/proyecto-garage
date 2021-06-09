@@ -131,6 +131,10 @@ private RepositorioGarage repositorioGarage;
 		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
 		
 		garage1.setContador(garage1.getContador()-1);
+		
+		if(garage1.getContador()<0) {
+			garage1.setContador(0);
+		}
 	}
 	
 	

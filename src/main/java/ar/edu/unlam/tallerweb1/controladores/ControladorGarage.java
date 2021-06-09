@@ -236,9 +236,6 @@ public class ControladorGarage {
 		Auto auto = servicioAuto.buscarAuto(autoId);
 		
 		//Buscador buscada = new Buscador();
-		
-		
-		
 		//modelo.put("buscada", buscada);
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
