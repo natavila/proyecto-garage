@@ -48,7 +48,7 @@ public class ControladorBilletera {
 		return new ModelAndView("registroBilletera", modelo);
 	}
 	
-	@RequestMapping(path="/procesarRegistroBilletera/{id}", method=RequestMethod.POST)
+	@RequestMapping(path="/procesarRegistroBilletera/{id}", method=RequestMethod.GET)
 	public ModelAndView procesarRegistro(@PathVariable("id") Long id,
 										@ModelAttribute("billetera") Billetera billetera) {
 		ModelMap modelo = new ModelMap();
@@ -56,14 +56,18 @@ public class ControladorBilletera {
 		Billetera billeteraEncontrada = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
 		try {
-			if(cliente != null && billetera.getAlias() != "" && billeteraEncontrada == null) {
+			if(cliente != null && billeteraEncontrada == null) {
 				billetera.setSaldo(0.0);
 				billetera.setCliente(cliente);
 				servicioBilletera.registrarBilletera(billetera);
-				modelo.addAttribute("cliente", cliente);
+				modelo.put("cliente", cliente);
 				modelo.put("billetera", billetera);
 				modelo.put("saldo", billetera.getSaldo());
+				
 				return new ModelAndView("confirmacionBilletera", modelo);
+		}else {
+			modelo.put("cliente", cliente);
+			modelo.put("error", "Usted ya posee una billetera");
 		}
 		
 		}catch(Exception e) {
@@ -73,7 +77,7 @@ public class ControladorBilletera {
 			
 		}
 		
-		return new ModelAndView("redirect:/registroBilletera/{id}");
+		return new ModelAndView("registroBilletera", modelo);
 		
 	}
 	
@@ -92,6 +96,9 @@ public class ControladorBilletera {
 				modelo.put("apellido", cliente.getApellido());
 			
 			return new ModelAndView("miBilletera", modelo);
+		}else {
+			
+			modelo.put("mensaje", "Usted no posee una billetera. Por favor, genere una");
 		}
 			
 			}catch(Exception e) {
@@ -100,7 +107,7 @@ public class ControladorBilletera {
 	
 			}
 		
-		return new ModelAndView("redirect:/registroBilletera/{id}");
+		return new ModelAndView("redirect:/registroBilletera/{id}", modelo);
 	}
 	
 	@RequestMapping(path="/formularioSaldo/{cliente.id}", method=RequestMethod.GET)
@@ -112,7 +119,7 @@ public class ControladorBilletera {
 		billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
 		try{
-			if(cliente != null & billetera != null)
+			if(cliente != null && billetera != null)
 		
 			modelo.put("cliente", cliente);
 			return new ModelAndView("ingresarSaldo", modelo);	
@@ -135,18 +142,21 @@ public class ControladorBilletera {
 		
 		try {
 			if(cliente != null && billetera != null) {
-				servicioBilletera.ingresarSaldo(billetera, monto);
-				modelo.put("saldo", billetera.getSaldo());
-				
-				return new ModelAndView("confirmacionSaldo", modelo);	
+				if(monto > 0) {
+					servicioBilletera.ingresarSaldo(billetera, monto);
+					modelo.put("saldo", billetera.getSaldo());
+					
+					return new ModelAndView("confirmacionSaldo", modelo);
+				}else {
+					
+					modelo.put("error", "Ingrese un monto mayor");
+				}					
 			}
 		} catch(Exception e) {
-			
-			modelo.put("mensaje", "Debe generar una billetera");
+
 			modelo.put("error", e.getMessage());
 			return new ModelAndView("registroBilletera", modelo);
 		}
-		//TIRA ERROR 400
-		return new ModelAndView("redirect:/formularioSaldo/{id}");
+		return new ModelAndView("redirect:/formularioSaldo/{id}", modelo); //ARREGLAR
 	}
 }

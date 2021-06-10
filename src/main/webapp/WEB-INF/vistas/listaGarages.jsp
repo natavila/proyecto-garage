@@ -12,11 +12,11 @@
 <body>
 <div class="container mt-3">
 		<table class="table table-hover">
-		<h1>Elegir GARAGE!!</h1>
+		<h1>Elija un garage</h1>
 		
 		
-		<h2>Nombre ${cliente.nombre} </h2>
-		<h2> Auto ${auto.patente} </h3>
+		<h2>Nombre: ${cliente.nombre} </h2>
+		<h2>Patente del auto: ${auto.patente} </h3>
 		<h3>Garages registrados</h3>  
 	  <thead>
 	    <tr>
@@ -27,7 +27,7 @@
                 <th scope="col">Numero</th>
                 <th scope="col">Precio Hora $$</th>
                 <th scope="col">Precio Estadia $$</th>
-                <th scope="col">Precio Mes $$</th>
+        
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -46,12 +46,9 @@
                     </td>                
                     <td>${garage.precioEstadia}
                     <br>
-                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaEstadia/${garage.id}/${auto.id}/${garage.id}">Reservar</a>
+                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaEstadia/${cliente.id}/${auto.id}/${garage.id}">Reservar</a>
                     </td>                                    
-                    <td>${garage.precioMes}
-                    <br>
-                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaSemana/${garage.id}">Reservar</a>
-                    </td>
+          
                     
                     
 						

@@ -42,10 +42,15 @@ public class ControladorRegistro {
 			) {
 		//Validar que la password sea igual a la repassword
 		ModelMap modelo = new ModelMap();
+		Usuario usuario = new Usuario();
 		Cliente verif = servicioLogin.verificarCorreo(cliente);
 		if(cliente.getPassword().equals(repass) && verif == null && cliente.getNombre() != "") {
 			modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
-				servicioRegistro.agregarCliente(cliente);
+			cliente.setRoll("cliente");
+			usuario.setEmail(cliente.getEmail());
+			usuario.setPassword(cliente.getPassword());
+			servicioRegistro.agregarCliente(cliente);
+				
 				
 		}else {
 			modelo.put("mensaje", "Error. No coinciden las passwords");

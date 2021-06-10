@@ -23,7 +23,6 @@ public class Garage {
 	private Integer numero;
 	private Double precioHora;
 	private Double precioEstadia;
-	private Double precioMes;
 	private String horario;
 	private String localidad;
 	private Integer contador = 0;
@@ -105,12 +104,7 @@ public class Garage {
 	public void setPrecioEstadia(Double precioEstadia) {
 		this.precioEstadia = precioEstadia;
 	}
-	public Double getPrecioMes() {
-		return precioMes;
-	}
-	public void setPrecioMes(Double precioMes) {
-		this.precioMes = precioMes;
-	}
+
 	public String getHorario() {
 		return horario;
 	}

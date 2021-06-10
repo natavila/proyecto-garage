@@ -41,7 +41,7 @@
 				<%--Bloque que es visible si el elemento error no estÃ¡ vacÃ­o	--%>
 				<c:if test="${not empty Error}">
 				
-				    ${Error}
+				    <h4>${Error}</h4>
 				 				        	        
 		        </c:if>
 		        <p>¿Todavia no tenes cuenta? Registrate como <a href="mostrarRegistro">Cliente</a> o <a href="mostrarRegistro">Dueño</a></p>

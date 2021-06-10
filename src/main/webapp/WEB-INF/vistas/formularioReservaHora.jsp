@@ -13,7 +13,7 @@
 <div class="container">
 <h4>Garage: "${garage.nombre}"</h4>
 <h4>Patente: ${auto.patente}</h4>
-<h4>Nombre: ${cliente.nombre}</h4>
+<h4>Cliente: ${cliente.nombre}</h4>
 
 
 <form:form action="${pageContext.request.contextPath}/realizarReservaHora/${cliente.id}/${auto.id}/${garage.id}" method="POST" modelAttribute="ticket">

@@ -32,7 +32,6 @@
 					<form:input path="localidad" id="localidad" name="localidad" type="text" class="form-control"/><p>Localidad</p>
 					<form:input path="precioHora" id="precioHora" name="precioHora" type="text" class="form-control"/><p>PRECIO HORA</p>
 					<form:input path="precioEstadia" id="precioEstadia" name="precioEstadia" type="text" class="form-control"/><p>PRECIO ESTADIA</p>
-					<form:input path="precioMes" id="precioMes" name="precioMes" type="text" class="form-control"/><p>PRECIO MES</p>
 					<form:input path="capacidad" id="capacidad" name="capacidad" type="text" class="form-control"/><p>CAPACIDAD</p>	
 					<button class="btn btn-lg btn-primary btn-block" Type="Submit">Agregar</button>
 				</form:form>

@@ -18,7 +18,6 @@
 	      <th scope="col">ID</th>
 	      <th scope="col">Nombre</th>
 	      <th scope="col">Apellido</th>
-	      <th scope="col">DNI</th>
 	      <th scope="col">Email</th>
 	       <th scope="col"></th>
 	    </tr>
@@ -31,7 +30,6 @@
 	                    <td><b>${cliente.id}</b></td>
 	                    <td>${cliente.nombre}</td>
 	                    <td>${cliente.apellido}</td>
-	                    <td>${cliente.dni}</td>
 	                    <td>${cliente.email}</td>
 	                    <td><a href="${pageContext.request.contextPath}/mostrarAutosClientes/${cliente.id}">Mostrar Autos De Clientes</a></td>
 						<td><a href="">Modificar Cliente</a></td>

@@ -15,8 +15,6 @@ public class Cliente {
 
 	private String nombre;
 	private String apellido;
-	private Integer dni;
-	private String sexo;
 	private String email;
 	private String password;
 	private String roll;
@@ -59,22 +57,6 @@ public class Cliente {
 		this.apellido = apellido;
 	}
 
-	public Integer getDni() {
-		return dni;
-	}
-
-	public void setDni(Integer dni) {
-		this.dni = dni;
-	}
-
-	public String getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -107,10 +89,5 @@ public class Cliente {
 		this.plan = plan;
 	}
 
-	@Override
-	public String toString() {
-		return "Cliente [id=" + id + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", sexo=" + sexo
-				+ ", email=" + email + ", password=" + password + "]";
-	}
 
 }

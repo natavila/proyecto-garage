@@ -79,7 +79,7 @@ public class ControladorPagarGarage {
 	}
 		
 
-	@RequestMapping(path="/realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
+	@RequestMapping(path="/realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.POST)
 	public ModelAndView procesarPagoEstadia(@RequestParam(value="fechaDesde")String fechaDesde,
 									@RequestParam(value="fechaHasta")String fechaHasta,
 									@PathVariable("cliente.id") Long idCliente,
@@ -146,12 +146,17 @@ public class ControladorPagarGarage {
 		
 		
 			
-			if(billetera != null) {
-				servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);
-				modelo.put("cliente", cliente.getNombre());
-				modelo.put("billetera", billetera.getSaldo());
-				modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
-				return new ModelAndView("confirmacionReservaEstadia", modelo);
+			if(billetera != null && garage != null && auto != null) {
+				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
+					servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);
+					modelo.put("cliente", cliente.getNombre());
+					modelo.put("garage", garage.getNombre());
+					modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
+					return new ModelAndView("confirmacionReservaEstadia", modelo);
+				}else {
+					return new ModelAndView("saldoInsuficiente", modelo);
+				}
+				
 			}
 		
 		return new ModelAndView("realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}");

@@ -12,6 +12,7 @@
 		<h1>Mi billetera</h1>
 		<h3>${nombre} ${apellido}</h3>
 		<h3>Saldo: ${saldo}</h3>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/formularioSaldo/${cliente.id}" role="button">Ingresar dinero</a>
 	 </div>
 </body>
 </html>

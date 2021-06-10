@@ -98,6 +98,11 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 				.uniqueResult();
 	}
 
+
+
+
+
+
 	
 
 	

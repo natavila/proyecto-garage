@@ -131,7 +131,7 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 		final Session session = sessionFactory.getCurrentSession();
 		return (Cliente) session.createCriteria(Cliente.class)
 				.createAlias("usuario", "usuarioBuscado")
-				.add(Restrictions.eq("usuarioBuscado,id", cliente.getId()))
+				.add(Restrictions.eq("usuarioBuscado.id", cliente.getId()))
 				.uniqueResult();
 	}
 

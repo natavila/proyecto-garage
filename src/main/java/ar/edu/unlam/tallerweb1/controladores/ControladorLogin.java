@@ -72,16 +72,21 @@ public class ControladorLogin {
 			}
 	
 		}else {
+			
 			model.put("Error", "Usuario o clave incorrecta");
-		//	 si el usuario no existe agrega un mensaje de error en el modelo.
 		}
-		return new ModelAndView("redirect:/login", model);
+			
+			return new ModelAndView("redirect:/login", model);
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.
-	@RequestMapping(path = "/home", method = {RequestMethod.GET, RequestMethod.PUT})
-	public ModelAndView irAHome() {
-		return new ModelAndView("home");
+	@RequestMapping(path = "/home", method = RequestMethod.GET)
+	public ModelAndView irAHome(@ModelAttribute("usuario")Cliente cliente) {
+		ModelMap model = new ModelMap();
+		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
+		if(usuarioBuscado.getRoll().equals("cliente"))
+			model.put("cliente", usuarioBuscado);
+		return new ModelAndView("home", model);
 	}
 
 	

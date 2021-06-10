@@ -17,8 +17,6 @@ public interface RepositorioAuto {
 
 	Auto buscarAuto(Long id);
 
-	
-	
 	void cambiarEstadoDeSiestaEnGarageOno(Auto auto);
 	
 	

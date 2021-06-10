@@ -6,5 +6,8 @@ public interface ServicioUsuario {
 
 	void registrarUsuario(Usuario usuario);
 	
+	Usuario consultarUsuarioPorId(Usuario usuario);
+	
 	Usuario consultarUsuario(Usuario usuario);
+
 }

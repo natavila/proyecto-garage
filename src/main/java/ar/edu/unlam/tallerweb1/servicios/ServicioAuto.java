@@ -14,4 +14,5 @@ public interface ServicioAuto{
 	public List<Auto> consultarAutoDeCliente(Cliente cliente);
 	public Auto buscarAuto(Long id);
 	void cambiarEstadoDeSiestaEnGarageOno(Auto auto);
+	
 }

@@ -62,23 +62,6 @@ public class ControladorRegistroAuto {
 			modelo.put("error", "Cliente no registrado");
 		}
 		
-			
-//		try 
-//		servicioAuto.regitrarAuto(auto)
-//		catch (Exception e)
-//		modelo.put("auto", autoporparametro)
-//		model.put("error",e.getMessage())
-//		return modelAndm
-//		modelo.addAttribute("cliente", servicioCliente.consultarClientePorId(id));
-//		List<Cliente> clienteBuscado = servicioRegistro.listaCliente();
-//		 for(Cliente cliente : clienteBuscado) {
-//			 if(cliente.getId().equals(id)) {
-//				
-//				 modelo.put("auto", auto);
-//	
-//			 }
-//			 
-//		 }
 		 return new ModelAndView("registroAuto", modelo);
 			}
 		return new ModelAndView("redirect:/login");//Se le envia a la vista registro el modelo con el objeto usuario
@@ -96,13 +79,13 @@ public class ControladorRegistroAuto {
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
 					servicioAuto.registrarAuto(auto);
-					modelo.put("error", "auto registrado correctamente");
+					modelo.put("error", "Auto registrado correctamente");
 					return new ModelAndView("confirmacionRegistroAuto", modelo);
 				 
 			 	}else {
 			 		
-			 		modelo.put("error", "error al registrar auto");
-			 		return new ModelAndView("redirect:/mostrarRegistroAuto/{id}/{nombre}");
+			 		modelo.put("error", "Patente ya registrada");
+			 		return new ModelAndView("redirect:/mostrarRegistroAuto/{id}/{nombre}", modelo);
 			 	}
 
 			

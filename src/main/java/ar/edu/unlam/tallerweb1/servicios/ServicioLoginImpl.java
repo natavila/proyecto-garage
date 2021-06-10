@@ -59,6 +59,8 @@ public class ServicioLoginImpl implements ServicioLogin {
 		return servicioLoginDao.consultarAdministrador(administrador);
 	}
 
+	
+
 
 	
 

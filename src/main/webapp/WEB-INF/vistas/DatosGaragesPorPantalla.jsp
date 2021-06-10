@@ -23,7 +23,6 @@
                 <th scope="col">Numero</th>
                 <th scope="col">Precio Hora $$</th>
                 <th scope="col">Precio Estadia $$</th>
-                <th scope="col">Precio Mes $$</th>
                 <th scope="col">Capacidad $$</th>
                 <th scope="col">Contador</th>
                 
@@ -41,13 +40,12 @@
                     <td>${garage.numero}</td>
                     <td>${garage.precioHora}</td>
                     <td>${garage.precioEstadia}</td>
-                    <td>${garage.precioMes}</td>
                     <td>${garage.capacidad}</td>
                     <td>${garage.contador}</td>
 					<td><a href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}">Eliminar Garage</a></td>
 					<td> <a href="${pageContext.request.contextPath}/mostrarAutosDeUnGarage/${garage.id}">Autos en garaje</a> </td>
    					<td> <a href="">Modificar Garage</a> </td>
-					<td> <a href="${pageContext.request.contextPath}/mostrarHistoricoDeUnGarage/${garage.id}">Hitorial</a> </td>	
+					<td> <a href="${pageContext.request.contextPath}/mostrarHistoricoDeUnGarage/${garage.id}">Historial</a> </td>	
 					
 					
 	                </tr>

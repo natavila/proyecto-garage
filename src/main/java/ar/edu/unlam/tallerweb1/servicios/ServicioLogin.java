@@ -5,6 +5,7 @@ import java.util.List;
 import ar.edu.unlam.tallerweb1.modelo.Administrador;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 // Interface que define los metodos del Servicio de Usuarios.
 public interface ServicioLogin {
@@ -18,5 +19,7 @@ public interface ServicioLogin {
 	Cliente consultarClientePorId(Long cliente);
 	
 	List<Cliente> listaDeClientes();
+	
+	
 	
 }

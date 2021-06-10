@@ -30,7 +30,7 @@
 	                  
 	                  
 	                
-						<td><a href=""> Agregar </a></td>
+
 						<td><a href="">Eliminar Auto</a></td>
 	                </tr>
 	                
