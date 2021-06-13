@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Buscador;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
@@ -129,6 +130,7 @@ public class ControladorGarage {
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null)
 			if(rol.equals("admin")) {
+				
 		    ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(id);
 			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
@@ -185,6 +187,66 @@ public class ControladorGarage {
 	@RequestMapping( path="/ElegirGaragesEst/{clienteId}/{autoId}", method=RequestMethod.GET)
 	public ModelAndView reservarAutoGarage(@PathVariable("clienteId")Long clienteId,
 			@PathVariable("autoId")Long autoId,
+			//@ModelAttribute ("buscador") Buscador buscador,
+			@RequestParam(value="palabraBuscada",required=true) String buscada,
+			HttpServletRequest request
+			){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
+		Auto auto = servicioAuto.buscarAuto(autoId);
+		
+		//String pBuscada = buscador.getPalabraBuscada();
+		
+		//buscador.setCliente(cliente);
+		//buscador.setPalabraBuscada(pBuscada);
+		
+		modelo.put("cliente", cliente);
+		modelo.put("auto", auto);
+
+		modelo.addAttribute("garages", servicioGarage.consultarGarage());
+
+		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(buscada));
+		
+
+		return new ModelAndView ("listaGarages", modelo);
+		}
+		return new ModelAndView("redirect:/login");
+	}
+	
+	
+	@RequestMapping( path="/BuscarGaragesEst/{clienteId}/{autoId}", method=RequestMethod.GET)
+	public ModelAndView BuscarGaragesEst(@PathVariable("clienteId")Long clienteId,
+			@PathVariable("autoId")Long autoId,
+			
+			HttpServletRequest request
+			){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
+		
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
+		Auto auto = servicioAuto.buscarAuto(autoId);
+		
+		//Buscador buscada = new Buscador();
+		//modelo.put("buscada", buscada);
+		modelo.put("cliente", cliente);
+		modelo.put("auto", auto);
+		//modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(Gbuscado));
+		
+		return new ModelAndView ("buscarDestino", modelo);
+		}
+		return new ModelAndView("redirect:/login");
+	}
+	
+	
+	@RequestMapping( path="/ElegirGaragesEst/{clienteId}/{autoId}/", method=RequestMethod.GET)
+	public ModelAndView ElegirGarageParaEst(@PathVariable("clienteId")Long clienteId,
+			@PathVariable("autoId")Long autoId,
+			@PathVariable("garageBuscado") String Gbuscado,
 			HttpServletRequest request
 			){
 		String rol = (String) request.getSession().getAttribute("roll");
@@ -196,10 +258,14 @@ public class ControladorGarage {
 		
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
-		modelo.addAttribute("garages", servicioGarage.consultarGarage());
+		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(Gbuscado));
+		
 		return new ModelAndView ("listaGarages", modelo);
 		}
 		return new ModelAndView("redirect:/login");
 	}
+	
+	
+	
 	
 }

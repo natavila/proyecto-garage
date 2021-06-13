@@ -223,17 +223,19 @@ public class ControladorPagarGarage {
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 				servicioGarage.sumarContador(garage);
-				//auto.setUsandoGarage(true);
-				
+
 				est.setAuto(auto);
 				est.setGarage1(garage);
+				est.setActiva(true);
 				
 				Long horas = servicioCobrarTickets.calcularHoras(est.getHoraDesde(), est.getHoraHasta());
 				Double precio = servicioCobrarTickets.calcularPrecioPorHora(garage.getPrecioHora(), horaDesde, horaHasta);
-				
+				Long ticket = est.getId();
 				est.setPrecioAPagar(precio);
+				 
 				
-				modelo.put("ticket", est);
+				
+				modelo.put("ticket",ticket);
 				
 				modelo.put("precio", precio);
 				

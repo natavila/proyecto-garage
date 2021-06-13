@@ -50,6 +50,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 	}
 	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
+
 		servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 		
 	}

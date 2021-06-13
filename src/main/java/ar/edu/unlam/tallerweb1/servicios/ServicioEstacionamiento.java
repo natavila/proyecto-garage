@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.HashSet;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -10,9 +11,15 @@ public interface ServicioEstacionamiento {
 	void registrarEstacionamiento(Estacionamiento est);
 
 	Estacionamiento buscarEstacionamiento(Long id);
-	Estacionamiento buscarEstacionamientoPorAuto(Auto auto);
+	//Estacionamiento buscarEstacionamientoPorAuto(Auto auto);
 	List<Auto> buscarAutosDeUnGarage(Garage garage1);
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 
-	List<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
+
+	HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
+
+	
+
+	void cambiarEstadoEstacionamiento(Estacionamiento est);
+
 }

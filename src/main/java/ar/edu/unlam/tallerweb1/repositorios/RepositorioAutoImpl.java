@@ -22,11 +22,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	public RepositorioAutoImpl(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}
-
-	
-		
-
-	 
+    
 	@Override
 		public void registrarAuto(Auto auto) { 
 	    		
@@ -55,6 +51,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	}
 	
 	
+
 	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();

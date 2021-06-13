@@ -31,7 +31,14 @@
 		    <label for="email" class="form-label control-label">Correo electronico</label>
 		    <form:input type="email" class="form-control" id="email" path="email"/>
 		  </div>
+
+		    <label for="email" class="form-label control-label">Roll</label>
+		    <form:input type="text" class="form-control" id="roll" path="roll"/>
+		  </div>
+		  
+		  
 		  <div class="col-12">
+
 		    <label for="password" class="form-label control-label">Contraseña</label>
 		    <form:input type="password" class="form-control" id="password" path="password"/>
 		  </div>
