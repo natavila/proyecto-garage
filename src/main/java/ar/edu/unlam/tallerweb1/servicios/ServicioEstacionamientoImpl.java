@@ -54,6 +54,7 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				return (List<Auto>) autoLista;
 				
 			}
+			
 			@Override
 
 			
@@ -74,16 +75,21 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				return (HashSet<Auto>) autoLista;
 			}
 
-			/*
+			
 			@Override
 			public Estacionamiento buscarEstacionamientoPorAuto(Auto auto) {
-				HashSet<Auto> autoLista=  repositorioEst.buscarEstacionamientoPorAuto(auto);
+				List<Estacionamiento> EstActivos= repositorioEst.buscarEstacionamientoPorAuto(auto);
+				Estacionamiento est = new Estacionamiento();
+				for(Estacionamiento e: EstActivos) {
+					if(e.getActiva().equals(true)) {
+						est = e;
+					}
+				}
+				return   est;
 
-				
-				return (HashSet<Auto>) autoLista;
 
 			}
-			*/
+			
 			
 			@Override 
 			public void cambiarEstadoEstacionamiento(Estacionamiento est) {

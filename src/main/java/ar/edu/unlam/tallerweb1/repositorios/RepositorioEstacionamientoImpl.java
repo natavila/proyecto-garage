@@ -144,12 +144,12 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 		}
 
 	@Override
-	public Estacionamiento buscarEstacionamientoPorAuto(Auto auto) {
+	public List<Estacionamiento> buscarEstacionamientoPorAuto(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();
-		return (Estacionamiento) session.createCriteria(Estacionamiento.class)
+		return (List<Estacionamiento>) session.createCriteria(Estacionamiento.class)
 				.createAlias("auto", "autoBuscado")
 				.add(Restrictions.eq("autoBuscado.id", auto.getId()))
-				.uniqueResult();
+				.list();
 	}
 	 
 	 

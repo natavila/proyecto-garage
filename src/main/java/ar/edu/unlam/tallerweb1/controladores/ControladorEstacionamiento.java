@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.HashSet;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,7 +41,7 @@ public class ControladorEstacionamiento {
 		
 		ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(Gid);
-			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+			List<Auto> autos = (List<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
 			Auto autoSalir = servicioAuto.buscarAuto(Aid);
 			//servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);	
 			modelo.put("auto", autos);

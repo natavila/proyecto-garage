@@ -1,10 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -133,7 +135,7 @@ public class ControladorGarage {
 				
 		    ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(id);
-			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+			HashSet<Auto> autos = (HashSet<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
 			modelo.put("garage", garage2);
 			modelo.put("auto", autos);
 			
