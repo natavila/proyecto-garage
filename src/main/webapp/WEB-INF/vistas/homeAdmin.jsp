@@ -58,6 +58,7 @@
 		</div>
 		<a class="btn btn-primary" href="mostrarClientes" role="button">Mostrar clientes</a>
 		<br>
+		<a class="btn btn-primary" href="mostrarRegistroLocalidad" role="button">Agregar Localidad</a>
 		<br> 
 
 		<a class="btn btn-primary" href="lista" role="button">Mostrar garajes</a>

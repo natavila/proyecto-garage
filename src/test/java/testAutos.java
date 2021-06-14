@@ -134,9 +134,33 @@ public class testAutos extends SpringTest{
 		
 	}
 	
-	
-	
-	
+	@Test
+	@Transactional
+	@Rollback
+public void queUnAutoIngresaAUnGarage() {
+		
+		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
+		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
+		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
+		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
+		
+		Cliente cliente1 = new Cliente();
+		cliente1.setNombre("pepe");
+		cliente1.setApellido("rodriguez");
+		cliente1.setEmail("pepito@hotmail.com");
+		cliente1.setPassword("123");
+		reg.agregarCliente(cliente1);
+		
+		Auto auto = new Auto();
+		auto.setPatente("asd123");
+		servAuto.registrarAuto(auto);
+		
+		//Auto a Cliente
+		auto.setCliente(cliente1);
+		
+		
+		
+	}
 	
     
 }

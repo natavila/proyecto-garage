@@ -1,9 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-   
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
 <!DOCTYPE html>
@@ -21,15 +18,19 @@
 		<main class="container">
 		
 		 <form:form  action="${pageContext.request.contextPath}/ElegirGaragesEst/${cliente.id}/${auto.id}"  method="GET" lass="row g-3">
-			<div class="col-md-6">			
+		
+		  <div class="col-md-6">			
 		    <label for="palabraBuscada" class="form-label control-label"></label>
 		   <input type="text" class="form-control"  id="palabraBuscada" name="palabraBuscada" placeholder=" Buscar Localidad"/>
 		  </div>
 		  <div class="col-12">
+		  
+		  
 		    <button type="submit" class="btn btn-primary control-label mb-3">Buscar</button>
-		  </div>
-  		</form:form>
-		      
+  		 </form:form>
+		     
+		     
+		       
 	 
 	<a class="btn btn-primary" href="home" role="button">Volver</a>
 		</div>

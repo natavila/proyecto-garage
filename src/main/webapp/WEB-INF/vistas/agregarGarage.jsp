@@ -25,14 +25,29 @@
 					<hr class="colorgraph"><br>
 
 					
+					
 					<%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados--%>
-					<form:input path="nombre" id="nombre" name="nombre" type="text" class="form-control"/><p>NOMBRE</p>
-					<form:input path="calle" id="calle" name="calle" type="text" class="form-control"/><p>CALLE</p>
-					<form:input path="numero" id="numero" name="numero" type="text" class="form-control" /><p>Numero</p>
-					<form:input path="localidad" id="localidad" name="localidad" type="text" class="form-control"/><p>Localidad</p>
-					<form:input path="precioHora" id="precioHora" name="precioHora" type="text" class="form-control"/><p>PRECIO HORA</p>
-					<form:input path="precioEstadia" id="precioEstadia" name="precioEstadia" type="text" class="form-control"/><p>PRECIO ESTADIA</p>
-					<form:input path="capacidad" id="capacidad" name="capacidad" type="text" class="form-control"/><p>CAPACIDAD</p>	
+					<p>NOMBRE</p>
+					<form:input path="nombre" id="nombre" name="nombre" type="text" class="form-control"/>
+					<p>CALLE</p>
+					<form:input path="calle" id="calle" name="calle" type="text" class="form-control"/>
+					<p>Numero</p>
+					<form:input path="numero" id="numero" name="numero" type="text" class="form-control" />
+					
+					<p>Localidad</p>
+
+					<form:select path = "localidad" id="localidad" name="localidad" class="form-control" >
+                     <form:option value = "NONE" label = "Select"/>
+                     <form:options items = "${loc}" />
+                    </form:select>  
+					
+					<br>
+					<p>PRECIO HORA</p>
+					<form:input path="precioHora" id="precioHora" name="precioHora" type="text" class="form-control"/>
+					<p>PRECIO ESTADIA</p>
+					<form:input path="precioEstadia" id="precioEstadia" name="precioEstadia" type="text" class="form-control"/>
+					<p>CAPACIDAD</p>	
+					<form:input path="capacidad" id="capacidad" name="capacidad" type="text" class="form-control"/>
 					<button class="btn btn-lg btn-primary btn-block" Type="Submit">Agregar</button>
 				</form:form>
 

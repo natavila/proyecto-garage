@@ -27,6 +27,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioLocalidad;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
@@ -38,15 +39,18 @@ public class ControladorGarage {
 	private ServicioAuto servicioAuto;
 	private ServicioCliente servicioCliente;
 	private ServicioLogin servicioLogin;
+	private ServicioLocalidad servicioLoc;
 	private ServicioEstacionamiento servicioEst;
+	
 	@Autowired
-	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioLogin servicioLogin,ServicioEstacionamiento servicioEst ){
+	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioLocalidad servicioLoc,ServicioLogin servicioLogin,ServicioEstacionamiento servicioEst ){
 		this.servicioGarage = servicioGarage;
 		this.servicioRegistro = servicioRegistro;
 		this.servicioAuto =servicioAuto;
 		this.servicioCliente = servicioCliente;
 		this.servicioLogin = servicioLogin;
 		this.servicioEst = servicioEst;
+		this.servicioLoc = servicioLoc;
 	}
 	
 	@RequestMapping("/homeGarages")
@@ -63,6 +67,10 @@ public class ControladorGarage {
 				ModelMap modelo = new ModelMap();
 				Garage garage1 = new Garage();
 				modelo.put("garage", garage1);
+				
+				List <String> loc = servicioLoc.devolverNombresDeLocalidades();
+				modelo.put("loc", loc);
+				
 				return new ModelAndView("agregarGarage", modelo);
 			}
 		return new ModelAndView("redirect:/login");	
@@ -189,7 +197,6 @@ public class ControladorGarage {
 	@RequestMapping( path="/ElegirGaragesEst/{clienteId}/{autoId}", method=RequestMethod.GET)
 	public ModelAndView reservarAutoGarage(@PathVariable("clienteId")Long clienteId,
 			@PathVariable("autoId")Long autoId,
-			//@ModelAttribute ("buscador") Buscador buscador,
 			@RequestParam(value="palabraBuscada",required=true) String buscada,
 			HttpServletRequest request
 			){
@@ -200,10 +207,6 @@ public class ControladorGarage {
 		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
 		Auto auto = servicioAuto.buscarAuto(autoId);
 		
-		//String pBuscada = buscador.getPalabraBuscada();
-		
-		//buscador.setCliente(cliente);
-		//buscador.setPalabraBuscada(pBuscada);
 		
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
@@ -233,11 +236,12 @@ public class ControladorGarage {
 		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
 		Auto auto = servicioAuto.buscarAuto(autoId);
 		
-		//Buscador buscada = new Buscador();
-		//modelo.put("buscada", buscada);
+		List <String> loc = servicioLoc.devolverNombresDeLocalidades();
+		modelo.put("loc", loc);
+		
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
-		//modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(Gbuscado));
+		
 		
 		return new ModelAndView ("buscarDestino", modelo);
 		}
