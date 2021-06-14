@@ -54,6 +54,11 @@ public class ServicioAutoImpl implements ServicioAuto{
 		servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 		
 	}
+	@Override
+	public void eliminarAuto(Auto auto) {
+		servicioAuto.eliminarAuto(auto);
+		
+	}
 	
 	
 	

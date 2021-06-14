@@ -94,7 +94,7 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
-	
+	 
 	
 
 	@RequestMapping("/lista/eliminar/{id}")

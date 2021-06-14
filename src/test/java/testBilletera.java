@@ -42,7 +42,7 @@ public class testBilletera extends SpringTest{
 		cliente2.setEmail("pepe2@hotmail.com");
 		servicioRegistro.agregarCliente(cliente2);
 		
-		billetera.setAlias("elpepe");
+		//((Object) billetera).setAlias("elpepe");
 		billetera.setCliente(cliente);
 		servicioBilletera.registrarBilletera(billetera);
 		
