@@ -81,11 +81,9 @@ public class ControladorLogin {
 
 	// Escucha la URL /home por GET, y redirige a una vista.
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
-	public ModelAndView irAHome(@ModelAttribute("usuario")Cliente cliente) {
+	public ModelAndView irAHome() {
 		ModelMap model = new ModelMap();
-		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
-		if(usuarioBuscado.getRoll().equals("cliente"))
-			model.put("cliente", usuarioBuscado);
+	
 		return new ModelAndView("home", model);
 	}
 
