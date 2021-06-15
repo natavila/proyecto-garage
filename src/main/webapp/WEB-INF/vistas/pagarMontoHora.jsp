@@ -16,6 +16,6 @@
 		<h1>Horas del auto en el garaje:</h1>
 		<h3>${horas}</h3>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/pagarReservaPorHora/${cliente.id}/${auto.id}/${garage.id}" role="button">Pagar</a>
-		</div>
+	</div>
 </body>
 </html>

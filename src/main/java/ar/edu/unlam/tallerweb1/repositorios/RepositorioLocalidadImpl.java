@@ -37,7 +37,7 @@ public Boolean EliminarLocalidad(Long id) {
 	Localidad loc =   (Localidad) session.createCriteria(Localidad.class)
 			.add(Restrictions.eq("id",id))
 			.uniqueResult();
-	sessionFactory.getCurrentSession().delete(id);
+	sessionFactory.getCurrentSession().delete(loc);
 	return true;
 }
 

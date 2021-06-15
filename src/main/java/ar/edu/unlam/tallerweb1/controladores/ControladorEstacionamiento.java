@@ -43,7 +43,7 @@ public class ControladorEstacionamiento {
 			Garage garage2 = servicioGarage.buscarGarage(Gid);
 			List<Auto> autos = (List<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
 			Auto autoSalir = servicioAuto.buscarAuto(Aid);
-			//servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);	
+				
 			modelo.put("auto", autos);
 			for(Auto e: autos) {
 				if(e.getId().equals(autoSalir.getId())) {
@@ -86,7 +86,7 @@ public class ControladorEstacionamiento {
 				
 				
 				if(est !=null && garage2 != null) {
-					//servicioAuto.cambiarEstadoDeSiestaEnGarageOno(est.getAuto());
+					
 					
 					servicioGarage.restarContador(garage2);
 					servicioEst.cambiarEstadoEstacionamiento(est);

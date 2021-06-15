@@ -27,7 +27,7 @@ public class Estacionamiento {
 	private String horaDesde;
 	private String horaHasta;
 	private Double precioAPagar;
-	private Boolean activa;
+	private Boolean activa=false;
 
 	@ManyToOne
 	private Garage garage1;

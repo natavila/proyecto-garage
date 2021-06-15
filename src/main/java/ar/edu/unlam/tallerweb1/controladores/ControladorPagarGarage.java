@@ -109,6 +109,7 @@ public class ControladorPagarGarage {
 				
 				est.setAuto(auto);
 				est.setGarage1(garage);
+				est.setActiva(true);
 				
 				Long dias = servicioCobrarTickets.calcularDias(est.getFechaDesde(), est.getFechaHasta());
 				Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), fechaDesde, fechaHasta);
@@ -213,7 +214,7 @@ public class ControladorPagarGarage {
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		                                       //Esto le puse Nuevo
-			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
+			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && servicioGarage.GarageLleno(garage).equals(false) /*garage.getCapacidad()>garage.getContador()*/) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
 				modelo.put("garage", garage);
@@ -221,9 +222,10 @@ public class ControladorPagarGarage {
 				est.setHoraHasta(horaHasta);
 				est.setGarage1(garage);
 				
+				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 				servicioGarage.sumarContador(garage);
-
+					
 				est.setAuto(auto);
 				est.setGarage1(garage);
 				est.setActiva(true);
@@ -234,6 +236,7 @@ public class ControladorPagarGarage {
 				est.setPrecioAPagar(precio);
 				 
 				
+				modelo.put("numTicket", est);
 				
 				modelo.put("ticket",ticket);
 				
@@ -269,6 +272,7 @@ public class ControladorPagarGarage {
 			if(billetera != null && garage != null && auto != null) {
 				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
 					servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
+					modelo.put("tickes", estacionamiento.getId());
 					modelo.put("cliente", cliente.getNombre());
 					modelo.put("billetera", billetera.getSaldo());
 					modelo.put("garage", garage.getNombre());

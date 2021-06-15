@@ -33,5 +33,6 @@ public interface ServicioGarage {
 
 	void restarContador(Garage garage);
 	List<Garage> buscarGaragePorLocalidad(String localidad);
+	Boolean GarageLleno(Garage garage);
 
 }

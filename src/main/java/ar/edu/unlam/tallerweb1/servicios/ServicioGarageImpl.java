@@ -113,6 +113,15 @@ private RepositorioGarage repositorioGarage;
 		return listaLoc;
 	}
 	
+	@Override
+	public Boolean GarageLleno(Garage garage) {
+		if(garage.getCapacidad()<=garage.getContador()) {
+		return true;
+		}else {
+			return false;
+		}
+	}
+	
 	
 	@Override 
 

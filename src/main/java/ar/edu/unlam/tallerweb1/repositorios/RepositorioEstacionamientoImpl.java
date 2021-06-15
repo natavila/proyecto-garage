@@ -50,7 +50,7 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 		Estacionamiento est1 = (Estacionamiento) session.createCriteria(Estacionamiento.class)
 				 .add(Restrictions.eq("id", est.getId()))
 				 .uniqueResult();
-		est1.setActiva(false);
+				est1.setActiva(false);
 	 }
 	 
 	 @Override

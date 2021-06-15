@@ -18,14 +18,14 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
 @Transactional
 public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			private RepositorioEstacionamiento repositorioEst;
-			private ServicioGarage servicioGarage;
+			/*private ServicioGarage servicioGarage;
 			private ServicioAuto servicioAuto;
-			
+			*/
 			@Autowired 
 			public ServicioEstacionamientoImpl(RepositorioEstacionamiento repositorioEst, ServicioGarage servicioGarage, ServicioAuto servicioAuto) {
 				this.repositorioEst=repositorioEst;
-				this.servicioGarage = servicioGarage;
-				this.servicioAuto = servicioAuto;
+				/*this.servicioGarage = servicioGarage;
+				this.servicioAuto = servicioAuto;*/
 			}
 
 			@Override
@@ -71,7 +71,6 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 					}
 				}
 
-				
 				return (HashSet<Auto>) autoLista;
 			}
 
