@@ -75,13 +75,13 @@ public class ControladorRegistroAuto {
 			@PathVariable("nombre") String nombre){
 			ModelMap modelo = new ModelMap();
 			Cliente cliente = servicioCliente.consultarClientePorId(id);
-			 if(auto.getPatente() != "" && cliente != null && servicioAuto.consultarAuto(auto) == null) {
+			Auto auto1= servicioAuto.consultarAuto(auto);
+			 if(auto.getPatente() != "" && cliente != null && auto1 == null || auto1.getEnUso().equals(false)) {
 				 modelo.addAttribute("cliente", cliente);
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
 					
-					
-					
+					auto.setEnUso(true);
 					servicioAuto.registrarAuto(auto);
 					modelo.put("error", "Auto registrado correctamente");
 					return new ModelAndView("confirmacionRegistroAuto", modelo);
