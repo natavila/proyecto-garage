@@ -13,6 +13,7 @@
 	<div class="container mt-3">
 		<table class="table table-hover">
 		<h1>Mis Autos</h1>
+		<h4>Cantidad de Autos: ${cantidad}</h4>
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>

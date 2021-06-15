@@ -56,6 +56,7 @@ public class ControladorRegistroAuto {
 			
 			auto.setCliente(cliente);
 			modelo.put("auto", auto);
+			
 			return new ModelAndView("registroAuto", modelo);
 		}else {
 			
@@ -78,6 +79,9 @@ public class ControladorRegistroAuto {
 				 modelo.addAttribute("cliente", cliente);
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
+					
+					
+					
 					servicioAuto.registrarAuto(auto);
 					modelo.put("error", "Auto registrado correctamente");
 					return new ModelAndView("confirmacionRegistroAuto", modelo);

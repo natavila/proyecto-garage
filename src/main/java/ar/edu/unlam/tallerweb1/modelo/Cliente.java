@@ -18,7 +18,7 @@ public class Cliente {
 	private String email;
 	private String password;
 	private String roll;
-	private Integer contAutos;
+	
 	@ManyToOne
 	Usuario usuario;
 
@@ -89,13 +89,7 @@ public class Cliente {
 		this.plan = plan;
 	}
 
-	public Integer getContAutos() {
-		return contAutos;
-	}
-
-	public void setContAutos(Integer contAutos) {
-		this.contAutos = contAutos;
-	}
+	
 	
 	
 

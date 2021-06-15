@@ -27,11 +27,13 @@ public class ControladorClientes {
 	
 	private ServicioLogin servicioLogin;
 	private ServicioAuto servicioAuto;
+	private ServicioCliente servicioCliente;
 	
 	@Autowired
-	private ControladorClientes(ServicioLogin servicioLogin,ServicioAuto servicioAuto) {
+	private ControladorClientes(ServicioLogin servicioLogin,ServicioAuto servicioAuto,ServicioCliente servicioCliente) {
 		this.servicioAuto =servicioAuto;
 		this.servicioLogin = servicioLogin;
+		this.servicioCliente = servicioCliente;
 	}
 	
 	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
@@ -55,7 +57,8 @@ public class ControladorClientes {
 			if(rol.equals("cliente") || rol.equals("admin")) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
-		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
+		modelo.put("cantidad", servicioAuto.consultarAutoDeCliente(cliente).size());
+		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente));
 		modelo.put("cliente", cliente);
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}
@@ -66,7 +69,6 @@ public class ControladorClientes {
 	public ModelAndView eliminarAuto(@PathVariable("id")Long id,@PathVariable("idC")Long idC) {
 		ModelMap modelo = new ModelMap();
 		Auto auto=servicioAuto.buscarAuto(id);
-		
 		
 		servicioAuto.eliminarAuto(auto);
 		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
