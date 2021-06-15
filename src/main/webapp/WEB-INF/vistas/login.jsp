@@ -68,6 +68,9 @@
 				    <h4>${Error}</h4>
 				 				        	        
 		        </c:if>
+
+		        <p>¿Todavia no tenes cuenta? <a href="mostrarRegistro">Registrate</a></p>
+
 		        <a href="/mostrarOlvido">¿Olvidaste tu contraseña?</a>
 			</div>
 		</div>

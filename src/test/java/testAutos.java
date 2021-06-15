@@ -1,5 +1,7 @@
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -14,9 +16,17 @@ import org.springframework.test.annotation.Rollback;
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Localidad;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioAutoImpl;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioClienteImpl;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamientoImpl;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioGarageImpl;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAutoImpl;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamientoImpl;
+import ar.edu.unlam.tallerweb1.servicios.ServicioGarageImpl;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLoginImpl;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistroImpl;
 
@@ -35,154 +45,405 @@ public class testAutos extends SpringTest{
 	@Test
 	@Transactional
 	@Rollback
-	public void queSePuedaRegistrarUnAuto() {
+	public void queSePuedaRegistrarUnAutoACliente() {
 		
 		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
+		
 		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
 		ServicioLoginImpl log = new ServicioLoginImpl(repo);
 		
 		Cliente usuario1 = new Cliente();
-		Cliente usuario2 = new Cliente();
 		usuario1.setNombre("pepe");
 		usuario1.setApellido("rodriguez");
 		usuario1.setEmail("pepito@hotmail.com");
 		usuario1.setPassword("123");
-		usuario1.setDni(1234564);
 		
-		usuario2.setNombre("jorge");
-		usuario2.setApellido("asd");
-		usuario2.setEmail("jorge@hotmail.com");
-		usuario2.setPassword("321");
-		usuario2.setDni(42671687);
-		
-		Auto auto1 = new Auto();
-		Auto auto2 = new Auto();
-		auto1.setPatente("asd123");
-		auto1.setCliente(usuario1);
-		auto2.setPatente("wtf321");
-		auto2.setCliente(usuario2);
-		
-		reg.agregarCliente(usuario2);
-		reg.registrarAuto(auto1);
 		reg.agregarCliente(usuario1);
-		reg.registrarAuto(auto2);
-		
-		List<Auto> autosBD =  (List<Auto>) session().getSession().createCriteria(Auto.class)
-				.list();
-
-		assertEquals(autosBD.size(), 2); 
-		
-		System.out.println(autosBD);
-		
-	}
-	
-	@Test
-	@Transactional
-	@Rollback
-	public void queSePuedaAsignarUnAutoAUnClienteDeLaBD() {
-		
-		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
-		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
-		ServicioLoginImpl log = new ServicioLoginImpl(repo);
-		
-		Cliente cliente1 = new Cliente();
-		Cliente cliente2 = new Cliente();
-		Cliente cliente3 = new Cliente();
-		
-		cliente1.setDni(123456);
-		cliente2.setDni(654321);
-		cliente3.setDni(789456);
-		
-		reg.agregarCliente(cliente1);
-		reg.agregarCliente(cliente2);
-		reg.agregarCliente(cliente3);
 		
 		Auto auto = new Auto();
+		auto.setPatente("aaa123");
+		auto.setCliente(usuario1);
 		
+		Cliente buscado=repo.buscarCliente(usuario1);
+		//si Buscado es igual a el Cliente que tiene auto
+		assertEquals(buscado, auto.getCliente());
+		
+	
+	}
+	
+	@Test
+	@Transactional
+	@Rollback
+	public void queSePuedaAsignarMasDeUnAutoAUnCliente() {
+		
+		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
+		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
+		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
+		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
+		
+		
+		Cliente cliente1 = new Cliente();
+		cliente1.setNombre("pepe");
+		cliente1.setApellido("rodriguez");
+		cliente1.setEmail("pepito@hotmail.com");
+		cliente1.setPassword("123");
+		
+		
+		
+		Auto auto = new Auto();
+		Auto auto2= new Auto();
 		auto.setPatente("asd123");
+		auto2.setPatente("aaa555");
+		servAuto.registrarAuto(auto);
+		servAuto.registrarAuto(auto2);
 		
-		reg.registrarAuto(auto);
+		auto.setCliente(cliente1);
+		auto2.setCliente(cliente1);
+		reg.agregarCliente(cliente1);
 		
-		Integer dniBuscado = 789456;
 		
-		// Se guardan los clientes en la base de datos en forma de lista
-		Cliente clienteEncontrado =  (Cliente) sessionFactory.getCurrentSession()
-				.createCriteria(Cliente.class)
-				.add(Restrictions.eq("dni", dniBuscado))
-				.uniqueResult();
-			
-			auto.setCliente(clienteEncontrado);
-			
-			System.out.println(auto);
-		
-		//Recorre la liste y busca mediant el dni el cliente al cual asignarle el auto
-		/*for(Cliente cliente : clientesBD) {
-			if(cliente.getDni().equals(dniBuscado)) {
-				auto.setCliente(cliente);
-				System.out.println(auto);
-			}
-		}*/
+		assertEquals(2,servAuto.consultarAutoDeCliente(cliente1).size());
 		
 	}
 	
 	@Test
 	@Transactional
 	@Rollback
-	public void queSePuedeAsignarUnAutoAUnGarage() {
+	public void queSePuedeEliminarUnAutoAUnCliente() {
 		
 		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
 		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
-		ServicioLoginImpl log = new ServicioLoginImpl(repo);
+		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
+		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
 		
-		Auto auto1 = new Auto();
-		Auto auto2 = new Auto();
-		Auto auto3 = new Auto();
-		Localidad localidad1 = new Localidad();
-		Localidad localidad2 = new Localidad();
-		Garage garage1 = new Garage();
-		Garage garage2 = new Garage();
-		Garage garage3 = new Garage();
 		
-		auto1.setPatente("123asd");
-		auto2.setPatente("qwe456");
-		auto3.setPatente("ghj456");
-		localidad1.setLocalidad("Moron");
-		localidad2.setLocalidad("Merlo");
-		garage1.setNombre("asd");
-		garage2.setNombre("qwe");
-		garage3.setNombre("nose");
-		garage1.setLocalidad(localidad2);
-		garage2.setLocalidad(localidad1);
-		garage3.setLocalidad(localidad1);
+		Cliente cliente1 = new Cliente();
+		cliente1.setNombre("pepe");
+		cliente1.setApellido("rodriguez");
+		cliente1.setEmail("pepito@hotmail.com");
+		cliente1.setPassword("123");
 		
-		reg.registrarLocalidad(localidad2);
-		reg.registrarLocalidad(localidad1);
 		
-		reg.registrarGarage(garage1);
-		reg.registrarGarage(garage2);
-		reg.registrarGarage(garage3);
 		
-		reg.registrarAuto(auto1);
-		reg.registrarAuto(auto2);
-		reg.registrarAuto(auto3);
+		Auto auto = new Auto();
+		Auto auto2= new Auto();
+		auto.setPatente("asd123");
+		auto2.setPatente("aaa555");
+		servAuto.registrarAuto(auto);
+		servAuto.registrarAuto(auto2);
 		
-		String garageBuscado = "Merlo";
-		String nombreBuscado = "asd";
+		auto.setCliente(cliente1);
+		auto2.setCliente(cliente1);
+		reg.agregarCliente(cliente1);
+		servAuto.eliminarAuto(auto);
 		
-		Garage garageEncontrado = (Garage) sessionFactory.getCurrentSession()
-				.createCriteria(Garage.class)
-				.createAlias("localidad", "garageBuscado")
-				.createAlias("garageBuscado.localidad", "localidadBuscada")
-				.createAlias("nombre", "nombreGarage")
-				.add(Restrictions.eq("localiadadBuscada", garageBuscado))
-				.add(Restrictions.eq("nombreGarage", nombreBuscado))
-				.uniqueResult();
-		
-		auto1.setGarage(garageEncontrado);
-		
-		System.out.println(auto1);
+		assertEquals(1,servAuto.consultarAutoDeCliente(cliente1).size());
 		
 	}
 	
+	@Test
+	@Transactional
+	@Rollback
+public void queUnAutoIngresaAUnGarage() {
+		
+		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
+		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
+		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
+		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
+		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
+		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
+		
+		
+		Cliente cliente1 = new Cliente();
+		cliente1.setNombre("pepe");
+		cliente1.setApellido("rodriguez");
+		cliente1.setEmail("pepito@hotmail.com");
+		cliente1.setPassword("123");
+		reg.agregarCliente(cliente1);
+		
+		Auto auto = new Auto();
+		auto.setPatente("asd123");
+		servAuto.registrarAuto(auto);
+		//Auto a Cliente
+		auto.setCliente(cliente1);
+		
+		Garage garage = new Garage();
+		garage.setCapacidad(10);
+		garage.setLocalidad("Laferrere");
+		garage.setNombre("Las Palmas");
+		servG.agregarGarage(garage);
+		
+
+		Estacionamiento est = new Estacionamiento();
+		
+		servEst.registrarEstacionamiento(est);
+		est.setAuto(auto);
+		est.setGarage1(garage);
+		est.setActiva(true);
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+		
+		
+		
+		Integer vp = servEst.buscarAutosQueEstenActivosEnUnGarage(garage).size();
+		
+		Integer ve = 1;
+		assertEquals(ve,vp);
+	}
+	@Test
+	@Transactional
+	@Rollback
+public void queMasDeUnAutoIngresaAUnGarage() {
+		
+		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
+		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
+		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
+		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
+		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
+		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
+		
+		
+		Cliente cliente1 = new Cliente();
+		cliente1.setNombre("pepe");
+		cliente1.setApellido("rodriguez");
+		cliente1.setEmail("pepito@hotmail.com");
+		cliente1.setPassword("123");
+		reg.agregarCliente(cliente1);
+		
+		Auto auto = new Auto();
+		auto.setPatente("asd123");
+		servAuto.registrarAuto(auto);
+		
+		Auto auto1 = new Auto();
+		auto1.setPatente("asd133");
+		servAuto.registrarAuto(auto1);
+		
+		//Auto a Cliente
+		auto1.setCliente(cliente1);
+		auto.setCliente(cliente1);
+		
+		Garage garage = new Garage();
+		garage.setCapacidad(10);
+		garage.setLocalidad("Laferrere");
+		garage.setNombre("Las Palmas");
+		servG.agregarGarage(garage);
+		
+
+		Estacionamiento est = new Estacionamiento();
+		
+		servEst.registrarEstacionamiento(est);
+		est.setAuto(auto);
+		est.setGarage1(garage);
+		est.setActiva(true);
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+		
+		Estacionamiento est1 = new Estacionamiento();
+		servEst.registrarEstacionamiento(est1);
+		est1.setAuto(auto1);
+		est1.setGarage1(garage);
+		est1.setActiva(true);
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto1);
+		
+		Integer vp = servEst.buscarAutosQueEstenActivosEnUnGarage(garage).size();
+		
+		Integer ve = 2;
+		assertEquals(ve,vp);
+		
+	}
+	@Test
+	@Transactional
+	@Rollback
+public void queSacoUnAutoDeUnGarage() {
+		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
+		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
+		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
+		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
+		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
+		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
+		
+		
+		Cliente cliente1 = new Cliente();
+		cliente1.setNombre("pepe");
+		cliente1.setApellido("rodriguez");
+		cliente1.setEmail("pepito@hotmail.com");
+		cliente1.setPassword("123");
+		reg.agregarCliente(cliente1);
+		
+		Auto auto = new Auto();
+		auto.setPatente("asd123");
+		servAuto.registrarAuto(auto);
+		
+		Auto auto1 = new Auto();
+		auto1.setPatente("asd133");
+		servAuto.registrarAuto(auto1);
+		
+		//Auto a Cliente
+		auto1.setCliente(cliente1);
+		auto.setCliente(cliente1);
+		
+		Garage garage = new Garage();
+		garage.setCapacidad(10);
+		garage.setLocalidad("Laferrere");
+		garage.setNombre("Las Palmas");
+		servG.agregarGarage(garage);
+		
+
+		Estacionamiento est = new Estacionamiento();
+		
+		servEst.registrarEstacionamiento(est);
+		est.setAuto(auto);
+		est.setGarage1(garage);
+		est.setActiva(true);
+		
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+		
+		Estacionamiento est1 = new Estacionamiento();
+		servEst.registrarEstacionamiento(est1);
+		est1.setAuto(auto1);
+		est1.setGarage1(garage);
+		est1.setActiva(true);
+		
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto1);
+		
+		// Cambia el Estado de Estacionamiento de Activo a descativo
+		// para verificar si esta usando o algun estacionamiento
+		servEst.cambiarEstadoEstacionamiento(est1);
+		
+		
+		Integer vp = servEst.buscarAutosQueEstenActivosEnUnGarage(garage).size();
+		
+		Integer ve = 1;
+		assertEquals(ve,vp);
+		
+	}
+	@Test
+	@Transactional
+	@Rollback
+public void queFuncioneElContador() {
+		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
+		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
+		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
+		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
+		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
+		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
+		
+		
+		Cliente cliente1 = new Cliente();
+		cliente1.setNombre("pepe");
+		cliente1.setApellido("rodriguez");
+		cliente1.setEmail("pepito@hotmail.com");
+		cliente1.setPassword("123");
+		reg.agregarCliente(cliente1);
+		
+		Auto auto = new Auto();
+		auto.setPatente("asd123");
+		servAuto.registrarAuto(auto);
+		
+		Auto auto1 = new Auto();
+		auto1.setPatente("asd133");
+		servAuto.registrarAuto(auto1);
+		
+		//Auto a Cliente
+		auto1.setCliente(cliente1);
+		auto.setCliente(cliente1);
+		
+		Garage garage = new Garage();
+		garage.setCapacidad(1);
+		garage.setLocalidad("Laferrere");
+		garage.setNombre("Las Palmas");
+		servG.agregarGarage(garage);
+		
+
+		Estacionamiento est = new Estacionamiento();
+		
+		servEst.registrarEstacionamiento(est);
+		est.setAuto(auto);
+		est.setGarage1(garage);
+		est.setActiva(true);
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+		servG.sumarContador(garage);
+		
+		
+		Estacionamiento est1 = new Estacionamiento();
+		servEst.registrarEstacionamiento(est1);
+		est1.setAuto(auto1);
+		est1.setGarage1(garage);
+		est1.setActiva(true);
+		servG.sumarContador(garage);
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto1);
+		
+		Integer ve=2;
+		Integer vo=garage.getContador();
+		assertEquals(ve,vo);
+		
+	}
+	
+	
+	@Test
+	@Transactional
+	@Rollback
+public void queNoPuedaIngresarAutoSiEstaGarageLLeno() {
+		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
+		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
+		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
+		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
+		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
+		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
+		
+		
+		Cliente cliente1 = new Cliente();
+		cliente1.setNombre("pepe");
+		cliente1.setApellido("rodriguez");
+		cliente1.setEmail("pepito@hotmail.com");
+		cliente1.setPassword("123");
+		reg.agregarCliente(cliente1);
+		
+		Auto auto = new Auto();
+		auto.setPatente("asd123");
+		servAuto.registrarAuto(auto);
+		
+		Auto auto1 = new Auto();
+		auto1.setPatente("asd133");
+		servAuto.registrarAuto(auto1);
+		
+		//Auto a Cliente
+		auto1.setCliente(cliente1);
+		auto.setCliente(cliente1);
+		
+		Garage garage = new Garage();
+		garage.setCapacidad(1);
+		garage.setLocalidad("Laferrere");
+		garage.setNombre("Las Palmas");
+		servG.agregarGarage(garage);
+		
+
+		Estacionamiento est = new Estacionamiento();
+		
+		servEst.registrarEstacionamiento(est);
+		est.setAuto(auto);
+		est.setGarage1(garage);
+		est.setActiva(true);
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+		servG.sumarContador(garage);
+		Estacionamiento est1 = new Estacionamiento();
+		servEst.registrarEstacionamiento(est1);
+		est1.setAuto(auto1);
+		est1.setGarage1(garage);
+		est1.setActiva(true);
+		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto1);
+		servG.sumarContador(garage);
+		
+		assertTrue(servG.GarageLleno(garage));
+			
+	}
     
 }

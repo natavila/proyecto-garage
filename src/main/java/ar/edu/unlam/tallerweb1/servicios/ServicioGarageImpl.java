@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -82,7 +83,7 @@ private RepositorioGarage repositorioGarage;
 
 	@Override
 	public List<Garage> buscarPorLocalidad(Garage garage1) {
-		// TODO Auto-generated method stub
+		
 		return repositorioGarage.buscarPorLocalidad(garage1);
 	}
 
@@ -98,11 +99,52 @@ private RepositorioGarage repositorioGarage;
 		return repositorioGarage.buscarGarage(id);
 	}
 
+	
+	@Override 
+	public List<Garage> buscarGaragePorLocalidad (String localidad ){
+		ArrayList<Garage> lista = (ArrayList<Garage>) repositorioGarage.consultarGarage();
+		ArrayList<Garage> listaLoc = new ArrayList<Garage>();
+		for(Garage e: lista) {
+			if(e.getLocalidad().equals(localidad)) {
+				listaLoc.add(e);
+			}
+		}
+		
+		return listaLoc;
+	}
+	
 	@Override
+	public Boolean GarageLleno(Garage garage) {
+		if(garage.getCapacidad()<=garage.getContador()) {
+		return true;
+		}else {
+			return false;
+		}
+	}
+	
+	
+	@Override 
+
 	public void sumarContador(Garage garage) {
 		
 		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
 		garage1.setContador(garage1.getContador()+1);
+
+		
+	}
+	
+	@Override
+	public void restarContador(Garage garage) {
+		
+		
+		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
+		
+		garage1.setContador(garage1.getContador()-1);
+		
+		if(garage1.getContador()<0) {
+			garage1.setContador(0);
+		}
+
 	}
 
 

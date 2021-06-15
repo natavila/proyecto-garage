@@ -43,8 +43,9 @@
                     <td>${garage.capacidad}</td>
                     <td>${garage.contador}</td>
 					<td><a href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}">Eliminar Garage</a></td>
-					<td> <a href="${pageContext.request.contextPath}/mostrarAutosDeUnGarage/${garage.id}">Autos en garaje</a> </td>
    					<td> <a href="">Modificar Garage</a> </td>
+					<td> <a href="${pageContext.request.contextPath}/mostrarAutosDeUnGarage/${garage.id}">Autos en garage</a> </td>
+   					<td> <a href="${pageContext.request.contextPath}/sacarAuto/${garage.id}">Sacar Auto</a> </td>
 					<td> <a href="${pageContext.request.contextPath}/mostrarHistoricoDeUnGarage/${garage.id}">Historial</a> </td>	
 					
 					

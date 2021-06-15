@@ -1,10 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.mapping.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Buscador;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
@@ -24,6 +27,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioLocalidad;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
@@ -35,15 +39,18 @@ public class ControladorGarage {
 	private ServicioAuto servicioAuto;
 	private ServicioCliente servicioCliente;
 	private ServicioLogin servicioLogin;
+	private ServicioLocalidad servicioLoc;
 	private ServicioEstacionamiento servicioEst;
+	
 	@Autowired
-	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioLogin servicioLogin,ServicioEstacionamiento servicioEst ){
+	public ControladorGarage(ServicioGarage servicioGarage, ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioLocalidad servicioLoc,ServicioLogin servicioLogin,ServicioEstacionamiento servicioEst ){
 		this.servicioGarage = servicioGarage;
 		this.servicioRegistro = servicioRegistro;
 		this.servicioAuto =servicioAuto;
 		this.servicioCliente = servicioCliente;
 		this.servicioLogin = servicioLogin;
 		this.servicioEst = servicioEst;
+		this.servicioLoc = servicioLoc;
 	}
 	
 	@RequestMapping("/homeGarages")
@@ -60,6 +67,10 @@ public class ControladorGarage {
 				ModelMap modelo = new ModelMap();
 				Garage garage1 = new Garage();
 				modelo.put("garage", garage1);
+				
+				List <String> loc = servicioLoc.devolverNombresDeLocalidades();
+				modelo.put("loc", loc);
+				
 				return new ModelAndView("agregarGarage", modelo);
 			}
 		return new ModelAndView("redirect:/login");	
@@ -91,7 +102,7 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
-	
+	 
 	
 
 	@RequestMapping("/lista/eliminar/{id}")
@@ -129,9 +140,10 @@ public class ControladorGarage {
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null)
 			if(rol.equals("admin")) {
+				
 		    ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(id);
-			List<Auto> autos = servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+			HashSet<Auto> autos = (HashSet<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
 			modelo.put("garage", garage2);
 			modelo.put("auto", autos);
 			
@@ -185,6 +197,62 @@ public class ControladorGarage {
 	@RequestMapping( path="/ElegirGaragesEst/{clienteId}/{autoId}", method=RequestMethod.GET)
 	public ModelAndView reservarAutoGarage(@PathVariable("clienteId")Long clienteId,
 			@PathVariable("autoId")Long autoId,
+			@RequestParam(value="palabraBuscada",required=true) String buscada,
+			HttpServletRequest request
+			){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
+		Auto auto = servicioAuto.buscarAuto(autoId);
+		
+		
+		modelo.put("cliente", cliente);
+		modelo.put("auto", auto);
+
+		modelo.addAttribute("garages", servicioGarage.consultarGarage());
+
+		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(buscada));
+		
+
+		return new ModelAndView ("listaGarages", modelo);
+		}
+		return new ModelAndView("redirect:/login");
+	}
+	
+	
+	@RequestMapping( path="/BuscarGaragesEst/{clienteId}/{autoId}", method=RequestMethod.GET)
+	public ModelAndView BuscarGaragesEst(@PathVariable("clienteId")Long clienteId,
+			@PathVariable("autoId")Long autoId,
+			
+			HttpServletRequest request
+			){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
+		
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
+		Auto auto = servicioAuto.buscarAuto(autoId);
+		
+		List <String> loc = servicioLoc.devolverNombresDeLocalidades();
+		modelo.put("loc", loc);
+		
+		modelo.put("cliente", cliente);
+		modelo.put("auto", auto);
+		
+		
+		return new ModelAndView ("buscarDestino", modelo);
+		}
+		return new ModelAndView("redirect:/login");
+	}
+	
+	
+	@RequestMapping( path="/ElegirGaragesEst/{clienteId}/{autoId}/", method=RequestMethod.GET)
+	public ModelAndView ElegirGarageParaEst(@PathVariable("clienteId")Long clienteId,
+			@PathVariable("autoId")Long autoId,
+			@PathVariable("garageBuscado") String Gbuscado,
 			HttpServletRequest request
 			){
 		String rol = (String) request.getSession().getAttribute("roll");
@@ -196,10 +264,14 @@ public class ControladorGarage {
 		
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
-		modelo.addAttribute("garages", servicioGarage.consultarGarage());
+		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(Gbuscado));
+		
 		return new ModelAndView ("listaGarages", modelo);
 		}
 		return new ModelAndView("redirect:/login");
 	}
+	
+	
+	
 	
 }

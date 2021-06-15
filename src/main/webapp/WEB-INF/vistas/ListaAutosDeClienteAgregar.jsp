@@ -31,7 +31,7 @@
 	                  
 	                
 
-						<td><a href="">Eliminar Auto</a></td>
+						<td><a href="${pageContext.request.contextPath}/mostrarAutosClientes/eliminar/${auto.id}/${cliente.id}">Eliminar Auto</a></td>
 	                </tr>
 	                
 	            </c:forEach>

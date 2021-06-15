@@ -1,3 +1,5 @@
+import static org.junit.Assert.assertEquals;
+
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 
@@ -18,6 +20,8 @@ public class testBilletera extends SpringTest{
 
 	@Inject
 	private SessionFactory sessionFactory;
+	
+
 	
 	@Test
 	@Transactional
@@ -42,11 +46,96 @@ public class testBilletera extends SpringTest{
 		cliente2.setEmail("pepe2@hotmail.com");
 		servicioRegistro.agregarCliente(cliente2);
 		
-		billetera.setAlias("elpepe");
+		//((Object) billetera).setAlias("elpepe");
 		billetera.setCliente(cliente);
 		servicioBilletera.registrarBilletera(billetera);
 		
+	}
+	
+	@Test
+	@Transactional
+	@Rollback
+	public void quepuedaConsultarSaldoDeCliente() {
+		RepositorioBilleteraImpl repoBilletera = new RepositorioBilleteraImpl(sessionFactory);
+		RepositorioClienteImpl repoCliente = new RepositorioClienteImpl(sessionFactory);
+		ServicioClienteImpl servicioCliente = new ServicioClienteImpl(repoCliente);
+		ServicioBilleteraImpl servicioBilletera = new ServicioBilleteraImpl(repoBilletera);
+		ServicioRegistroImpl servicioRegistro = new ServicioRegistroImpl(repoCliente);
+		
+		Billetera billetera =  new Billetera();
+		
+		Cliente cliente = new Cliente();
+		cliente.setNombre("Pepe");
+		cliente.setApellido("roberto");
+		cliente.setEmail("pepe@hotmail.com");
+		servicioRegistro.agregarCliente(cliente);
+		billetera.setCliente(cliente);
+		servicioBilletera.registrarBilletera(billetera);
+		billetera.setSaldo(500.0);
+		
+		Double vo=servicioBilletera.consultarSaldo(billetera);
+		Double ve=500.0;
+		assertEquals(ve,vo);
+	}
+	@Test
+	@Transactional
+	@Rollback
+	public void quepuedaIngresarSaldoDeCliente() {
+		RepositorioBilleteraImpl repoBilletera = new RepositorioBilleteraImpl(sessionFactory);
+		RepositorioClienteImpl repoCliente = new RepositorioClienteImpl(sessionFactory);
+		ServicioClienteImpl servicioCliente = new ServicioClienteImpl(repoCliente);
+		ServicioBilleteraImpl servicioBilletera = new ServicioBilleteraImpl(repoBilletera);
+		ServicioRegistroImpl servicioRegistro = new ServicioRegistroImpl(repoCliente);
+		
+		Billetera billetera =  new Billetera();
+		
+		Cliente cliente = new Cliente();
+		cliente.setNombre("Pepe");
+		cliente.setApellido("roberto");
+		cliente.setEmail("pepe@hotmail.com");
+		servicioRegistro.agregarCliente(cliente);
+		billetera.setCliente(cliente);
+		servicioBilletera.registrarBilletera(billetera);
+		billetera.setSaldo(0.0);
+		servicioBilletera.ingresarSaldo(billetera, 500.0);
+		Double ve =500.0;
+		Double vo=servicioBilletera.consultarSaldo(billetera);
+		assertEquals(ve,vo);
+		
+	}
+	@Test
+	@Transactional
+	@Rollback
+	public void quepuedasumarSaldoACliente() {
+	
+		RepositorioBilleteraImpl repoBilletera = new RepositorioBilleteraImpl(sessionFactory);
+		RepositorioClienteImpl repoCliente = new RepositorioClienteImpl(sessionFactory);
+		ServicioClienteImpl servicioCliente = new ServicioClienteImpl(repoCliente);
+		ServicioBilleteraImpl servicioBilletera = new ServicioBilleteraImpl(repoBilletera);
+		ServicioRegistroImpl servicioRegistro = new ServicioRegistroImpl(repoCliente);
+		
+		Billetera billetera =  new Billetera();
+		
+		Cliente cliente = new Cliente();
+		cliente.setNombre("Pepe");
+		cliente.setApellido("roberto");
+		cliente.setEmail("pepe@hotmail.com");
+		servicioRegistro.agregarCliente(cliente);
+		billetera.setCliente(cliente);
+		servicioBilletera.registrarBilletera(billetera);
+		billetera.setSaldo(0.0);
+		servicioBilletera.ingresarSaldo(billetera, 500.0);
+		servicioBilletera.ingresarSaldo(billetera, 200.0);
+		Double ve =700.0;
+		Double vo=servicioBilletera.consultarSaldo(billetera);
+		assertEquals(ve,vo);
 		
 		
 	}
+	
+	
+	
+	
+	
+	
 }
