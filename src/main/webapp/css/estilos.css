@@ -1,10 +1,43 @@
 @charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
 
-
-
-form{
+.grid-log{
 	
-	width: 500px;
-	margin: 0 auto;
+	display:grid;
+	grid-template-columns: 400px 50px 300px;
+	grid-template-rows: 600px;
 }
 
+.slogan{
+	
+	color: #252525;
+	grid-column: 1;
+	grid-row: 1;
+	margin-top: 100px;
+	font-family: 'Poppins', sans-serif;
+	font-size: 20px;
+}
+
+.image-log{
+	grid-column:3;
+	grid-row:1;
+}
+
+.grid-form{
+	
+	display: grid;
+	grid-template-columns: 200px 50px 300px;
+	grid-template-rows: 500px;	
+}
+
+.formulario{
+	
+	grid-column: 1;
+	grid-row: 1;
+}
+
+.img-form{
+	
+	grid-column:3;
+	grid-row:1;
+}

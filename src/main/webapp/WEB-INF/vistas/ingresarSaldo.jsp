@@ -12,7 +12,8 @@
 <body>
 	<div class="container">
 	<form:form action="${pageContext.request.contextPath}/procesarSaldo/${cliente.id}" method="POST" modelAttribute="billetera">
-	<div class="col-md-6">	
+	<div class="col-md-6">
+		<h1>Recargar billetera</h1>	
 		<label>Ingrese el monto</label>
 		<input type="number" name="monto" id="saldo"/>
 		</div>
