@@ -94,6 +94,8 @@ public class ControladorBilletera {
 				modelo.put("saldo", billetera.getSaldo());
 				modelo.put("nombre", cliente.getNombre());
 				modelo.put("apellido", cliente.getApellido());
+				
+				modelo.put("cliente", cliente);
 			
 			return new ModelAndView("miBilletera", modelo);
 		}else {
@@ -110,8 +112,8 @@ public class ControladorBilletera {
 		return new ModelAndView("redirect:/registroBilletera/{id}", modelo);
 	}
 	
-	@RequestMapping(path="/formularioSaldo/{cliente.id}", method=RequestMethod.GET)
-	public ModelAndView formularioSaldo(@PathVariable("cliente.id") Long id,
+	@RequestMapping(path="/formularioSaldo/{id}", method=RequestMethod.GET)
+	public ModelAndView formularioSaldo(@PathVariable("id") Long id,
 										@ModelAttribute("billetera") Billetera billetera) {
 		ModelMap modelo = new ModelMap();
 		
@@ -142,21 +144,26 @@ public class ControladorBilletera {
 		
 		try {
 			if(cliente != null && billetera != null) {
-				if(monto > 0) {
+				if(monto >= 50) {
 					servicioBilletera.ingresarSaldo(billetera, monto);
+					modelo.put("billetera", billetera);
+					modelo.put("cliente", cliente);
 					modelo.put("saldo", billetera.getSaldo());
 					
 					return new ModelAndView("confirmacionSaldo", modelo);
 				}else {
 					
-					modelo.put("error", "Ingrese un monto mayor");
+					modelo.put("error", "Ingrese un monto mayor a $50");
 				}					
 			}
 		} catch(Exception e) {
 
-			modelo.put("error", e.getMessage());
-			return new ModelAndView("registroBilletera", modelo);
+			modelo.put("exception", e.getMessage());
+			modelo.put("error", "Ingrese un monto");
+			modelo.put("billetera", billetera);
+			modelo.put("cliente", cliente);
+			return new ModelAndView("ingresarSaldo", modelo);
 		}
-		return new ModelAndView("redirect:/formularioSaldo/{id}", modelo); //ARREGLAR
+		return new ModelAndView("ingresarSaldo", modelo); //ARREGLAR
 	}
 }
