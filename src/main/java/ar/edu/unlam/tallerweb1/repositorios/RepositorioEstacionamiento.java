@@ -26,7 +26,13 @@ public interface RepositorioEstacionamiento {
 
 	Estacionamiento buscarEstacionamiento(Long id);
 	
-	Estacionamiento buscarEstacionamientoPorAuto(Auto auto);
+
+	List <Estacionamiento> buscarEstacionamientoPorAuto(Auto auto);
 	
+
 	List<Estacionamiento> buscarAutosDeUnGarage(Garage garage1);
+
+	Estacionamiento consultarEstacionamiento(Estacionamiento est);
+
+	void cambiarEstadoEstacionamiento(Estacionamiento est);
 }

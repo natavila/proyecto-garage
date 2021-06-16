@@ -56,10 +56,23 @@ public class ControladorClientes {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
 		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
+		modelo.put("cliente", cliente);
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}
 		return new ModelAndView("redirect:/login");
 }
+	
+	@RequestMapping(path="/mostrarAutosClientes/eliminar/{id}/{idC}")
+	public ModelAndView eliminarAuto(@PathVariable("id")Long id,@PathVariable("idC")Long idC) {
+		ModelMap modelo = new ModelMap();
+		Auto auto=servicioAuto.buscarAuto(id);
+		
+		
+		servicioAuto.eliminarAuto(auto);
+		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
+	}
+	
+	
 			
 	
 		

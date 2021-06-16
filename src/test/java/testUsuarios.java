@@ -82,13 +82,13 @@ public class testUsuarios extends SpringTest{
 		usuario1.setApellido("rodriguez");
 		usuario1.setEmail("pepito@hotmail.com");
 		usuario1.setPassword("123");
-		usuario1.setDni(1234564);
+		
 		
 		usuario2.setNombre("jorge");
 		usuario2.setApellido("asd");
 		usuario2.setEmail("jorge@hotmail.com");
 		usuario2.setPassword("321");
-		usuario2.setDni(42671687);
+		
 		
 		reg.agregarCliente(usuario1);
 		reg.agregarCliente(usuario2);
@@ -97,15 +97,14 @@ public class testUsuarios extends SpringTest{
 		
 		List<Cliente> clienteEncontrado =  (List<Cliente>) sessionFactory.getCurrentSession()
 				.createCriteria(Cliente.class)
-				.add(Restrictions.eq("dni", usuario1.getDni()))
+				.add(Restrictions.eq("id", usuario1.getId()))
 				.list();
 		
-		assertEquals(1, clienteEncontrado.size());
-		
-		
-		
-		
+		assertEquals(1, clienteEncontrado.size());	
 	}
+	
+	
+	
 	
 	@Test
 	@Transactional
@@ -125,7 +124,7 @@ public class testUsuarios extends SpringTest{
 		usuario1.setApellido("rodriguez");
 		usuario1.setEmail("pepito@hotmail.com");
 		usuario1.setPassword("123");
-		usuario1.setDni(1234564);
+		
 		
 		garage1.setNombre("nose");
 		

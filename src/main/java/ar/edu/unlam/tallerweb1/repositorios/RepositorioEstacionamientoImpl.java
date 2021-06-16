@@ -36,9 +36,24 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 		 final Session session = sessionFactory.getCurrentSession();
 		 session.save(est);
 	 }
+	 @Override
+	 public Estacionamiento consultarEstacionamiento(Estacionamiento est) {
+		 final Session session = sessionFactory.getCurrentSession();
+		 return (Estacionamiento) session.createCriteria(Estacionamiento.class)
+				 .add(Restrictions.eq("id", est.getId()))
+				 .uniqueResult();
+	 }
+	 
+	@Override 
+	 public void cambiarEstadoEstacionamiento(Estacionamiento est) {
+		final Session session = sessionFactory.getCurrentSession();
+		Estacionamiento est1 = (Estacionamiento) session.createCriteria(Estacionamiento.class)
+				 .add(Restrictions.eq("id", est.getId()))
+				 .uniqueResult();
+		est1.setActiva(false);
+	 }
 	 
 	 @Override
-	
 		public Estacionamiento buscarEstacionamiento(Long id) {
 			final Session session = sessionFactory.getCurrentSession();
 			return session.get(Estacionamiento.class, id);
@@ -120,9 +135,7 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 	 
 	 @Override
 		public Garage  contultarUnGarage(Garage garage1) {
-		 
 			final Session session = sessionFactory.getCurrentSession();
-			
 			return (Garage) session.createCriteria(Garage.class)
 					.add(Restrictions.eq("id",garage1.getId()))
 					.uniqueResult();
@@ -131,12 +144,12 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 		}
 
 	@Override
-	public Estacionamiento buscarEstacionamientoPorAuto(Auto auto) {
+	public List<Estacionamiento> buscarEstacionamientoPorAuto(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();
-		return (Estacionamiento) session.createCriteria(Estacionamiento.class)
+		return (List<Estacionamiento>) session.createCriteria(Estacionamiento.class)
 				.createAlias("auto", "autoBuscado")
 				.add(Restrictions.eq("autoBuscado.id", auto.getId()))
-				.uniqueResult();
+				.list();
 	}
 	 
 	 

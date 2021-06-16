@@ -27,12 +27,12 @@
 		  <div class="container">
 		    <a class="navbar-brand" href="#">Garage</a>
 		    <div class="btn-group" role="group" aria-label="Basic example">
-			  <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Iniciar sesi�n</button>
+			  <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal">Iniciar sesión</button>
 			  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header text-light bg-dark">
-				        <h5 class="modal-title" id="exampleModalLabel">Iniciar sesi�n</h5>
+				        <h5 class="modal-title" id="exampleModalLabel">Iniciar sesión</h5>
 				        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
@@ -54,7 +54,7 @@
 				    <label for="password" class="form-label">Password</label>
 				    <form:input type="password" class="form-control" id="password" path="password"/>
 				  </div>
-				  <button type="submit" class="btn btn-outline-dark mb-3">Iniciar sesi�n</button>
+				  <button type="submit" class="btn btn-outline-dark mb-3">Iniciar sesión</button>
 				</form:form>
 				</div>
 				<div class="col mb-3">
@@ -62,13 +62,16 @@
 				</div>
 				</div>
 				</div>
-				<%--Bloque que es visible si el elemento error no está vacío	--%>
+				<%--Bloque que es visible si el elemento error no estÃ¡ vacÃ­o	--%>
 				<c:if test="${not empty Error}">
 				
 				    <h4>${Error}</h4>
 				 				        	        
 		        </c:if>
-		        <a href="/mostrarOlvido">�Olvidaste tu contrase�a?</a>
+
+		        <p>¿Todavia no tenes cuenta? <a href="mostrarRegistro">Registrate</a></p>
+
+		        <a href="/mostrarOlvido">¿Olvidaste tu contraseña?</a>
 			</div>
 		</div>
 				      </div>
@@ -88,7 +91,7 @@
 		<div class="container">
 		<div class="grid-log">
 		<div class="slogan">
-		 <h1 >Inicia sesi�n para<br>
+		 <h1 >Inicia sesión para<br>
 		 acceder a tu cuenta</h1>
 		 </div>
 		 <div class="image-log">

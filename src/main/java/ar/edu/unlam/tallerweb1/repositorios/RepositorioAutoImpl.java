@@ -22,19 +22,24 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	public RepositorioAutoImpl(SessionFactory sessionFactory){
 		this.sessionFactory = sessionFactory;
 	}
-
-	
-		
-
-	 
+    
 	@Override
 		public void registrarAuto(Auto auto) { 
 	    		
 				final Session session = sessionFactory.getCurrentSession();
-				session.save(auto);
-			
-			
+				session.save(auto);	
 		}
+	
+	
+	
+	
+	@Override
+	public void eliminarAuto(Auto auto) {
+		final Session session = sessionFactory.getCurrentSession();
+	
+		session.delete(auto);
+		
+	}
 	
 	@Override
 	public List<Auto> listaDeAutos() {
@@ -55,6 +60,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	}
 	
 	
+
 	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();
@@ -85,7 +91,6 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 				.add(Restrictions.eq("clienteBuscado.id", cliente.getId()))
 				.list();
 				
-		
 		return lista;
 		
 	}
