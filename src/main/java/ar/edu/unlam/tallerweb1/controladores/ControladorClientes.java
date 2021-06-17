@@ -59,9 +59,10 @@ public class ControladorClientes {
 		ModelMap modelo = new ModelMap();
 		
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
-		modelo.put("cantidad", servicioAuto.consultarAutoDeCliente(cliente).size());
+		
+		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
 		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
-		//modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente));
+		
 		modelo.put("cliente", cliente);
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}

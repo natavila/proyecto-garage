@@ -186,7 +186,9 @@ public class ControladorGarage {
 				modelo.addAttribute(id);
 				Cliente cliente = servicioLogin.consultarClientePorId(id);
 				modelo.put("cliente", cliente);
-				modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
+				
+				modelo.put("auto",servicioAuto.consultarAutoDeClienteActivo(cliente) );
+				
 				modelo.addAttribute("autos", servicioAuto.consultarAutoDeCliente(cliente));
 				return new ModelAndView ("ListaAutosDeCliente", modelo);
 			}
