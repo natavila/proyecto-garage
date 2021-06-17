@@ -25,7 +25,7 @@
 		          <a class="nav-link active" aria-current="page" href="#">Home</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#">Garajes</a>
+		          <a class="nav-link" href="#">Garages</a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link" href="#">Mi perfil</a>
