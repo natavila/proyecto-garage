@@ -236,7 +236,6 @@ public class ControladorPagarGarage {
 				est.setPrecioAPagar(precio);
 				 
 				
-				modelo.put("numTicket", est);
 				
 				modelo.put("ticket",ticket);
 				
@@ -277,6 +276,7 @@ public class ControladorPagarGarage {
 					modelo.put("billetera", billetera.getSaldo());
 					modelo.put("garage", garage.getNombre());
 					modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
+					
 					return new ModelAndView("confirmacionReservaPorHora", modelo);
 				}else {
 					return new ModelAndView("saldoInsuficiente", modelo);

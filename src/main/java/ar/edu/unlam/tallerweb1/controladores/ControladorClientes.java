@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +28,13 @@ public class ControladorClientes {
 	
 	private ServicioLogin servicioLogin;
 	private ServicioAuto servicioAuto;
+	private ServicioCliente servicioCliente;
 	
 	@Autowired
-	private ControladorClientes(ServicioLogin servicioLogin,ServicioAuto servicioAuto) {
+	private ControladorClientes(ServicioLogin servicioLogin,ServicioAuto servicioAuto,ServicioCliente servicioCliente) {
 		this.servicioAuto =servicioAuto;
 		this.servicioLogin = servicioLogin;
+		this.servicioCliente = servicioCliente;
 	}
 	
 	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
@@ -54,8 +57,12 @@ public class ControladorClientes {
 		if(rol != null)
 			if(rol.equals("cliente") || rol.equals("admin")) {
 		ModelMap modelo = new ModelMap();
+		
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
-		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
+		
+		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
+		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
+		
 		modelo.put("cliente", cliente);
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}
@@ -66,8 +73,8 @@ public class ControladorClientes {
 	public ModelAndView eliminarAuto(@PathVariable("id")Long id,@PathVariable("idC")Long idC) {
 		ModelMap modelo = new ModelMap();
 		Auto auto=servicioAuto.buscarAuto(id);
-		
-		
+		//servicioAuto.SacarAuto(auto);
+		//auto.setEnUso(false);
 		servicioAuto.eliminarAuto(auto);
 		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
 	}
