@@ -18,6 +18,7 @@
 	    <!--<link href="css/bootstrap.min.css" rel="stylesheet" >-->
 	    <!-- Bootstrap theme -->
 	    <!--<link href="css/bootstrap-theme.min.css" rel="stylesheet">-->
+	    <meta charset="ISO-8859-1">
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
 	    <link href="css/estilos.css" rel="stylesheet" type="text/css">
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
@@ -32,7 +33,7 @@
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header text-light bg-dark">
-				        <h5 class="modal-title" id="exampleModalLabel">Iniciar sesión</h5>
+				        <h5 class="modal-title" id="exampleModalLabel">Iniciar sesion</h5>
 				        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
@@ -54,7 +55,7 @@
 				    <label for="password" class="form-label">Password</label>
 				    <form:input type="password" class="form-control" id="password" path="password"/>
 				  </div>
-				  <button type="submit" class="btn btn-outline-dark mb-3">Iniciar sesión</button>
+				  <button type="submit" class="btn btn-outline-dark mb-3">Iniciar sesion</button>
 				</form:form>
 				</div>
 				<div class="col mb-3">
@@ -92,7 +93,7 @@
 		<div class="container">
 		<div class="grid-log">
 		<div class="slogan">
-		 <h1 >Inicia sesión para<br>
+		 <h1 >Inicia sesion para<br>
 		 acceder a tu cuenta</h1>
 		 </div>
 		 <div class="image-log">
