@@ -45,6 +45,7 @@ public class ControladorRegistro {
 		Usuario usuario = new Usuario();
 		Cliente verif = servicioLogin.verificarCorreo(cliente);
 		if(cliente.getPassword().equals(repass) && verif == null && cliente.getNombre() != "") {
+			modelo.put("cliente", cliente);
 			modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
 			cliente.setRoll("cliente");
 			usuario.setEmail(cliente.getEmail());
@@ -54,7 +55,7 @@ public class ControladorRegistro {
 				
 		}else {
 			modelo.put("mensaje", "Error. No coinciden las passwords");
-			return new ModelAndView("redirect:/mostrarRegistro");
+			return new ModelAndView("registro", modelo);
 		}
 		return new ModelAndView("confirmacionRegistro", modelo);
 			

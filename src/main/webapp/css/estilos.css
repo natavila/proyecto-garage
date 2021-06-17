@@ -41,3 +41,21 @@
 	grid-column:3;
 	grid-row:1;
 }
+
+.registro-grid{
+	display: grid;
+	grid-template-columns: 400px 50px 300px;
+	grid-template-rows: 600px;
+}
+
+.registro-user{
+	grid-column: 1;
+	grid-row: 1;
+	background-color: black;
+}
+
+.img-registro{
+	grid-column: 3;
+	grid-row: 1;
+	margin-top: 200px;
+}
