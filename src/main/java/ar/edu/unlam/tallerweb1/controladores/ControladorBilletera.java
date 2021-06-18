@@ -153,6 +153,8 @@ public class ControladorBilletera {
 					return new ModelAndView("confirmacionSaldo", modelo);
 				}else {
 					
+					modelo.put("cliente", cliente);
+					modelo.put("billetera", billetera);
 					modelo.put("error", "Ingrese un monto mayor a $50");
 				}					
 			}

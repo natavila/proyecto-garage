@@ -18,12 +18,24 @@ public class Cliente {
 	private String email;
 	private String password;
 	private String roll;
-	
+
+	private Integer contAutos;
+	private String localidad;
+
 	@ManyToOne
 	Usuario usuario;
 
 	@ManyToOne
 	private Plan plan;
+
+	
+	public String getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
 
 	public String getEmail() {
 		return email;

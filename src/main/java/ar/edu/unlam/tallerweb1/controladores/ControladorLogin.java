@@ -19,6 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 
+import java.util.List;
+
+
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -30,11 +33,12 @@ public class ControladorLogin {
 	// dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
 	// applicationContext.xml
 	private ServicioLogin servicioLogin;
-	
+
 	private ServicioBilletera servicioBilletera;
 	private ServicioGarage servicioGarage;
 	@Autowired
-	public ControladorLogin(ServicioLogin servicioLogin, ServicioBilletera servicioBilletera,ServicioGarage servicioGarage){
+	public ControladorLogin(ServicioLogin servicioLogin, ServicioBilletera servicioBilletera, ServicioGarage servicioGarage){
+
 		this.servicioLogin = servicioLogin;
 		this.servicioBilletera = servicioBilletera;
 		this.servicioGarage = servicioGarage;
@@ -60,8 +64,6 @@ public class ControladorLogin {
 	@RequestMapping(path = "/validar-login", method = RequestMethod.POST)
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Cliente cliente, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
-		
-		
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
 		List<Garage> listaGarage = servicioGarage.consultarGarage();
@@ -77,12 +79,12 @@ public class ControladorLogin {
 				
 			}else {
 				
-				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
+				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());			
 				model.put("cliente", usuarioBuscado);
 				model.put("billetera", billetera);
 				model.put("garages", listaGarage);
 				return new ModelAndView("home", model);
-			}
+			}	
 	
 		}else {
 			
