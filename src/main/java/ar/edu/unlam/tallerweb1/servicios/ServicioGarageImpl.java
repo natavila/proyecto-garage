@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,18 +10,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioGarage;
 
 @Service
 @Transactional
 public class ServicioGarageImpl implements ServicioGarage{
-
 private RepositorioGarage repositorioGarage;
+
 	
 	@Autowired
 	public ServicioGarageImpl(RepositorioGarage repositorioGarage) {
 		this.repositorioGarage = repositorioGarage;
+		
 	}
 	
 	@Override
@@ -129,9 +133,9 @@ private RepositorioGarage repositorioGarage;
 		
 		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
 		garage1.setContador(garage1.getContador()+1);
-
-		
 	}
+	
+	
 	
 	@Override
 	public void restarContador(Garage garage) {
@@ -148,6 +152,19 @@ private RepositorioGarage repositorioGarage;
 	}
 
 
+	
+	@Override 
+	public Integer cantidadDeLugarEnEst(Garage garage) {
+		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
+		return (garage1.getCapacidad()-garage1.getContador());
+		
+	}
+	
+	
+	
+	
+		
+		
 	
 	
 

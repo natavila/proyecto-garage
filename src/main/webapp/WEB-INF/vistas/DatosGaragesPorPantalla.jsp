@@ -23,8 +23,8 @@
                 <th scope="col">Numero</th>
                 <th scope="col">Precio Hora $$</th>
                 <th scope="col">Precio Estadia $$</th>
-                <th scope="col">Capacidad $$</th>
-                <th scope="col">Contador</th>
+                <th scope="col">Cupo</th>
+                <th scope="col">Cantidad de autos</th>
                 
 	    </tr>
 	  </thead>

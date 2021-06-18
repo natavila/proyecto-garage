@@ -33,7 +33,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 	}
 	@Override
 	public List<Auto> listaDeAutos() {
-		// TODO Auto-generated method stub
+		
 		return servicioAuto.listaDeAutos();
 	}
 	@Override
@@ -71,6 +71,8 @@ public class ServicioAutoImpl implements ServicioAuto{
 	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
 
+		
+		
 		servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 		
 	}
@@ -84,6 +86,20 @@ public class ServicioAutoImpl implements ServicioAuto{
 		if(auto.getEnUso().equals(true)) {
 			auto.setEnUso(false);
 		}
+	}
+	@Override
+	public Boolean existeAuto(Auto auto) {
+		List<Auto> listaAutos =servicioAuto.listaDeAutos();
+		Boolean existe=false;
+		for(Auto e: listaAutos) {
+			if(e.getPatente().equals(auto.getPatente())) {
+				existe = true;
+				return existe;
+			}else {
+				existe=false;
+			}
+		}
+		return existe;
 	}
 	
 	

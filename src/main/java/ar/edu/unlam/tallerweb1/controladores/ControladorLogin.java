@@ -1,9 +1,13 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
+import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,8 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import java.util.List;
 
-import antlr.collections.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,11 +30,14 @@ public class ControladorLogin {
 	// dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
 	// applicationContext.xml
 	private ServicioLogin servicioLogin;
-	private ServicioAuto servicioAuto;
+	
+	private ServicioBilletera servicioBilletera;
+	private ServicioGarage servicioGarage;
 	@Autowired
-	public ControladorLogin(ServicioLogin servicioLogin, ServicioAuto servicioAuto){
+	public ControladorLogin(ServicioLogin servicioLogin, ServicioBilletera servicioBilletera,ServicioGarage servicioGarage){
 		this.servicioLogin = servicioLogin;
-		this.servicioAuto =servicioAuto;
+		this.servicioBilletera = servicioBilletera;
+		this.servicioGarage = servicioGarage;
 	}
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -56,18 +63,24 @@ public class ControladorLogin {
 		
 		
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
+		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
+		List<Garage> listaGarage = servicioGarage.consultarGarage();
 		String rol = (String) request.getSession().getAttribute("roll");
 		if (usuarioBuscado != null) {
 			if(usuarioBuscado.getRoll().equals("admin")) {
 				
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				model.put("admin", usuarioBuscado);
+				model.addAttribute("garages", servicioGarage.consultarGarage());
+				
 				return new ModelAndView("homeAdmin", model);
 				
 			}else {
 				
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				model.put("cliente", usuarioBuscado);
+				model.put("billetera", billetera);
+				model.put("garages", listaGarage);
 				return new ModelAndView("home", model);
 			}
 	

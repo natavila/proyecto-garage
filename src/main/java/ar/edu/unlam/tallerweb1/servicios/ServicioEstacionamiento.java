@@ -18,8 +18,10 @@ public interface ServicioEstacionamiento {
 
 	HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
 
-	
+	List<Estacionamiento> buscarEstacionamientoPorGarage(Garage garage);
 
 	void cambiarEstadoEstacionamiento(Estacionamiento est);
+
+	Double dineroGanadoEnElDia(Garage garage);
 
 }

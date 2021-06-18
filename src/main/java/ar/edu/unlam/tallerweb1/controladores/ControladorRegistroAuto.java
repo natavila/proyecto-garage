@@ -51,6 +51,7 @@ public class ControladorRegistroAuto {
 		ModelMap modelo = new ModelMap(); //Agrupa todo para mandarlo a vista
 		Auto auto = new Auto(); //Se crea un usuario vacio para mandarlo vacio para que el formulario se vaya llenando
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		
 		if(cliente != null) {
 			modelo.addAttribute("cliente", cliente);
 			
@@ -77,14 +78,16 @@ public class ControladorRegistroAuto {
 			Cliente cliente = servicioCliente.consultarClientePorId(id);
 			Auto auto1= servicioAuto.consultarAuto(auto);
 			 if(auto.getPatente() != "" && cliente != null && auto1 == null || auto1.getEnUso().equals(false)) {
-				 modelo.addAttribute("cliente", cliente);
-					auto.setCliente(cliente);
-					modelo.put("auto", auto);
-					
-					auto.setEnUso(true);
-					servicioAuto.registrarAuto(auto);
-					modelo.put("error", "Auto registrado correctamente");
-					return new ModelAndView("confirmacionRegistroAuto", modelo);
+				 
+					 modelo.addAttribute("cliente", cliente);
+						auto.setCliente(cliente);
+						modelo.put("auto", auto);
+	
+						auto.setEnUso(true);
+						servicioAuto.registrarAuto(auto);
+						modelo.put("error", "Auto registrado correctamente");
+						return new ModelAndView("confirmacionRegistroAuto", modelo);
+				 	
 				 
 			 	}else {
 			 		
