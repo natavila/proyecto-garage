@@ -63,8 +63,7 @@ public class ControladorLogin {
 		
 		
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
-		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
-		List<Garage> listaGarage = servicioGarage.consultarGarage();
+		
 		String rol = (String) request.getSession().getAttribute("roll");
 		if (usuarioBuscado != null) {
 			if(usuarioBuscado.getRoll().equals("admin")) {
@@ -76,7 +75,8 @@ public class ControladorLogin {
 				return new ModelAndView("homeAdmin", model);
 				
 			}else {
-				
+				Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
+				List<Garage> listaGarage = servicioGarage.consultarGarage();
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				model.put("cliente", usuarioBuscado);
 				model.put("billetera", billetera);

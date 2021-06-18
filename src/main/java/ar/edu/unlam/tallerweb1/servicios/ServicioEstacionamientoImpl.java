@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -114,12 +115,19 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			@Override
 			public Double dineroGanadoEnElDia(Garage garage) {
 				Double suma=0.0;
-				List<Estacionamiento> est = buscarEstacionamientoPorGarage(garage);
+				
+				List<Estacionamiento> est =repositorioEst.consultarEstacionamientoPorFecha();
 				for(Estacionamiento e: est) {
-					if(e.getFechaOperacion().equals(LocalDate.now())) {
+					if( garage.getId().equals(e.getGarage1().getId())) {
 						suma += e.getPrecioAPagar();
 					}
 				}
 				return suma;
+			}
+
+			@Override
+			public List<Estacionamiento> consultarEstacionamiento() {
+				
+				return repositorioEst.consultarEstacionamiento();
 			}
 }

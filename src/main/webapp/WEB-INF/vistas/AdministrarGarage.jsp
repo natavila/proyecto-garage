@@ -81,7 +81,7 @@
 		</c:if>
 		</div>
 		<div style="text-align:center; margin-top:50px;">
-		<c:if test="${not empty diner}">
+		<c:if test="${not empty dinero}">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert">
 		  <strong>Recaudado en el dia:$ ${dinero} </strong>
 		</div>
