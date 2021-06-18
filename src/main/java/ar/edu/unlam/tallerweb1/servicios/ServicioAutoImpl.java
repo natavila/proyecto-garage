@@ -81,6 +81,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 		servicioAuto.eliminarAuto(auto);
 		
 	}
+	
 	@Override
 	public void SacarAuto(Auto auto) {
 		if(auto.getEnUso().equals(true)) {
@@ -100,6 +101,11 @@ public class ServicioAutoImpl implements ServicioAuto{
 			}
 		}
 		return existe;
+	}
+	@Override
+	public void cambiarEstadoDeUso(Auto auto) {
+		servicioAuto.cambiarEstadoDeUso(auto);
+		
 	}
 	
 	

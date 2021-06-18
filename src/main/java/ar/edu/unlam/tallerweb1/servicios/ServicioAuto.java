@@ -18,6 +18,6 @@ public interface ServicioAuto{
 	void eliminarAuto(Auto auto);
 	List<Auto> consultarAutoDeClienteActivo(Cliente cliente);
 	void SacarAuto(Auto auto);
-	
+	void cambiarEstadoDeUso(Auto auto);
 	Boolean existeAuto(Auto auto);
 }
