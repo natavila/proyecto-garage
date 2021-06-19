@@ -124,6 +124,19 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				}
 				return suma;
 			}
+			@Override
+			public Double dineroGanadoEnTotal() {
+				Double suma=0.0;
+				List<Estacionamiento> est =repositorioEst.consultarEstacionamientoPorFecha();
+				for(Estacionamiento e: est) {
+					
+						suma += e.getPrecioAPagar();
+					
+				}
+				return suma;
+				
+				
+			}
 
 			@Override
 			public List<Estacionamiento> consultarEstacionamiento() {

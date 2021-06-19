@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
+import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,13 +33,14 @@ public class ControladorLogin {
 	// dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
 	// applicationContext.xml
 	private ServicioLogin servicioLogin;
-	
+	private ServicioEstacionamiento servEst;
 	private ServicioBilletera servicioBilletera;
 	private ServicioGarage servicioGarage;
 	@Autowired
-	public ControladorLogin(ServicioLogin servicioLogin, ServicioBilletera servicioBilletera,ServicioGarage servicioGarage){
+	public ControladorLogin(ServicioLogin servicioLogin, ServicioBilletera servicioBilletera,ServicioGarage servicioGarage,ServicioEstacionamiento servEst){
 		this.servicioLogin = servicioLogin;
 		this.servicioBilletera = servicioBilletera;
+		this.servEst= servEst;
 		this.servicioGarage = servicioGarage;
 	}
 
@@ -70,7 +74,25 @@ public class ControladorLogin {
 				
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				model.put("admin", usuarioBuscado);
+				List<Garage> listaGarage = servicioGarage.consultarGarage();
+				ArrayList<Integer> ocupacion = new ArrayList<Integer>();
+				
+				for(Garage e: listaGarage) {
+					
+					ocupacion.add(servicioGarage.cantidadDeLugarEnEst(e));	
+				}
+				
+				for(Integer e: ocupacion) {
+					if(e<5) {
+						model.put("alerta","mensaje");
+						
+					}else {
+						model.put("alerta", "");
+					}	
+				}
+				model.put("ocupacion", ocupacion);
 				model.addAttribute("garages", servicioGarage.consultarGarage());
+				model.put("ganancia",servEst.dineroGanadoEnTotal() );
 				
 				return new ModelAndView("homeAdmin", model);
 				

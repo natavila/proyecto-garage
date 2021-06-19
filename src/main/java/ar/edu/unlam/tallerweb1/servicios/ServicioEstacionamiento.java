@@ -24,4 +24,6 @@ public interface ServicioEstacionamiento {
 	List<Estacionamiento> consultarEstacionamiento();
 	Double dineroGanadoEnElDia(Garage garage);
 
+	Double dineroGanadoEnTotal();
+
 }
