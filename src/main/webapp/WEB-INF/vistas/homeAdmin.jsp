@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -59,7 +60,23 @@
 		</div>
 		
 <h1>Garages</h1>
-<div class="container mt-3">
+						
+						<c:if test="${not empty ganancia}">
+						<div class="alert alert-success " role="alert">
+		 			 	<strong>Dinero Recaudado en el Dia: ${ganancia}</strong>
+						</div>
+						</c:if> 
+						<c:if test="${not empty alerta}">
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		 			 	<strong>¡Atencion!  Algun GARAGE con Pocos Lugares Disponibles</strong>
+		 			 	 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    					<span aria-hidden="true">&times;</span></button>
+						</div>
+						</c:if> 
+<div class="container col-12">
+<div class="row">
+<div class= "col-6">
+<div class="container ">
 		<table class="table table-hover">
 	  <thead>
 	    <tr>
@@ -71,8 +88,11 @@
                 
                 
 	    </tr>
+	    
 	  </thead>
+	  
 	  <tbody>
+
 	  <c:forEach var="garage" 
 	             items="${garages}"
 	             varStatus="status">
@@ -82,30 +102,54 @@
                     <td>${garage.localidad}</td>
                     <td>${garage.calle}</td>
                     <td>${garage.numero}</td>
-                   
+     		          
                     
-					
-   					
-					
-					
-					<td> <a href="${pageContext.request.contextPath}/AdministrarGarage/${garage.id}">Administrar</a> </td>	
-					
-					
-	                </tr>
-	                
-	            </c:forEach>
-	  </tbody>
-	</table>
-
+                   
+         
+					<td> <a href="${pageContext.request.contextPath}/AdministrarGarage/${garage.id}">Mostrar</a> </td>	
+			
+			</c:forEach>
+	        </tbody>
+	        </table>
+	        </div>
+	        </div> 
+	               
+	    <div class ="col-6">       
+		<div class="container fluid">
+		<table class="table table-hover">
+	 		<thead>
+	    			<tr>
+	    			<th scope="col">Lugares Disponibles</th>
+	    			
+	    			</tr>
+	    	</thead>
+					<c:forEach var="ocup" 
+								 items="${ocupacion}"
+	            				 varStatus="status">
+	              		<tr>
+                    			<td id="oc"><b>${ocup}</b></td>
+                    	
+                    	<td>
+						</td>
+                    	
+                    	</tr>
+       				</c:forEach>	
+	  		</tbody>
+		</table>
+		</tr>
 		</div>
-
-
+		</div>
+</div>
+</div>
 		
-		
+						
 		
 
 	</body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
 </html>
+
+
+

@@ -21,7 +21,9 @@ public interface ServicioEstacionamiento {
 	List<Estacionamiento> buscarEstacionamientoPorGarage(Garage garage);
 
 	void cambiarEstadoEstacionamiento(Estacionamiento est);
-
+	List<Estacionamiento> consultarEstacionamiento();
 	Double dineroGanadoEnElDia(Garage garage);
+
+	Double dineroGanadoEnTotal();
 
 }

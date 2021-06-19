@@ -43,6 +43,17 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	}
 	
 	@Override
+	public void cambiarEstadoDeUso(Auto auto) {
+		final Session session = sessionFactory.getCurrentSession();
+		Auto auto1=consultarAuto(auto);
+		if(auto1.getEnUso().equals(false)) {
+			auto1.setEnUso(true);
+		}else {
+			auto1.setEnUso(false);
+		}
+	}
+	
+	@Override
 	public List<Auto> listaDeAutos() {
 		
 		final Session session = sessionFactory.getCurrentSession();

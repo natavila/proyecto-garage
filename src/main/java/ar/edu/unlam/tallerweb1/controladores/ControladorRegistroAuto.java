@@ -77,45 +77,37 @@ public class ControladorRegistroAuto {
 			ModelMap modelo = new ModelMap();
 			Cliente cliente = servicioCliente.consultarClientePorId(id);
 			Auto auto1= servicioAuto.consultarAuto(auto);
-			 if(auto.getPatente() != "" && cliente != null && auto1 == null || auto1.getEnUso().equals(false)) {
+			
+			 if(auto.getPatente() != "" && cliente != null && auto1 == null) {
 				 
 					 modelo.addAttribute("cliente", cliente);
 						auto.setCliente(cliente);
 						modelo.put("auto", auto);
-	
 						auto.setEnUso(true);
 						servicioAuto.registrarAuto(auto);
 						modelo.put("error", "Auto registrado correctamente");
 						return new ModelAndView("confirmacionRegistroAuto", modelo);
-				 	
 				 
-			 	}else {
+				 	
+			 	}else if(auto1 != null && auto1.getEnUso().equals(false)) {
+			 		modelo.addAttribute("cliente", cliente);
+			 
+					auto1.setCliente(cliente);
+					//auto1.setEnUso(true);
+					servicioAuto.cambiarEstadoDeUso(auto1);
+					modelo.put("auto", auto1);
+					
+					modelo.put("error", "Cambiando de Dueño el AUTO");
 			 		
+					return new ModelAndView("confirmacionRegistroAuto", modelo);
+			 	}else {
 			 		modelo.put("error", "Patente ya registrada");
 			 		return new ModelAndView("redirect:/mostrarRegistroAuto/{id}/{nombre}", modelo);
 			 	}
 
 			
 	}
-	/*@RequestMapping(path="/procesarRegistroAuto/{id}", method=RequestMethod.POST)
-	public ModelAndView procesarRegistroAuto(
-			@ModelAttribute("auto") Auto auto,
-			@PathVariable("id") Long id){
-		ModelMap modelo = new ModelMap();
-		List<Cliente> clienteBuscado = servicioRegistro.listaCliente();		
-		for(Cliente cliente : clienteBuscado) {
-			 if(cliente.getId().equals(id)) {
-				 modelo.addAttribute("cliente", servicioRegistro.consultarClientePorId(cliente));
-				 auto.setCliente(cliente);
-				 servicioRegistro.registrarAuto(auto);
-				 modelo.put("auto", auto);
-				 
-			 }
-		}
-		
-		return new ModelAndView("redirect:/home", modelo);
-			
-	}*/
+	
 	
 	
 }

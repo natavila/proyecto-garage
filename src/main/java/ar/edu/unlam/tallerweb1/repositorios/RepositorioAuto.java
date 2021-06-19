@@ -23,6 +23,8 @@ public interface RepositorioAuto {
 
 
 	void eliminarAuto(Auto auto);
+
+	void cambiarEstadoDeUso(Auto auto);
 	
 	
 }

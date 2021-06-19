@@ -37,4 +37,8 @@ public interface RepositorioEstacionamiento {
 	void cambiarEstadoEstacionamiento(Estacionamiento est);
 
 	List<Estacionamiento> buscarEstacionamientoPorGarage(Garage garage);
+
+	List<Estacionamiento> consultarEstacionamiento();
+
+	List<Estacionamiento> consultarEstacionamientoPorFecha();
 }

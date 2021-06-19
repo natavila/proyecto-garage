@@ -280,8 +280,7 @@ public class ControladorGarage {
 	
 	@RequestMapping(path="AdministrarGarage/{id}", method = RequestMethod.GET)
 	public ModelAndView administrarGarage(HttpServletRequest request,
-			@PathVariable("id") Long garage1
-	/*@ModelAttribute ("garage") Garage garage1*/){
+			@PathVariable("id") Long garage1){
 		String rol = (String) request.getSession().getAttribute("roll");
 		ModelMap modelo = new ModelMap();
 		Garage garage = servicioGarage.buscarGarage(garage1);
@@ -290,7 +289,7 @@ public class ControladorGarage {
 				
 				modelo.put("garage", garage);
 				modelo.put("lugar", servicioGarage.cantidadDeLugarEnEst(garage));
-				//modelo.put("dinero", servicioEst.dineroGanadoEnElDia(garage));
+				modelo.put("dinero", servicioEst.dineroGanadoEnElDia(garage));
 				
 				if(servicioGarage.cantidadDeLugarEnEst(garage)<5) {
 					modelo.put("alerta", "Garage Con Pocos Lugares Disponibles");
@@ -299,7 +298,7 @@ public class ControladorGarage {
 				}
 				
 				
-	return new ModelAndView ("AdministrarGarage", modelo);
+				return new ModelAndView ("AdministrarGarage", modelo);
 			}
 		return new ModelAndView("redirect:/login");
 	}

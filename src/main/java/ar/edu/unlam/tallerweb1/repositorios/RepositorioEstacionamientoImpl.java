@@ -162,7 +162,23 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 				.list();
 	}
 	 
+	 @Override
+	 public List<Estacionamiento> consultarEstacionamiento(){
+		 final Session session = sessionFactory.getCurrentSession();
+		 return session.createCriteria(Estacionamiento.class)
+				 .list();
+		 
+	 }
 	 
+	
+	@Override
+		public List<Estacionamiento> consultarEstacionamientoPorFecha() {
+			final Session session = sessionFactory.getCurrentSession();
+			return (List<Estacionamiento>) session.createCriteria(Estacionamiento.class)
+					.add(Restrictions.eq("fechaOperacion", LocalDate.now()))
+					.list();
+		}
+		 
 	 
 	
 
