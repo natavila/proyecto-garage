@@ -21,8 +21,8 @@
                 <th scope="col">Localidad</th>
                 <th scope="col">Calle</th>
                 <th scope="col">Numero</th>
-                <th scope="col">Precio Hora $$</th>
-                <th scope="col">Precio Estadia $$</th>
+                <th scope="col"><a href="listaPorHora">Precio Hora $$</a></th>
+                <th scope="col"><a href="listaPorEstadia">Precio Estadia $$</a></th>
                 <th scope="col">Cupo</th>
                 <th scope="col">Cantidad de autos</th>
                 

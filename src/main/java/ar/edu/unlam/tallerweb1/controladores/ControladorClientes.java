@@ -22,6 +22,7 @@ import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
 @Controller
 public class ControladorClientes {
@@ -29,12 +30,14 @@ public class ControladorClientes {
 	private ServicioLogin servicioLogin;
 	private ServicioAuto servicioAuto;
 	private ServicioCliente servicioCliente;
+	private ServicioRegistro servicioRegistro;
 	
 	@Autowired
-	private ControladorClientes(ServicioLogin servicioLogin,ServicioAuto servicioAuto,ServicioCliente servicioCliente) {
+	private ControladorClientes(ServicioLogin servicioLogin,ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente) {
 		this.servicioAuto =servicioAuto;
 		this.servicioLogin = servicioLogin;
 		this.servicioCliente = servicioCliente;
+		this.servicioRegistro = servicioRegistro;
 	}
 	
 	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
@@ -44,6 +47,7 @@ public class ControladorClientes {
 		if(rol != null)
 			if(rol.equals("admin")) {
 			modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
+			servicioRegistro.NotificacionesVistas();
 			return("ListaClientes");
 			}
 		return ("redirect:/login");

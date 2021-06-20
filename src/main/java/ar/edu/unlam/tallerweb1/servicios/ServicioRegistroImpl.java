@@ -19,7 +19,7 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
 public class ServicioRegistroImpl implements ServicioRegistro{
 
 	private RepositorioCliente servicioRegistro;
-
+	private Integer notif=0;
 	@Autowired
 	public ServicioRegistroImpl(RepositorioCliente servicioRegistro){
 		this.servicioRegistro = servicioRegistro;
@@ -29,7 +29,21 @@ public class ServicioRegistroImpl implements ServicioRegistro{
 	public void agregarCliente(Cliente cliente) {
 		
 	 servicioRegistro.registrarCliente(cliente);
+	 notif++;
 	 
+	}
+	
+	@Override
+	 
+	public Integer NotificacionesClientes() {
+		
+		
+		return notif;
+	}
+	
+	@Override
+	public void NotificacionesVistas() {
+		notif=0;
 	}
 
 

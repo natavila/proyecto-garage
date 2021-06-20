@@ -19,6 +19,8 @@ public class Cliente {
 	private String password;
 	private String roll;
 	
+	
+	
 	@ManyToOne
 	Usuario usuario;
 
@@ -88,6 +90,8 @@ public class Cliente {
 	public void setPlan(Plan plan) {
 		this.plan = plan;
 	}
+
+	
 
 	
 	

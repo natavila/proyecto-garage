@@ -62,12 +62,7 @@ public class Garage {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-	/*public Localidad getLocalidad() {
-		return localidad;
-	}
-	public void setLocalidad(Localidad localidad) {
-		this.localidad = localidad;
-	}*/
+	
 	public List<Lugar> getLugares() {
 		return lugares;
 	}
@@ -111,6 +106,12 @@ public class Garage {
 	public void setHorario(String horario) {
 		this.horario = horario;
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 }

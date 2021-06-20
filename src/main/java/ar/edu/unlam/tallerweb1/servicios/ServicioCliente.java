@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
@@ -17,4 +18,8 @@ public interface ServicioCliente {
 	
 	Cliente consultarCliente(Cliente cliente);
 	Cliente buscarCliente(Cliente cliente);
+
+	ArrayList<Cliente> listaCliente();
+
+	Integer notificadorDeClientesNuevos();
 }
