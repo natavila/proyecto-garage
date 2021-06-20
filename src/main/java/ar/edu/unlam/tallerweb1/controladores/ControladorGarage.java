@@ -102,9 +102,38 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
-	 
 	
-
+	@RequestMapping("/listaPorHora")
+	public ModelAndView ListarPorHora(HttpServletRequest request){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("admin")) {
+		ModelMap modelo = new ModelMap();
+	
+		modelo.addAttribute("garages", servicioGarage.ordenarGaragePorHora());
+		return new ModelAndView("DatosGaragesPorPantalla", modelo);
+			}
+		return new ModelAndView("redirect:/login");
+	
+	}
+	
+	@RequestMapping("/listaPorEstadia")
+	public ModelAndView ListarPorEstadia(HttpServletRequest request){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("admin")) {
+		ModelMap modelo = new ModelMap();
+	
+		modelo.addAttribute("garages", servicioGarage.ordenarGaragePorEstadia());
+		return new ModelAndView("DatosGaragesPorPantalla", modelo);
+			}
+		return new ModelAndView("redirect:/login");
+	
+	}
+	
+	
+	
+	
 	@RequestMapping("/lista/eliminar/{id}")
 	public ModelAndView eliminaGarge(@PathVariable("id")Long id) {
 		ModelMap modelo = new ModelMap();

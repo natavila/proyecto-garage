@@ -43,6 +43,7 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 		cliente.setApellido(apellidoUpp);
 		cliente.setEmail(emailUpp);
 		session.save(cliente);
+		
 	}
     
   
@@ -106,11 +107,11 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 	}
 
 	@Override
-	public List<Cliente> listaDeClientes() {
+	public ArrayList<Cliente> listaDeClientes() {
 		
 		 final Session session = sessionFactory.getCurrentSession();
-		  
-		   List<Cliente> listaClientes = session.createCriteria(Cliente.class)
+		  ArrayList<Cliente> listaClientes = new ArrayList<Cliente>();
+		   listaClientes = (ArrayList<Cliente>) session.createCriteria(Cliente.class)
 				   .add(Restrictions.eq("roll", "cliente"))
 				  .list();
 				return listaClientes;  

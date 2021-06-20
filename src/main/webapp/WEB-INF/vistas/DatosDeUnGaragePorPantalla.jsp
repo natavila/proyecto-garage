@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <main class="container">    
-<h1>Garge Seleccionado</h1>
+<h1>Garage Seleccionado</h1>
 
 <h5>Nombre: ${garage.nombre} </h5>
 <h5>Localidad: ${garage.localidad }</h5>

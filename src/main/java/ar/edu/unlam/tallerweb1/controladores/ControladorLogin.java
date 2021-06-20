@@ -7,9 +7,12 @@ import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,13 +42,18 @@ public class ControladorLogin {
 	private ServicioEstacionamiento servEst;
 	private ServicioBilletera servicioBilletera;
 	private ServicioGarage servicioGarage;
+	private ServicioCliente servicioCliente;
+	private ServicioRegistro servicioRegistro;
 	@Autowired
-	public ControladorLogin(ServicioLogin servicioLogin, ServicioBilletera servicioBilletera,ServicioGarage servicioGarage,ServicioEstacionamiento servEst){
+
+	public ControladorLogin(ServicioLogin servicioLogin, ServicioRegistro servicioRegistro,ServicioCliente servicioCliente,ServicioBilletera servicioBilletera,ServicioGarage servicioGarage,ServicioEstacionamiento servEst){
 
 		this.servicioLogin = servicioLogin;
 		this.servicioBilletera = servicioBilletera;
 		this.servEst= servEst;
 		this.servicioGarage = servicioGarage;
+		this.servicioCliente = servicioCliente;
+		this.servicioRegistro = servicioRegistro;
 	}
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -79,6 +87,8 @@ public class ControladorLogin {
 				List<Garage> listaGarage = servicioGarage.consultarGarage();
 				ArrayList<Integer> ocupacion = new ArrayList<Integer>();
 				
+				Integer notifNuevos = servicioRegistro.NotificacionesClientes();
+				
 				for(Garage e: listaGarage) {
 					
 					ocupacion.add(servicioGarage.cantidadDeLugarEnEst(e));	
@@ -87,11 +97,18 @@ public class ControladorLogin {
 				for(Integer e: ocupacion) {
 					if(e<5) {
 						model.put("alerta","mensaje");
-						
+						break;
 					}else {
 						model.put("alerta", "");
 					}	
 				}
+				
+				Integer notif = servicioCliente.notificadorDeClientesNuevos();
+				
+			
+				
+				model.put("notifNuevos", notifNuevos);
+				model.put("notif", notif);
 				model.put("ocupacion", ocupacion);
 				model.addAttribute("garages", servicioGarage.consultarGarage());
 				model.put("ganancia",servEst.dineroGanadoEnTotal() );

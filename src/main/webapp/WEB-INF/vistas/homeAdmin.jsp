@@ -60,6 +60,11 @@
 		</div>
 		
 <h1>Garages</h1>
+						<c:if test="${not empty notifNuevos && notifNuevos != 0}">
+						<div class="alert alert-primary" role="alert">
+  						 ¡Atencion! Clientes Nuevos: <a href="mostrarClientes" class="alert-link">( ${notifNuevos} )</a> (Click para ver Clientes).
+						</div>
+						</c:if> 
 						
 						<c:if test="${not empty ganancia}">
 						<div class="alert alert-success " role="alert">

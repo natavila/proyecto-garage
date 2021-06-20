@@ -1,10 +1,13 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import antlr.collections.List;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
@@ -49,11 +52,23 @@ public class ServicioClienteImpl implements ServicioCliente{
 		
 		return servicioCliente.consultarCliente(cliente);
 	}
+	@Override
+	public ArrayList<Cliente> listaCliente(){
+		return servicioCliente.listaDeClientes();
+	}
 
 	@Override
 	public Cliente buscarCliente(Cliente cliente) {
 		
 		return servicioCliente.buscarCliente(cliente);
 	}
+	
+
+	@Override
+	public Integer notificadorDeClientesNuevos() {
+		 Integer contador = servicioCliente.listaDeClientes().size();
+		 return contador;
+	}
+	
 
 }

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -35,6 +36,8 @@ public interface ServicioGarage {
 	List<Garage> buscarGaragePorLocalidad(String localidad);
 	Boolean GarageLleno(Garage garage);
 	Integer cantidadDeLugarEnEst(Garage garage);
+	ArrayList<Garage> ordenarGaragePorHora();
+	ArrayList<Garage> ordenarGaragePorEstadia();
 	
 
 }
