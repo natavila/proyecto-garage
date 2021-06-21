@@ -40,11 +40,18 @@
 				<form:input type="number" class="form-control"
 					id="cantidadAutosPermitidos" path="cantidadAutosPermitidos" />
 			</div>
-			<div class="col-12">
+			<div class="col-md-6>
 				<label for="cantidadHorasPermitidas"
 					class="form-label control-label">Cantidad de horas
 					permitidas</label> <input type="number" class="form-control"
 					id="cantidadHorasPermitidas" name="cantidadHorasPermitidas" />
+			</div>
+			
+			<div class="col-md-6">
+				<label for="precio"
+					class="form-label control-label">Precio
+					</label> <input type="number" class="form-control"
+					id="precio" name="precio" />
 			</div>
 
 			<button type="submit" class="btn btn-primary control-label mb-3">Crear</button>

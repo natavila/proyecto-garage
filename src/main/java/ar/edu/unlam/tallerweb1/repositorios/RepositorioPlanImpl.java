@@ -34,9 +34,19 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 	@Override
 	public void asignarPlanACliente(Cliente cliente, Plan plan) {
 		final Session session = sessionFactory.getCurrentSession();
-		session.save(cliente);
-		session.save(plan);
+		plan.setCliente(cliente);
 
+	}
+	
+	@Override
+	public Plan existeClienteConPlan(Cliente cliente, Plan plan) {
+		final Session session = sessionFactory.getCurrentSession();
+		return (Plan) session.createCriteria(Plan.class)
+				.createAlias("cliente", "clienteBuscado")
+				.createAlias("plan", "planBuscado")
+				.add(Restrictions.eq("usuarioBuscado.id", cliente.getId()))
+				.add(Restrictions.eq("planBuscado.id", plan.getId()))
+				.uniqueResult();
 	}
 
 	@Override
@@ -56,33 +66,33 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 		// return generarPlanesTruchos();
 	}
 
-	private List<Plan> generarPlanesTruchos() {
-		List<Plan> listaDePlanes = new ArrayList<>();
-		Plan plan1 = new Plan();
-		Plan plan2 = new Plan();
-		Plan plan3 = new Plan();
-
-		plan1.setCantidadAutosPermitidos(100L);
-		plan2.setCantidadAutosPermitidos(100L);
-		plan3.setCantidadAutosPermitidos(100L);
-		plan1.setCantidadHorasPermitidas(100L);
-		plan2.setCantidadHorasPermitidas(100L);
-		plan3.setCantidadHorasPermitidas(100L);
-		plan1.setEstaActivo(true);
-		plan2.setEstaActivo(true);
-		plan3.setEstaActivo(true);
-		plan1.setNombre("Primer plan");
-		plan2.setNombre("Segundo plan");
-		plan3.setNombre("Tercer plan");
-		plan1.setId(1L);
-		plan2.setId(2L);
-		plan3.setId(3L);
-		listaDePlanes.add(plan1);
-		listaDePlanes.add(plan2);
-		listaDePlanes.add(plan3);
-
-		return listaDePlanes;
-	}
+//	private List<Plan> generarPlanesTruchos() {
+//		List<Plan> listaDePlanes = new ArrayList<>();
+//		Plan plan1 = new Plan();
+//		Plan plan2 = new Plan();
+//		Plan plan3 = new Plan();
+//
+//		plan1.setCantidadAutosPermitidos(100L);
+//		plan2.setCantidadAutosPermitidos(100L);
+//		plan3.setCantidadAutosPermitidos(100L);
+//		plan1.setCantidadHorasPermitidas(100L);
+//		plan2.setCantidadHorasPermitidas(100L);
+//		plan3.setCantidadHorasPermitidas(100L);
+//		plan1.setEstaActivo(true);
+//		plan2.setEstaActivo(true);
+//		plan3.setEstaActivo(true);
+//		plan1.setNombre("Primer plan");
+//		plan2.setNombre("Segundo plan");
+//		plan3.setNombre("Tercer plan");
+//		plan1.setId(1L);
+//		plan2.setId(2L);
+//		plan3.setId(3L);
+//		listaDePlanes.add(plan1);
+//		listaDePlanes.add(plan2);
+//		listaDePlanes.add(plan3);
+//
+//		return listaDePlanes;
+//	}
 
 	@Override
 	public Plan consultarPlan(Long id) {

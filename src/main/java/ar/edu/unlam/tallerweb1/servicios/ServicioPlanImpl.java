@@ -48,5 +48,10 @@ public class ServicioPlanImpl implements ServicioPlan {
 		return repositorioPlan.consultarPlan(id);
 
 	}
+	
+	@Override
+	public Plan existeClienteConPlan(Cliente cliente, Plan plan) {
+		return repositorioPlan.existeClienteConPlan(cliente, plan);
+	}
 
 }

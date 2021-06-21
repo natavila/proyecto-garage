@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Cliente {
@@ -22,13 +23,15 @@ public class Cliente {
 
 	private Integer contAutos;
 	private String localidad;
-
+	
+	@OneToOne
+	private Plan plan;
 
 	@ManyToOne
 	Usuario usuario;
 
-	@ManyToOne
-	private Plan plan;
+	
+	
 
 	
 	public String getLocalidad() {
