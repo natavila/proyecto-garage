@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Plan {
@@ -18,10 +19,12 @@ public class Plan {
 
 	private String nombre;
 
-	@OneToMany
-	private List<Cliente> clientesAsignadosAlPlan;
+	@OneToOne
+	private Cliente cliente;
+
 	private Long cantidadAutosPermitidos;
 	private Long cantidadHorasPermitidas;
+	private Double precio;
 	private Boolean estaActivo;
 
 	public Long getId() {
@@ -40,12 +43,12 @@ public class Plan {
 		this.nombre = nombre;
 	}
 
-	public List<Cliente> getClientesAsignadosAlPlan() {
-		return clientesAsignadosAlPlan;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setClientesAsignadosAlPlan(List<Cliente> clientesAsignadosAlPlan) {
-		this.clientesAsignadosAlPlan = clientesAsignadosAlPlan;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Long getCantidadAutosPermitidos() {
@@ -70,6 +73,14 @@ public class Plan {
 
 	public void setEstaActivo(Boolean estaActivo) {
 		this.estaActivo = estaActivo;
+	}
+
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
 	}
 
 }

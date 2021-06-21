@@ -5,23 +5,69 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+	crossorigin="anonymous">
 <title>Lista de planes</title>
 </head>
 <body>
-	<h1>Lista de Planes:</h1>
-	<c:forEach var="plan" items="${planes}" varStatus="status">
-		<tr>
-			<td><b>${plan.id}</b></td>
 
-			<td>${plan.nombre}</td>
-			<br>
-
-<td><a href=""> Elegir </a></td>
-		</tr>
-
-	</c:forEach>
+	<div class="container mt-3">
+		<h1>Qué plan querés elegir?</h1>
+		<table class="table table-hover">
 
 
+
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Cantidad de autos por mes</th>
+					<th scope="col">Cantidad de horas por mes</th>
+					<th scope="col">Precio</th>
+
+
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="plan" items="${planes}" varStatus="status">
+					<tr>
+						<td><b>${plan.id}</b></td>
+
+						<td>${plan.nombre}</td>
+						<td>${plan.cantidadAutosPermitidos}</td>
+						<td>${plan.cantidadHorasPermitidas}</td>
+						<td>${plan.precio}</td>
+						<td><a class="btn btn-primary" href="planes" role="button">Elegir</a></td>
+						<br>
+						</td>
+					</tr>
+
+			
+
+				</c:forEach>
+
+			</tbody>
+		</table>
+		<a class="btn btn-primary" href="home" role="button">Volver</a>
+
+	</div>
+		<c:if test="${not empty mensajeExito}">
+			<div class="alert alert-success" role="alert">
+				<h6>${mensajeExito}</h6>
+
+			</div>
+		</c:if>
+
+		<c:if test="${not empty mensajeTienePlan}">
+			<div class="alert alert-danger" role="alert">
+				<h6>${mensajeTienePlan}</h6>
+
+			</div>
+		</c:if>
+	<footer th:replace="layout/layout::footer" class="bg-dark"></footer>
 </body>
 </html>
