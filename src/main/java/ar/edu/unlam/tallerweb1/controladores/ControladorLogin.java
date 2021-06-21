@@ -95,12 +95,15 @@ public class ControladorLogin {
 				}
 				
 				for(Integer e: ocupacion) {
-					if(e<5) {
+					if(e<=5 && e>=1 ) {
 						model.put("alerta","mensaje");
 						break;
-					}else {
-						model.put("alerta", "");
-					}	
+					}else if(e<=0){
+						model.put("Lleno", "mensaje");
+						break;
+					}	else {
+						model.put("ConLugar", "ConLugar");
+					}
 				}
 				
 				Integer notif = servicioCliente.notificadorDeClientesNuevos();

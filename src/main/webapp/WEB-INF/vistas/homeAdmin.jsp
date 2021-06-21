@@ -71,6 +71,16 @@
 		 			 	<strong>Dinero Recaudado en el Dia: ${ganancia}</strong>
 						</div>
 						</c:if> 
+						<c:if test="${not empty Lleno}">
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		 				 <strong>¡Atencion! Garage Algun SIN cocheras disponibles</strong>
+						</div>
+						</c:if>
+						<c:if test="${not empty ConLugar}">
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+		 				 <strong>Servicio Sin Problemas</strong>
+						</div>
+						</c:if>
 						<c:if test="${not empty alerta}">
 						<div class="alert alert-warning alert-dismissible fade show" role="alert">
 		 			 	<strong>¡Atencion!  Algun GARAGE con Pocos Lugares Disponibles</strong>

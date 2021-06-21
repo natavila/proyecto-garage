@@ -60,11 +60,10 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			@Override
 
 			
-			public HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
-				//List<Auto> autosActivos= buscarAutosDeUnGarage(garage1);
-				HashSet<Auto> autoLista = new HashSet<Auto>();
-
+			public ArrayList<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
 				
+				HashSet<Auto> autoLista = new HashSet<Auto>();
+				ArrayList<Auto> lista = new ArrayList<Auto>();
 				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
 				
 				for(Estacionamiento e: est) {
@@ -72,10 +71,26 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 						autoLista.add(e.getAuto());
 					}
 				}
-
-				return (HashSet<Auto>) autoLista;
+				lista.addAll(autoLista);
+				return  lista;
 			}
 
+			
+			@Override
+			public ArrayList<Long> numeroDeTicketAuto(Garage garage1){
+				ArrayList<Long> numTickets = new ArrayList<Long>();
+				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
+				
+				for(Estacionamiento e: est) {
+					if(e.getActiva().equals(true)) {
+						numTickets.add(e.getId());
+					}
+				}
+
+				return (ArrayList<Long>) numTickets;
+			}
+				
+			
 			
 			@Override
 			public Estacionamiento buscarEstacionamientoPorAuto(Auto auto) {
@@ -143,4 +158,8 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				
 				return repositorioEst.consultarEstacionamiento();
 			}
+			
+			
+			
+			
 }
