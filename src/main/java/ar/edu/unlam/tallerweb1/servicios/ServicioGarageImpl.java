@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -9,18 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioGarage;
+
 
 @Service
 @Transactional
-public class ServicioGarageImpl implements ServicioGarage{
-
+public class ServicioGarageImpl implements ServicioGarage, Comparator<Garage>{
 private RepositorioGarage repositorioGarage;
+
 	
 	@Autowired
 	public ServicioGarageImpl(RepositorioGarage repositorioGarage) {
 		this.repositorioGarage = repositorioGarage;
+		
 	}
 	
 	@Override
@@ -39,12 +46,37 @@ private RepositorioGarage repositorioGarage;
 		return repositorioGarage.consultarGarage();
 	}
 	
-	/*@Override
-	public Boolean asignarAutoaGarage(Garage garage1, Auto auto1) {
+	
+	@Override
+	public ArrayList<Garage> ordenarGaragePorHora(){
+		ArrayList<Garage> listaPorHora = new ArrayList<Garage>();
+		listaPorHora.addAll(repositorioGarage.consultarGarage());
+		Collections.sort(listaPorHora, new Comparator<Garage>() {
+			@Override
+			public int compare(Garage g1, Garage g2) {
+				return new Integer (g1.getPrecioHora().compareTo(g2.getPrecioHora()));
+			}
+		});
 		
-		return repositorioGarage.asignarAutoaGarage(garage1, auto1);
-	}*/
+		return listaPorHora;
+	}
 
+	
+	@Override
+	public ArrayList<Garage> ordenarGaragePorEstadia(){
+		ArrayList<Garage> listaPorEst= new ArrayList<Garage>();
+		listaPorEst.addAll(repositorioGarage.consultarGarage());
+		Collections.sort(listaPorEst, new Comparator<Garage>() {
+			@Override
+			public int compare(Garage g1, Garage g2) {
+				return new Integer (g1.getPrecioEstadia().compareTo(g2.getPrecioEstadia()));
+			}
+		});
+		
+		return listaPorEst;
+	}
+	
+	
 	@Override
 	public Garage contultarUnGarage(Garage garage1) {
 		
@@ -57,15 +89,11 @@ private RepositorioGarage repositorioGarage;
 		return repositorioGarage.consultarAutosEnGarage(garage1);
 	}
 
-	/*@Override
-	public Boolean sacarAutoDegarage(Auto auto, Garage garage) {
-		
-		return repositorioGarage.sacarAutoDegarage(auto, garage);
-	}*/	
+	
 
 	@Override
 	public List<Garage> buscarPorPrecioHora(Double precio1, Double precio2) {
-		// TODO Auto-generated method stub
+		
 		return repositorioGarage.buscarPorPrecioHora(precio1, precio2);
 	}
 
@@ -77,7 +105,7 @@ private RepositorioGarage repositorioGarage;
 
 	@Override
 	public List<Garage> buscarPorPrecioEstadia(Double precio1, Double precio2) {
-		// TODO Auto-generated method stub
+		
 		return repositorioGarage.buscarPorPrecioEstadia(precio1, precio2);
 	}
 
@@ -129,9 +157,9 @@ private RepositorioGarage repositorioGarage;
 		
 		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
 		garage1.setContador(garage1.getContador()+1);
-
-		
 	}
+	
+	
 	
 	@Override
 	public void restarContador(Garage garage) {
@@ -149,7 +177,19 @@ private RepositorioGarage repositorioGarage;
 
 
 	
+	@Override 
+	public Integer cantidadDeLugarEnEst(Garage garage) {
+		Garage garage1 = repositorioGarage.contultarUnGarage(garage);
+		return (garage1.getCapacidad()-garage1.getContador());
+		
+	}
+
+	@Override
+	public int compare(Garage o1, Garage o2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 	
 
-	
 }

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -25,18 +27,18 @@
 		          <a class="nav-link active" aria-current="page" href="#">Home</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#">Garajes</a>
+		          <a class="nav-link" href="lista">Garages</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#">Mi perfil</a>
+		          <a class="nav-link" href="mostrarClientes">Clientes</a>
 		        </li>
 		        <li class="nav-item dropdown">
 		          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		            Dropdown
+		            Administrar
 		          </a>
 		          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-		            <li><a class="dropdown-item" href="#">Action</a></li>
-		            <li><a class="dropdown-item" href="#">Another action</a></li>
+		            <li><a class="dropdown-item" href="mostrarRegistroLocalidad">Agregar Localidad</a></li>
+		            <li><a class="dropdown-item" href="crearPlan">Crear Plan</a></li>
 		            <li><hr class="dropdown-divider"></li>
 		            <li><a class="dropdown-item" href="#">Something else here</a></li>
 		          </ul>
@@ -56,21 +58,113 @@
 		<div>
 		<h5>ADMIN: ${admin.nombre}</h5>
 		</div>
-		<a class="btn btn-primary" href="mostrarClientes" role="button">Mostrar clientes</a>
-		<br>
-		<a class="btn btn-primary" href="mostrarRegistroLocalidad" role="button">Agregar Localidad</a>
-		<br> 
-
-		<a class="btn btn-primary" href="lista" role="button">Mostrar garajes</a>
-		<a class="btn btn-primary" href="crearPlan" role="button">Crear plan</a>
 		
+<h1>Garages</h1>
+						<c:if test="${not empty notifNuevos && notifNuevos != 0}">
+						<div class="alert alert-primary" role="alert">
+  						 ¡Atencion! Clientes Nuevos: <a href="mostrarClientes" class="alert-link">( ${notifNuevos} )</a> (Click para ver Clientes).
+						</div>
+						</c:if> 
+						
+						<c:if test="${not empty ganancia}">
+						<div class="alert alert-success " role="alert">
+		 			 	<strong>Dinero Recaudado en el Dia: ${ganancia}</strong>
+						</div>
+						</c:if> 
+						<c:if test="${not empty Lleno}">
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		 				 <strong>¡Atencion! Garage Algun SIN cocheras disponibles</strong>
+						</div>
+						</c:if>
+						<c:if test="${not empty ConLugar}">
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+		 				 <strong>Servicio Sin Problemas</strong>
+						</div>
+						</c:if>
+						<c:if test="${not empty alerta}">
+						<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		 			 	<strong>¡Atencion!  Algun GARAGE con Pocos Lugares Disponibles</strong>
+		 			 	 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    					<span aria-hidden="true">&times;</span></button>
+						</div>
+						</c:if> 
+<div class="container col-12">
+<div class="row">
+<div class= "col-6">
+<div class="container ">
+		<table class="table table-hover">
+	  <thead>
+	    <tr>
+	       		<th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Localidad</th>
+                <th scope="col">Calle</th>
+                <th scope="col">Numero</th>
+                
+                
+	    </tr>
+	    
+	  </thead>
+	  
+	  <tbody>
 
+	  <c:forEach var="garage" 
+	             items="${garages}"
+	             varStatus="status">
+	                <tr>
+	                <td><b>${garage.id}</b></td>
+                    <td>${garage.nombre}</td>
+                    <td>${garage.localidad}</td>
+                    <td>${garage.calle}</td>
+                    <td>${garage.numero}</td>
+     		          
+                    
+                   
+         
+					<td> <a href="${pageContext.request.contextPath}/AdministrarGarage/${garage.id}">Mostrar</a> </td>	
+			
+			</c:forEach>
+	        </tbody>
+	        </table>
+	        </div>
+	        </div> 
+	               
+	    <div class ="col-6">       
+		<div class="container fluid">
+		<table class="table table-hover">
+	 		<thead>
+	    			<tr>
+	    			<th scope="col">Lugares Disponibles</th>
+	    			
+	    			</tr>
+	    	</thead>
+					<c:forEach var="ocup" 
+								 items="${ocupacion}"
+	            				 varStatus="status">
+	              		<tr>
+                    			<td id="oc"><b>${ocup}</b></td>
+                    	
+                    	<td>
+						</td>
+                    	
+                    	</tr>
+       				</c:forEach>	
+	  		</tbody>
+		</table>
+		</tr>
+		</div>
+		</div>
+</div>
+</div>
 		
-		<br>
-		<br>
+						
+		
 
 	</body>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
 </html>
+
+
+

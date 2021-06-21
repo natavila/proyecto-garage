@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -30,7 +33,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 	}
 	@Override
 	public List<Auto> listaDeAutos() {
-		// TODO Auto-generated method stub
+		
 		return servicioAuto.listaDeAutos();
 	}
 	@Override
@@ -41,7 +44,24 @@ public class ServicioAutoImpl implements ServicioAuto{
 	@Override
 	public List<Auto> consultarAutoDeCliente(Cliente cliente) {
 		
+		
 		return servicioAuto.ConsultarAutoDeCliente( cliente);
+		
+	}
+	
+	
+	@Override
+	public List<Auto> consultarAutoDeClienteActivo(Cliente cliente){
+		List<Auto> lista= servicioAuto.ConsultarAutoDeCliente(cliente);
+		ArrayList<Auto> activos = new ArrayList<Auto>();
+		for(Auto e: lista) {
+			if(e.getEnUso().equals(true)) {
+				activos.add(e);
+			}
+		}
+		return activos;
+		
+		
 	}
 	@Override
 	public Auto buscarAuto(Long id) {
@@ -51,6 +71,8 @@ public class ServicioAutoImpl implements ServicioAuto{
 	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
 
+		
+		
 		servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 		
 	}
@@ -60,6 +82,31 @@ public class ServicioAutoImpl implements ServicioAuto{
 		
 	}
 	
+	@Override
+	public void SacarAuto(Auto auto) {
+		if(auto.getEnUso().equals(true)) {
+			auto.setEnUso(false);
+		}
+	}
+	@Override
+	public Boolean existeAuto(Auto auto) {
+		List<Auto> listaAutos =servicioAuto.listaDeAutos();
+		Boolean existe=false;
+		for(Auto e: listaAutos) {
+			if(e.getPatente().equals(auto.getPatente())) {
+				existe = true;
+				return existe;
+			}else {
+				existe=false;
+			}
+		}
+		return existe;
+	}
+	@Override
+	public void cambiarEstadoDeUso(Auto auto) {
+		servicioAuto.cambiarEstadoDeUso(auto);
+		
+	}
 	
 	
 	

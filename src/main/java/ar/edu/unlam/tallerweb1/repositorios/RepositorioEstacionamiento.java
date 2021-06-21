@@ -35,4 +35,10 @@ public interface RepositorioEstacionamiento {
 	Estacionamiento consultarEstacionamiento(Estacionamiento est);
 
 	void cambiarEstadoEstacionamiento(Estacionamiento est);
+
+	List<Estacionamiento> buscarEstacionamientoPorGarage(Garage garage);
+
+	List<Estacionamiento> consultarEstacionamiento();
+
+	List<Estacionamiento> consultarEstacionamientoPorFecha();
 }

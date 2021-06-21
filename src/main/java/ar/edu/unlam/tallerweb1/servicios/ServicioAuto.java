@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -11,8 +12,12 @@ public interface ServicioAuto{
 	List<Auto> listaDeAutos();
 
 	void registrarAuto(Auto auto);
-	public List<Auto> consultarAutoDeCliente(Cliente cliente);
+	List<Auto> consultarAutoDeCliente(Cliente cliente);
 	public Auto buscarAuto(Long id);
 	void cambiarEstadoDeSiestaEnGarageOno(Auto auto);
 	void eliminarAuto(Auto auto);
+	List<Auto> consultarAutoDeClienteActivo(Cliente cliente);
+	void SacarAuto(Auto auto);
+	void cambiarEstadoDeUso(Auto auto);
+	Boolean existeAuto(Auto auto);
 }

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class ControladorEstacionamiento {
 		this.servicioAuto = servicioAuto;
 		this.servicioEst = servicioEst;
 	}
+	/*
 	@RequestMapping(path="/sacarAutoDeGarage/{GarageId}/{AutoId}", method=RequestMethod.GET)
 	public ModelAndView SacarAutosDeGarage( @PathVariable("GarageId")Long Gid,
 			@PathVariable("AutoId")Long Aid){
@@ -54,7 +56,7 @@ public class ControladorEstacionamiento {
 			return new ModelAndView("redirect:/mostrarAutosDeUnGarage/{GarageId}", modelo);
 	}
 	
-
+*/
 	
 	@RequestMapping(path = "/sacarAuto/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
 	public ModelAndView sacarAuto(@PathVariable("id")Long id) {
@@ -75,7 +77,7 @@ public class ControladorEstacionamiento {
 				
 			
 				Garage garage2 = servicioGarage.buscarGarage(id);
-				HashSet<Auto> autos = (HashSet<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
+				ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
 				Estacionamiento est= servicioEst.buscarEstacionamiento(retirarAuto);
 				for(Auto e: autos) {
 					if(e.getId().equals(est.getAuto().getId())) {

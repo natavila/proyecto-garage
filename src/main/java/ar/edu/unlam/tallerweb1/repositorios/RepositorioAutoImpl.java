@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -36,9 +37,20 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	@Override
 	public void eliminarAuto(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();
-	
-		session.delete(auto);
+		Auto auto1=consultarAuto(auto);
+		auto1.setEnUso(false);
 		
+	}
+	
+	@Override
+	public void cambiarEstadoDeUso(Auto auto) {
+		final Session session = sessionFactory.getCurrentSession();
+		Auto auto1=consultarAuto(auto);
+		if(auto1.getEnUso().equals(false)) {
+			auto1.setEnUso(true);
+		}else {
+			auto1.setEnUso(false);
+		}
 	}
 	
 	@Override
@@ -86,10 +98,12 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	@Override
 	public List<Auto> ConsultarAutoDeCliente(Cliente cliente) {
 		final Session session = sessionFactory.getCurrentSession();
-		List <Auto> lista = session.createCriteria(Auto.class)
+		List <Auto> lista =  session.createCriteria(Auto.class)
 				.createAlias("cliente", "clienteBuscado")
 				.add(Restrictions.eq("clienteBuscado.id", cliente.getId()))
 				.list();
+		
+
 				
 		return lista;
 		

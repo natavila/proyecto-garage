@@ -9,8 +9,6 @@
 </head>
 <body>
 	<div class="container">
-	<h1>Numero de Ticket</h1>
-	<h3>${ticket}</h3>
 	<h1>El precio es: </h1>
 		<h3>${precio}</h3><br>
 		<h1>Horas del auto en el garaje:</h1>

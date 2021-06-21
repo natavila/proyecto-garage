@@ -22,6 +22,10 @@ public interface ServicioRegistro {
 	
 	public abstract Cliente consultarClientePorId(Long id);
 
+	Integer NotificacionesClientes();
+
+	void NotificacionesVistas();
+
 	
 	
 	

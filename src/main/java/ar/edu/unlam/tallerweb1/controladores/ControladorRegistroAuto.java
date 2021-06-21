@@ -51,11 +51,13 @@ public class ControladorRegistroAuto {
 		ModelMap modelo = new ModelMap(); //Agrupa todo para mandarlo a vista
 		Auto auto = new Auto(); //Se crea un usuario vacio para mandarlo vacio para que el formulario se vaya llenando
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		
 		if(cliente != null) {
 			modelo.addAttribute("cliente", cliente);
 			
 			auto.setCliente(cliente);
 			modelo.put("auto", auto);
+			
 			return new ModelAndView("registroAuto", modelo);
 		}else {
 			
@@ -74,41 +76,53 @@ public class ControladorRegistroAuto {
 			@PathVariable("nombre") String nombre){
 			ModelMap modelo = new ModelMap();
 			Cliente cliente = servicioCliente.consultarClientePorId(id);
+
 			 if(auto.getPatente() != "" && cliente != null && servicioAuto.consultarAuto(auto) == null) {
 				 	modelo.put("cliente", cliente);
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
 					servicioAuto.registrarAuto(auto);
 					return new ModelAndView("redirect:/mostrarAutosClientes/{id}");
-				 
+
+			Auto auto1= servicioAuto.consultarAuto(auto);
+			
+			 if(auto.getPatente() != "" && cliente != null && auto1 == null) {
+
 			 	}else {
 			 		modelo.put("cliente", cliente);
 			 		modelo.put("auto", auto);
 			 		modelo.put("mensaje", "Patente ya registrada. Ingrese otra patente.");
 			 		return new ModelAndView("registroAuto", modelo);
+
+					 modelo.addAttribute("cliente", cliente);
+						auto.setCliente(cliente);
+						modelo.put("auto", auto);
+						auto.setEnUso(true);
+						servicioAuto.registrarAuto(auto);
+						modelo.put("error", "Auto registrado correctamente");
+						return new ModelAndView("confirmacionRegistroAuto", modelo);
+				 
+				 	
+			 	}else if(auto1 != null && auto1.getEnUso().equals(false)) {
+			 		modelo.addAttribute("cliente", cliente);
+			 
+					auto1.setCliente(cliente);
+					//auto1.setEnUso(true);
+					servicioAuto.cambiarEstadoDeUso(auto1);
+					modelo.put("auto", auto1);
+					
+					modelo.put("error", "Cambiando de Dueño el AUTO");
+			 		
+					return new ModelAndView("confirmacionRegistroAuto", modelo);
+			 	}else {
+			 		modelo.put("error", "Patente ya registrada");
+			 		return new ModelAndView("redirect:/mostrarRegistroAuto/{id}/{nombre}", modelo);
+
 			 	}
 
 			
-	}
-	/*@RequestMapping(path="/procesarRegistroAuto/{id}", method=RequestMethod.POST)
-	public ModelAndView procesarRegistroAuto(
-			@ModelAttribute("auto") Auto auto,
-			@PathVariable("id") Long id){
-		ModelMap modelo = new ModelMap();
-		List<Cliente> clienteBuscado = servicioRegistro.listaCliente();		
-		for(Cliente cliente : clienteBuscado) {
-			 if(cliente.getId().equals(id)) {
-				 modelo.addAttribute("cliente", servicioRegistro.consultarClientePorId(cliente));
-				 auto.setCliente(cliente);
-				 servicioRegistro.registrarAuto(auto);
-				 modelo.put("auto", auto);
-				 
 			 }
-		}
-		
-		return new ModelAndView("redirect:/home", modelo);
-			
-	}*/
 	
+	}
 	
 }

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
@@ -25,7 +26,7 @@ public interface RepositorioCliente {
 	
 	Cliente existeUsuario(Cliente cliente);
 	
-	List<Cliente> listaDeClientes();
+	ArrayList<Cliente> listaDeClientes();
 	
 	
 	

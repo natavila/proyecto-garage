@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -16,10 +17,16 @@ public interface ServicioEstacionamiento {
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 
 
-	HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
+	ArrayList<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
 
-	
+	List<Estacionamiento> buscarEstacionamientoPorGarage(Garage garage);
 
 	void cambiarEstadoEstacionamiento(Estacionamiento est);
+	List<Estacionamiento> consultarEstacionamiento();
+	Double dineroGanadoEnElDia(Garage garage);
+
+	Double dineroGanadoEnTotal();
+
+	ArrayList<Long> numeroDeTicketAuto(Garage garage1);
 
 }

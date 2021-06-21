@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
 @Controller
 public class ControladorClientes {
@@ -30,14 +32,27 @@ public class ControladorClientes {
 	private ServicioLogin servicioLogin;
 	private ServicioAuto servicioAuto;
 	private ServicioCliente servicioCliente;
+
 	private ServicioBilletera servicioBilletera;
+
+	private ServicioRegistro servicioRegistro;
+
 	
 	@Autowired
+
 	private ControladorClientes(ServicioLogin servicioLogin, ServicioAuto servicioAuto, ServicioCliente servicioCliente, ServicioBilletera servicioBilletera) {
 		this.servicioAuto = servicioAuto;
+
+	private ControladorClientes(ServicioLogin servicioLogin,ServicioRegistro servicioRegistro,ServicioAuto servicioAuto,ServicioCliente servicioCliente) {
+		this.servicioAuto =servicioAuto;
+
 		this.servicioLogin = servicioLogin;
 		this.servicioCliente = servicioCliente;
+
 		this.servicioBilletera = servicioBilletera;
+
+		this.servicioRegistro = servicioRegistro;
+
 	}
 	
 	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
@@ -47,6 +62,7 @@ public class ControladorClientes {
 		if(rol != null)
 			if(rol.equals("admin")) {
 			modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
+			servicioRegistro.NotificacionesVistas();
 			return("ListaClientes");
 			}
 		return ("redirect:/login");
@@ -60,8 +76,12 @@ public class ControladorClientes {
 		if(rol != null)
 			if(rol.equals("cliente") || rol.equals("admin")) {
 		ModelMap modelo = new ModelMap();
+		
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
-		modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
+		
+		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
+		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
+		
 		modelo.put("cliente", cliente);
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}
@@ -72,8 +92,8 @@ public class ControladorClientes {
 	public ModelAndView eliminarAuto(@PathVariable("id")Long id,@PathVariable("idC")Long idC) {
 		ModelMap modelo = new ModelMap();
 		Auto auto=servicioAuto.buscarAuto(id);
-		
-		
+		//servicioAuto.SacarAuto(auto);
+		//auto.setEnUso(false);
 		servicioAuto.eliminarAuto(auto);
 		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
 	}

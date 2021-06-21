@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -58,11 +60,10 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			@Override
 
 			
-			public HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
-				//List<Auto> autosActivos= buscarAutosDeUnGarage(garage1);
-				HashSet<Auto> autoLista = new HashSet<Auto>();
-
+			public ArrayList<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
 				
+				HashSet<Auto> autoLista = new HashSet<Auto>();
+				ArrayList<Auto> lista = new ArrayList<Auto>();
 				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
 				
 				for(Estacionamiento e: est) {
@@ -70,10 +71,26 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 						autoLista.add(e.getAuto());
 					}
 				}
-
-				return (HashSet<Auto>) autoLista;
+				lista.addAll(autoLista);
+				return  lista;
 			}
 
+			
+			@Override
+			public ArrayList<Long> numeroDeTicketAuto(Garage garage1){
+				ArrayList<Long> numTickets = new ArrayList<Long>();
+				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
+				
+				for(Estacionamiento e: est) {
+					if(e.getActiva().equals(true)) {
+						numTickets.add(e.getId());
+					}
+				}
+
+				return (ArrayList<Long>) numTickets;
+			}
+				
+			
 			
 			@Override
 			public Estacionamiento buscarEstacionamientoPorAuto(Auto auto) {
@@ -101,4 +118,48 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			}
 			
 			}
+
+			@Override
+			public List<Estacionamiento> buscarEstacionamientoPorGarage(Garage garage) {
+				
+				return repositorioEst.buscarEstacionamientoPorGarage(garage);
+			}
+			
+			
+			
+			@Override
+			public Double dineroGanadoEnElDia(Garage garage) {
+				Double suma=0.0;
+				
+				List<Estacionamiento> est =repositorioEst.consultarEstacionamientoPorFecha();
+				for(Estacionamiento e: est) {
+					if( garage.getId().equals(e.getGarage1().getId())) {
+						suma += e.getPrecioAPagar();
+					}
+				}
+				return suma;
+			}
+			@Override
+			public Double dineroGanadoEnTotal() {
+				Double suma=0.0;
+				List<Estacionamiento> est =repositorioEst.consultarEstacionamientoPorFecha();
+				for(Estacionamiento e: est) {
+					
+						suma += e.getPrecioAPagar();
+					
+				}
+				return suma;
+				
+				
+			}
+
+			@Override
+			public List<Estacionamiento> consultarEstacionamiento() {
+				
+				return repositorioEst.consultarEstacionamiento();
+			}
+			
+			
+			
+			
 }

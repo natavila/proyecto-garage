@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -102,9 +103,38 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
-	 
 	
-
+	@RequestMapping("/listaPorHora")
+	public ModelAndView ListarPorHora(HttpServletRequest request){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("admin")) {
+		ModelMap modelo = new ModelMap();
+	
+		modelo.addAttribute("garages", servicioGarage.ordenarGaragePorHora());
+		return new ModelAndView("DatosGaragesPorPantalla", modelo);
+			}
+		return new ModelAndView("redirect:/login");
+	
+	}
+	
+	@RequestMapping("/listaPorEstadia")
+	public ModelAndView ListarPorEstadia(HttpServletRequest request){
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("admin")) {
+		ModelMap modelo = new ModelMap();
+	
+		modelo.addAttribute("garages", servicioGarage.ordenarGaragePorEstadia());
+		return new ModelAndView("DatosGaragesPorPantalla", modelo);
+			}
+		return new ModelAndView("redirect:/login");
+	
+	}
+	
+	
+	
+	
 	@RequestMapping("/lista/eliminar/{id}")
 	public ModelAndView eliminaGarge(@PathVariable("id")Long id) {
 		ModelMap modelo = new ModelMap();
@@ -132,7 +162,7 @@ public class ControladorGarage {
 		return new ModelAndView("DatosDeUnGaragePorPantalla", modelo);
 	}
 
-	
+	/*
 	@RequestMapping(path="/mostrarAutosDeUnGarage/{id}", method=RequestMethod.GET)
 	public ModelAndView MostrarAutosDeGarage( @PathVariable("id")Long id,
 			HttpServletRequest request){
@@ -151,7 +181,7 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
-	
+	*/
 	@RequestMapping(path="/mostrarHistoricoDeUnGarage/{id}", method=RequestMethod.GET)
 	public ModelAndView MostrarHistoricoDeGarage( @PathVariable("id")Long id,
 			HttpServletRequest request){
@@ -186,7 +216,9 @@ public class ControladorGarage {
 				modelo.addAttribute(id);
 				Cliente cliente = servicioLogin.consultarClientePorId(id);
 				modelo.put("cliente", cliente);
-				modelo.put("auto",servicioAuto.consultarAutoDeCliente(cliente) );
+				
+				modelo.put("auto",servicioAuto.consultarAutoDeClienteActivo(cliente) );
+				
 				modelo.addAttribute("autos", servicioAuto.consultarAutoDeCliente(cliente));
 				return new ModelAndView ("ListaAutosDeCliente", modelo);
 			}
@@ -270,6 +302,43 @@ public class ControladorGarage {
 		}
 		return new ModelAndView("redirect:/login");
 	}
+	
+	
+	
+	
+	
+	
+	@RequestMapping(path="AdministrarGarage/{id}", method = RequestMethod.GET)
+	public ModelAndView administrarGarage(HttpServletRequest request,
+			@PathVariable("id") Long garage1){
+		String rol = (String) request.getSession().getAttribute("roll");
+		ModelMap modelo = new ModelMap();
+		Garage garage = servicioGarage.buscarGarage(garage1);
+		if(rol != null)
+			if(rol.equals("admin")) {
+				ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage);
+				modelo.put("garage", garage);
+				modelo.put("lugar", servicioGarage.cantidadDeLugarEnEst(garage));
+				modelo.put("dinero", servicioEst.dineroGanadoEnElDia(garage));
+				modelo.put("autos",autos);
+				ArrayList<Long> tickets = servicioEst.numeroDeTicketAuto(garage);
+				modelo.put("tickets",tickets );
+				if(servicioGarage.cantidadDeLugarEnEst(garage)<=5 && servicioGarage.cantidadDeLugarEnEst(garage)>=1) {
+					modelo.put("alerta", "Garage Con Pocos Lugares Disponibles");
+				}else if(servicioGarage.cantidadDeLugarEnEst(garage)<=0) {
+					modelo.put("Lleno", "Garage Sin Lugares");
+					
+				}else {
+					modelo.put("ConLugar", "Con lugar");
+				}
+				
+				
+				return new ModelAndView ("AdministrarGarage", modelo);
+			}
+		return new ModelAndView("redirect:/login");
+	}
+	
+	
 	
 	
 	
