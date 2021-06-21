@@ -40,13 +40,13 @@
   		</form:form>
   		<%--Bloque que es visible si el elemento error no está vacío	--%>
 				<%--Bloque que es visible si el elemento error no está vacío	--%>
-				<c:if test="${not empty error}">
+				<c:if test="${not empty mensaje}">
 				<div class="alert alert-danger d-flex align-items-center" role="alert">
 				  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-				  ${error}
+				  ${mensaje}
 				</div>				        
 			        <br>				        	        
-		        </c:if>
+				</c:if>
 	</main>
 	</body>
 </html>

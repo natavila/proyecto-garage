@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sun.tools.javac.Main;
+
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
@@ -286,4 +288,10 @@ public class ControladorPagarGarage {
 		
 		return new ModelAndView("realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}");
 	}
+	
+	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
+	public void generarPdf() throws Exception{
+		
+	}	
+	
 }

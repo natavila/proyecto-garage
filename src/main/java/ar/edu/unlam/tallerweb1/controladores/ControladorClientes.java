@@ -17,8 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mysql.cj.xdevapi.SessionFactory;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 
@@ -27,11 +29,15 @@ public class ControladorClientes {
 	
 	private ServicioLogin servicioLogin;
 	private ServicioAuto servicioAuto;
+	private ServicioCliente servicioCliente;
+	private ServicioBilletera servicioBilletera;
 	
 	@Autowired
-	private ControladorClientes(ServicioLogin servicioLogin,ServicioAuto servicioAuto) {
-		this.servicioAuto =servicioAuto;
+	private ControladorClientes(ServicioLogin servicioLogin, ServicioAuto servicioAuto, ServicioCliente servicioCliente, ServicioBilletera servicioBilletera) {
+		this.servicioAuto = servicioAuto;
 		this.servicioLogin = servicioLogin;
+		this.servicioCliente = servicioCliente;
+		this.servicioBilletera = servicioBilletera;
 	}
 	
 	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
@@ -72,7 +78,15 @@ public class ControladorClientes {
 		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
 	}
 	
-	
+	@RequestMapping(path="/datosCliente/{id}")
+	public ModelAndView mostrarDatosCliente(@PathVariable("id")Long id) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+		modelo.put("cliente", cliente);
+		modelo.put("billetera", billetera);
+		return new ModelAndView("miPerfil", modelo);
+	}
 			
 	
 		

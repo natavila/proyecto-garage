@@ -75,17 +75,17 @@ public class ControladorRegistroAuto {
 			ModelMap modelo = new ModelMap();
 			Cliente cliente = servicioCliente.consultarClientePorId(id);
 			 if(auto.getPatente() != "" && cliente != null && servicioAuto.consultarAuto(auto) == null) {
-				 modelo.addAttribute("cliente", cliente);
+				 	modelo.put("cliente", cliente);
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
 					servicioAuto.registrarAuto(auto);
-					modelo.put("error", "Auto registrado correctamente");
-					return new ModelAndView("confirmacionRegistroAuto", modelo);
+					return new ModelAndView("redirect:/mostrarAutosClientes/{id}");
 				 
 			 	}else {
-			 		
-			 		modelo.put("error", "Patente ya registrada");
-			 		return new ModelAndView("redirect:/mostrarRegistroAuto/{id}/{nombre}", modelo);
+			 		modelo.put("cliente", cliente);
+			 		modelo.put("auto", auto);
+			 		modelo.put("mensaje", "Patente ya registrada. Ingrese otra patente.");
+			 		return new ModelAndView("registroAuto", modelo);
 			 	}
 
 			

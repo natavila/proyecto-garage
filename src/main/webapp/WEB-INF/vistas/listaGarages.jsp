@@ -18,7 +18,7 @@
 		<h2>Nombre: ${cliente.nombre} </h2>
 		<h2>Patente del auto: ${auto.patente} </h3>
 		<h3>Garages registrados</h3>  
-
+			
 	  <thead>
 	    <tr>
 	       		<th scope="col">Id</th>
@@ -49,12 +49,7 @@
                     <br>
                     <a href="${pageContext.request.contextPath}/mostrarFormularioReservaEstadia/${cliente.id}/${auto.id}/${garage.id}">Reservar</a>
                     </td>                                    
-          
-                    
-                    
-						
-	                </tr>
-	                
+	                </tr>	                
 	            </c:forEach>
 	  </tbody>
 	</table>

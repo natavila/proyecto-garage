@@ -11,9 +11,10 @@
 </head>
 <body>
 	<div class="container mt-3">
-
+	
 		<table class="table table-hover">
 		<h1>Mis Autos</h1>
+		
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
@@ -28,17 +29,14 @@
 	                <tr>
 	                    <td><b>${auto.id}</b></td>
 	                    <td>${auto.patente}</td>
-	                  
-	                  
-	                
-
 						<td><a href="${pageContext.request.contextPath}/mostrarAutosClientes/eliminar/${auto.id}/${cliente.id}">Eliminar Auto</a></td>
 	                </tr>
 	                
 	            </c:forEach>
 	  </tbody>
 	</table>
-	<a class="btn btn-primary" href="homeAdmin" role="button">Volver</a>
+	<a class="btn btn-primary mb-3" href="${pageContext.request.contextPath}/mostrarRegistroAuto/${cliente.id}/${cliente.nombre}" role="button">Agregar Auto</a><br>
+	<a class="btn btn-primary" href="home" role="button">Volver</a>
 		</div>
 </body>
 </html>

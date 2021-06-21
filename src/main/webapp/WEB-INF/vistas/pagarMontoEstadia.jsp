@@ -14,6 +14,7 @@
 		<h1>Dias del auto en el garaje:</h1>
 		<h3>${dias}</h3>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/pagarReservaEstadia/${cliente.id}/${auto.id}/${garage.id}" role="button">Pagar</a>
+		<a class="btn btn-primary" href="generarPdf" role="button">Generar factura</a>
 		</div>
 </body>
 </html>
