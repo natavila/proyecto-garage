@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.transaction.Transactional;
 
@@ -68,7 +69,7 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				
 				for(Estacionamiento e: est) {
 					if(e.getActiva().equals(true) ) {
-						autoLista.add(e.getAuto());
+						lista.add(e.getAuto());
 					}
 				}
 				lista.addAll(autoLista);
@@ -109,13 +110,13 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			
 			@Override 
 			public void cambiarEstadoEstacionamiento(Estacionamiento est) {
-				
-				if(est.getActiva().equals(true)) {
-					repositorioEst.cambiarEstadoEstacionamiento(est);
+				Estacionamiento est1 = repositorioEst.consultarEstacionamiento(est);
+				if(est1.getActiva().equals(true)) {
+					est1.setActiva(false);
 			
-			}else {
-				
-			}
+				}else {
+				est.setActiva(true);
+				}
 			
 			}
 
