@@ -16,5 +16,7 @@ public interface RepositorioPlan {
 	public List<Plan> listaDePlanes();
 	
 	public Plan consultarPlan(Long id);
+	
+	public Plan existeClienteConPlan(Cliente cliente, Plan plan);
 
 }

@@ -73,7 +73,7 @@
 						</c:if> 
 						<c:if test="${not empty Lleno}">
 						<div class="alert alert-danger alert-dismissible fade show" role="alert">
-		 				 <strong>¡Atencion! Garage Algun SIN cocheras disponibles</strong>
+		 				 <strong>¡Atencion! Algun Garage SIN cocheras disponibles</strong>
 						</div>
 						</c:if>
 						<c:if test="${not empty ConLugar}">

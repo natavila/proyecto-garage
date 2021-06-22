@@ -16,4 +16,6 @@ public interface ServicioPlan {
 	public List<Plan> obtenerPlanes();
 
 	public Plan consultarPlan(Long id);
+	
+	public Plan existeClienteConPlan(Cliente cliente, Plan plan);
 }
