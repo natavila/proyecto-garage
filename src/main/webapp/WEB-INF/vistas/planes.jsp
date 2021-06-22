@@ -41,7 +41,7 @@
 						<td>${plan.cantidadAutosPermitidos}</td>
 						<td>${plan.cantidadHorasPermitidas}</td>
 						<td>${plan.precio}</td>
-						<td><a class="btn btn-primary" href="planes" role="button">Elegir</a></td>
+						<td><a class="btn btn-primary"href="planes?plan=${plan.id}" role="button">Elegir</a></td>
 						<br>
 						</td>
 					</tr>
