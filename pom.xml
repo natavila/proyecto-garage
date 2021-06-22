@@ -216,10 +216,6 @@
 		 <artifactId>slf4j-log4j12</artifactId>
 		 <version>1.7.18</version>
 	 </dependency>
-		</dependency>
-		
-		
-		
 		<dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
@@ -230,9 +226,5 @@
             <artifactId>javase</artifactId>
             <version>3.4.0</version>
         </dependency>
-		
-		
-		
-
 	</dependencies>
 </project>

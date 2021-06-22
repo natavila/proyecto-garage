@@ -65,10 +65,7 @@
 					</div>
 				  <button type="submit" class="btn btn-outline-dark mt-3">Iniciar sesión</button>
 
-				</form:form>			
-
-				</form:form>
-				
+				</form:form>				
 				
 				</div>
 				<div class="col mb-3">

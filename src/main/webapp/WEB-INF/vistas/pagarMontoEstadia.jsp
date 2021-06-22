@@ -8,6 +8,7 @@
 <title>Monto a Pagar</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 	<div class="container">
 	<h1>El precio es: </h1>
 		<h3>${precio}</h3><br>

@@ -26,6 +26,7 @@
 		    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 	</head>
 	<body>
+	<%@ include file="header.jsp" %>
 		<main class="container"> <!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
 			<form:form  action="${pageContext.request.contextPath}/procesarRegistroAuto/${cliente.id}/${cliente.nombre}" method="POST" modelAttribute="auto" class="row g-3">
 			<h1 class="mt-3">Registro de auto</h1>

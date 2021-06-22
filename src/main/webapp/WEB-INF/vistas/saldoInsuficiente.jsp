@@ -7,6 +7,7 @@
 <title>Saldo insuficiente</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 	<h1>Saldo insuficiente</h1>
 	<h4>Usted no posee saldo suficiente para realizar la reserva.</h4>
 	<h4>Por favor recarge su billetera.</h4>

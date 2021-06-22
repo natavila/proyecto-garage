@@ -12,6 +12,9 @@
 	    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
 	    <link href="css/estilos.css"/>
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"> 
+		
+		
 	</head>
 	<body>
 		<%@ include file="header.jsp" %>
@@ -55,14 +58,20 @@
 		</div>
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarAutosClientes/${cliente.id}" role="button">Mis Autos<a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/misAutos/${cliente.id}" role="button">Mis Autos<a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
 		<a class="btn btn-primary" href="planes" role="button">Elegir Plan</a>
 		</div>
-		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos</h3>
+		<h3 style="text-align:center; margin-bottom:50px;">Garages</h3>
+		<h6>Filtrar garage por:</h6>
+		<select name="localidades">
+		<option value="value1">San Justo</option>
+  		<option value="value2" selected>Merlo</option>
+  		<option value="value3">Moron</option>
+		</select>
 		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
 		<div style="grid-column:1; grid-row:1;">
-		<table class="table table-hover">
+		<table class="table table-hover" id="datatable">
 		
 		<thead>
 	    <tr>      		
@@ -74,17 +83,20 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	  <c:forEach var="garage" 
+	  <c:forEach var="garage"
 	             items="${garages}"
 	             varStatus="status">
 	                <tr>
+	                
                     <td>${garage.nombre}</td>
                     <td>${garage.localidad}</td>
                     <td>${garage.calle}</td>
                     <td>${garage.numero}</td>
                     <td><a href="">Ver</a></td>
+                    
 	                </tr>	                
 	            </c:forEach>
+	            
 	  </tbody>
 	</table>
 	</div>
@@ -97,4 +109,14 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+		<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#datatable').DataTable({
+		        language: {
+		            search: "Buscar:",
+		            zeroRecords: "No se encontró resultados"
+		        }
+		    } );
+		    } );</script>
 </html>

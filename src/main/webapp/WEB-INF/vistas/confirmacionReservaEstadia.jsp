@@ -7,8 +7,11 @@
 <title>Confirmacion reserva estadia</title>
 </head>
 <body>
-	<h1>Cliente: ${cliente}</h1>
-	<h1>Garage seleccionado: ${garage}</h1>
-	<h1>Monto pagado: ${estacionamiento}</h1>
+<%@ include file="header.jsp" %>
+	<h1>Ticket: ${estacionamiento.id}</h1>
+	<h1>Cliente: ${cliente.nombre} ${cliente.apellido}</h1>
+	<h1>Garage seleccionado: ${garage.nombre}</h1>
+	<h1>Direccion: ${garage.calle} ${garage.numero} ${garage.localidad}</h1>
+	<h1>Monto pagado: ${estacionamiento.precioAPagar}</h1>
 </body>
 </html>

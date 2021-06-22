@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +21,30 @@
 		<h5>Localidad: ${cliente.localidad}</h5>
 		<h5>Plan contratado: ${cliente.plan}</h5>
 		</div>
-		<h3 style="text-align:center; margin-top:20px;">Saldo actual: $${billetera.saldo}</h3>
+		<h3 style="text-align:center; margin-top:20px; margin-bottom:50px;">Saldo actual: $${billetera.saldo}</h3>
+		<table class="table table-hover">
+		<h3>Ultimas reservas</h3>
+	  <thead>
+	    <tr>
+	       		<th scope="col">Fecha de operación</th>
+	       		<th scope="col">Patente</th>
+                <th scope="col">Garage</th>
+                <th scope="col">Localidad</th>        
+	    </tr>
+	  </thead>
+	  <tbody>
+	  <c:forEach var="estacionamiento" 
+	             items="${estacionamiento}"
+	             varStatus="status">
+	                <tr>
+	                <td><b>${estacionamiento.fechaOperacion}</b></td> 
+	                <td><b>${estacionamiento.auto.patente}</b></td>
+	                <td><b>${estacionamiento.garage1.nombre}</b></td>
+	                <td><b>${estacionamiento.garage1.localidad}</b></td>                   
+	                </tr>	                
+	            </c:forEach>
+	  </tbody>
+	</table>
 	</div>
 </body>
 </html>

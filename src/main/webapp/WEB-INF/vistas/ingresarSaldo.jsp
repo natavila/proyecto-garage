@@ -10,6 +10,7 @@
 <title>Ingresar dinero</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 	<div class="container">
 	<form:form action="${pageContext.request.contextPath}/procesarSaldo/${cliente.id}" method="POST" modelAttribute="billetera">
 	<div class="col-md-6">
