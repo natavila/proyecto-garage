@@ -10,6 +10,7 @@
 <title>Billetera</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <div class="container">
 <h4>Garage: "${garage.nombre}"</h4>
 <h4>Patente: ${auto.patente}</h4>

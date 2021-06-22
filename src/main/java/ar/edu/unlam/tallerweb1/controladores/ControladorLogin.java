@@ -138,7 +138,7 @@ public class ControladorLogin {
 			model.put("Error", "Usuario o clave incorrecta");
 		}
 			
-			return new ModelAndView("redirect:/login", model);
+			return new ModelAndView("login", model);
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.

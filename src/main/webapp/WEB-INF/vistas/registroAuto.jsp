@@ -26,6 +26,7 @@
 		    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 	</head>
 	<body>
+	<%@ include file="header.jsp" %>
 		<main class="container"> <!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
 			<form:form  action="${pageContext.request.contextPath}/procesarRegistroAuto/${cliente.id}/${cliente.nombre}" method="POST" modelAttribute="auto" class="row g-3">
 			<h1 class="mt-3">Registro de auto</h1>
@@ -40,13 +41,13 @@
   		</form:form>
   		<%--Bloque que es visible si el elemento error no está vacío	--%>
 				<%--Bloque que es visible si el elemento error no está vacío	--%>
-				<c:if test="${not empty error}">
+				<c:if test="${not empty mensaje}">
 				<div class="alert alert-danger d-flex align-items-center" role="alert">
 				  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-				  ${error}
+				  ${mensaje}
 				</div>				        
 			        <br>				        	        
-		        </c:if>
+				</c:if>
 	</main>
 	</body>
 </html>
