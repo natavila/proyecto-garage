@@ -13,12 +13,7 @@
 <div class="container mt-3">
 		<table class="table table-hover">
 		<h1>Eliga un garage</h1>
-		
-		<h2>Nombre: ${cliente.nombre} </h2>
-		<h2>Patente del auto: ${auto.patente} </h3>
-		<h3>Garages registrados</h3>  
-
-		<h4>Nombre: ${cliente.nombre} </h4>
+		<h4>Cliente: ${cliente.nombre} </h4>
 		<h4>Patente del auto: ${auto.patente} </h4>
 		<h4>Garages registrados</h4>  
 

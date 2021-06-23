@@ -106,6 +106,10 @@ public class ServicioAutoImpl implements ServicioAuto{
 		servicioAuto.cambiarEstadoDeUso(auto);
 		
 	}
+	@Override
+	public List<Auto> consultarAutosSinGarage() {
+		return servicioAuto.consultarAutosSinGarage();
+	}
 	
 	
 	

@@ -113,6 +113,16 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 				.uniqueResult();
 	}
 
+	@Override
+	public List<Auto> consultarAutosSinGarage() {
+		final Session session = sessionFactory.getCurrentSession();
+		  
+		   List<Auto> listaAutosSinGarage = session.createCriteria(Auto.class)
+				   .add(Restrictions.eq("usandoGarage", false))
+				  .list();
+				return listaAutosSinGarage;
+	}
+
 
 
 

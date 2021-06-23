@@ -297,6 +297,7 @@ public class ControladorPagarGarage {
 	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
 	public void generarPdf() throws Exception{
 		
-	}	
+	}
+	
 	
 }

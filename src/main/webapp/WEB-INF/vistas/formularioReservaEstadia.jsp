@@ -7,19 +7,25 @@
 <head>
 <meta charset="ISO-8859-1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
-<title>Billetera</title>
+<title>Reservar</title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<div class="container">
+<div class="container" style="margin-left: 30%; margin-top: 100px">
 <form:form action="${pageContext.request.contextPath}/realizarReservaEstadia/${cliente.id}/${auto.id}/${garage.id}" method="POST" modelAttribute="ticket">
-
+<div style="display:grid; grid-template-columns: 200px 185px 200px; grid-template-rows: auto;">
+<div style="grid-column:1; grid-row: 1;">
 <h2>Fecha Desde</h2>
 <form:input type="date" name="fechaDesde" path="fechaDesde"/>
+</div>
+<div style="grid-column:3; grid-row: 1;">
 <h2>Fecha Hasta</h2>
 <form:input type="date" name="fechaHasta" path="fechaHasta"/><br>
-
-<button type="submit" class="btn btn-primary">Calcular</button>
+</div>
+</div>
+<div class="d-grid gap-2 col-6" style="margin-top:50px;">
+<button type="submit" class="btn btn-primary mt-3">Calcular</button>
+</div>
 </form:form>
 
 </div>
