@@ -20,11 +20,10 @@
 		    <button class="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">Menu</button>
 		<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
 		  <div class="offcanvas-header text-light bg-dark">
-		    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">¡Bienvenido ${cliente.nombre}!</h5>
+		    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">¡Bienvenido/a ${cliente.nombre}!</h5>
 		    <button type="button" class="btn-close btn-light text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 		  </div>
 		  <div class="offcanvas-body">
-		    <p>Saldo actual: $${billetera.saldo}</p>
 		    <p><a href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}">Mi billetera</a></p>
 		   	<p><a href="${pageContext.request.contextPath}/formularioSaldo/${cliente.id}">Ingresar dinero</a></p>
 		    <p><a href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}">Hacer reserva</a></p>

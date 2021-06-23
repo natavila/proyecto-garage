@@ -15,6 +15,8 @@ public interface RepositorioAuto {
 	void registrarAuto(Auto auto);
 
 	List<Auto> ConsultarAutoDeCliente(Cliente cliente);
+	
+	List<Auto> consultarAutosSinGarage();
 
 	Auto buscarAuto(Long id);
 

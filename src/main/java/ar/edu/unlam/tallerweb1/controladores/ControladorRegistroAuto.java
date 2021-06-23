@@ -84,7 +84,7 @@ public class ControladorRegistroAuto {
 					modelo.put("auto", auto);
 					auto.setEnUso(true);
 					servicioAuto.registrarAuto(auto);
-					servicioAuto.cambiarEstadoDeUso(auto);
+					
 					return new ModelAndView("redirect:/misAutos/{id}");
 			 
 			 	// Lo que hace es poder, cambiar de dueño el auto o sacarlo y ponerlo, sin q tenga duplicados, o que no se pueda agregar
@@ -92,7 +92,7 @@ public class ControladorRegistroAuto {
 		 		modelo.addAttribute("cliente", cliente);
 		 
 				auto1.setCliente(cliente);
-				auto1.setEnUso(true);
+				
 				servicioAuto.cambiarEstadoDeUso(auto1);
 				modelo.put("auto", auto1);
 				

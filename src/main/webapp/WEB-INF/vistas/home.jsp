@@ -30,6 +30,11 @@
 		<h5>Saldo disponible: $${billetera.saldo} </h5>	 				        	        
 		</c:if>	
 		</div>
+		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
+		<a style="margin:30px" class="btn btn-primary" href="${pageContext.request.contextPath}/misAutos/${cliente.id}" role="button">Mis Autos<a>
+		<a style="margin:30px" class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
+		<a style="margin:30px" class="btn btn-primary" href="planes" role="button">Elegir Plan</a>
+		</div>
 		<div class="container" style="display:grid; grid-template-columns:200px 20px 200px 20px 200x; grid-template-rows: 250px; margin-top:50px;">
 		<div class="card" style="width: 18rem; grid-column:1; grid-row:1;">
 		  <img src="..." class="card-img-top" alt="...">
@@ -56,6 +61,10 @@
 		  </div>
 		</div>
 		</div>
+		
+		
+		
+
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/misAutos/${cliente.id}" role="button">Mis Autos<a>
@@ -70,6 +79,9 @@
   		<option value="value3">Moron</option>
 		</select>
 		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
+		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>
+		<div class="container" style="display:grid; grid-template-columns:650px 50px 400px; grid-template-rows:500px;">
+
 		<div style="grid-column:1; grid-row:1;">
 		<table class="table table-hover" id="datatable">
 		
@@ -79,30 +91,35 @@
                 <th scope="col">Localidad</th>
                 <th scope="col">Calle</th>
                 <th scope="col">Numero</th>
-                <th scope="col"></th>       
+                <th scope="col">Hora</th>
+                <th scope="col">Estadia</th>      
 	    </tr>
 	  </thead>
 	  <tbody>
-	  <c:forEach var="garage"
-	             items="${garages}"
+	  
+	  <c:forEach var="garagesCercanos"
+	             items="${garagesCercanos}"
 	             varStatus="status">
 	                <tr>
 	                
-                    <td>${garage.nombre}</td>
-                    <td>${garage.localidad}</td>
-                    <td>${garage.calle}</td>
-                    <td>${garage.numero}</td>
-                    <td><a href="">Ver</a></td>
-                    
+                    <td>${garagesCercanos.nombre}</td>
+                    <td>${garagesCercanos.localidad}</td>
+                    <td>${garagesCercanos.calle}</td>
+                    <td>${garagesCercanos.numero}</td>
+                    <td>$${garagesCercanos.precioHora}</td>
+                    <td>$${garagesCercanos.precioEstadia}</td>
+                  
 	                </tr>	                
 	            </c:forEach>
-	            
+	       
 	  </tbody>
 	</table>
+	<div class="d-grid gap-2 col-6 mx-auto mt-3">
+	<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
+	</div>
 	</div>
 	<div style="grid-column:3; grid-row:1;">
-	<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13116.788103434623!2d-58.7946042!3d-34.725427749999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1623952540791!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-	</div>
+		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13116.788103434623!2d-58.7946042!3d-34.725427749999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1624460773831!5m2!1ses-419!2sar" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>	</div>
 	</div>
 		
 	</body>
