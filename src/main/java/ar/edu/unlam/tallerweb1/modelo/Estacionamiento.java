@@ -28,12 +28,29 @@ public class Estacionamiento {
 	private String horaHasta;
 	private Double precioAPagar;
 	private Boolean activa=false;
+	private Boolean estaPagado=false;
 
 	@ManyToOne
 	private Garage garage1;
 	@ManyToOne
 	private Auto auto;
+	@ManyToOne
+	private Cliente cliente;
 	
+	
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	public Boolean getEstaPagado() {
+		return estaPagado;
+	}
+	public void setEstaPagado(Boolean estaPagado) {
+		this.estaPagado = estaPagado;
+	}
 	public Double getPrecioAPagar() {
 		return precioAPagar;
 	}

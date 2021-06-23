@@ -41,7 +41,9 @@
 						<td>${plan.cantidadAutosPermitidos}</td>
 						<td>${plan.cantidadHorasPermitidas}</td>
 						<td>${plan.precio}</td>
+
 						<td><a class="btn btn-primary" href="${pageContext.request.contextPath}/asignarplan/${cliente.id}/${plan.id}" role="button">Elegir</a></td>
+
 						<br>
 						</td>
 					</tr>

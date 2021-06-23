@@ -38,8 +38,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	public void eliminarAuto(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();
 		Auto auto1=consultarAuto(auto);
-		auto1.setEnUso(false);
-		
+		session.delete(auto1);
 	}
 	
 	@Override
@@ -101,10 +100,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 		List <Auto> lista =  session.createCriteria(Auto.class)
 				.createAlias("cliente", "clienteBuscado")
 				.add(Restrictions.eq("clienteBuscado.id", cliente.getId()))
-				.list();
-		
-
-				
+				.list();		
 		return lista;
 		
 	}

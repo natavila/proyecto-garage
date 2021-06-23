@@ -10,6 +10,7 @@
 <title>Billetera</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <div class="container">
 <form:form action="${pageContext.request.contextPath}/realizarReservaEstadia/${cliente.id}/${auto.id}/${garage.id}" method="POST" modelAttribute="ticket">
 

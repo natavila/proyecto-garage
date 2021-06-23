@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,6 +41,7 @@ public class ControladorPlan {
 		return new ModelAndView("planes", modelo);
 	}
 
+
 	@RequestMapping(path = "/asignarplan/{cliente}/{plan}", method = RequestMethod.GET)
 	public ModelAndView elegirPlan( @PathVariable("cliente") Long idC ,@PathVariable("plan") Long idP/*,@ModelAttribute("cliente") Cliente cliente,@ModelAttribute("plan") Plan plan*/) {
 
@@ -47,9 +50,10 @@ public class ControladorPlan {
 		Cliente c1 = servicioCliente.consultarClientePorId(idC);
 		Plan p1 = servicioPlan.consultarPlan(idP);
 		
+
+		servicioCliente.consultarCliente(c1);
 		
-		
-		modelo.put("mensajeExito", "Agregado Correctamente");
+
 		
 		try {
 		
@@ -57,7 +61,9 @@ public class ControladorPlan {
 				
 				servicioPlan.asignarPlanACliente(c1, p1);
 
-				
+
+			//	Plan p1 = servicioPlan.existeClienteConPlan(c1, plan);
+
 
 				modelo.put("mensajeExito", "El plan se asigno correctamente");
 				modelo.put("cliente", c1);
@@ -79,3 +85,4 @@ public class ControladorPlan {
 	}
 
 }
+
