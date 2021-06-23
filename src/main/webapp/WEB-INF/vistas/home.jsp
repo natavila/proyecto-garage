@@ -61,7 +61,7 @@
 		  </div>
 		</div>
 		</div>
-		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>
+		<h3 style="text-align:center; margin:50px;">Garages cercanos a tu zona</h3>
 		<div class="container" style="display:grid; grid-template-columns:650px 50px 400px; grid-template-rows:500px;">
 		<div style="grid-column:1; grid-row:1;">
 		<table class="table table-hover" id="datatable">
