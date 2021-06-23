@@ -89,7 +89,7 @@
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarAutosClientes/${cliente.id}" role="button">Mostrar Mis Autos<a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarRegistroAuto/${cliente.id}/${cliente.nombre}" role="button">Agregar Auto</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
-		<a class="btn btn-primary" href="planes" role="button">Elegir Plan</a>
+		<a class="btn btn-primary" href="planes/${cliente.id}" role="button">Elegir Plan</a>
 		</div>
 		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos</h3>
 		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">

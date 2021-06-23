@@ -16,7 +16,7 @@
 <body>
 
 	<div class="container mt-3">
-		<h1>Qué plan querés elegir?</h1>
+		<h1>  Hola ${cliente.nombre}, Qué plan querés elegir?</h1>
 		<table class="table table-hover">
 
 
@@ -25,8 +25,8 @@
 				<tr>
 					<th scope="col">Id</th>
 					<th scope="col">Nombre</th>
-					<th scope="col">Cantidad de autos por mes</th>
-					<th scope="col">Cantidad de horas por mes</th>
+					<th scope="col">Cantidad de autos</th>
+					<th scope="col">Cantidad de horas</th>
 					<th scope="col">Precio</th>
 
 
@@ -41,7 +41,7 @@
 						<td>${plan.cantidadAutosPermitidos}</td>
 						<td>${plan.cantidadHorasPermitidas}</td>
 						<td>${plan.precio}</td>
-						<td><a class="btn btn-primary" href="planes" role="button">Elegir</a></td>
+						<td><a class="btn btn-primary" href="${pageContext.request.contextPath}/asignarplan/${cliente.id}/${plan.id}" role="button">Elegir</a></td>
 						<br>
 						</td>
 					</tr>
