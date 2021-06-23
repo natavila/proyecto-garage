@@ -8,6 +8,7 @@
 <title>Mi billetera</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 	<div class="container">
 		<h1>Mi billetera</h1>
 		<h3>${nombre} ${apellido}</h3>

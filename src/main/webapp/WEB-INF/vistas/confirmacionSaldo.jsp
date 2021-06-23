@@ -8,6 +8,7 @@
 <title>Confirmacion de saldo</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 	<h1>Su nuevo saldo es: $ ${saldo}</h1>
 	
 	<c:if test="${not empty mensaje}">

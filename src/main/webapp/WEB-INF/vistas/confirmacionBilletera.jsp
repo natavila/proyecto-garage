@@ -7,6 +7,7 @@
 <title>Billetera</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 	<h1>Billetera generada exitosamente!</h1>
 	<h3>Su saldo es: ${saldo}</h3>
 </body>

@@ -16,8 +16,7 @@
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
-	      <th scope="col">Patente</th>
-	      
+	      <th scope="col">Patente</th>	      
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -26,14 +25,9 @@
 	             varStatus="status">
 	                <tr>
 	                    <td><b>${auto.id}</b></td>
-	                    <td>${auto.patente}</td>
-	                  
-	                  
-	                
-						<td><a href="${pageContext.request.contextPath}/BuscarGaragesEst/${cliente.id}/${auto.id}" role="button"> Elegir </a></td>
-					
-	                </tr>
-	                
+	                    <td>${auto.patente}</td>	              	                  	                
+						<td><a href="${pageContext.request.contextPath}/BuscarGaragesEst/${cliente.id}/${auto.id}" role="button"> Elegir </a></td>					
+	                </tr>	                
 	            </c:forEach>
 	  </tbody>
 	</table>

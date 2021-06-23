@@ -18,6 +18,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 
 @Repository("repositorioEstacionamiento")
@@ -178,6 +179,16 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 					.add(Restrictions.eq("fechaOperacion", LocalDate.now()))
 					.list();
 		}
+
+	@Override
+	public List<Estacionamiento> buscarEstacionamientoPorCliente(Cliente cliente) {
+		final Session session = sessionFactory.getCurrentSession();
+		List<Estacionamiento> lista =  session.createCriteria(Estacionamiento.class)
+				.createAlias("cliente", "clienteBuscado")
+				.add(Restrictions.eq("clienteBuscado.id", cliente.getId()))
+				.list();		
+		return lista;
+	}
 		 
 	 
 	

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 
@@ -15,6 +16,7 @@ public interface ServicioEstacionamiento {
 	Estacionamiento buscarEstacionamiento(Long id);
 	Estacionamiento buscarEstacionamientoPorAuto(Auto auto);
 	List<Auto> buscarAutosDeUnGarage(Garage garage1);
+	List <Estacionamiento> buscarEstacionamientoPorCliente(Cliente cliente);
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
 
 

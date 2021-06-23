@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sun.tools.javac.Main;
+
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
@@ -110,11 +112,14 @@ public class ControladorPagarGarage {
 				est.setAuto(auto);
 				est.setGarage1(garage);
 				est.setActiva(true);
+				est.setCliente(cliente);
 				
 				Long dias = servicioCobrarTickets.calcularDias(est.getFechaDesde(), est.getFechaHasta());
 				Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), fechaDesde, fechaHasta);
 				
 				est.setPrecioAPagar(precio);
+				
+				est.setEstaPagado(false);
 				
 				modelo.put("ticket", est);
 				
@@ -147,14 +152,17 @@ public class ControladorPagarGarage {
 		
 		
 			
-			if(billetera != null && garage != null && auto != null) {
+			if(billetera != null && garage != null && auto != null && estacionamiento.getEstaPagado().equals(false)) {
 				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
 					servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);
-					modelo.put("cliente", cliente.getNombre());
-					modelo.put("garage", garage.getNombre());
-					modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
+					modelo.put("cliente", cliente);
+					modelo.put("garage", garage);
+					modelo.put("estacionamiento", estacionamiento);
 					return new ModelAndView("confirmacionReservaEstadia", modelo);
 				}else {
+					modelo.put("cliente", cliente);
+					modelo.put("garage", garage);
+					modelo.put("estacionamiento", estacionamiento);
 					return new ModelAndView("saldoInsuficiente", modelo);
 				}
 				
@@ -229,6 +237,7 @@ public class ControladorPagarGarage {
 				est.setAuto(auto);
 				est.setGarage1(garage);
 				est.setActiva(true);
+				est.setCliente(cliente);
 				
 				Long horas = servicioCobrarTickets.calcularHoras(est.getHoraDesde(), est.getHoraHasta());
 				Double precio = servicioCobrarTickets.calcularPrecioPorHora(garage.getPrecioHora(), horaDesde, horaHasta);
@@ -271,11 +280,9 @@ public class ControladorPagarGarage {
 			if(billetera != null && garage != null && auto != null) {
 				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
 					servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
-					modelo.put("tickes", estacionamiento.getId());
-					modelo.put("cliente", cliente.getNombre());
-					modelo.put("billetera", billetera.getSaldo());
-					modelo.put("garage", garage.getNombre());
-					modelo.put("estacionamiento", estacionamiento.getPrecioAPagar());
+					modelo.put("cliente", cliente);
+					modelo.put("garage", garage);
+					modelo.put("estacionamiento", estacionamiento);
 					
 					return new ModelAndView("confirmacionReservaPorHora", modelo);
 				}else {
@@ -286,4 +293,10 @@ public class ControladorPagarGarage {
 		
 		return new ModelAndView("realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}");
 	}
+	
+	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
+	public void generarPdf() throws Exception{
+		
+	}	
+	
 }

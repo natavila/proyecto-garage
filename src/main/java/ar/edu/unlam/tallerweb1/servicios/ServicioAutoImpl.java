@@ -45,7 +45,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 	public List<Auto> consultarAutoDeCliente(Cliente cliente) {
 		
 		
-		return servicioAuto.ConsultarAutoDeCliente( cliente);
+		return servicioAuto.ConsultarAutoDeCliente(cliente);
 		
 	}
 	
@@ -60,8 +60,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 			}
 		}
 		return activos;
-		
-		
+			
 	}
 	@Override
 	public Auto buscarAuto(Long id) {

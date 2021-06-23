@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 
 public interface RepositorioEstacionamiento {
@@ -29,7 +30,8 @@ public interface RepositorioEstacionamiento {
 
 	List <Estacionamiento> buscarEstacionamientoPorAuto(Auto auto);
 	
-
+	List <Estacionamiento> buscarEstacionamientoPorCliente(Cliente cliente);
+	
 	List<Estacionamiento> buscarAutosDeUnGarage(Garage garage1);
 
 	Estacionamiento consultarEstacionamiento(Estacionamiento est);

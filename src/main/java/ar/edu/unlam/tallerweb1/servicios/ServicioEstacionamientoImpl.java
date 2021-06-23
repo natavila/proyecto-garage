@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
@@ -158,6 +159,12 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			public List<Estacionamiento> consultarEstacionamiento() {
 				
 				return repositorioEst.consultarEstacionamiento();
+			}
+
+			@Override
+			public List<Estacionamiento> buscarEstacionamientoPorCliente(Cliente cliente) {
+				
+				return repositorioEst.buscarEstacionamientoPorCliente(cliente);
 			}
 			
 			
