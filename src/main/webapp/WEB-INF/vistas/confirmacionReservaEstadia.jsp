@@ -9,8 +9,9 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-	<div class="container">
-		<table class="table">
+	<div class="container" style="margin-top:50px;">
+	<h1 style="text-align:center;">Reserva exitosa!</h1>
+		<table class="table" style="margin-top:50px;">
 			<thead>
 				<tr>
 					<th scope="col"> N° de ticket </th>
@@ -27,7 +28,7 @@
 					<td> ${cliente.nombre} ${cliente.apellido} </td>
 					<td> ${garage.nombre} </td>
 					<td> ${garage.calle} ${garage.numero} ${garage.localidad} </td>
-					<td> ${estacionamiento.precioAPagar} </td>
+					<td> S${estacionamiento.precioAPagar} </td>
 					<td> Desde: ${estacionamiento.fechaDesde} <br> 
 					Hasta: ${estacionamiento.fechaHasta}</td>
 				</tr>
