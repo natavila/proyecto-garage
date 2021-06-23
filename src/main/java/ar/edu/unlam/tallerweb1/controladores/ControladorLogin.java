@@ -125,11 +125,13 @@ public class ControladorLogin {
 
 				Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
 				List<Garage> listaGarage = servicioGarage.consultarGarage();
+				List<Garage> garagesCercanos = servicioGarage.buscarGarageQueCoincidanConLocalidadDeCliente(usuarioBuscado);
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 
 				model.put("cliente", usuarioBuscado);
 				model.put("billetera", billetera);
 				model.put("garages", listaGarage);
+				model.put("garagesCercanos", garagesCercanos);
 				return new ModelAndView("home", model);
 			}	
 	

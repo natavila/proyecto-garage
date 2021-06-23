@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistroImpl;
 
@@ -153,6 +154,15 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 	public Auto BuscarAutoEnGarage(Auto auto, Garage garage) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Garage> buscarGarageQueCoincidanConLocalidadDeCliente(Cliente cliente) {
+		final Session session = sessionFactory.getCurrentSession();
+		List<Garage> lista = session.createCriteria(Garage.class)
+				.add(Restrictions.eq("localidad", cliente.getLocalidad()))
+				.list();
+		return lista;
 	}
 
 

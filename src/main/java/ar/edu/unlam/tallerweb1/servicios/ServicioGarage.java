@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 
 public interface ServicioGarage {
@@ -38,6 +39,6 @@ public interface ServicioGarage {
 	Integer cantidadDeLugarEnEst(Garage garage);
 	ArrayList<Garage> ordenarGaragePorHora();
 	ArrayList<Garage> ordenarGaragePorEstadia();
-	
+	List <Garage> buscarGarageQueCoincidanConLocalidadDeCliente(Cliente cliente);
 
 }

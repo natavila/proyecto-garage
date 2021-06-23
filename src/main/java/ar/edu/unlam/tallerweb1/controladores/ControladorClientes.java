@@ -87,7 +87,14 @@ public class ControladorClientes {
 		Auto auto=servicioAuto.buscarAuto(id);
 		//servicioAuto.SacarAuto(auto);
 		//auto.setEnUso(false);
-		servicioAuto.eliminarAuto(auto);
+		try {
+			modelo.put("auto", auto);
+			servicioAuto.eliminarAuto(auto);
+		}catch (Exception e) {
+			modelo.put("auto", auto);
+			modelo.put("exception", e.getMessage());
+		}
+		
 		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
 	}
 	
