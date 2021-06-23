@@ -93,11 +93,11 @@ public class ControladorRegistroAuto {
 			 		modelo.addAttribute("cliente", cliente);
 			 
 					auto1.setCliente(cliente);
-					//auto1.setEnUso(true);
+					
 					servicioAuto.cambiarEstadoDeUso(auto1);
 					modelo.put("auto", auto1);
 					
-					modelo.put("error", "Cambiando de Dueño el AUTO");
+					modelo.put("error", "Auto Reingresado correctamente");
 			 		
 					return new ModelAndView("confirmacionRegistroAuto", modelo);
 			 	}else {
