@@ -55,6 +55,7 @@ public class ControladorClientes {
 		if(rol != null)
 			if(rol.equals("admin")) {
 			modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
+			
 			servicioRegistro.NotificacionesVistas();
 			return("ListaClientes");
 			}
@@ -85,8 +86,7 @@ public class ControladorClientes {
 	public ModelAndView eliminarAuto(@PathVariable("id")Long id,@PathVariable("idC")Long idC) {
 		ModelMap modelo = new ModelMap();
 		Auto auto=servicioAuto.buscarAuto(id);
-		//servicioAuto.SacarAuto(auto);
-		//auto.setEnUso(false);
+		
 		servicioAuto.eliminarAuto(auto);
 		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
 	}

@@ -89,7 +89,7 @@ public class ControladorRegistroAuto {
 			 		
 					return new ModelAndView("confirmacionRegistroAuto", modelo);
 			 
-			 	// Lo que hace es poder, cambiar de dueño el auto o sacarlo y ponerlo, sin q tenga duplicados, o que no se pueda agregar
+			 	// Lo que hace es: poder cambiar de dueño del auto o sacarlo y ponerlo, sin q tenga duplicados o que no se pueda agregar
 		 	}else if(auto1 != null && auto1.getEnUso().equals(false)) {
 		 		modelo.addAttribute("cliente", cliente);
 		 

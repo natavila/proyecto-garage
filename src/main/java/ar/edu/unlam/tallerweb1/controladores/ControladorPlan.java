@@ -29,6 +29,19 @@ public class ControladorPlan {
 		this.servicioPlan = servicioPlan;
 		this.servicioCliente = servicioCliente;
 	}
+	@RequestMapping(path = "/planesAdmin", method = RequestMethod.GET)
+	public ModelAndView planesAdmin(HttpServletRequest request) {
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("admin")) {
+		
+		ModelMap modelo = new ModelMap();
+		modelo.put("planes", servicioPlan.obtenerPlanes());
+
+		return new ModelAndView("PlanesAdmin", modelo);
+			}
+		return new ModelAndView("redirect:/login");
+	}
 
 	@RequestMapping(path = "/planes/{id}", method = RequestMethod.GET)
 	public ModelAndView planes(@ModelAttribute("cliente") Cliente cliente,@PathVariable("id") Long id) {
