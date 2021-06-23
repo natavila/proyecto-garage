@@ -37,7 +37,7 @@ public class ControladorPlan {
 		return new ModelAndView("planes", modelo);
 	}
 
-	@RequestMapping(path = "/planes/{planId}", method = RequestMethod.GET)
+	@RequestMapping(path = "/planes/ {planId}", method = RequestMethod.GET)
     public ModelAndView elegirPlan(@ModelAttribute("plan") Plan plan,HttpServletRequest request ) { {
 
 		ModelMap modelo = new ModelMap();
