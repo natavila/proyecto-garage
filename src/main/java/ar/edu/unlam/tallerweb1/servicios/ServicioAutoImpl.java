@@ -106,6 +106,23 @@ public class ServicioAutoImpl implements ServicioAuto{
 		servicioAuto.cambiarEstadoDeUso(auto);
 		
 	}
+	@Override
+	public List<Auto> consultarAutosSinGarage() {
+		return servicioAuto.consultarAutosSinGarage();
+	}
+	
+	@Override
+	public ArrayList<Auto> listaDeAutosDeClientesAfueraDeEst(Cliente cliente){
+		List<Auto> lista = consultarAutoDeClienteActivo(cliente);
+		ArrayList<Auto> listaA= new ArrayList<Auto>();
+		for(Auto e: lista) {
+			if(e.getUsandoGarage().equals(false)) {
+				listaA.add(e);
+			}
+		}
+		
+		return listaA;
+	}
 	
 	
 	

@@ -15,6 +15,8 @@ public interface RepositorioAuto {
 	void registrarAuto(Auto auto);
 
 	List<Auto> ConsultarAutoDeCliente(Cliente cliente);
+	
+	List<Auto> consultarAutosSinGarage();
 
 	Auto buscarAuto(Long id);
 
@@ -25,6 +27,8 @@ public interface RepositorioAuto {
 	void eliminarAuto(Auto auto);
 
 	void cambiarEstadoDeUso(Auto auto);
+
+	//List<Auto> listaDeAutosDeClientesAfueraDeEst(Cliente cliente);
 	
 	
 }

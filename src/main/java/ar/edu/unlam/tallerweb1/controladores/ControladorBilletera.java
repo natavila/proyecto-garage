@@ -166,6 +166,6 @@ public class ControladorBilletera {
 			modelo.put("cliente", cliente);
 			return new ModelAndView("ingresarSaldo", modelo);
 		}
-		return new ModelAndView("ingresarSaldo", modelo); //ARREGLAR
+		return new ModelAndView("ingresarSaldo", modelo); 
 	}
 }

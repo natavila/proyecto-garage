@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
@@ -188,6 +189,11 @@ private RepositorioGarage repositorioGarage;
 	public int compare(Garage o1, Garage o2) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public List<Garage> buscarGarageQueCoincidanConLocalidadDeCliente(Cliente cliente) {
+		return repositorioGarage.buscarGarageQueCoincidanConLocalidadDeCliente(cliente);
 	}
 	
 	

@@ -83,17 +83,23 @@ public class ControladorRegistroAuto {
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
 					auto.setEnUso(true);
+					auto.setUsandoGarage(false);
 					servicioAuto.registrarAuto(auto);
 					
+
 					modelo.put("mensaje", "Auto Registrado correctamente");
 			 		
 					return new ModelAndView("confirmacionRegistroAuto", modelo);
+
+					
+
 			 
 			 	// Lo que hace es: poder cambiar de dueño del auto o sacarlo y ponerlo, sin q tenga duplicados o que no se pueda agregar
 		 	}else if(auto1 != null && auto1.getEnUso().equals(false)) {
 		 		modelo.addAttribute("cliente", cliente);
 		 
 				auto1.setCliente(cliente);
+
 				servicioAuto.cambiarEstadoDeUso(auto1);
 				modelo.put("auto", auto1);
 				

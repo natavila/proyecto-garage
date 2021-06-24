@@ -20,4 +20,7 @@ public interface ServicioAuto{
 	void SacarAuto(Auto auto);
 	void cambiarEstadoDeUso(Auto auto);
 	Boolean existeAuto(Auto auto);
+	public List<Auto> consultarAutosSinGarage();
+	//List<Auto> consultarAutoSinGarageDeCliente(Cliente cliente);
+	ArrayList<Auto> listaDeAutosDeClientesAfueraDeEst(Cliente cliente);
 }

@@ -213,14 +213,16 @@ public class ControladorGarage {
 		if(rol != null)
 			if(rol.equals("cliente")) {
 				ModelMap modelo = new ModelMap();
+				
+				Cliente cliente = servicioLogin.consultarClientePorId(id);
+				ArrayList<Auto> autosSinGarage = servicioAuto.listaDeAutosDeClientesAfueraDeEst(cliente);
 				modelo.addAttribute(nombre);
 				modelo.addAttribute(id);
-				Cliente cliente = servicioLogin.consultarClientePorId(id);
 				modelo.put("cliente", cliente);
+				modelo.put("autosSinGarage",autosSinGarage);
+				//modelo.put("autosSinGarage", servicioAuto.listaDeAutosDeClientesAfueraDeEst(cliente));
 				
-				modelo.put("auto",servicioAuto.consultarAutoDeClienteActivo(cliente));
-				
-				modelo.addAttribute("autos", servicioAuto.consultarAutoDeCliente(cliente));
+				modelo.put("mensaje", "Sus autos ya se encuentran en un garage.");
 				return new ModelAndView ("ListaAutosDeCliente", modelo);
 			}
 		return new ModelAndView("redirect:/login");
@@ -294,9 +296,10 @@ public class ControladorGarage {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
 		Auto auto = servicioAuto.buscarAuto(autoId);
-		
+		List <String> loc = servicioLoc.devolverNombresDeLocalidades();
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
+		modelo.put("localidades", loc);
 		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(Gbuscado));
 		
 		return new ModelAndView ("listaGarages", modelo);
@@ -338,10 +341,6 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
-	
-	
-	
-	
 	
 	
 }

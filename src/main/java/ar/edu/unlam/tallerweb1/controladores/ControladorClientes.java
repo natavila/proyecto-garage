@@ -61,7 +61,7 @@ public class ControladorClientes {
 			}
 		return ("redirect:/login");
 	}
-	@RequestMapping(path="/mostrarAutosClientes/{id}", method=RequestMethod.GET)
+	@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
 	public ModelAndView AutosDeClientes(
 			@PathVariable("id")Long id, 
 			HttpServletRequest request) {
@@ -86,9 +86,23 @@ public class ControladorClientes {
 	public ModelAndView eliminarAuto(@PathVariable("id")Long id,@PathVariable("idC")Long idC) {
 		ModelMap modelo = new ModelMap();
 		Auto auto=servicioAuto.buscarAuto(id);
-		
+
+
+		servicioAuto.SacarAuto(auto);
+		auto.setEnUso(false);
+
 		servicioAuto.eliminarAuto(auto);
-		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
+
+		try {
+			modelo.put("auto", auto);
+			servicioAuto.eliminarAuto(auto);
+		}catch (Exception e) {
+			modelo.put("auto", auto);
+			modelo.put("exception", e.getMessage());
+		}
+		
+
+		return new ModelAndView("redirect:/misAutoss/{idC}");
 	}
 	
 	/*@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
@@ -97,12 +111,13 @@ public class ControladorClientes {
 			HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
-		List<Auto> autos = servicioAuto.consultarAutoDeCliente(cliente);
+		List<Auto> autos =  servicioAuto.consultarAutoDeClienteActivo(cliente);
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null )
 			if(rol.equals("cliente") && cliente != null && autos != null) {	
 				modelo.put("cliente", cliente);
 				modelo.put("auto", autos);
+				modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}
 		return new ModelAndView("redirect:/login");
