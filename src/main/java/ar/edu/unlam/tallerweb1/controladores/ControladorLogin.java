@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +111,8 @@ public class ControladorLogin {
 				
 				Integer notif = servicioCliente.notificadorDeClientesNuevos();
 				
-			
+				model.put("fecha", LocalDate.now());
+				//model.put("hora", LocalTime.now());
 				
 				model.put("notifNuevos", notifNuevos);
 				model.put("notif", notif);

@@ -220,7 +220,6 @@ public class ControladorGarage {
 				modelo.addAttribute(id);
 				modelo.put("cliente", cliente);
 				modelo.put("autosSinGarage",autosSinGarage);
-				//modelo.put("autosSinGarage", servicioAuto.listaDeAutosDeClientesAfueraDeEst(cliente));
 				
 				modelo.put("mensaje", "Sus autos ya se encuentran en un garage.");
 				return new ModelAndView ("ListaAutosDeCliente", modelo);

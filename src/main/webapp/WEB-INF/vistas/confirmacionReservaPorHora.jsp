@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,5 +15,8 @@
 	<h1>Garage seleccionado: ${garage.nombre}</h1>
 	<h1>Direccion: ${garage.calle} ${garage.numero} ${garage.localidad}</h1>
 	<h1>Monto pagado: ${estacionamiento.precioAPagar}</h1>
+			<p>${file}</p>
+			<div>${file}</div>
+			<img src="/imagenes/${file}"/>
 </body>
 </html>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File;
 import com.sun.tools.javac.Main;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
@@ -28,6 +29,25 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobrarTickets;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioQR;
+
+import com.google.zxing.BinaryBitmap;
+import com.google.zxing.LuminanceSource;
+import com.google.zxing.Result;
+import com.google.zxing.WriterException;
+import com.google.zxing.client.j2se.BufferedImageLuminanceSource;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.common.HybridBinarizer;
+import com.google.zxing.qrcode.QRCodeReader;
+import com.google.zxing.qrcode.QRCodeWriter;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
 
 @Controller
 public class ControladorPagarGarage {
@@ -37,15 +57,16 @@ public class ControladorPagarGarage {
 	private ServicioCliente servicioCliente;
 	private ServicioGarage servicioGarage;
 	private ServicioBilletera servicioBilletera;
-	
+	private ServicioQR servQr;
 	@Autowired
-	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioEstacionamiento servicioEst,ServicioGarage servicioGarage, ServicioBilletera servicioBilletera) {
+	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioEstacionamiento servicioEst,ServicioGarage servicioGarage, ServicioBilletera servicioBilletera,ServicioQR servQr) {
 		this.servicioCobrarTickets = servicioCobrarTickets;
 		this.servicioAuto = servicioAuto;
 		this.servicioCliente = servicioCliente;
 		this.servicioEst = servicioEst;
 		this.servicioGarage= servicioGarage;
 		this.servicioBilletera = servicioBilletera;
+		this.servQr = servQr;
 	}
 	
 	@RequestMapping(path="/mostrarFormularioReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
@@ -267,7 +288,11 @@ public class ControladorPagarGarage {
 	@RequestMapping(path="/pagarReservaPorHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
 	public ModelAndView pagarReservaPorHora(@PathVariable("cliente.id") Long idCliente,
 											@PathVariable("auto.id") Long idAuto,
-											@PathVariable("garage.id") Long idGarage) {
+											@PathVariable("garage.id") Long idGarage,
+											HttpServletRequest request) throws Exception {
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("cliente")) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
@@ -276,13 +301,31 @@ public class ControladorPagarGarage {
 		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
 		
 		
-			
+		
+		
+		
+		
 			if(billetera != null && garage != null && auto != null) {
 				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
 					servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
 					modelo.put("cliente", cliente);
 					modelo.put("garage", garage);
 					modelo.put("estacionamiento", estacionamiento);
+					
+					
+					
+			        
+					String text = "All you need is love, love. Love is all you need. Beatles";
+					
+					//java.io.File file = servQr.generateQR(text);
+					//file.getAbsolutePath();
+					//modelo.put("files", file);
+					
+					modelo.put("file", servQr.generateQR(text));
+					
+					//BufferedImage cod = servQr.crearQR(text);
+					//cod.toString();
+					//modelo.put("file", cod);
 					
 					return new ModelAndView("confirmacionReservaPorHora", modelo);
 				}else {
@@ -292,6 +335,8 @@ public class ControladorPagarGarage {
 			}
 		
 		return new ModelAndView("realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}");
+			}
+		return new ModelAndView("redirect:/login");
 	}
 	
 	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
