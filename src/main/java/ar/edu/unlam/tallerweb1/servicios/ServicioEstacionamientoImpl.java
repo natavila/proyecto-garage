@@ -167,7 +167,12 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				return repositorioEst.buscarEstacionamientoPorCliente(cliente);
 			}
 			
-			
+			@Override
+			public void ActivarQR(Long idEst) {
+				Estacionamiento est = repositorioEst.buscarEstacionamiento(idEst);
+				est.setActiva(true);
+				
+			}
 			
 			
 }

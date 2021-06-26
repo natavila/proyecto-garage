@@ -29,7 +29,7 @@ public class Estacionamiento {
 	private Double precioAPagar;
 	private Boolean activa=false;
 	private Boolean estaPagado=false;
-
+	
 	@ManyToOne
 	private Garage garage1;
 	@ManyToOne
@@ -119,6 +119,7 @@ public class Estacionamiento {
 	public void setActiva(Boolean activa) {
 		this.activa = activa;
 	}
+
 	
 	
 	

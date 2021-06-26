@@ -86,11 +86,7 @@ public class ControladorEstacionamiento {
 						
 					}
 				}
-				
-				
 				if(est !=null && garage2 != null) {
-					
-					
 					servicioGarage.restarContador(garage2);
 					servicioEst.cambiarEstadoEstacionamiento(est);
 					model.put("error", "Baja correcta");

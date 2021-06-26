@@ -1,6 +1,7 @@
 
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,7 @@ import java.awt.image.BufferedImage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 
 
 @Controller
@@ -243,7 +245,7 @@ public class ControladorPagarGarage {
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		                                       //Esto le puse Nuevo
-			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && servicioGarage.GarageLleno(garage).equals(false) /*garage.getCapacidad()>garage.getContador()*/) {
+			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && servicioGarage.GarageLleno(garage).equals(false) ) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
 				modelo.put("garage", garage);
@@ -298,13 +300,10 @@ public class ControladorPagarGarage {
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		Auto auto = servicioAuto.buscarAuto(idAuto);
+		
 		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
 		
-		
-		
-		
-		
-		
+
 			if(billetera != null && garage != null && auto != null) {
 				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
 					servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
@@ -312,20 +311,31 @@ public class ControladorPagarGarage {
 					modelo.put("garage", garage);
 					modelo.put("estacionamiento", estacionamiento);
 					
-					
-					
+					Long id = estacionamiento.getId();
+					String ip = servQr.devolverIp();
 			        
-					String text = "All you need is love, love. Love is all you need. Beatles";
-					
-					//java.io.File file = servQr.generateQR(text);
-					//file.getAbsolutePath();
-					//modelo.put("files", file);
+					String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
 					
 					modelo.put("file", servQr.generateQR(text));
 					
-					//BufferedImage cod = servQr.crearQR(text);
-					//cod.toString();
-					//modelo.put("file", cod);
+					
+					//SACO EL AUTO DEL GARAGA
+					
+			
+					ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage);
+					Estacionamiento est= servicioEst.buscarEstacionamiento(id);
+					for(Auto e: autos) {
+						if(e.getId().equals(est.getAuto().getId())) {
+							servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
+							
+						}
+					}
+					if(est !=null && garage != null) {
+						servicioGarage.restarContador(garage);
+						servicioEst.cambiarEstadoEstacionamiento(estacionamiento);
+					}
+				
+
 					
 					return new ModelAndView("confirmacionReservaPorHora", modelo);
 				}else {
@@ -343,6 +353,50 @@ public class ControladorPagarGarage {
 	public void generarPdf() throws Exception{
 		
 	}
+	
+
+	@RequestMapping(path="/GaragePorQR/{cliente.id}/{auto.id}/{garage.id}/{id}")
+	public ModelAndView entrarAGaragePorQR(
+									@PathVariable("cliente.id") Long idCliente,
+									@PathVariable("auto.id") Long idAuto,
+									@PathVariable("garage.id") Long idGarage,
+									@PathVariable("id") Long id
+				
+									){
+		
+		
+		
+		ModelMap modelo = new ModelMap();
+		Auto auto = servicioAuto.buscarAuto(idAuto);
+		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		Garage garage = servicioGarage.buscarGarage(idGarage);
+		Estacionamiento est = servicioEst.buscarEstacionamiento(id);
+	               
+			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && servicioGarage.GarageLleno(garage).equals(false) ) {
+				modelo.put("auto", auto);
+				modelo.put("cliente", cliente);
+				modelo.put("garage", garage);
+				
+				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+				servicioGarage.sumarContador(garage);
+					
+				
+				servicioEst.ActivarQR(id);
+				
+				
+				
+				return new ModelAndView("AgregoPorQR", modelo);
+					}
+				
+				
+			
+			return new ModelAndView("AlertaAutoEnGarage", modelo);
+		}
+		
+	
+			
+
+	
 	
 	
 }

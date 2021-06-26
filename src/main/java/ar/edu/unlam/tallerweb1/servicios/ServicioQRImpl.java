@@ -19,6 +19,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,7 +39,7 @@ public class ServicioQRImpl implements ServicioQR{
 		
 	            String content = text;
 	            String filePath = "C:\\Users\\Gaston Mica y juan\\eclipse-workspace\\proyecto-garage\\src\\main\\webapp\\imagenes\\";
-	            String fileType = "png";
+	            String fileType = "jpg";
 	            int size = 200;
 	            UUID uuid = UUID.randomUUID();
 	            String randomUUIDString = uuid.toString();
@@ -64,53 +66,22 @@ public class ServicioQRImpl implements ServicioQR{
 	            }
 	            
 	            ImageIO.write(image, fileType, qrFile);
+	            
+	            
 	            return dire;
 	        }
 
 
-@Override
-public String decoder(File file) throws Exception {
+       
+      
+	@Override
+       public String devolverIp() throws UnknownHostException {
+    	   String address= InetAddress.getLocalHost().getHostAddress();
+    	   return address;
+       }
+       
+       
 
-    FileInputStream inputStream = new FileInputStream(file);
-
-    BufferedImage image = ImageIO.read(inputStream);
-
-    int width = image.getWidth();
-    int height = image.getHeight();
-    int[] pixels = new int[width * height];
-
-    LuminanceSource source = new BufferedImageLuminanceSource(image);
-    BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
-
-    // decode the barcode
-    QRCodeReader reader = new QRCodeReader();
-    com.google.zxing.Result result = reader.decode(bitmap);
-    return new String(((com.google.zxing.Result) result).getText());
-			}
-
-
-
-				
-	
-		@Override	
-		public BufferedImage crearQR(String datos) throws WriterException {
-			BitMatrix matrix;
-			Integer ancho=300;
-			Integer altura=300;
-			Writer escritor = new QRCodeWriter();
-			matrix = escritor.encode(datos, BarcodeFormat.QR_CODE, ancho, altura);
-         
-    BufferedImage imagen = new BufferedImage(ancho, altura, BufferedImage.TYPE_INT_RGB);
-         
-    for(int y = 0; y < altura; y++) {
-        for(int x = 0; x < ancho; x++) {
-            int grayValue = (matrix.get(x, y) ? 0 : 1) & 0xff;
-            imagen.setRGB(x, y, (grayValue == 0 ? 0 : 0xFFFFFF));
-        }
-    }
-         
-    return imagen;        
-}
 
 	 
 	    }

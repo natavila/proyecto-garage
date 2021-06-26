@@ -32,4 +32,6 @@ public interface ServicioEstacionamiento {
 
 	ArrayList<Long> numeroDeTicketAuto(Garage garage1);
 
+	void ActivarQR(Long idEst);
+
 }
