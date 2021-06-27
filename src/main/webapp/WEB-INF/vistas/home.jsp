@@ -59,6 +59,7 @@
 		  </div>
 		</div>
 		</div>
+
 		
 		
 		
@@ -78,6 +79,7 @@
 		</select>
 		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
 		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>
+
 		<div class="container" style="display:grid; grid-template-columns:650px 50px 400px; grid-template-rows:500px;">
 
 		<div style="grid-column:1; grid-row:1;">

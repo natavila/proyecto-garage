@@ -55,8 +55,11 @@ public class ControladorPlan {
 	}
 
 
+
 	@RequestMapping(path = "/asignarplan/{cliente}/{plan}", method = RequestMethod.GET)
 	public ModelAndView elegirPlan( @PathVariable("cliente") Long idC ,@PathVariable("plan") Long idP/*,@ModelAttribute("cliente") Cliente cliente,@ModelAttribute("plan") Plan plan*/) {
+
+
 
 		ModelMap modelo = new ModelMap();
 

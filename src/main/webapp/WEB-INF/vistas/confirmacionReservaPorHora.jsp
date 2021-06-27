@@ -10,16 +10,34 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-	<h1>Ticket: ${estacionamiento.id}</h1>
-	<h1>Cliente: ${cliente.nombre} ${cliente.apellido}</h1>
-	<h1>Garage seleccionado: ${garage.nombre}</h1>
-	<h1>Direccion: ${garage.calle} ${garage.numero} ${garage.localidad}</h1>
-	<h1>Monto pagado: ${estacionamiento.precioAPagar}</h1>
-			
-			
-			<img src="<%=request.getContextPath()%>/imagenes/${file}">
-			
-			
-			
+
+	<div class="container" style="margin-top:50px;">
+	<h1 style="text-align:center;">Reserva exitosa!</h1>
+		<table class="table" style="margin-top:50px;">
+			<thead>
+				<tr>
+					<th scope="col"> N° de ticket </th>
+					<th scope="col"> Cliente </th>
+					<th scope="col"> Garage </th>
+					<th scope="col"> Direccion </th>
+					<th scope="col"> Monto pagado </th>
+					<th scope="col"> Horas de reserva </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td> ${estacionamiento.id} </td>
+					<td> ${cliente.nombre} ${cliente.apellido} </td>
+					<td> ${garage.nombre} </td>
+					<td> ${garage.calle} ${garage.numero} ${garage.localidad} </td>
+					<td> $${estacionamiento.precioAPagar} </td>
+					<td> Desde: ${estacionamiento.horaDesde} hs. <br> 
+					Hasta: ${estacionamiento.horaHasta} hs. </td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<img src="<%=request.getContextPath()%>/imagenes/${file}">
+
 </body>
 </html>
