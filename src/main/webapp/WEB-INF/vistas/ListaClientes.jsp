@@ -31,7 +31,7 @@
 	                    <td>${cliente.nombre}</td>
 	                    <td>${cliente.apellido}</td>
 	                    <td>${cliente.email}</td>
-	                    <td><a href="${pageContext.request.contextPath}/mostrarAutosClientes/${cliente.id}">Mostrar Autos De Clientes</a></td>
+	                    <td><a href="${pageContext.request.contextPath}/misAutos/${cliente.id}">Mostrar Autos De Clientes</a></td>
 						<td><a href="">Modificar Cliente</a></td>
 						<td><a href="">Eliminar Cliente</a></td>
 	                </tr>

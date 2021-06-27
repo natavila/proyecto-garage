@@ -8,11 +8,12 @@
 <title>Mi billetera</title>
 </head>
 <body>
-	<div class="container">
-		<h1>Mi billetera</h1>
+<%@ include file="header.jsp" %>
+	<div class="container" style="text-align: center;">
+		<h1 style="margin-top: 30px; margin-bottom: 30px;">Mi billetera</h1>
 		<h3>${nombre} ${apellido}</h3>
-		<h3>Saldo: ${saldo}</h3>
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/formularioSaldo/${cliente.id}" role="button">Ingresar dinero</a>
+		<h3>Saldo: $${saldo}</h3>
+		<a class="btn btn-primary mt-3" href="${pageContext.request.contextPath}/formularioSaldo/${cliente.id}" role="button">Ingresar dinero</a>
 	 </div>
 </body>
 </html>

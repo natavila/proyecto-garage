@@ -74,22 +74,31 @@
 		</c:if>
 		</div>
 		<div style="text-align:center; margin-top:50px;">
-		<c:if test="${empty alerta}">
-		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<c:if test="${not empty ConLugar}">
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
 		  <strong>¡Servicio Sin problemas!</strong>
+		</div>
+		</c:if>
+		</div>
+		<div style="text-align:center; margin-top:50px;">
+		<c:if test="${not empty Lleno}">
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		  <strong>¡Atencion! Garage SIN cocheras disponibles</strong>
 		</div>
 		</c:if>
 		</div>
 		<div style="text-align:center; margin-top:50px;">
 		<c:if test="${not empty dinero}">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert">
-		  <strong>Recaudado en el dia:$ ${dinero} </strong>
+		  <strong>Recaudacion del dia:$ ${dinero} </strong>
 		</div>
 		</c:if>
 		</div>
 		<h3 style="text-align:center; margin-bottom:50px;">${garage.nombre}</h3>
-		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
-		<div style="grid-column:1; grid-row:1;">
+		
+		<div class = "row">
+		<div class="col-12">
+		
 		<table class="table table-hover">
 		
 		<thead>
@@ -98,6 +107,7 @@
                 <th scope="col">Localidad</th>
                 <th scope="col">Calle</th>
                 <th scope="col">Numero</th>
+                <th scope="col">Cupo</th>
                 <th scope="col">Lugares Disponibles</th>       
 	    </tr>
 	  </thead>
@@ -108,24 +118,75 @@
                     <td>${garage.localidad}</td>
                     <td>${garage.calle}</td>
                     <td>${garage.numero}</td>
+                    <td>${garage.capacidad}</td>
                     <td>${lugar}</td>
 	                </tr>	         
-	                <a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarAutosDeUnGarage/${garage.id}" role="button"> Autos en Garage</a>     
-	                <a class="btn btn-danger" href="${pageContext.request.contextPath}/sacarAuto/${garage.id}" role="button">Sacar Auto</a>  
-	                <a class="btn btn-success" href="${pageContext.request.contextPath}/mostrarHistoricoDeUnGarage/${garage.id}">Historial</a>   
+	                  
 	                       
 	  </tbody>
 	</table>
 	</div>
+	<div class ="col-12">
+	<h1>Autos En Garage</h1>
+	</div>
+	<div class="col-3" >
+	
+		<table class="table table-hover">
+		
+	  <thead>
+	    <tr>
+	       <th scope="col">Patente</th>
+	       
+	    </tr>
+	  </thead>
+	  <tbody>
+	  <c:forEach var="auto" 
+	             items="${autos}"
+	             varStatus="status">
+	                <tr>
+	                    <td><b>${auto.patente}</b></td>
+	                </tr>
+	            </c:forEach>
+	  </tbody>
+	</table>
+	
+	
+	<a class="btn btn-danger" href="${pageContext.request.contextPath}/sacarAuto/${garage.id}" role="button">Sacar Auto</a>
+	<a class="btn btn-success" href="${pageContext.request.contextPath}/mostrarHistoricoDeUnGarage/${garage.id}">Historial</a> 
+</div>
+<div class="col-3" >
+	
+		<table class="table table-hover">
+		
+	  <thead>
+	    <tr>
+	       <th scope="col">N° Ticket</th>
+	       
+	    </tr>
+	  </thead>
+	  <tbody>
+	  <c:forEach var="tickets" 
+	             items="${tickets}"
+	             varStatus="status">
+	                <tr>
+	                    <td><b>${tickets}</b></td>
+	                </tr>
+	            </c:forEach>
+	  </tbody>
+	</table>
+	
+</div>
+
 	
 	
 	
+	<div class="col-6">
 	<div style="grid-column:3; grid-row:1;">
 	<h5>Ubicacion</h5>
 	<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13116.788103434623!2d-58.7946042!3d-34.725427749999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1623952540791!5m2!1ses-419!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 	</div>
+	</div>	
 	</div>
-		
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>

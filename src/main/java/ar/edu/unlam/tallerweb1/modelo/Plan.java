@@ -19,8 +19,7 @@ public class Plan {
 
 	private String nombre;
 
-	@OneToOne
-	private Cliente cliente;
+	
 
 	private Long cantidadAutosPermitidos;
 	private Long cantidadHorasPermitidas;
@@ -43,13 +42,7 @@ public class Plan {
 		this.nombre = nombre;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+	
 
 	public Long getCantidadAutosPermitidos() {
 		return cantidadAutosPermitidos;

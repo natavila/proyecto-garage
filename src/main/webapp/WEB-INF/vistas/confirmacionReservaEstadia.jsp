@@ -4,11 +4,36 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 <title>Confirmacion reserva estadia</title>
 </head>
 <body>
-	<h1>Cliente: ${cliente}</h1>
-	<h1>Garage seleccionado: ${garage}</h1>
-	<h1>Monto pagado: ${estacionamiento}</h1>
+<%@ include file="header.jsp" %>
+	<div class="container" style="margin-top:50px;">
+	<h1 style="text-align:center;">Reserva exitosa!</h1>
+		<table class="table" style="margin-top:50px;">
+			<thead>
+				<tr>
+					<th scope="col"> N° de ticket </th>
+					<th scope="col"> Cliente </th>
+					<th scope="col"> Garage </th>
+					<th scope="col"> Direccion </th>
+					<th scope="col"> Monto pagado </th>
+					<th scope="col"> Dias de reserva </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td> ${estacionamiento.id} </td>
+					<td> ${cliente.nombre} ${cliente.apellido} </td>
+					<td> ${garage.nombre} </td>
+					<td> ${garage.calle} ${garage.numero} ${garage.localidad} </td>
+					<td> S${estacionamiento.precioAPagar} </td>
+					<td> Desde: ${estacionamiento.fechaDesde} <br> 
+					Hasta: ${estacionamiento.fechaHasta}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
 </body>
 </html>

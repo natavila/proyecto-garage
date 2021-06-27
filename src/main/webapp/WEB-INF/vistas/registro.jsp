@@ -41,7 +41,7 @@
 		    <input type="password" class="form-control" id="repassword" name="repassword" placeholder="Confirmar contraseña">
 		  </div> <br>
 		  <div class="col-dm-12">
-		    <button type="submit" class="btn btn-outline-dark mb-3">Iniciar sesión</button>		    
+		    <button type="submit" class="btn btn-outline-dark mb-3">Registrarme</button>		    
 		  </div>
   		</form:form>
   		<c:if test="${not empty mensaje}">

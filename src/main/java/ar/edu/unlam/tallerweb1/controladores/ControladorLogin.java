@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,17 +98,21 @@ public class ControladorLogin {
 				}
 				
 				for(Integer e: ocupacion) {
-					if(e<5) {
+					if(e<=5 && e>=1 ) {
 						model.put("alerta","mensaje");
 						break;
-					}else {
-						model.put("alerta", "");
-					}	
+					}else if(e<=0){
+						model.put("Lleno", "mensaje");
+						break;
+					}	else {
+						model.put("ConLugar", "ConLugar");
+					}
 				}
 				
 				Integer notif = servicioCliente.notificadorDeClientesNuevos();
 				
-			
+				model.put("fecha", LocalDate.now());
+				//model.put("hora", LocalTime.now());
 				
 				model.put("notifNuevos", notifNuevos);
 				model.put("notif", notif);
@@ -122,11 +129,13 @@ public class ControladorLogin {
 
 				Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
 				List<Garage> listaGarage = servicioGarage.consultarGarage();
+				List<Garage> garagesCercanos = servicioGarage.buscarGarageQueCoincidanConLocalidadDeCliente(usuarioBuscado);
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 
 				model.put("cliente", usuarioBuscado);
 				model.put("billetera", billetera);
 				model.put("garages", listaGarage);
+				model.put("garagesCercanos", garagesCercanos);
 				return new ModelAndView("home", model);
 			}	
 	
@@ -135,7 +144,7 @@ public class ControladorLogin {
 			model.put("Error", "Usuario o clave incorrecta");
 		}
 			
-			return new ModelAndView("redirect:/login", model);
+			return new ModelAndView("login", model);
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.

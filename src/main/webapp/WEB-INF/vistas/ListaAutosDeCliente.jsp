@@ -10,34 +10,36 @@
 <title>Lista de Autos</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 	<div class="container mt-3">
 		<table class="table table-hover">
-		<h3>HOLA ${cliente.nombre} CON QUE AUTO VAS A VIAJAR?</h3>
+		<h3>¡Hola ${cliente.nombre}!, ¿con que auto vas a viajar?</h3>
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
-	      <th scope="col">Patente</th>
-	      
+	      <th scope="col">Patente</th>	      
 	    </tr>
 	  </thead>
 	  <tbody>
-	  <c:forEach var="auto" 
-	             items="${auto}"
+	  <c:forEach var="autosSinGarage" 
+	             items="${autosSinGarage}"
 	             varStatus="status">
 	                <tr>
-	                    <td><b>${auto.id}</b></td>
-	                    <td>${auto.patente}</td>
-	                  
-	                  
-	                
-						<td><a href="${pageContext.request.contextPath}/BuscarGaragesEst/${cliente.id}/${auto.id}" role="button"> Elegir </a></td>
-					
-	                </tr>
-	                
+	                    <td><b>${autosSinGarage.id}</b></td>
+	                    <td>${autosSinGarage.patente}</td>	              	                  	                
+						<td><a href="${pageContext.request.contextPath}/BuscarGaragesEst/${cliente.id}/${autosSinGarage.id}" role="button"> Elegir </a></td>
+											
+	                </tr>	                
 	            </c:forEach>
 	  </tbody>
 	</table>
-	<a class="btn btn-primary" href="homeAdmin" role="button">Volver</a>
+	<c:if test="${empty autosSinGarage}">
+		<div class="alert alert-warning" role="alert">
+  			${mensaje}
+		</div>
+	</c:if>
+	<br>
+	<a class="btn btn-primary mt-3" href="home" role="button">Volver</a>
 		</div>
 </body>
 </html>

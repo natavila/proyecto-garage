@@ -24,7 +24,7 @@ public class Cliente {
 	private Integer contAutos;
 	private String localidad;
 	
-	@OneToOne
+	@ManyToOne
 	private Plan plan;
 
 	@ManyToOne
@@ -104,6 +104,14 @@ public class Cliente {
 
 	public void setPlan(Plan plan) {
 		this.plan = plan;
+	}
+
+	public Integer getContAutos() {
+		return contAutos;
+	}
+
+	public void setContAutos(Integer contAutos) {
+		this.contAutos = contAutos;
 	}
 
 	

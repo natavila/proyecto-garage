@@ -1,8 +1,10 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -161,7 +163,7 @@ public class ControladorGarage {
 		return new ModelAndView("DatosDeUnGaragePorPantalla", modelo);
 	}
 
-	
+	/*
 	@RequestMapping(path="/mostrarAutosDeUnGarage/{id}", method=RequestMethod.GET)
 	public ModelAndView MostrarAutosDeGarage( @PathVariable("id")Long id,
 			HttpServletRequest request){
@@ -180,7 +182,7 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
-	
+	*/
 	@RequestMapping(path="/mostrarHistoricoDeUnGarage/{id}", method=RequestMethod.GET)
 	public ModelAndView MostrarHistoricoDeGarage( @PathVariable("id")Long id,
 			HttpServletRequest request){
@@ -211,14 +213,15 @@ public class ControladorGarage {
 		if(rol != null)
 			if(rol.equals("cliente")) {
 				ModelMap modelo = new ModelMap();
+				
+				Cliente cliente = servicioLogin.consultarClientePorId(id);
+				ArrayList<Auto> autosSinGarage = servicioAuto.listaDeAutosDeClientesAfueraDeEst(cliente);
 				modelo.addAttribute(nombre);
 				modelo.addAttribute(id);
-				Cliente cliente = servicioLogin.consultarClientePorId(id);
 				modelo.put("cliente", cliente);
+				modelo.put("autosSinGarage",autosSinGarage);
 				
-				modelo.put("auto",servicioAuto.consultarAutoDeClienteActivo(cliente) );
-				
-				modelo.addAttribute("autos", servicioAuto.consultarAutoDeCliente(cliente));
+				modelo.put("mensaje", "Sus autos ya se encuentran en un garage.");
 				return new ModelAndView ("ListaAutosDeCliente", modelo);
 			}
 		return new ModelAndView("redirect:/login");
@@ -292,9 +295,10 @@ public class ControladorGarage {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
 		Auto auto = servicioAuto.buscarAuto(autoId);
-		
+		List <String> loc = servicioLoc.devolverNombresDeLocalidades();
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
+		modelo.put("localidades", loc);
 		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(Gbuscado));
 		
 		return new ModelAndView ("listaGarages", modelo);
@@ -315,15 +319,20 @@ public class ControladorGarage {
 		Garage garage = servicioGarage.buscarGarage(garage1);
 		if(rol != null)
 			if(rol.equals("admin")) {
-				
+				ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage);
 				modelo.put("garage", garage);
 				modelo.put("lugar", servicioGarage.cantidadDeLugarEnEst(garage));
 				modelo.put("dinero", servicioEst.dineroGanadoEnElDia(garage));
-				
-				if(servicioGarage.cantidadDeLugarEnEst(garage)<5) {
+				modelo.put("autos",autos);
+				ArrayList<Long> tickets = servicioEst.numeroDeTicketAuto(garage);
+				modelo.put("tickets",tickets );
+				if(servicioGarage.cantidadDeLugarEnEst(garage)<=5 && servicioGarage.cantidadDeLugarEnEst(garage)>=1) {
 					modelo.put("alerta", "Garage Con Pocos Lugares Disponibles");
-				}else {
+				}else if(servicioGarage.cantidadDeLugarEnEst(garage)<=0) {
+					modelo.put("Lleno", "Garage Sin Lugares");
 					
+				}else {
+					modelo.put("ConLugar", "Con lugar");
 				}
 				
 				
@@ -331,10 +340,6 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
-	
-	
-	
-	
 	
 	
 }

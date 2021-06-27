@@ -13,11 +13,10 @@
 <div class="container mt-3">
 		<table class="table table-hover">
 		<h1>Eliga un garage</h1>
-		
-		
-		<h4>Nombre: ${cliente.nombre} </h4>
+		<h4>Cliente: ${cliente.nombre} </h4>
 		<h4>Patente del auto: ${auto.patente} </h4>
 		<h4>Garages registrados</h4>  
+
 
 	  <thead>
 	    <tr>
@@ -49,12 +48,7 @@
                     <br>
                     <a href="${pageContext.request.contextPath}/mostrarFormularioReservaEstadia/${cliente.id}/${auto.id}/${garage.id}">Reservar</a>
                     </td>                                    
-          
-                    
-                    
-						
-	                </tr>
-	                
+	                </tr>	                
 	            </c:forEach>
 	  </tbody>
 	</table>

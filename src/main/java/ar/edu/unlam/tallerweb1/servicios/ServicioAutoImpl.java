@@ -45,7 +45,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 	public List<Auto> consultarAutoDeCliente(Cliente cliente) {
 		
 		
-		return servicioAuto.ConsultarAutoDeCliente( cliente);
+		return servicioAuto.ConsultarAutoDeCliente(cliente);
 		
 	}
 	
@@ -60,8 +60,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 			}
 		}
 		return activos;
-		
-		
+			
 	}
 	@Override
 	public Auto buscarAuto(Long id) {
@@ -106,6 +105,23 @@ public class ServicioAutoImpl implements ServicioAuto{
 	public void cambiarEstadoDeUso(Auto auto) {
 		servicioAuto.cambiarEstadoDeUso(auto);
 		
+	}
+	@Override
+	public List<Auto> consultarAutosSinGarage() {
+		return servicioAuto.consultarAutosSinGarage();
+	}
+	
+	@Override
+	public ArrayList<Auto> listaDeAutosDeClientesAfueraDeEst(Cliente cliente){
+		List<Auto> lista = consultarAutoDeClienteActivo(cliente);
+		ArrayList<Auto> listaA= new ArrayList<Auto>();
+		for(Auto e: lista) {
+			if(e.getUsandoGarage().equals(false)) {
+				listaA.add(e);
+			}
+		}
+		
+		return listaA;
 	}
 	
 	

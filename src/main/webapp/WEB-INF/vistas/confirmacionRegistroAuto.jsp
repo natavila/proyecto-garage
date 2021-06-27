@@ -12,7 +12,7 @@
 <body>
 	<main>
 		<div class="alert alert-success" role="alert">
- 					${error}
+ 					${mensaje}
 		<br>
 		</div>
 		<a class="btn btn-primary" href="home" role="button">Volver</a>

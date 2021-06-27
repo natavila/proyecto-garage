@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -39,7 +40,6 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 		final Session session = sessionFactory.getCurrentSession();
 		Auto auto1=consultarAuto(auto);
 		auto1.setEnUso(false);
-		
 	}
 	
 	@Override
@@ -101,10 +101,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 		List <Auto> lista =  session.createCriteria(Auto.class)
 				.createAlias("cliente", "clienteBuscado")
 				.add(Restrictions.eq("clienteBuscado.id", cliente.getId()))
-				.list();
-		
-
-				
+				.list();		
 		return lista;
 		
 	}
@@ -117,12 +114,39 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 				.uniqueResult();
 	}
 
-
-
-
-
-
+	@Override
+	public List<Auto> consultarAutosSinGarage() {
+		final Session session = sessionFactory.getCurrentSession();
+		  
+		   List<Auto> listaAutosSinGarage = session.createCriteria(Auto.class)
+				   .add(Restrictions.eq("usandoGarage", false))
+				   
+				  .list();
+				return listaAutosSinGarage;
+	}
+	/*
+	@Override
+	public List<Auto> listaDeAutosDeClientesAfueraDeEst(Cliente cliente){
+		final Session session = sessionFactory.getCurrentSession();
+		List<Auto> lista = consultarAutosSinGarage();
+		
+		ArrayList<Auto> listaSinGarageActivos = new ArrayList<Auto>();
+		for(Auto e: lista) {
+			if(e.getCliente().equals(cliente)) {
+				listaSinGarageActivos.add(e);
+			}
+		}
+		return listaSinGarageActivos;
+	}
+		
 	
 
-	
+*/
+
 }
+
+
+	
+
+	
+

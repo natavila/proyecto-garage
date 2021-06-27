@@ -23,6 +23,7 @@
 	crossorigin="anonymous"></script>
 </head>
 	<body>
+	<%@ include file="header.jsp" %>
 		<main class="container"> <!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
 			
 			<h1 class="mt-3">Generar billetera</h1>

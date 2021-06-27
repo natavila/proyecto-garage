@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.TreeSet;
 
 import javax.transaction.Transactional;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioEstacionamiento;
@@ -60,22 +62,37 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			@Override
 
 			
-			public HashSet<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
-				//List<Auto> autosActivos= buscarAutosDeUnGarage(garage1);
-				HashSet<Auto> autoLista = new HashSet<Auto>();
-
+			public ArrayList<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1) {
 				
+				HashSet<Auto> autoLista = new HashSet<Auto>();
+				ArrayList<Auto> lista = new ArrayList<Auto>();
 				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
 				
 				for(Estacionamiento e: est) {
 					if(e.getActiva().equals(true) ) {
-						autoLista.add(e.getAuto());
+						lista.add(e.getAuto());
+					}
+				}
+				lista.addAll(autoLista);
+				return  lista;
+			}
+
+			
+			@Override
+			public ArrayList<Long> numeroDeTicketAuto(Garage garage1){
+				ArrayList<Long> numTickets = new ArrayList<Long>();
+				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
+				
+				for(Estacionamiento e: est) {
+					if(e.getActiva().equals(true)) {
+						numTickets.add(e.getId());
 					}
 				}
 
-				return (HashSet<Auto>) autoLista;
+				return (ArrayList<Long>) numTickets;
 			}
-
+				
+			
 			
 			@Override
 			public Estacionamiento buscarEstacionamientoPorAuto(Auto auto) {
@@ -94,13 +111,13 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			
 			@Override 
 			public void cambiarEstadoEstacionamiento(Estacionamiento est) {
-				
-				if(est.getActiva().equals(true)) {
-					repositorioEst.cambiarEstadoEstacionamiento(est);
+				Estacionamiento est1 = repositorioEst.consultarEstacionamiento(est);
+				if(est1.getActiva().equals(true)) {
+					est1.setActiva(false);
 			
-			}else {
-				
-			}
+				}else {
+				est.setActiva(true);
+				}
 			
 			}
 
@@ -143,4 +160,19 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				
 				return repositorioEst.consultarEstacionamiento();
 			}
+
+			@Override
+			public List<Estacionamiento> buscarEstacionamientoPorCliente(Cliente cliente) {
+				
+				return repositorioEst.buscarEstacionamientoPorCliente(cliente);
+			}
+			
+			@Override
+			public void ActivarQR(Long idEst) {
+				Estacionamiento est = repositorioEst.buscarEstacionamiento(idEst);
+				est.setActiva(true);
+				
+			}
+			
+			
 }
