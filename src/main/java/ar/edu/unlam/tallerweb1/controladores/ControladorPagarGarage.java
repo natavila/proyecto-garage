@@ -254,6 +254,7 @@ public class ControladorPagarGarage {
 				est.setHoraHasta(horaHasta);
 				est.setGarage1(garage);
 				
+				// METE EL AUTO EN EL GARAGE HACE EL COBRO
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 				servicioGarage.sumarContador(garage);
@@ -376,6 +377,9 @@ public class ControladorPagarGarage {
 				modelo.put("cliente", cliente);
 				modelo.put("garage", garage);
 				modelo.put("estacionamiento", est);
+				//BUSCA EL ID DEL ESTACIONAMIENTO Y LO ACTIVA
+				// INGRESA EL AUTO AL GARAGE
+				
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 				servicioGarage.sumarContador(garage);
