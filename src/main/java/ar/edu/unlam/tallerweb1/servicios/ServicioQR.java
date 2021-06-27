@@ -13,5 +13,7 @@ public interface ServicioQR {
 
 	String devolverIp() throws UnknownHostException;
 
+	String random();
+
 	
 }

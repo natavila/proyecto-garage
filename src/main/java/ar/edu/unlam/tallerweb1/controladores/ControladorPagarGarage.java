@@ -48,6 +48,7 @@ import java.awt.image.BufferedImage;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.nio.file.Files;
 
 
@@ -233,7 +234,7 @@ public class ControladorPagarGarage {
 									@PathVariable("auto.id") Long idAuto,
 									@PathVariable("garage.id") Long idGarage,
 									HttpServletRequest request
-									){
+									) throws WriterException, IOException{
 		
 		
 		String rol = (String) request.getSession().getAttribute("roll");
@@ -266,8 +267,6 @@ public class ControladorPagarGarage {
 				Double precio = servicioCobrarTickets.calcularPrecioPorHora(garage.getPrecioHora(), horaDesde, horaHasta);
 				Long ticket = est.getId();
 				est.setPrecioAPagar(precio);
-				 
-				
 				
 				modelo.put("ticket",ticket);
 				
@@ -291,7 +290,9 @@ public class ControladorPagarGarage {
 	public ModelAndView pagarReservaPorHora(@PathVariable("cliente.id") Long idCliente,
 											@PathVariable("auto.id") Long idAuto,
 											@PathVariable("garage.id") Long idGarage,
+											
 											HttpServletRequest request) throws Exception {
+		
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null)
 			if(rol.equals("cliente")) {
@@ -312,14 +313,17 @@ public class ControladorPagarGarage {
 					modelo.put("estacionamiento", estacionamiento);
 					
 					Long id = estacionamiento.getId();
+					//Devuelve LA IP DEL DUEÑO DE LA PC
 					String ip = servQr.devolverIp();
-			        
+			        //TEXTO DEL QR
 					String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
-					
+					//GENERA EL QR
 					modelo.put("file", servQr.generateQR(text));
 					
 					
-					//SACO EL AUTO DEL GARAGA
+					//SACO EL AUTO DEL GARAGE Y LO VUELVO A METER CON EL CODIGO QR
+					// NO SE ME OCURRE OTRA FORMA PORQUE SI TOCO ALGO DEL CODIGO 
+					// EXPLOTA POR TODOS LADOS
 					
 			
 					ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage);
@@ -347,12 +351,10 @@ public class ControladorPagarGarage {
 		return new ModelAndView("realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}");
 			}
 		return new ModelAndView("redirect:/login");
+			
 	}
 	
-	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
-	public void generarPdf() throws Exception{
-		
-	}
+	
 	
 
 	@RequestMapping(path="/GaragePorQR/{cliente.id}/{auto.id}/{garage.id}/{id}")
@@ -360,12 +362,9 @@ public class ControladorPagarGarage {
 									@PathVariable("cliente.id") Long idCliente,
 									@PathVariable("auto.id") Long idAuto,
 									@PathVariable("garage.id") Long idGarage,
-									@PathVariable("id") Long id
-				
+									@PathVariable("id") Long id			
 									){
-		
-		
-		
+	
 		ModelMap modelo = new ModelMap();
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
@@ -376,6 +375,7 @@ public class ControladorPagarGarage {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
 				modelo.put("garage", garage);
+				modelo.put("estacionamiento", est);
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 				servicioGarage.sumarContador(garage);
@@ -388,14 +388,15 @@ public class ControladorPagarGarage {
 				return new ModelAndView("AgregoPorQR", modelo);
 					}
 				
-				
-			
 			return new ModelAndView("AlertaAutoEnGarage", modelo);
 		}
 		
 	
 			
-
+	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
+	public void generarPdf() throws Exception{
+		
+	}
 	
 	
 	

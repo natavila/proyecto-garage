@@ -15,11 +15,11 @@
 	<h1>Garage seleccionado: ${garage.nombre}</h1>
 	<h1>Direccion: ${garage.calle} ${garage.numero} ${garage.localidad}</h1>
 	<h1>Monto pagado: ${estacionamiento.precioAPagar}</h1>
-			<p>${file}</p>
-			<div>${file}</div>
-			<img src="/imagenes/${file}"/>
-			<img src="<%=request.getContextPath()%>/src/main/webapp/imagenes/logo.jpg">
-			<img src="/imagenes/logo.JPG"/>
+			
+			
+			<img src="<%=request.getContextPath()%>/imagenes/${file}">
+			
+			
 			
 </body>
 </html>

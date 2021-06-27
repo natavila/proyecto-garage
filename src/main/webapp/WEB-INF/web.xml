@@ -34,5 +34,14 @@
         <param-value>classpath:/applicationContext.xml</param-value>
     </context-param>
     
+  <servlet-mapping>
+  
+    <servlet-name>default</servlet-name>
+    <url-pattern>*.js</url-pattern>
+    <url-pattern>*.css</url-pattern>
+    <url-pattern>/fonts/*"</url-pattern>
+    <url-pattern>/imagenes/*</url-pattern>
+    
+  </servlet-mapping>
     
 </web-app>

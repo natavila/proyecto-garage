@@ -21,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Random;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,9 +41,9 @@ public class ServicioQRImpl implements ServicioQR{
 	            String content = text;
 	            String filePath = "C:\\Users\\Gaston Mica y juan\\eclipse-workspace\\proyecto-garage\\src\\main\\webapp\\imagenes\\";
 	            String fileType = "jpg";
-	            int size = 200;
-	            UUID uuid = UUID.randomUUID();
-	            String randomUUIDString = uuid.toString();
+	            int size = 300;
+	            //UUID uuid = UUID.randomUUID();
+	            String randomUUIDString = random();
 	            QRCodeWriter qrcode = new QRCodeWriter();
 	            BitMatrix matrix = qrcode.encode(content, BarcodeFormat.QR_CODE, size, size);
 	            File qrFile = new File(filePath + randomUUIDString + "." + fileType);
@@ -73,7 +74,7 @@ public class ServicioQRImpl implements ServicioQR{
 
 
        
-      
+      //Devuelve el Ip
 	@Override
        public String devolverIp() throws UnknownHostException {
     	   String address= InetAddress.getLocalHost().getHostAddress();
@@ -83,8 +84,17 @@ public class ServicioQRImpl implements ServicioQR{
        
 
 
-	 
-	    }
+	//Creo un metodo q genera un string random de hasta 16 de longitud
+	@Override
+	public String random() {
+		UUID uuid = UUID.randomUUID();
+		String s = Long.toString(uuid.getMostSignificantBits(), 36);
+		return s;
+	}
+	
+	
+	
+ }
 	 
 	 
 	 
