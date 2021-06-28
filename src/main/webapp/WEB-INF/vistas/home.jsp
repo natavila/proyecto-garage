@@ -67,15 +67,10 @@
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
 		<a class="btn btn-primary" href="planes/${cliente.id}" role="button">Elegir Plan</a>
 		</div>
-		<h3 style="text-align:center; margin-bottom:50px;">Garages</h3>
-		<h6>Filtrar garage por:</h6>
-		<select name="localidades">
-		<option value="value1">San Justo</option>
-  		<option value="value2" selected>Merlo</option>
-  		<option value="value3">Moron</option>
-		</select>
-		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
 		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>
+		
+		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
+		
 
 		<div class="container" style="display:grid; grid-template-columns:650px 50px 400px; grid-template-rows:500px;">
 

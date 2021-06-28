@@ -13,40 +13,38 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-	<div class="container">
+	<div class="container col-6">
 		<div class="border mt-3 mb-3 shadow p-3 mb-5 bg-body rounded">
 		<h5>Cliente: ${cliente.nombre} ${cliente.apellido}</h5>
 		<h5>Email: ${cliente.email}</h5>
 		<h5>Localidad: ${cliente.localidad}</h5>
 		<h5>Plan contratado: ${cliente.plan}</h5>
 		</div>
-		</div>
+	</div>
+	<div class="container col-4 ">
 		<table class="table table-hover">
 		<h3>Tickets</h3>
-	  <thead>
-	    <tr>
-	       		<th scope="col">Fecha de operación</th>
-	       		<th scope="col">Patente</th>
-                <th scope="col">Garage</th>
-                <th scope="col">Localidad</th>
-                <th scope="col">Monto pagado</th>  
-                <th scope="col">Codigo QR</th>       
-	    </tr>
-	  </thead>
-	  <tbody>
+	
 	  <c:forEach var="estacionamiento" 
 	             items="${estacionamiento}"
 	             varStatus="status">
-	                <tr>
-	                <td><b>${estacionamiento.fechaOperacion}</b></td> 
-	                <td><b>${estacionamiento.auto.patente}</b></td>
-	                <td><b>${estacionamiento.garage1.nombre}</b></td>
-	                <td><b>${estacionamiento.garage1.localidad}</b></td>
-	                <td><b>$${estacionamiento.precioAPagar}</b></td>  
-	                <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"></td>              
-	                </tr>	                
+	  <thead>
+	    		
+	       		<tr> <th scope="col">Fecha de operación</th> <td><b>${estacionamiento.fechaOperacion}</b></td> </tr>
+	       		<tr> <th scope="col">N° Ticket</th> <td><b>${estacionamiento.id}</b></td> </tr>
+	       		<tr> <th scope="col">Patente</th><td><b>${estacionamiento.auto.patente}</b></td> </tr>
+                <tr> <th scope="col">Garage</th><td><b>${estacionamiento.garage1.nombre}</b> </tr>
+                <tr> <th scope="col">Localidad</th><td><b>${estacionamiento.garage1.localidad}</b></td> </tr>
+                <tr> <th scope="col">Monto pagado</th> <td><b>$${estacionamiento.precioAPagar}</b> </td> </tr>
+                <tr> <th scope="col"></th> <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"> </td> </tr>   
+	    
+	  </thead>
+	  <tbody>
+	                    
+	                             
 	            </c:forEach>
 	  </tbody>
+	 
 	</table>
 	<c:if test="${empty estacionamiento}">
 		<div class="alert alert-warning" role="alert">
@@ -54,5 +52,6 @@
 		</div>
 	</c:if>
 	</div>
+	
 </body>
 </html>
