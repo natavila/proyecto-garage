@@ -60,13 +60,10 @@
 		</div>
 		</div>
 
-		
-		
-		
-
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/misAutos/${cliente.id}" role="button">Mis Autos<a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/ticketsCliente/${cliente.id}" role="button">Mis Tickets<a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
 		<a class="btn btn-primary" href="planes/${cliente.id}" role="button">Elegir Plan</a>
 		</div>

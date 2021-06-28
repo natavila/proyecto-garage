@@ -23,7 +23,7 @@ public interface ServicioEstacionamiento {
 	ArrayList<Auto> buscarAutosQueEstenActivosEnUnGarage(Garage garage1);
 
 	List<Estacionamiento> buscarEstacionamientoPorGarage(Garage garage);
-
+	
 	void cambiarEstadoEstacionamiento(Estacionamiento est);
 	List<Estacionamiento> consultarEstacionamiento();
 	Double dineroGanadoEnElDia(Garage garage);
@@ -33,5 +33,11 @@ public interface ServicioEstacionamiento {
 	ArrayList<Long> numeroDeTicketAuto(Garage garage1);
 
 	void ActivarQR(Long idEst);
+
+	void meterImagenQr(Estacionamiento est, String img);
+
+	void cambiarEstadoDeReserva(Estacionamiento est);
+
+	List<Estacionamiento> buscarEstacionamientoPorClienteQueTengaReserva(Cliente cliente);
 
 }

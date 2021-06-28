@@ -69,7 +69,7 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
 				
 				for(Estacionamiento e: est) {
-					if(e.getActiva().equals(true) ) {
+					if(e.getActiva().equals(true) && e.getReservado().equals(true) ) {
 						lista.add(e.getAuto());
 					}
 				}
@@ -84,7 +84,7 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				List<Estacionamiento> est = repositorioEst.buscarAutosDeUnGarage(garage1);
 				
 				for(Estacionamiento e: est) {
-					if(e.getActiva().equals(true)) {
+					if(e.getActiva().equals(true) && e.getReservado().equals(true)) {
 						numTickets.add(e.getId());
 					}
 				}
@@ -99,7 +99,7 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				List<Estacionamiento> EstActivos= repositorioEst.buscarEstacionamientoPorAuto(auto);
 				Estacionamiento est = new Estacionamiento();
 				for(Estacionamiento e: EstActivos) {
-					if(e.getActiva().equals(true)) {
+					if(e.getActiva().equals(true) && e.getReservado().equals(false)) {
 						est = e;
 					}
 				}
@@ -119,6 +119,12 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				est.setActiva(true);
 				}
 			
+			}
+			
+			@Override
+			public void meterImagenQr(Estacionamiento est, String img) {
+				Estacionamiento est1 = repositorioEst.consultarEstacionamiento(est);
+				est1.setImagenQR(img);
 			}
 
 			@Override
@@ -167,6 +173,32 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				return repositorioEst.buscarEstacionamientoPorCliente(cliente);
 			}
 			
+			
+			@Override
+			public List<Estacionamiento> buscarEstacionamientoPorClienteQueTengaReserva(Cliente cliente){
+				ArrayList<Estacionamiento> est = (ArrayList<Estacionamiento>) buscarEstacionamientoPorCliente( cliente);
+				ArrayList<Estacionamiento> estac = new ArrayList<Estacionamiento>();
+				for(Estacionamiento e: est) {
+					if(e.getReservado().equals(false) && e.getAuto().getUsandoGarage().equals(true)) {
+						estac.add(e);
+					}
+				}
+				
+				return estac;
+			}
+			
+			@Override
+			public void cambiarEstadoDeReserva(Estacionamiento est) {
+				Estacionamiento est1 = repositorioEst.consultarEstacionamiento(est);
+				if(est.getReservado().equals(false)) {
+					est1.setReservado(true);
+				}else {
+					est1.setReservado(false);
+				}
+				
+			}
+			
+			//Esto tengo q cambiar
 			@Override
 			public void ActivarQR(Long idEst) {
 				Estacionamiento est = repositorioEst.buscarEstacionamiento(idEst);

@@ -83,12 +83,15 @@ public class ControladorEstacionamiento {
 				for(Auto e: autos) {
 					if(e.getId().equals(est.getAuto().getId())) {
 						servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
-						
+						//saco la reserva de Auto
+						servicioAuto.cambiarEstadoReservaAuto(e);
 					}
 				}
 				if(est !=null && garage2 != null) {
 					servicioGarage.restarContador(garage2);
 					servicioEst.cambiarEstadoEstacionamiento(est);
+					//saco la reserva De Estacionamiento
+					servicioEst.cambiarEstadoDeReserva(est);
 					model.put("error", "Baja correcta");
 				}else {
 					model.put("error", "El Auto No esta");

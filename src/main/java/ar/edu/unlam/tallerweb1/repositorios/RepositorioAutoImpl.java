@@ -72,7 +72,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 	}
 	
 	
-
+/*
 	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
 		final Session session = sessionFactory.getCurrentSession();
@@ -90,7 +90,7 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 			
 	}
 	
-	
+	*/
 
 
 

@@ -90,7 +90,7 @@ public class ControladorClientes {
 
 		servicioAuto.SacarAuto(auto);
 		auto.setEnUso(false);
-
+		
 		servicioAuto.eliminarAuto(auto);
 
 		try {
@@ -102,7 +102,7 @@ public class ControladorClientes {
 		}
 		
 
-		return new ModelAndView("redirect:/misAutoss/{idC}");
+		return new ModelAndView("redirect:/misAutos/{idC}");
 	}
 	
 	/*@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
@@ -134,7 +134,23 @@ public class ControladorClientes {
 		modelo.put("billetera", billetera);
 		modelo.put("estacionamiento", estacionamiento);
 		modelo.put("reservas", servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente));
+		
 		return new ModelAndView("miPerfil", modelo);
+	}
+	 //Tickets De clientes
+	
+	@RequestMapping(path="/ticketsCliente/{id}")
+	public ModelAndView mostrarTicketCliente(@PathVariable("id")Long id) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+		
+		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorClienteQueTengaReserva(cliente);
+		modelo.put("cliente", cliente);
+		modelo.put("billetera", billetera);
+		modelo.put("estacionamiento", estacionamiento);
+		modelo.put("mensaje", "¡No posee reservas activas!");
+		return new ModelAndView("ticketCliente", modelo);
 	}
 			
 	

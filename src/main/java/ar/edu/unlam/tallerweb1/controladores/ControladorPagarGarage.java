@@ -130,7 +130,7 @@ public class ControladorPagarGarage {
 				est.setGarage1(garage);
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-				servicioGarage.sumarContador(garage);
+				//servicioGarage.sumarContador(garage);
 				//auto.setUsandoGarage(true);
 				
 				est.setAuto(auto);
@@ -166,7 +166,7 @@ public class ControladorPagarGarage {
 	@RequestMapping(path="/pagarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
 	public ModelAndView pagarReservaEstadia(@PathVariable("cliente.id") Long idCliente,
 											@PathVariable("auto.id") Long idAuto,
-											@PathVariable("garage.id") Long idGarage) {
+											@PathVariable("garage.id") Long idGarage) throws WriterException, IOException {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
@@ -182,6 +182,18 @@ public class ControladorPagarGarage {
 					modelo.put("cliente", cliente);
 					modelo.put("garage", garage);
 					modelo.put("estacionamiento", estacionamiento);
+					Long id = estacionamiento.getId();
+					//Devuelve LA IP DEL DUEÑO DE LA PC
+					String ip = servQr.devolverIp();
+			        //TEXTO DEL QR
+					String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
+					//GENERA EL QR
+					String imagenQr = servQr.generateQR(text).toString();
+					
+					//Guardo en Un String  la direccion de la Imagen de QR
+					servicioEst.meterImagenQr(estacionamiento, imagenQr);
+					
+					modelo.put("file", imagenQr);
 					return new ModelAndView("confirmacionReservaEstadia", modelo);
 				}else {
 					modelo.put("cliente", cliente);
@@ -257,7 +269,7 @@ public class ControladorPagarGarage {
 				// METE EL AUTO EN EL GARAGE HACE EL COBRO
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-				servicioGarage.sumarContador(garage);
+				//servicioGarage.sumarContador(garage);
 					
 				est.setAuto(auto);
 				est.setGarage1(garage);
@@ -319,14 +331,19 @@ public class ControladorPagarGarage {
 			        //TEXTO DEL QR
 					String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
 					//GENERA EL QR
-					modelo.put("file", servQr.generateQR(text));
+					String imagenQr = servQr.generateQR(text).toString();
+					
+					//Guardo en Un String  la direccion de la Imagen de QR
+					servicioEst.meterImagenQr(estacionamiento, imagenQr);
+					
+					modelo.put("file", imagenQr);
 					
 					
 					//SACO EL AUTO DEL GARAGE Y LO VUELVO A METER CON EL CODIGO QR
 					// NO SE ME OCURRE OTRA FORMA PORQUE SI TOCO ALGO DEL CODIGO 
 					// EXPLOTA POR TODOS LADOS
 					
-			
+					/*
 					ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage);
 					Estacionamiento est= servicioEst.buscarEstacionamiento(id);
 					for(Auto e: autos) {
@@ -341,7 +358,7 @@ public class ControladorPagarGarage {
 					}
 				
 
-					
+					*/
 					return new ModelAndView("confirmacionReservaPorHora", modelo);
 				}else {
 					return new ModelAndView("saldoInsuficiente", modelo);
@@ -372,7 +389,7 @@ public class ControladorPagarGarage {
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		Estacionamiento est = servicioEst.buscarEstacionamiento(id);
 	               
-			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && servicioGarage.GarageLleno(garage).equals(false) ) {
+			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(true) && servicioGarage.GarageLleno(garage).equals(false) && auto.getReservado().equals(false) ) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
 				modelo.put("garage", garage);
@@ -380,14 +397,17 @@ public class ControladorPagarGarage {
 				//BUSCA EL ID DEL ESTACIONAMIENTO Y LO ACTIVA
 				// INGRESA EL AUTO AL GARAGE
 				
-				
+				/*
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-				servicioGarage.sumarContador(garage);
-					
 				
 				servicioEst.ActivarQR(id);
 				
-				
+				*/
+				servicioGarage.sumarContador(garage);
+				//meto la reserva de Estacionamient
+				servicioEst.cambiarEstadoDeReserva(est);
+				//Meto la reserva de Auto
+				servicioAuto.cambiarEstadoReservaAuto(auto);
 				
 				return new ModelAndView("AgregoPorQR", modelo);
 					}

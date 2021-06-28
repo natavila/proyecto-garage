@@ -25,6 +25,7 @@ public class Auto {
 	
 	private Boolean usandoGarage=false;
 	private Boolean enUso=false;
+	private Boolean reservado=false;
 	public Long getId() {
 		return id;
 	}
@@ -75,6 +76,14 @@ public class Auto {
 
 	public void setEnUso(Boolean enUso) {
 		this.enUso = enUso;
+	}
+
+	public Boolean getReservado() {
+		return reservado;
+	}
+
+	public void setReservado(Boolean reservado) {
+		this.reservado = reservado;
 	}
 
 	

@@ -112,7 +112,7 @@ public class ControladorLogin {
 				Integer notif = servicioCliente.notificadorDeClientesNuevos();
 				
 				model.put("fecha", LocalDate.now());
-				//model.put("hora", LocalTime.now());
+				
 				
 				model.put("notifNuevos", notifNuevos);
 				model.put("notif", notif);
