@@ -31,6 +31,7 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 		session.save(plan);
 	}
 
+	
 	@Override
 	public void asignarPlanACliente(Cliente cliente, Plan plan) {
 		final Session session = sessionFactory.getCurrentSession();
@@ -38,7 +39,6 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 				.add(Restrictions.eq("id",cliente.getId()))
 				.uniqueResult();
 		         cliente1.setPlan(plan);
-
 	}
 	
 	@Override

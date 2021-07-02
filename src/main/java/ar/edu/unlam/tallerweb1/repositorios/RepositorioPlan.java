@@ -9,8 +9,6 @@ public interface RepositorioPlan {
 
 	public void crearPlan(Plan plan);
 
-	public void asignarPlanACliente(Cliente cliente, Plan plan);
-
 	public void darDeBajaPlan(Long id);
 
 	public List<Plan> listaDePlanes();
@@ -18,5 +16,7 @@ public interface RepositorioPlan {
 	public Plan consultarPlan(Long id);
 	
 	public Plan existeClienteConPlan(Cliente cliente, Plan plan);
+
+	void asignarPlanACliente(Cliente cliente, Plan plan);
 
 }

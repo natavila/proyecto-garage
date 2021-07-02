@@ -134,6 +134,7 @@ public class ControladorLogin {
 
 				model.put("cliente", usuarioBuscado);
 				model.put("billetera", billetera);
+				model.put("plan",usuarioBuscado.getPlan());
 				model.put("garages", listaGarage);
 				model.put("garagesCercanos", garagesCercanos);
 				return new ModelAndView("home", model);

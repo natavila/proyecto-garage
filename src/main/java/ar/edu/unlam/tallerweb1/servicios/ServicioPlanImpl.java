@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Plan;
+import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioPlan;
 
 @Service("servicioPlan")
@@ -16,7 +17,7 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioPlan;
 public class ServicioPlanImpl implements ServicioPlan {
 
 	private RepositorioPlan repositorioPlan;
-
+	private RepositorioCliente repositorioCliente;
 	@Autowired
 	public ServicioPlanImpl(RepositorioPlan repositorioPlan) {
 		this.repositorioPlan = repositorioPlan;
@@ -29,6 +30,7 @@ public class ServicioPlanImpl implements ServicioPlan {
 
 	@Override
 	public void asignarPlanACliente(Cliente cliente, Plan plan) {
+
 		repositorioPlan.asignarPlanACliente(cliente, plan);
 
 	}
