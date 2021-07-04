@@ -23,4 +23,5 @@ public interface ServicioAuto{
 	public List<Auto> consultarAutosSinGarage();
 	//List<Auto> consultarAutoSinGarageDeCliente(Cliente cliente);
 	ArrayList<Auto> listaDeAutosDeClientesAfueraDeEst(Cliente cliente);
+	void cambiarEstadoReservaAuto(Auto auto);
 }

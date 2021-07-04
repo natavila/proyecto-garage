@@ -48,11 +48,9 @@ public class ServicioQRImpl implements ServicioQR{
 	            BitMatrix matrix = qrcode.encode(content, BarcodeFormat.QR_CODE, size, size);
 	            File qrFile = new File(filePath + randomUUIDString + "." + fileType);
 	            File dire = new File (randomUUIDString + "." + fileType);
-	            
 	            int matrixWidth = matrix.getWidth();
 	            BufferedImage image = new BufferedImage(matrixWidth, matrixWidth, BufferedImage.TYPE_INT_RGB);
 	            image.createGraphics();
-	            
 	            Graphics2D graphics = (Graphics2D) image.getGraphics();
 	            graphics.setColor(Color.WHITE);
 	            graphics.fillRect(0, 0, matrixWidth, matrixWidth);

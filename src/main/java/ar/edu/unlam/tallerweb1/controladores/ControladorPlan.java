@@ -59,43 +59,23 @@ public class ControladorPlan {
 	@RequestMapping(path = "/asignarplan/{cliente}/{plan}", method = RequestMethod.GET)
 	public ModelAndView elegirPlan( @PathVariable("cliente") Long idC ,@PathVariable("plan") Long idP/*,@ModelAttribute("cliente") Cliente cliente,@ModelAttribute("plan") Plan plan*/) {
 
-
-
 		ModelMap modelo = new ModelMap();
 
 		Cliente c1 = servicioCliente.consultarClientePorId(idC);
 		Plan p1 = servicioPlan.consultarPlan(idP);
 		
-
-		servicioCliente.consultarCliente(c1);
-		
-
-		
-		try {
-		
-			if (c1.getPlan().equals(null)) {
-				
-				servicioPlan.asignarPlanACliente(c1, p1);
-
-
-			//	Plan p1 = servicioPlan.existeClienteConPlan(c1, plan);
-
-
-				modelo.put("mensajeExito", "El plan se asigno correctamente");
-				modelo.put("cliente", c1);
-				modelo.put("plan", p1);
-				
-				
-				
-			} else {
-				modelo.put("mensajeTienePlan", "Ya tiene asignado un plan");
-			}
-		} catch (Exception e) {
-			modelo.put("mensajeTienePlan", "Ya tiene asignado un plan");
-			System.out.println(e.getMessage());
-		
-		}
 			
+				if(c1.getPlan() == null) {
+					servicioPlan.asignarPlanACliente(c1, p1);
+					
+					modelo.put("mensajeExito", "El plan se asigno correctamente");
+					modelo.put("cliente", c1);
+					modelo.put("plan", p1);
+				}else {
+					modelo.put("mensajeExito", "No se pudo Asignar Plan");
+				}
+				
+	
 		return new ModelAndView("redirect:/planes/{cliente}", modelo);
 		
 	}

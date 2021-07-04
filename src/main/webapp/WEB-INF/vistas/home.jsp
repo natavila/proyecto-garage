@@ -24,10 +24,21 @@
 		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		</c:if>
+		<c:if test="${empty cliente.plan}">
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		  <strong>¿Todavia no tenes un Plan?</strong> Adherite a uno <a href="${pageContext.request.contextPath}/planes/${cliente.id}">aqui</a>.
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+		</c:if>
 		<div style="text-align:center; margin-top:50px;">
 		<h3>¡Bienvenido/a ${cliente.nombre}! </h3>
 		<c:if test="${not empty billetera}">			
 		<h5>Saldo disponible: $${billetera.saldo} </h5>	 				        	        
+		</c:if>	
+		<c:if test="${not empty cliente.plan}">			
+		<h5>Tu PLAN actual es ${plan.nombre} </h5>	
+		<h5>Podes Inscribir ${plan.cantidadAutosPermitidos} Autos </h5> 
+		<h5>Y usar ${plan.cantidadHorasPermitidas} horas en cualquiera de nuestros Garages </h5> 				        	        
 		</c:if>	
 		</div>
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
@@ -60,25 +71,17 @@
 		</div>
 		</div>
 
-		
-		
-		
-
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/misAutos/${cliente.id}" role="button">Mis Autos<a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/ticketsCliente/${cliente.id}" role="button">Mis Tickets<a>
 		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
 		<a class="btn btn-primary" href="planes/${cliente.id}" role="button">Elegir Plan</a>
 		</div>
-		<h3 style="text-align:center; margin-bottom:50px;">Garages</h3>
-		<h6>Filtrar garage por:</h6>
-		<select name="localidades">
-		<option value="value1">San Justo</option>
-  		<option value="value2" selected>Merlo</option>
-  		<option value="value3">Moron</option>
-		</select>
-		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
 		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>
+		
+		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
+		
 
 		<div class="container" style="display:grid; grid-template-columns:650px 50px 400px; grid-template-rows:500px;">
 

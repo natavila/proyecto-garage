@@ -112,7 +112,7 @@ public class ControladorLogin {
 				Integer notif = servicioCliente.notificadorDeClientesNuevos();
 				
 				model.put("fecha", LocalDate.now());
-				//model.put("hora", LocalTime.now());
+				
 				
 				model.put("notifNuevos", notifNuevos);
 				model.put("notif", notif);
@@ -134,6 +134,7 @@ public class ControladorLogin {
 
 				model.put("cliente", usuarioBuscado);
 				model.put("billetera", billetera);
+				model.put("plan",usuarioBuscado.getPlan());
 				model.put("garages", listaGarage);
 				model.put("garagesCercanos", garagesCercanos);
 				return new ModelAndView("home", model);

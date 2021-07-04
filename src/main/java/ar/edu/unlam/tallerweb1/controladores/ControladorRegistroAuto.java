@@ -84,6 +84,7 @@ public class ControladorRegistroAuto {
 					modelo.put("auto", auto);
 					auto.setEnUso(true);
 					auto.setUsandoGarage(false);
+					auto.setReservado(false);
 					servicioAuto.registrarAuto(auto);
 					
 

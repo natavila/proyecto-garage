@@ -69,10 +69,13 @@ public class ServicioAutoImpl implements ServicioAuto{
 	}
 	@Override
 	public void cambiarEstadoDeSiestaEnGarageOno(Auto auto) {
-
 		
-		
-		servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+		Auto auto1 =consultarAuto(auto);
+		if(auto1.getUsandoGarage().equals(false)) {
+			auto1.setUsandoGarage(true);
+		}else {
+			auto1.setUsandoGarage(false);
+		}
 		
 	}
 	@Override
@@ -104,8 +107,8 @@ public class ServicioAutoImpl implements ServicioAuto{
 	@Override
 	public void cambiarEstadoDeUso(Auto auto) {
 		servicioAuto.cambiarEstadoDeUso(auto);
-		
 	}
+	
 	@Override
 	public List<Auto> consultarAutosSinGarage() {
 		return servicioAuto.consultarAutosSinGarage();
@@ -116,7 +119,7 @@ public class ServicioAutoImpl implements ServicioAuto{
 		List<Auto> lista = consultarAutoDeClienteActivo(cliente);
 		ArrayList<Auto> listaA= new ArrayList<Auto>();
 		for(Auto e: lista) {
-			if(e.getUsandoGarage().equals(false)) {
+			if(e.getUsandoGarage().equals(false) && e.getReservado().equals(false)) {
 				listaA.add(e);
 			}
 		}
@@ -125,6 +128,16 @@ public class ServicioAutoImpl implements ServicioAuto{
 	}
 	
 	
+	//Cambio Estado de Reserva
+	@Override
+	public void cambiarEstadoReservaAuto(Auto auto) {
+		Auto auto1 = consultarAuto( auto);
+		if(auto1.getReservado().equals(false)) {
+			auto1.setReservado(true);
+		}else {
+			auto1.setReservado(false);
+		}
+	}
 	
 	
 	

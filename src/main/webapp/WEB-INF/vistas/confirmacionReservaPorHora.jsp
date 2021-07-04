@@ -37,7 +37,7 @@
 			</tbody>
 		</table>
 	</div>
-	<img src="<%=request.getContextPath()%>/imagenes/${file}">
+	
 
 </body>
 </html>
