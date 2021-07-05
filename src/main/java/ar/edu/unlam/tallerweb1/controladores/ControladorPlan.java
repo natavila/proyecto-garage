@@ -57,7 +57,7 @@ public class ControladorPlan {
 
 
 	@RequestMapping(path = "/asignarplan/{cliente}/{plan}", method = RequestMethod.GET)
-	public ModelAndView elegirPlan( @PathVariable("cliente") Long idC ,@PathVariable("plan") Long idP/*,@ModelAttribute("cliente") Cliente cliente,@ModelAttribute("plan") Plan plan*/) {
+	public ModelAndView elegirPlan( @PathVariable("cliente") Long idC ,@PathVariable("plan") Long idP) {
 
 		ModelMap modelo = new ModelMap();
 
@@ -65,14 +65,14 @@ public class ControladorPlan {
 		Plan p1 = servicioPlan.consultarPlan(idP);
 		
 			
-				if(c1.getPlan() == null) {
+				if(c1.getPlan()==null) {
 					servicioPlan.asignarPlanACliente(c1, p1);
 					
 					modelo.put("mensajeExito", "El plan se asigno correctamente");
 					modelo.put("cliente", c1);
 					modelo.put("plan", p1);
 				}else {
-					modelo.put("mensajeExito", "No se pudo Asignar Plan");
+					modelo.put("mensajeTienePlan", "No se pudo Asignar Plan");
 				}
 				
 	
