@@ -14,6 +14,7 @@
 		<h3>${nombre} ${apellido}</h3>
 		<h3>Saldo: $${saldo}</h3>
 		<a class="btn btn-primary mt-3" href="${pageContext.request.contextPath}/formularioSaldo/${cliente.id}" role="button">Ingresar dinero</a>
+		<a class="btn btn-primary mt-3" href="${pageContext.request.contextPath}/home/${cliente.id}" role="button">Volver</a>
 	 </div>
 </body>
 </html>

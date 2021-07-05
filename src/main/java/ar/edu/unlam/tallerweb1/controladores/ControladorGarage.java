@@ -214,8 +214,7 @@ public class ControladorGarage {
 			if(rol.equals("cliente")) {
 				ModelMap modelo = new ModelMap();
 				List<Auto> autosSinGarage = servicioAuto.consultarAutosSinGarage();
-				Cliente cliente = servicioLogin.consultarClientePorId(id);
-				
+				Cliente cliente = servicioLogin.consultarClientePorId(id);				
 				modelo.addAttribute(nombre);
 				modelo.addAttribute(id);
 				modelo.put("cliente", cliente);

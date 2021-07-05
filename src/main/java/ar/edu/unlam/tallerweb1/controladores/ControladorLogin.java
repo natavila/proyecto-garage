@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -77,11 +78,28 @@ public class ControladorLogin {
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Cliente cliente, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
-		
-		String rol = (String) request.getSession().getAttribute("roll");
+		//String rol = (String) request.getSession().getAttribute("roll");
 		if (usuarioBuscado != null) {
-			if(usuarioBuscado.getRoll().equals("admin")) {
-				
+			model.put("cliente", usuarioBuscado);
+			return new ModelAndView("redirect:/home/{cliente.id}");
+			
+	
+		}else {
+			model.put("usuario", usuarioBuscado);
+			model.put("Error", "Usuario o clave incorrecta");
+		}
+			
+			return new ModelAndView("login", model);
+	}
+
+	// Escucha la URL /home por GET, y redirige a una vista.
+	@RequestMapping(path = "/home/{cliente.id}", method = RequestMethod.GET)
+	public ModelAndView irAHome(@PathVariable("cliente.id")Long id, HttpServletRequest request) {
+		ModelMap model = new ModelMap();
+		Cliente usuarioBuscado = servicioCliente.consultarClientePorId(id);
+		if(usuarioBuscado != null) {
+			if(usuarioBuscado.getRoll() == "admin") {
+				model.put("admin", usuarioBuscado);
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				model.put("admin", usuarioBuscado);
 				List<Garage> listaGarage = servicioGarage.consultarGarage();
@@ -107,9 +125,7 @@ public class ControladorLogin {
 				}
 				
 				Integer notif = servicioCliente.notificadorDeClientesNuevos();
-				
-			
-				
+
 				model.put("notifNuevos", notifNuevos);
 				model.put("notif", notif);
 				model.put("ocupacion", ocupacion);
@@ -117,10 +133,8 @@ public class ControladorLogin {
 				model.put("ganancia",servEst.dineroGanadoEnTotal() );
 				
 				return new ModelAndView("homeAdmin", model);
-				
 			}else {
-
-				
+				model.put("cliente", usuarioBuscado);
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());			
 
 				Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
@@ -132,23 +146,11 @@ public class ControladorLogin {
 				model.put("billetera", billetera);
 				model.put("garages", listaGarage);
 				model.put("garagesCercanos", garagesCercanos);
+	
 				return new ModelAndView("home", model);
-			}	
-	
-		}else {
-			
-			model.put("Error", "Usuario o clave incorrecta");
+			}
 		}
-			
-			return new ModelAndView("login", model);
-	}
-
-	// Escucha la URL /home por GET, y redirige a una vista.
-	@RequestMapping(path = "/home", method = RequestMethod.GET)
-	public ModelAndView irAHome() {
-		ModelMap model = new ModelMap();
-	
-		return new ModelAndView("home", model);
+		return new ModelAndView("login", model);
 	}
 
 	

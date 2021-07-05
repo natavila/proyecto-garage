@@ -13,7 +13,7 @@
 <%@ include file="header.jsp" %>
 	<div class="container mt-3">
 		<table class="table table-hover">
-		<h3>¡Hola ${cliente.nombre}!, ¿con que auto vas a viajar?</h3>
+		<h3>¡Hola ${cliente.nombre}!, ¿con que auto vas a reservar?</h3>
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
@@ -38,6 +38,7 @@
   			${mensaje}
 		</div>
 	</c:if>
+
 	<br>
 	<a class="btn btn-primary mt-3" href="home" role="button">Volver</a>
 		</div>
