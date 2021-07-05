@@ -339,26 +339,6 @@ public class ControladorPagarGarage {
 					modelo.put("file", imagenQr);
 					
 					
-					//SACO EL AUTO DEL GARAGE Y LO VUELVO A METER CON EL CODIGO QR
-					// NO SE ME OCURRE OTRA FORMA PORQUE SI TOCO ALGO DEL CODIGO 
-					// EXPLOTA POR TODOS LADOS
-					
-					/*
-					ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage);
-					Estacionamiento est= servicioEst.buscarEstacionamiento(id);
-					for(Auto e: autos) {
-						if(e.getId().equals(est.getAuto().getId())) {
-							servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
-							
-						}
-					}
-					if(est !=null && garage != null) {
-						servicioGarage.restarContador(garage);
-						servicioEst.cambiarEstadoEstacionamiento(estacionamiento);
-					}
-				
-
-					*/
 					return new ModelAndView("confirmacionReservaPorHora", modelo);
 				}else {
 					return new ModelAndView("saldoInsuficiente", modelo);
