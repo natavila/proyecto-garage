@@ -75,36 +75,45 @@ public class ControladorRegistroAuto {
 			@PathVariable("nombre") String nombre){
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
-		//Auto auto1= servicioAuto.consultarAuto(auto);
+		Auto auto1= servicioAuto.consultarAuto(auto);
 		
-		 if(auto.getPatente() != "" && cliente != null && servicioAuto.consultarAuto(auto) == null /*&& auto1 == null*/) {
+		 if(auto.getPatente() != "" && cliente != null && auto1 == null) {
 			 
 				 	modelo.put("cliente", cliente);
 					auto.setCliente(cliente);
 					modelo.put("auto", auto);
-					//auto.setEnUso(true);
+					auto.setEnUso(true);
+					auto.setUsandoGarage(false);
+					auto.setReservado(false);
 					servicioAuto.registrarAuto(auto);
-					servicioAuto.cambiarEstadoDeUso(auto);
-					return new ModelAndView("redirect:/misAutos/{id}");
+					
+
+					modelo.put("mensaje", "Auto Registrado correctamente");
+			 		
+					return new ModelAndView("confirmacionRegistroAuto", modelo);
+
+					
+
 			 
-			 	// no entendi que funcion cumpliaria en el registro de auto
-		 	}/*else if(auto1 != null && auto1.getEnUso().equals(null)) {
+			 	// Lo que hace es: poder cambiar de dueño del auto o sacarlo y ponerlo, sin q tenga duplicados o que no se pueda agregar
+		 	}else if(auto1 != null && auto1.getEnUso().equals(false)) {
 		 		modelo.addAttribute("cliente", cliente);
 		 
 				auto1.setCliente(cliente);
-				//auto1.setEnUso(true);
+
 				servicioAuto.cambiarEstadoDeUso(auto1);
 				modelo.put("auto", auto1);
 				
-				modelo.put("error", "Cambiando de Dueño el AUTO");
+				modelo.put("mensaje", "Auto Reingresado Correctamene");
 		 		
 				return new ModelAndView("confirmacionRegistroAuto", modelo);
-		 	}*/else {
+		 	}else {
 		 		modelo.put("cliente", cliente);
 		 		modelo.put("auto", auto);
 		 		modelo.put("mensaje", "Patente ya registrada. Ingrese otra patente.");
 		 		return new ModelAndView("registroAuto", modelo);
 		 	}
+
 
 		
 		}

@@ -215,13 +215,13 @@ public class ControladorGarage {
 				ModelMap modelo = new ModelMap();
 				List<Auto> autosSinGarage = servicioAuto.consultarAutosSinGarage();
 				Cliente cliente = servicioLogin.consultarClientePorId(id);				
+
 				modelo.addAttribute(nombre);
 				modelo.addAttribute(id);
 				modelo.put("cliente", cliente);
-				modelo.put("auto",servicioAuto.consultarAutoDeClienteActivo(cliente));
-				modelo.addAttribute("autos", servicioAuto.consultarAutoDeCliente(cliente));
-				modelo.put("autosSinGarage", autosSinGarage);
-				modelo.put("mensaje", "Sus autos ya se encuentran en un garage.");
+				modelo.put("autosSinGarage",autosSinGarage);
+				
+				modelo.put("mensaje", "Sus autos ya se encuentran en un garage o tienen una reserva activa");
 				return new ModelAndView ("ListaAutosDeCliente", modelo);
 			}
 		return new ModelAndView("redirect:/login");

@@ -40,7 +40,7 @@
 		            <li><a class="dropdown-item" href="mostrarRegistroLocalidad">Agregar Localidad</a></li>
 		            <li><a class="dropdown-item" href="crearPlan">Crear Plan</a></li>
 		            <li><hr class="dropdown-divider"></li>
-		            <li><a class="dropdown-item" href="#">Something else here</a></li>
+		            <li><a class="dropdown-item" href="planesAdmin">Planes</a></li>
 		          </ul>
 		        </li>
 		        <li class="nav-item">
@@ -55,8 +55,14 @@
 		    </div>
 		  </div>
 		</nav>
-		<div>
+		<div class="container row" >
+		<div class="col-10">
 		<h5>ADMIN: ${admin.nombre}</h5>
+		</div>
+		<div class ="col-2">
+		<p><b>${fecha}</b></p>
+		</div>
+		
 		</div>
 		
 <h1>Garages</h1>
@@ -164,6 +170,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
 		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
 		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+
 </html>
 
 

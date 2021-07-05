@@ -16,9 +16,8 @@
 <body>
 
 	<div class="container mt-3">
-		<h1>  Hola ${cliente.nombre}, Qué plan querés elegir?</h1>
 		<table class="table table-hover">
-
+<h2>Lista de planes</h2>
 
 
 			<thead>
@@ -41,9 +40,6 @@
 						<td>${plan.cantidadAutosPermitidos}</td>
 						<td>${plan.cantidadHorasPermitidas}</td>
 						<td>${plan.precio}</td>
-
-						<td><a class="btn btn-primary" href="${pageContext.request.contextPath}/asignarplan/${cliente.id}/${plan.id}" role="button">Elegir</a></td>
-
 						<br>
 						</td>
 					</tr>
@@ -56,20 +52,7 @@
 		</table>
 		<a class="btn btn-primary" href="home" role="button">Volver</a>
 
-	</div>
-		<c:if test="${not empty mensajeExito}">
-			<div class="alert alert-success" role="alert">
-				<h6>${mensajeExito}</h6>
-
-			</div>
-		</c:if>
-
-		<c:if test="${not empty mensajeTienePlan}">
-			<div class="alert alert-danger" role="alert">
-				<h6>${mensajeTienePlan}</h6>
-
-			</div>
-		</c:if>
+	
 	<footer th:replace="layout/layout::footer" class="bg-dark"></footer>
 </body>
 </html>

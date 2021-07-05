@@ -35,7 +35,8 @@
 	       		<th scope="col">Patente</th>
                 <th scope="col">Garage</th>
                 <th scope="col">Localidad</th>
-                <th scope="col">Monto pagado</th>        
+                <th scope="col">Monto pagado</th>  
+                <th scope="col">Codigo QR</th>       
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -47,7 +48,8 @@
 	                <td><b>${estacionamiento.auto.patente}</b></td>
 	                <td><b>${estacionamiento.garage1.nombre}</b></td>
 	                <td><b>${estacionamiento.garage1.localidad}</b></td>
-	                <td><b>$${estacionamiento.precioAPagar}</b></td>                   
+	                <td><b>$${estacionamiento.precioAPagar}</b></td>  
+	                <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"></td>              
 	                </tr>	                
 	            </c:forEach>
 	  </tbody>

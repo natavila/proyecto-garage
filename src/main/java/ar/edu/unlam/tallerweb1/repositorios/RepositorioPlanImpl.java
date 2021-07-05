@@ -31,11 +31,14 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 		session.save(plan);
 	}
 
+	
 	@Override
 	public void asignarPlanACliente(Cliente cliente, Plan plan) {
 		final Session session = sessionFactory.getCurrentSession();
-		plan.setCliente(cliente);
-
+		Cliente cliente1=  (Cliente) session.createCriteria(Cliente.class)
+				.add(Restrictions.eq("id",cliente.getId()))
+				.uniqueResult();
+		         cliente1.setPlan(plan);
 	}
 	
 	@Override

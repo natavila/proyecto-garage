@@ -21,4 +21,7 @@ public interface ServicioAuto{
 	void cambiarEstadoDeUso(Auto auto);
 	Boolean existeAuto(Auto auto);
 	public List<Auto> consultarAutosSinGarage();
+	//List<Auto> consultarAutoSinGarageDeCliente(Cliente cliente);
+	ArrayList<Auto> listaDeAutosDeClientesAfueraDeEst(Cliente cliente);
+	void cambiarEstadoReservaAuto(Auto auto);
 }

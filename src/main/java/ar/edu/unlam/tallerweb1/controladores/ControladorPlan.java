@@ -1,9 +1,12 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,44 +29,56 @@ public class ControladorPlan {
 		this.servicioPlan = servicioPlan;
 		this.servicioCliente = servicioCliente;
 	}
-
-	@RequestMapping(path = "/planes", method = RequestMethod.GET)
-	public ModelAndView planes() {
+	@RequestMapping(path = "/planesAdmin", method = RequestMethod.GET)
+	public ModelAndView planesAdmin(HttpServletRequest request) {
+		String rol = (String) request.getSession().getAttribute("roll");
+		if(rol != null)
+			if(rol.equals("admin")) {
+		
 		ModelMap modelo = new ModelMap();
+		modelo.put("planes", servicioPlan.obtenerPlanes());
+
+		return new ModelAndView("PlanesAdmin", modelo);
+			}
+		return new ModelAndView("redirect:/login");
+	}
+
+	@RequestMapping(path = "/planes/{id}", method = RequestMethod.GET)
+	public ModelAndView planes(@ModelAttribute("cliente") Cliente cliente,@PathVariable("id") Long id) {
+		ModelMap modelo = new ModelMap();
+		Cliente c1 = servicioCliente.consultarClientePorId(id);
+		
+		modelo.put("cliente", c1);
 		modelo.put("planes", servicioPlan.obtenerPlanes());
 
 		return new ModelAndView("planes", modelo);
 	}
 
-	@RequestMapping(path = "/planes", method = RequestMethod.POST)
-	public ModelAndView elegirPlan(@ModelAttribute("plan") Plan plan, @ModelAttribute("cliente") Cliente cliente) {
+
+
+	@RequestMapping(path = "/asignarplan/{cliente}/{plan}", method = RequestMethod.GET)
+	public ModelAndView elegirPlan( @PathVariable("cliente") Long idC ,@PathVariable("plan") Long idP) {
 
 		ModelMap modelo = new ModelMap();
 
-		Cliente c1 = servicioCliente.consultarCliente(cliente);
-		Plan p1 = servicioPlan.consultarPlan(plan.getId());
+		Cliente c1 = servicioCliente.consultarClientePorId(idC);
+		Plan p1 = servicioPlan.consultarPlan(idP);
 		
-		try {
-			if (plan.getCliente().equals(null)) {
-				plan.setCliente(c1);
-
-				p1 = servicioPlan.existeClienteConPlan(c1, plan);
-
-				modelo.put("mensajeExito", "El plan se asigno correctamente");
-				modelo.put("cliente", c1);
-				modelo.put("plan", p1);
+			
+				if(c1.getPlan()==null) {
+					servicioPlan.asignarPlanACliente(c1, p1);
+					
+					modelo.put("mensajeExito", "El plan se asigno correctamente");
+					modelo.put("cliente", c1);
+					modelo.put("plan", p1);
+				}else {
+					modelo.put("mensajeExito", "No se pudo Asignar Plan");
+				}
 				
-				
-				
-			} else {
-				modelo.put("mensajeTienePlan", "Ya tiene asignado un plan");
-			}
-		} catch (Exception e) {
-			modelo.put("mensajeTienePlan", "Ya tiene asignado un plan");
-			System.out.println(e.getMessage());
-		}
-		return new ModelAndView("planes", modelo);
+	
+		return new ModelAndView("redirect:/planes/{cliente}", modelo);
 		
 	}
 
 }
+

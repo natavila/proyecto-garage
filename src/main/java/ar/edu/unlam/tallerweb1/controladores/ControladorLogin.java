@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +59,12 @@ public class ControladorLogin {
 		this.servicioCliente = servicioCliente;
 		this.servicioRegistro = servicioRegistro;
 	}
+	
+	
+
+	
+
+
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
@@ -78,6 +87,7 @@ public class ControladorLogin {
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Cliente cliente, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
+
 		//String rol = (String) request.getSession().getAttribute("roll");
 		if (usuarioBuscado != null) {
 			model.put("cliente", usuarioBuscado);
@@ -101,13 +111,15 @@ public class ControladorLogin {
 			if(usuarioBuscado.getRoll() == "admin") {
 				model.put("admin", usuarioBuscado);
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
+				
 				model.put("admin", usuarioBuscado);
-				List<Garage> listaGarage = servicioGarage.consultarGarage();
+				
+				//List<Garage> listaGarage = servicioGarage.consultarGarage();
 				ArrayList<Integer> ocupacion = new ArrayList<Integer>();
 				
 				Integer notifNuevos = servicioRegistro.NotificacionesClientes();
 				
-				for(Garage e: listaGarage) {
+				for(Garage e: servicioGarage.consultarGarage()) {
 					
 					ocupacion.add(servicioGarage.cantidadDeLugarEnEst(e));	
 				}
@@ -126,10 +138,19 @@ public class ControladorLogin {
 				
 				Integer notif = servicioCliente.notificadorDeClientesNuevos();
 
+
 				model.put("notifNuevos", notifNuevos);
+
+				
+				model.put("fecha", LocalDate.now());
+				
+				
+				model.put("notifNuevos", servicioRegistro.NotificacionesClientes());
+
 				model.put("notif", notif);
 				model.put("ocupacion", ocupacion);
-				model.addAttribute("garages", servicioGarage.consultarGarage());
+				
+				model.put("garages",/*listaGarage*/ servicioGarage.consultarGarage());
 				model.put("ganancia",servEst.dineroGanadoEnTotal() );
 				
 				return new ModelAndView("homeAdmin", model);
@@ -144,13 +165,28 @@ public class ControladorLogin {
 
 				model.put("cliente", usuarioBuscado);
 				model.put("billetera", billetera);
+				model.put("plan",usuarioBuscado.getPlan());
 				model.put("garages", listaGarage);
 				model.put("garagesCercanos", garagesCercanos);
 	
 				return new ModelAndView("home", model);
-			}
+
+
+			}	
+	
 		}
-		return new ModelAndView("login", model);
+
+		return new ModelAndView("login", model);		
+			
+	}
+
+	// Escucha la URL /home por GET, y redirige a una vista.
+	@RequestMapping(path = "/home", method = RequestMethod.GET)
+	public ModelAndView irAHome() {
+		ModelMap model = new ModelMap();
+	
+		return new ModelAndView("home", model);
+
 	}
 
 	
@@ -175,5 +211,75 @@ public class ControladorLogin {
 		return new ModelAndView("redirect:/login");
 	}
 	
+	
+	public ServicioLogin getServicioLogin() {
+		return servicioLogin;
+	}
+
+
+
+	public void setServicioLogin(ServicioLogin servicioLogin) {
+		this.servicioLogin = servicioLogin;
+	}
+
+
+
+	public ServicioEstacionamiento getServEst() {
+		return servEst;
+	}
+
+
+
+	public void setServEst(ServicioEstacionamiento servEst) {
+		this.servEst = servEst;
+	}
+
+
+
+	public ServicioBilletera getServicioBilletera() {
+		return servicioBilletera;
+	}
+
+
+
+	public void setServicioBilletera(ServicioBilletera servicioBilletera) {
+		this.servicioBilletera = servicioBilletera;
+	}
+
+
+
+	public ServicioGarage getServicioGarage() {
+		return servicioGarage;
+	}
+
+
+
+	public void setServicioGarage(ServicioGarage servicioGarage) {
+		this.servicioGarage = servicioGarage;
+	}
+
+
+
+	public ServicioCliente getServicioCliente() {
+		return servicioCliente;
+	}
+
+
+
+	public void setServicioCliente(ServicioCliente servicioCliente) {
+		this.servicioCliente = servicioCliente;
+	}
+
+
+
+	public ServicioRegistro getServicioRegistro() {
+		return servicioRegistro;
+	}
+
+
+
+	public void setServicioRegistro(ServicioRegistro servicioRegistro) {
+		this.servicioRegistro = servicioRegistro;
+	}
 	
 }

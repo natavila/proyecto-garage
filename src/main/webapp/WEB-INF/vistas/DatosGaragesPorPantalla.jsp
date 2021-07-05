@@ -44,9 +44,7 @@
                     <td>${garage.contador}</td>
 					<td><a href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}">Eliminar Garage</a></td>
    					<td> <a href="">Modificar Garage</a> </td>
-					<td> <a href="${pageContext.request.contextPath}/mostrarAutosDeUnGarage/${garage.id}">Autos en garage</a> </td>
-   					<td> <a href="${pageContext.request.contextPath}/sacarAuto/${garage.id}">Sacar Auto</a> </td>
-					<td> <a href="${pageContext.request.contextPath}/mostrarHistoricoDeUnGarage/${garage.id}">Historial</a> </td>	
+					
 					
 					
 	                </tr>
@@ -54,7 +52,7 @@
 	            </c:forEach>
 	  </tbody>
 	</table>
-	<a class="btn btn-primary" href="homeAdmin" role="button">Volver</a>
+	<a class="btn btn-primary" href="validar-login" role="button">Volver</a>
 		</div>
     <footer th:replace="layout/layout::footer" class="bg-dark"></footer>
 </body>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +10,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+
 	<div class="container" style="margin-top:50px;">
 	<h1 style="text-align:center;">Reserva exitosa!</h1>
 		<table class="table" style="margin-top:50px;">
@@ -33,6 +36,10 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/ticketsCliente/${cliente.id}" role="button">Imprimir Mi Ticket<a>
 	</div>
+	
+
 </body>
 </html>

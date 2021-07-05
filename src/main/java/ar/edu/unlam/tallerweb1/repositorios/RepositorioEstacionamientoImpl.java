@@ -57,7 +57,11 @@ public class RepositorioEstacionamientoImpl implements RepositorioEstacionamient
 	 @Override
 		public Estacionamiento buscarEstacionamiento(Long id) {
 			final Session session = sessionFactory.getCurrentSession();
-			return session.get(Estacionamiento.class, id);
+			
+			return (Estacionamiento) session.createCriteria(Estacionamiento.class)
+					.add(Restrictions.eq("id", id))
+					.uniqueResult();
+					
 		}
 	 @Override
 	 public List<Estacionamiento> buscarAutosDeUnGarage(Garage garage1) {

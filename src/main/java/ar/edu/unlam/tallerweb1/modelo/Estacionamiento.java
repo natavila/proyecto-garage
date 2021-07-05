@@ -29,7 +29,9 @@ public class Estacionamiento {
 	private Double precioAPagar;
 	private Boolean activa=false;
 	private Boolean estaPagado=false;
-
+	private Boolean reservado=false;
+	private String imagenQR;
+	
 	@ManyToOne
 	private Garage garage1;
 	@ManyToOne
@@ -119,6 +121,19 @@ public class Estacionamiento {
 	public void setActiva(Boolean activa) {
 		this.activa = activa;
 	}
+	public String getImagenQR() {
+		return imagenQR;
+	}
+	public void setImagenQR(String imagenQR) {
+		this.imagenQR = imagenQR;
+	}
+	public Boolean getReservado() {
+		return reservado;
+	}
+	public void setReservado(Boolean reservado) {
+		this.reservado = reservado;
+	}
+
 	
 	
 	

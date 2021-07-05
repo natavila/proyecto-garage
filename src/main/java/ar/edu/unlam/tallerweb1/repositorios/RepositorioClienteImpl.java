@@ -103,7 +103,7 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 		return (Cliente) session.createCriteria(Cliente.class)
 				.add(Restrictions.eq("id", id))
 				.uniqueResult();
-		//return session.get(Cliente.class, id);
+		
 	}
 
 	@Override

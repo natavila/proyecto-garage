@@ -38,7 +38,7 @@
 		          <a class="nav-link active" aria-current="page" href="#">Home</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#">Garajes</a>
+		          <a class="nav-link" href="#">Garages</a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link" href="#">Mi perfil</a>
@@ -55,7 +55,7 @@
 		          </ul>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="cerrarSesion">Cerrar Sesion</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/cerrarSesion">Cerrar Sesion</a>
 		        </li>
 		      </ul>
 		      <form class="d-flex">
@@ -90,7 +90,7 @@
 		<div style="text-align:center; margin-top:50px;">
 		<c:if test="${not empty dinero}">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert">
-		  <strong>Recaudado en el dia:$ ${dinero} </strong>
+		  <strong>Recaudacion del dia:$ ${dinero} </strong>
 		</div>
 		</c:if>
 		</div>
@@ -107,6 +107,7 @@
                 <th scope="col">Localidad</th>
                 <th scope="col">Calle</th>
                 <th scope="col">Numero</th>
+                <th scope="col">Cupo</th>
                 <th scope="col">Lugares Disponibles</th>       
 	    </tr>
 	  </thead>
@@ -117,6 +118,7 @@
                     <td>${garage.localidad}</td>
                     <td>${garage.calle}</td>
                     <td>${garage.numero}</td>
+                    <td>${garage.capacidad}</td>
                     <td>${lugar}</td>
 	                </tr>	         
 	                  

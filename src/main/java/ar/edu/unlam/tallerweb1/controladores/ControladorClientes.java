@@ -55,12 +55,13 @@ public class ControladorClientes {
 		if(rol != null)
 			if(rol.equals("admin")) {
 			modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
+			
 			servicioRegistro.NotificacionesVistas();
 			return("ListaClientes");
 			}
 		return ("redirect:/login");
 	}
-	@RequestMapping(path="/mostrarAutosClientes/{id}", method=RequestMethod.GET)
+	@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
 	public ModelAndView AutosDeClientes(
 			@PathVariable("id")Long id, 
 			HttpServletRequest request) {
@@ -85,8 +86,13 @@ public class ControladorClientes {
 	public ModelAndView eliminarAuto(@PathVariable("id")Long id,@PathVariable("idC")Long idC) {
 		ModelMap modelo = new ModelMap();
 		Auto auto=servicioAuto.buscarAuto(id);
-		//servicioAuto.SacarAuto(auto);
-		//auto.setEnUso(false);
+
+
+		servicioAuto.SacarAuto(auto);
+		auto.setEnUso(false);
+		
+		servicioAuto.eliminarAuto(auto);
+
 		try {
 			modelo.put("auto", auto);
 			servicioAuto.eliminarAuto(auto);
@@ -95,26 +101,28 @@ public class ControladorClientes {
 			modelo.put("exception", e.getMessage());
 		}
 		
-		return new ModelAndView("redirect:/mostrarAutosClientes/{idC}");
+
+		return new ModelAndView("redirect:/misAutos/{idC}");
 	}
 	
-	@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
+	/*@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
 	public ModelAndView misAutos(
 			@PathVariable("id")Long id, 
 			HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(id);
-		List<Auto> autos = servicioAuto.consultarAutoDeCliente(cliente);
+		List<Auto> autos =  servicioAuto.consultarAutoDeClienteActivo(cliente);
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null )
 			if(rol.equals("cliente") && cliente != null && autos != null) {	
 				modelo.put("cliente", cliente);
 				modelo.put("auto", autos);
+				modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}
 		return new ModelAndView("redirect:/login");
 }
-	
+	*/
 	@RequestMapping(path="/datosCliente/{id}")
 	public ModelAndView mostrarDatosCliente(@PathVariable("id")Long id) {
 		ModelMap modelo = new ModelMap();
@@ -126,7 +134,23 @@ public class ControladorClientes {
 		modelo.put("billetera", billetera);
 		modelo.put("estacionamiento", estacionamiento);
 		modelo.put("reservas", servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente));
+		
 		return new ModelAndView("miPerfil", modelo);
+	}
+	 //Tickets De clientes
+	
+	@RequestMapping(path="/ticketsCliente/{id}")
+	public ModelAndView mostrarTicketCliente(@PathVariable("id")Long id) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+		
+		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorClienteQueTengaReserva(cliente);
+		modelo.put("cliente", cliente);
+		modelo.put("billetera", billetera);
+		modelo.put("estacionamiento", estacionamiento);
+		modelo.put("mensaje", "¡No posee reservas activas!");
+		return new ModelAndView("ticketCliente", modelo);
 	}
 			
 	
