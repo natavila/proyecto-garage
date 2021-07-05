@@ -58,6 +58,12 @@ public class ControladorLogin {
 		this.servicioCliente = servicioCliente;
 		this.servicioRegistro = servicioRegistro;
 	}
+	
+	
+
+	
+
+
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
@@ -81,18 +87,20 @@ public class ControladorLogin {
 		ModelMap model = new ModelMap();
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
 		
-		String rol = (String) request.getSession().getAttribute("roll");
+		//String rol = (String) request.getSession().getAttribute("roll");
 		if (usuarioBuscado != null) {
 			if(usuarioBuscado.getRoll().equals("admin")) {
 				
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
+				
 				model.put("admin", usuarioBuscado);
-				List<Garage> listaGarage = servicioGarage.consultarGarage();
+				
+				//List<Garage> listaGarage = servicioGarage.consultarGarage();
 				ArrayList<Integer> ocupacion = new ArrayList<Integer>();
 				
-				Integer notifNuevos = servicioRegistro.NotificacionesClientes();
+				//Integer notifNuevos = servicioRegistro.NotificacionesClientes();
 				
-				for(Garage e: listaGarage) {
+				for(Garage e: servicioGarage.consultarGarage()) {
 					
 					ocupacion.add(servicioGarage.cantidadDeLugarEnEst(e));	
 				}
@@ -114,10 +122,11 @@ public class ControladorLogin {
 				model.put("fecha", LocalDate.now());
 				
 				
-				model.put("notifNuevos", notifNuevos);
+				model.put("notifNuevos", servicioRegistro.NotificacionesClientes());
 				model.put("notif", notif);
 				model.put("ocupacion", ocupacion);
-				model.addAttribute("garages", servicioGarage.consultarGarage());
+				
+				model.put("garages",/*listaGarage*/ servicioGarage.consultarGarage());
 				model.put("ganancia",servEst.dineroGanadoEnTotal() );
 				
 				return new ModelAndView("homeAdmin", model);
@@ -143,9 +152,10 @@ public class ControladorLogin {
 		}else {
 			
 			model.put("Error", "Usuario o clave incorrecta");
+			return new ModelAndView("login", model);
 		}
 			
-			return new ModelAndView("login", model);
+			
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.
@@ -178,5 +188,75 @@ public class ControladorLogin {
 		return new ModelAndView("redirect:/login");
 	}
 	
+	
+	public ServicioLogin getServicioLogin() {
+		return servicioLogin;
+	}
+
+
+
+	public void setServicioLogin(ServicioLogin servicioLogin) {
+		this.servicioLogin = servicioLogin;
+	}
+
+
+
+	public ServicioEstacionamiento getServEst() {
+		return servEst;
+	}
+
+
+
+	public void setServEst(ServicioEstacionamiento servEst) {
+		this.servEst = servEst;
+	}
+
+
+
+	public ServicioBilletera getServicioBilletera() {
+		return servicioBilletera;
+	}
+
+
+
+	public void setServicioBilletera(ServicioBilletera servicioBilletera) {
+		this.servicioBilletera = servicioBilletera;
+	}
+
+
+
+	public ServicioGarage getServicioGarage() {
+		return servicioGarage;
+	}
+
+
+
+	public void setServicioGarage(ServicioGarage servicioGarage) {
+		this.servicioGarage = servicioGarage;
+	}
+
+
+
+	public ServicioCliente getServicioCliente() {
+		return servicioCliente;
+	}
+
+
+
+	public void setServicioCliente(ServicioCliente servicioCliente) {
+		this.servicioCliente = servicioCliente;
+	}
+
+
+
+	public ServicioRegistro getServicioRegistro() {
+		return servicioRegistro;
+	}
+
+
+
+	public void setServicioRegistro(ServicioRegistro servicioRegistro) {
+		this.servicioRegistro = servicioRegistro;
+	}
 	
 }
