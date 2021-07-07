@@ -15,5 +15,7 @@ public interface ServicioQR {
 
 	String random();
 
+	String directorioTrabajo() throws IOException;
+
 	
 }

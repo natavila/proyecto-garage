@@ -39,9 +39,8 @@ public class ControladorRegistroAuto {
 	}
 	
 	
-	@RequestMapping("/mostrarRegistroAuto/{id}/{nombre}")
+	@RequestMapping("/mostrarRegistroAuto/{id}")
 	public 	ModelAndView registro(@PathVariable("id") Long id, 
-			@PathVariable("nombre") String nombre,
 			HttpServletRequest request) {
 		
 		String rol = (String) request.getSession().getAttribute("roll");
@@ -52,7 +51,7 @@ public class ControladorRegistroAuto {
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		
 		if(cliente != null) {
-			modelo.addAttribute("cliente", cliente);
+			modelo.put("cliente", cliente);
 			
 			auto.setCliente(cliente);
 			modelo.put("auto", auto);

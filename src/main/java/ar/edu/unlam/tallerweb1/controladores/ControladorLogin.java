@@ -83,16 +83,15 @@ public class ControladorLogin {
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Cliente cliente, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
-		
 		//String rol = (String) request.getSession().getAttribute("roll");
 		String rol = usuarioBuscado.getRoll();
 		if(usuarioBuscado != null) {
 			switch(rol) {
 			case "admin":
 				model.put("admin", usuarioBuscado);
-				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				
-				model.put("admin", usuarioBuscado);
+				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());				
+				model.put("admin", usuarioBuscado);	
 				
 				//List<Garage> listaGarage = servicioGarage.consultarGarage();
 				ArrayList<Integer> ocupacion = new ArrayList<Integer>();
@@ -161,9 +160,12 @@ public class ControladorLogin {
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.
+
 	@RequestMapping(path = "/home/{id}", method = RequestMethod.GET)
 	public ModelAndView irAHome(@PathVariable("id") Long id, HttpServletRequest request) {
+
 		ModelMap model = new ModelMap();
+
 		Cliente usuarioBuscado = servicioCliente.consultarClientePorId(id);
 		String rol = usuarioBuscado.getRoll();
 		if(usuarioBuscado != null) {
@@ -230,14 +232,13 @@ public class ControladorLogin {
 				model.put("garages", listaGarage);
 				model.put("garagesCercanos", garagesCercanos);
 	
-				return new ModelAndView("home", model);
-				
-			
+				return new ModelAndView("home", model);		
 		
 			}
 		}
 		
-		return new ModelAndView("redirect:/login");	
+		return new ModelAndView("redirect:/login");
+
 	}
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
