@@ -128,14 +128,9 @@ public class testControladorLogin extends SpringTest{
 		when(servicioLoginMock.consultarCliente(clienteMock)).thenReturn(clienteMock);
 		when(clienteMock.getRoll()).thenReturn("cliente");
 		
-		
-		
-		
+	
 		ModelAndView vista = controladorLogin.validarLogin(clienteMock, requestMock);
 		assertThat(vista.getViewName()).isEqualTo("home");
-		
-	
-		
 		
 	}
 	

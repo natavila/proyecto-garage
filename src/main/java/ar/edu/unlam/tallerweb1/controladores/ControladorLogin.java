@@ -87,9 +87,9 @@ public class ControladorLogin {
 		ModelMap model = new ModelMap();
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
 		
-		//String rol = (String) request.getSession().getAttribute("roll");
+		String rol = (String) request.getSession().getAttribute("roll");
 		if (usuarioBuscado != null) {
-			if(usuarioBuscado.getRoll().equals("admin")) {
+			if( usuarioBuscado.getRoll().equals("admin")) {
 				
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 				
@@ -160,10 +160,17 @@ public class ControladorLogin {
 
 	// Escucha la URL /home por GET, y redirige a una vista.
 	@RequestMapping(path = "/home", method = RequestMethod.GET)
-	public ModelAndView irAHome() {
+	public ModelAndView irAHome(@ModelAttribute("usuario") Cliente cliente, HttpServletRequest request) {
+		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
+		String rol = (String) request.getSession().getAttribute("roll");
 		ModelMap model = new ModelMap();
-	
-		return new ModelAndView("home", model);
+		if (usuarioBuscado != null) {
+			if( usuarioBuscado.getRoll().equals("cliente")) {
+				model.put("cliente", cliente);
+				return new ModelAndView("home", model);
+			}
+		}
+		return new ModelAndView("login", model);
 	}
 
 	

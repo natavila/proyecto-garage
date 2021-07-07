@@ -63,6 +63,7 @@ public class ControladorClientes {
 	}
 	@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
 	public ModelAndView AutosDeClientes(
+			@ModelAttribute("usuario") Cliente cliente,
 			@PathVariable("id")Long id, 
 			HttpServletRequest request) {
 		
@@ -71,12 +72,12 @@ public class ControladorClientes {
 			if(rol.equals("cliente") || rol.equals("admin")) {
 		ModelMap modelo = new ModelMap();
 		
-		Cliente cliente = servicioLogin.consultarClientePorId(id);
+		Cliente cliente1 = servicioLogin.consultarClientePorId(id);
 		
-		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
-		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
-		
+		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente1).size());
+		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente1));
 		modelo.put("cliente", cliente);
+		modelo.put("cliente1", cliente1);
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		}
 		return new ModelAndView("redirect:/login");

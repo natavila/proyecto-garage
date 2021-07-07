@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.LuminanceSource;
@@ -10,8 +13,11 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
+//import com.itextpdf.kernel.geom.Path;
+//import com.itextpdf.kernel.pdf.canvas.parser.clipper.Paths;
 import com.itextpdf.layout.element.Image;
 import com.mysql.cj.xdevapi.Result;
+
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -28,6 +34,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.transaction.Transactional;
 
+
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,6 +47,8 @@ public class ServicioQRImpl implements ServicioQR{
 	 public File generateQR( String text) throws WriterException, IOException {
 		
 	            String content = text;
+	            //String filePath = directorioTrabajo(); 
+	            
 	            String filePath = "C:\\Users\\Gaston Mica y juan\\eclipse-workspace\\proyecto-garage\\src\\main\\webapp\\imagenes\\";
 	            String fileType = "jpg";
 	            int size = 300;
@@ -90,7 +100,18 @@ public class ServicioQRImpl implements ServicioQR{
 		return s;
 	}
 	
-	
+	@Override
+	public String directorioTrabajo() throws IOException {
+		File file = new File(".");
+		//String directorio = file.getAbsoluteFile().toString();
+		//Path path = Paths.get("");
+		//String directorio = path.toAbsolutePath().normalize().toString();
+		//String directorio = System.getProperty("user.dir");
+		String directorio = file.getCanonicalPath();
+		//String directorio= System.getProperty("user.dir") + "\\src\\main\\webapp\\imagenes\\";
+		 return directorio;
+		
+	}
 	
  }
 	 
