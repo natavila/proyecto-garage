@@ -173,9 +173,7 @@ public class ControladorPagarGarage {
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
-		
-		
-			
+				
 			if(billetera != null && garage != null && auto != null && estacionamiento.getEstaPagado().equals(false)) {
 				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
 					servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);

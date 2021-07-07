@@ -27,7 +27,7 @@
 	                <tr>
 	                    <td><b>${autosSinGarage.id}</b></td>
 	                    <td>${autosSinGarage.patente}</td>	              	                  	                
-						<td><a href="${pageContext.request.contextPath}/BuscarGaragesEst/${cliente.id}/${autosSinGarage.id}" role="button"> Elegir </a></td>
+						<td><a href="${pageContext.request.contextPath}/ElegirGaragesEst/${cliente.id}/${autosSinGarage.id}" role="button"> Elegir </a></td>
 											
 	                </tr>	                
 	            </c:forEach>

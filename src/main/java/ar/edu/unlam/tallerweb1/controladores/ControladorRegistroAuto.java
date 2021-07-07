@@ -90,7 +90,7 @@ public class ControladorRegistroAuto {
 
 					modelo.put("mensaje", "Auto Registrado correctamente");
 			 		
-					return new ModelAndView("confirmacionRegistroAuto", modelo);
+					return new ModelAndView("redirect:/misAutos/{id}");
 
 					
 

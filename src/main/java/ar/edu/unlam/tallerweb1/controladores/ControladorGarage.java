@@ -231,7 +231,6 @@ public class ControladorGarage {
 	@RequestMapping( path="/ElegirGaragesEst/{clienteId}/{autoId}", method=RequestMethod.GET)
 	public ModelAndView reservarAutoGarage(@PathVariable("clienteId")Long clienteId,
 			@PathVariable("autoId")Long autoId,
-			@RequestParam(value="palabraBuscada",required=true) String buscada,
 			HttpServletRequest request
 			){
 		String rol = (String) request.getSession().getAttribute("roll");
@@ -246,9 +245,7 @@ public class ControladorGarage {
 		modelo.put("auto", auto);
 
 		modelo.addAttribute("garages", servicioGarage.consultarGarage());
-
-		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(buscada));
-		
+	
 
 		return new ModelAndView ("listaGarages", modelo);
 		}
@@ -295,12 +292,8 @@ public class ControladorGarage {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
 		Auto auto = servicioAuto.buscarAuto(autoId);
-		List <String> loc = servicioLoc.devolverNombresDeLocalidades();
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
-		modelo.put("localidades", loc);
-		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(Gbuscado));
-		
 		return new ModelAndView ("listaGarages", modelo);
 		}
 		return new ModelAndView("redirect:/login");
