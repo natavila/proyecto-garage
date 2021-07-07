@@ -23,6 +23,9 @@
 		<h5>Plan contratado: ${cliente.plan}</h5>
 		</div>
 		<h3 style="text-align:center; margin-top:20px; margin-bottom:50px;">Saldo actual: $${billetera.saldo}</h3>
+		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+		<a class="btn btn-warning justify-content-md-end" href="${pageContext.request.contextPath}/modificarCliente/${cliente.id}" role="button">Modificar datos<a>
+		</div>
 		</div>
 		<table class="table table-hover">
 		<h3>Últimas reservas</h3>

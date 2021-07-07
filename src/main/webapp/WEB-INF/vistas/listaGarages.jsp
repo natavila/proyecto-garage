@@ -8,10 +8,12 @@
 	<head>
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"> 
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <div class="container mt-3">
-		<table class="table table-hover">
+		<table class="table table-hover" id="datatable">
 		<h1>Eliga un garage</h1>
 		<h4>Cliente: ${cliente.nombre} </h4>
 		<h4>Patente del auto: ${auto.patente} </h4>
@@ -56,4 +58,17 @@
 		</div>
     <footer th:replace="layout/layout::footer" class="bg-dark"></footer>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
+		<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+		<script src="js/bootstrap.min.js" type="text/javascript"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+		<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#datatable').DataTable({
+		        language: {
+		            search: "Buscar:",
+		            zeroRecords: "No se encontró resultados"
+		        }
+		    } );
+		    } );</script>
 </html>

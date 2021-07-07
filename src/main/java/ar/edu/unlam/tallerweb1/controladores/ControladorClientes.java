@@ -138,6 +138,34 @@ public class ControladorClientes {
 		
 		return new ModelAndView("miPerfil", modelo);
 	}
+	
+	@RequestMapping(path="/modificarCliente/{id}")
+	public ModelAndView modificarCliente(@PathVariable("id")Long id) {
+		ModelMap modelo = new ModelMap();
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		
+		if(cliente != null) {
+			modelo.put("cliente", cliente);
+			return new ModelAndView("modificarCliente", modelo);
+		}
+		
+		return new ModelAndView("redirect:/login");
+	}
+	
+	@RequestMapping(path="/procesarModificarCliente")
+	public ModelAndView procesarModificarCliente(@ModelAttribute("cliente") Cliente cliente) {
+		ModelMap modelo = new ModelMap();
+		
+		
+		if(cliente != null) {
+			servicioCliente.modificarDatosCliente(cliente);
+			modelo.put("cliente", cliente);
+			return new ModelAndView("modificarCliente", modelo);
+		}
+		
+		return new ModelAndView("redirect:/login");
+	}
+	
 	 //Tickets De clientes
 	
 	@RequestMapping(path="/ticketsCliente/{id}")
@@ -147,11 +175,20 @@ public class ControladorClientes {
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
 		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorClienteQueTengaReserva(cliente);
-		modelo.put("cliente", cliente);
-		modelo.put("billetera", billetera);
-		modelo.put("estacionamiento", estacionamiento);
-		modelo.put("mensaje", "¡No posee reservas activas!");
-		return new ModelAndView("ticketCliente", modelo);
+		if(estacionamiento != null) {
+			modelo.put("cliente", cliente);
+			modelo.put("billetera", billetera);
+			modelo.put("estacionamiento", estacionamiento);
+			
+			return new ModelAndView("ticketCliente", modelo);
+		}else {
+			modelo.put("cliente", cliente);
+			modelo.put("billetera", billetera);
+			modelo.put("estacionamiento", estacionamiento);
+			modelo.put("mensaje", "¡No posee reservas activas!");
+			return new ModelAndView("ticketCliente", modelo);
+		}
+		
 	}
 			
 	
