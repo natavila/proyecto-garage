@@ -13,9 +13,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
-//import com.itextpdf.kernel.geom.Path;
-//import com.itextpdf.kernel.pdf.canvas.parser.clipper.Paths;
-import com.itextpdf.layout.element.Image;
 import com.mysql.cj.xdevapi.Result;
 
 

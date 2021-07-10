@@ -35,6 +35,7 @@ import java.util.List;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ControladorLogin {
@@ -84,76 +85,14 @@ public class ControladorLogin {
 		ModelMap model = new ModelMap();
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
 		//String rol = (String) request.getSession().getAttribute("roll");
-		String rol = usuarioBuscado.getRoll();
+		//String rol = usuarioBuscado.getRoll();
 		if(usuarioBuscado != null) {
-			switch(rol) {
-			case "admin":
-				model.put("admin", usuarioBuscado);
-				
-				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());				
-				model.put("admin", usuarioBuscado);	
-				
-				//List<Garage> listaGarage = servicioGarage.consultarGarage();
-				ArrayList<Integer> ocupacion = new ArrayList<Integer>();
-				
-				Integer notifNuevos = servicioRegistro.NotificacionesClientes();
-				
-				for(Garage e: servicioGarage.consultarGarage()) {
-					
-					ocupacion.add(servicioGarage.cantidadDeLugarEnEst(e));	
-				}
-				
-				for(Integer e: ocupacion) {
-					if(e<=5 && e>=1 ) {
-						model.put("alerta","mensaje");
-						
-					}else if(e<=0){
-						model.put("Lleno", "mensaje");
-						
-					}	else {
-						model.put("ConLugar", "ConLugar");
-					}
-				}
-				
-				Integer notif = servicioCliente.notificadorDeClientesNuevos();
-
-
-				model.put("notifNuevos", notifNuevos);
-
-				
-				model.put("fecha", LocalDate.now());
-				
-				
-				model.put("notifNuevos", servicioRegistro.NotificacionesClientes());
-
-				model.put("notif", notif);
-				model.put("ocupacion", ocupacion);
-				
-				model.put("garages",/*listaGarage*/ servicioGarage.consultarGarage());
-				model.put("ganancia",servEst.dineroGanadoEnTotal() );
-				
-				return new ModelAndView("homeAdmin", model);
-				
-			case "cliente":
-				model.put("cliente", usuarioBuscado);
-				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());			
-
-				Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
-				List<Garage> listaGarage = servicioGarage.consultarGarage();
-				List<Garage> garagesCercanos = servicioGarage.buscarGarageQueCoincidanConLocalidadDeCliente(usuarioBuscado);
-				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
-
-				model.put("cliente", usuarioBuscado);
-				model.put("billetera", billetera);
-				model.put("plan",usuarioBuscado.getPlan());
-				model.put("garages", listaGarage);
-				model.put("garagesCercanos", garagesCercanos);
-	
-				return new ModelAndView("home", model);
-				
-			
-		
-			}
+			HttpSession misession= request.getSession(true);
+			misession.setAttribute("id", usuarioBuscado.getId());
+			misession.setAttribute("roll", usuarioBuscado.getRoll());
+			model.put("usuario", usuarioBuscado);
+			model.put("misession", misession);
+			return new ModelAndView("redirect:/home");
 		}
 			
 			return new ModelAndView("login", model);
@@ -161,20 +100,18 @@ public class ControladorLogin {
 
 	// Escucha la URL /home por GET, y redirige a una vista.
 
-	@RequestMapping(path = "/home/{id}", method = RequestMethod.GET)
-	public ModelAndView irAHome(@PathVariable("id") Long id, HttpServletRequest request) {
+	@RequestMapping(path = "/home", method = RequestMethod.GET)
+	public ModelAndView irAHome(HttpServletRequest request) {
 
 		ModelMap model = new ModelMap();
-
-		Cliente usuarioBuscado = servicioCliente.consultarClientePorId(id);
-		String rol = usuarioBuscado.getRoll();
+		String rol = (String) request.getSession().getAttribute("roll");
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente usuarioBuscado = servicioCliente.consultarClientePorId(idUsuario);
 		if(usuarioBuscado != null) {
 			switch(rol) {
 			case "admin":
 				model.put("admin", usuarioBuscado);
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
-				
-				model.put("admin", usuarioBuscado);
 				
 				//List<Garage> listaGarage = servicioGarage.consultarGarage();
 				ArrayList<Integer> ocupacion = new ArrayList<Integer>();

@@ -44,11 +44,11 @@
                     <td>${garage.numero}</td>
                     <td>${garage.precioHora}
                     <br>
-                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaHora/${cliente.id}/${auto.id}/${garage.id}">Reservar</a>
+                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaHora/${auto.id}/${garage.id}">Reservar</a>
                     </td>                
                     <td>${garage.precioEstadia}
                     <br>
-                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaEstadia/${cliente.id}/${auto.id}/${garage.id}">Reservar</a>
+                    <a href="${pageContext.request.contextPath}/mostrarFormularioReservaEstadia/${auto.id}/${garage.id}">Reservar</a>
                     </td>                                    
 	                </tr>	                
 	            </c:forEach>

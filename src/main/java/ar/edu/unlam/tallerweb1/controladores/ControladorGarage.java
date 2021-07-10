@@ -204,11 +204,11 @@ public class ControladorGarage {
 	
 	
 	
-	@RequestMapping( path="/mostrarGarages/{id}/{nombre}", method=RequestMethod.GET)
-	public ModelAndView garagesParaReservar(@PathVariable("id")Long id,
-			@PathVariable("nombre")String nombre, 
-			HttpServletRequest request
+	@RequestMapping( path="/ElegirAuto", method=RequestMethod.GET)
+	public ModelAndView autosParaReservar(HttpServletRequest request
 			){
+		
+		Long id = (Long) request.getSession().getAttribute("id");
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null)
 			if(rol.equals("cliente")) {
@@ -216,28 +216,27 @@ public class ControladorGarage {
 				List<Auto> autosSinGarage = servicioAuto.consultarAutosSinGarage();
 				Cliente cliente = servicioLogin.consultarClientePorId(id);				
 
-				modelo.addAttribute(nombre);
-				modelo.addAttribute(id);
 				modelo.put("cliente", cliente);
 				modelo.put("autosSinGarage",autosSinGarage);
 				
-				modelo.put("mensaje", "Sus autos ya se encuentran en un garage o tienen una reserva activa");
+				modelo.put("mensaje", "Sus autos ya se encuentran en un garage o tienen una reserva activa.");
 				return new ModelAndView ("ListaAutosDeCliente", modelo);
 			}
 		return new ModelAndView("redirect:/login");
 		
 	}
 	
-	@RequestMapping( path="/ElegirGaragesEst/{clienteId}/{autoId}", method=RequestMethod.GET)
-	public ModelAndView reservarAutoGarage(@PathVariable("clienteId")Long clienteId,
-			@PathVariable("autoId")Long autoId,
+	@RequestMapping( path="/ElegirGaragesEst/{autoId}", method=RequestMethod.GET)
+	public ModelAndView reservarAutoGarage(@PathVariable("autoId")Long autoId,
 			HttpServletRequest request
 			){
+		
+		Long id = (Long) request.getSession().getAttribute("id");
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null)
 			if(rol.equals("cliente")) {
 		ModelMap modelo = new ModelMap();
-		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
+		Cliente cliente = servicioLogin.consultarClientePorId(id);
 		Auto auto = servicioAuto.buscarAuto(autoId);
 		
 		

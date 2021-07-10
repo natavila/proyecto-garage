@@ -35,5 +35,6 @@
 			</tbody>
 		</table>
 	</div>
+	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 </body>
 </html>

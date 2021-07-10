@@ -27,7 +27,7 @@
 	                <tr>
 	                    <td><b>${autosSinGarage.id}</b></td>
 	                    <td>${autosSinGarage.patente}</td>	              	                  	                
-						<td><a href="${pageContext.request.contextPath}/ElegirGaragesEst/${cliente.id}/${autosSinGarage.id}" role="button"> Elegir </a></td>
+						<td><a href="${pageContext.request.contextPath}/ElegirGaragesEst/${autosSinGarage.id}" role="button"> Elegir </a></td>
 											
 	                </tr>	                
 	            </c:forEach>
@@ -40,7 +40,7 @@
 	</c:if>
 
 	<br>
-	<a class="btn btn-primary mt-3" href="home" role="button">Volver</a>
+	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 		</div>
 </body>
 </html>
