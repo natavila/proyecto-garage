@@ -10,5 +10,6 @@
 <%@ include file="header.jsp" %>
 	<h1>Billetera generada exitosamente!</h1>
 	<h3>Su saldo es: ${saldo}</h3>
+	<a href = "home">Volver</a>
 </body>
 </html>

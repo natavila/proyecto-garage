@@ -12,7 +12,7 @@
 <body>
 <%@ include file="header.jsp" %>
 <div class="container" style="margin-left: 30%; margin-top: 100px">
-<form:form action="${pageContext.request.contextPath}/realizarReservaEstadia/${cliente.id}/${auto.id}/${garage.id}" method="POST" modelAttribute="ticket">
+<form:form action="${pageContext.request.contextPath}/realizarReservaEstadia/${auto.id}/${garage.id}" method="POST" modelAttribute="ticket">
 <div style="display:grid; grid-template-columns: 200px 185px 200px; grid-template-rows: auto;">
 <div style="grid-column:1; grid-row: 1;">
 <h2>Fecha Desde</h2>
@@ -27,7 +27,7 @@
 <button type="submit" class="btn btn-primary mt-3">Calcular</button>
 </div>
 </form:form>
-
+<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 </div>
 </body>
 </html>

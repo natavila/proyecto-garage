@@ -30,6 +30,7 @@
 		    <button type="submit" class="btn btn-outline-dark mb-3">Modificar</button>		    
 		  </div>
   		</form:form>
+  		<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
   		</div>
 </body>
 </html>

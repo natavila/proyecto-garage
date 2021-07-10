@@ -34,7 +34,7 @@
 		    ¿Desea continuar?
 		  </div>
 		  <div class="col-12">
-		    <a href="${pageContext.request.contextPath}/procesarRegistroBilletera/${cliente.id}">Generar</a>
+		    <a href="procesarRegistroBilletera">Generar</a>
 		    <button type="submit" class="btn btn-primary control-label mb-3">Cancelar</button>
 		  </div>
   	

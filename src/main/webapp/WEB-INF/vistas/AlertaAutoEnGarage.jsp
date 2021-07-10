@@ -10,6 +10,6 @@
 <h1>EL AUTO SELECCIONADO YA SE ENCUENTRA EN UN GARAGE</h1>
 <h1>O El Estacionamiento Esta LLeno</h1>
 <h1>SALIR DE ESTACIONAMIENTO PARA PODER ENTRAR</h1>
-<a class="btn btn-primary" href="home" role="button">Volver</a>
+<a href="javascript:history.back()"> Volver</a>
 </body>
 </html>

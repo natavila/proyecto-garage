@@ -61,25 +61,26 @@ public class ControladorClientes {
 			}
 		return ("redirect:/login");
 	}
-	@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
-	public ModelAndView AutosDeClientes(
-			@ModelAttribute("usuario") Cliente cliente,
-			@PathVariable("id")Long id, 
-			HttpServletRequest request) {
+	@RequestMapping(path="/misAutos", method=RequestMethod.GET)
+	public ModelAndView misAutos( HttpServletRequest request) {
 		
-		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
-			if(rol.equals("cliente") || rol.equals("admin")) {
 		ModelMap modelo = new ModelMap();
+		String rol = (String) request.getSession().getAttribute("roll");
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
 		
-		Cliente cliente1 = servicioLogin.consultarClientePorId(id);
+		if(cliente != null)
+			
+			if(rol.equals("cliente")) {
 		
-		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente1).size());
-		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente1));
+		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
+		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
 		modelo.put("cliente", cliente);
-		modelo.put("cliente1", cliente1);
+		
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
+		
 		}
+		
 		return new ModelAndView("redirect:/login");
 }
 	
@@ -124,25 +125,34 @@ public class ControladorClientes {
 		return new ModelAndView("redirect:/login");
 }
 	*/
-	@RequestMapping(path="/datosCliente/{id}")
-	public ModelAndView mostrarDatosCliente(@PathVariable("id")Long id) {
+	@RequestMapping(path="/datosCliente")
+	public ModelAndView mostrarDatosCliente(HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
-		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
-		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente);
-		modelo.put("cliente", cliente);
-		modelo.put("billetera", billetera);
-		modelo.put("estacionamiento", estacionamiento);
-		modelo.put("reservas", servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente));
+		if(cliente != null && billetera != null) {
+			List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente);
+			modelo.put("cliente", cliente);
+			modelo.put("billetera", billetera);
+			modelo.put("estacionamiento", estacionamiento);
+			modelo.put("reservas", servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente));
+			
+			return new ModelAndView("miPerfil", modelo);
+		}else {
+			
+			return new ModelAndView("redirect:/login");
+		}
 		
-		return new ModelAndView("miPerfil", modelo);
 	}
 	
-	@RequestMapping(path="/modificarCliente/{id}")
-	public ModelAndView modificarCliente(@PathVariable("id")Long id) {
+	@RequestMapping(path="/modificarCliente")
+	public ModelAndView modificarCliente(HttpServletRequest request) {
+		
 		ModelMap modelo = new ModelMap();
-		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
 		
 		if(cliente != null) {
 			modelo.put("cliente", cliente);
@@ -150,6 +160,7 @@ public class ControladorClientes {
 		}
 		
 		return new ModelAndView("redirect:/login");
+		
 	}
 	
 	@RequestMapping(path="/procesarModificarCliente")
@@ -168,25 +179,32 @@ public class ControladorClientes {
 	
 	 //Tickets De clientes
 	
-	@RequestMapping(path="/ticketsCliente/{id}")
-	public ModelAndView mostrarTicketCliente(@PathVariable("id")Long id) {
+	@RequestMapping(path="/ticketsCliente")
+	public ModelAndView mostrarTicketCliente(HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
+		Long id = (Long) request.getSession().getAttribute("id");
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
 		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorClienteQueTengaReserva(cliente);
-		if(estacionamiento != null) {
-			modelo.put("cliente", cliente);
-			modelo.put("billetera", billetera);
-			modelo.put("estacionamiento", estacionamiento);
+		if(cliente != null && billetera != null) {
 			
-			return new ModelAndView("ticketCliente", modelo);
+			if(estacionamiento != null) {
+				modelo.put("cliente", cliente);
+				modelo.put("billetera", billetera);
+				modelo.put("estacionamiento", estacionamiento);
+				
+				return new ModelAndView("ticketCliente", modelo);
+			}else {
+				modelo.put("cliente", cliente);
+				modelo.put("billetera", billetera);
+				modelo.put("estacionamiento", estacionamiento);
+				modelo.put("mensaje", "¡No posee reservas activas!");
+				return new ModelAndView("ticketCliente", modelo);
+			}
+		
 		}else {
-			modelo.put("cliente", cliente);
-			modelo.put("billetera", billetera);
-			modelo.put("estacionamiento", estacionamiento);
-			modelo.put("mensaje", "¡No posee reservas activas!");
-			return new ModelAndView("ticketCliente", modelo);
+			return new ModelAndView("redirect:/login");
 		}
 		
 	}
