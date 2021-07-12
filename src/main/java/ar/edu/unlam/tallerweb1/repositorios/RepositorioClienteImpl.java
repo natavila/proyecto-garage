@@ -136,6 +136,12 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 				.uniqueResult();
 	}
 
+	@Override
+	public void modificarDatosCliente(Cliente cliente) {
+		final Session session = sessionFactory.getCurrentSession();
+		session.update(cliente);
+	}
+
 	
 
 

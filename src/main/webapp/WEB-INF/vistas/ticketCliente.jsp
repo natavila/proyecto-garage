@@ -59,7 +59,7 @@
 	</c:if>
 	</div>
 	
-	
+	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 	<!-- jQuery library -->
 		<script src="js/jquery.min.js"></script>
 

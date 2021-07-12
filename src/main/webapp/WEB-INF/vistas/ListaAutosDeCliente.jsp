@@ -13,7 +13,7 @@
 <%@ include file="header.jsp" %>
 	<div class="container mt-3">
 		<table class="table table-hover">
-		<h3>¡Hola ${cliente.nombre}!, ¿con que auto vas a viajar?</h3>
+		<h3>¡Hola ${cliente.nombre}!, ¿con que auto vas a reservar?</h3>
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
@@ -27,7 +27,7 @@
 	                <tr>
 	                    <td><b>${autosSinGarage.id}</b></td>
 	                    <td>${autosSinGarage.patente}</td>	              	                  	                
-						<td><a href="${pageContext.request.contextPath}/BuscarGaragesEst/${cliente.id}/${autosSinGarage.id}" role="button"> Elegir </a></td>
+						<td><a href="${pageContext.request.contextPath}/ElegirGaragesEst/${autosSinGarage.id}" role="button"> Elegir </a></td>
 											
 	                </tr>	                
 	            </c:forEach>
@@ -38,8 +38,9 @@
   			${mensaje}
 		</div>
 	</c:if>
+
 	<br>
-	<a class="btn btn-primary mt-3" href="home" role="button">Volver</a>
+	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 		</div>
 </body>
 </html>

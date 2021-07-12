@@ -13,9 +13,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.qrcode.QRCodeReader;
 import com.google.zxing.qrcode.QRCodeWriter;
-//import com.itextpdf.kernel.geom.Path;
-//import com.itextpdf.kernel.pdf.canvas.parser.clipper.Paths;
-import com.itextpdf.layout.element.Image;
 import com.mysql.cj.xdevapi.Result;
 
 
@@ -47,9 +44,8 @@ public class ServicioQRImpl implements ServicioQR{
 	 public File generateQR(String text) throws WriterException, IOException {
 		
 	            String content = text;
-	            //String filePath = directorioTrabajo(); 
-	            
 	            String filePath = "C:\\Users\\Gaston Mica y juan\\eclipse-workspace\\proyecto-garage\\src\\main\\webapp\\imagenes\\";
+	            //String filePath = directorioTrabajo(); 
 	            String fileType = "jpg";
 	            int size = 300;
 	            //UUID uuid = UUID.randomUUID();

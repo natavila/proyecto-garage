@@ -185,41 +185,39 @@ public class ControladorGarage {
 	
 	
 	
-	@RequestMapping( path="/mostrarGarages/{id}/{nombre}", method=RequestMethod.GET)
-	public ModelAndView garagesParaReservar(@PathVariable("id")Long id,
-			@PathVariable("nombre")String nombre, 
-			HttpServletRequest request
+	@RequestMapping( path="/ElegirAuto", method=RequestMethod.GET)
+	public ModelAndView autosParaReservar(HttpServletRequest request
 			){
+		
+		Long id = (Long) request.getSession().getAttribute("id");
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null)
 			if(rol.equals("cliente")) {
 				ModelMap modelo = new ModelMap();
-				
-				Cliente cliente = servicioLogin.consultarClientePorId(id);
-				ArrayList<Auto> autosSinGarage = servicioAuto.listaDeAutosDeClientesAfueraDeEst(cliente);
-				modelo.addAttribute(nombre);
-				modelo.addAttribute(id);
+				List<Auto> autosSinGarage = servicioAuto.consultarAutosSinGarage();
+				Cliente cliente = servicioLogin.consultarClientePorId(id);				
+
 				modelo.put("cliente", cliente);
 				modelo.put("autosSinGarage",autosSinGarage);
 				
-				modelo.put("mensaje", "Sus autos ya se encuentran en un garage o tienen una reserva activa");
+				modelo.put("mensaje", "Sus autos ya se encuentran en un garage o tienen una reserva activa.");
 				return new ModelAndView ("ListaAutosDeCliente", modelo);
 			}
 		return new ModelAndView("redirect:/login");
 		
 	}
 	
-	@RequestMapping( path="/ElegirGaragesEst/{clienteId}/{autoId}", method=RequestMethod.GET)
-	public ModelAndView reservarAutoGarage(@PathVariable("clienteId")Long clienteId,
-			@PathVariable("autoId")Long autoId,
-			@RequestParam(value="palabraBuscada",required=true) String buscada,
+	@RequestMapping( path="/ElegirGaragesEst/{autoId}", method=RequestMethod.GET)
+	public ModelAndView reservarAutoGarage(@PathVariable("autoId")Long autoId,
 			HttpServletRequest request
 			){
+		
+		Long id = (Long) request.getSession().getAttribute("id");
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null)
 			if(rol.equals("cliente")) {
 		ModelMap modelo = new ModelMap();
-		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
+		Cliente cliente = servicioLogin.consultarClientePorId(id);
 		Auto auto = servicioAuto.buscarAuto(autoId);
 		
 		
@@ -227,9 +225,7 @@ public class ControladorGarage {
 		modelo.put("auto", auto);
 
 		modelo.addAttribute("garages", servicioGarage.consultarGarage());
-
-		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(buscada));
-		
+	
 
 		return new ModelAndView ("listaGarages", modelo);
 		}
@@ -276,12 +272,8 @@ public class ControladorGarage {
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioLogin.consultarClientePorId(clienteId);
 		Auto auto = servicioAuto.buscarAuto(autoId);
-		List <String> loc = servicioLoc.devolverNombresDeLocalidades();
 		modelo.put("cliente", cliente);
 		modelo.put("auto", auto);
-		modelo.put("localidades", loc);
-		modelo.put("garages", servicioGarage.buscarGaragePorLocalidad(Gbuscado));
-		
 		return new ModelAndView ("listaGarages", modelo);
 		}
 		return new ModelAndView("redirect:/login");
@@ -321,6 +313,64 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
+
+	public ServicioGarage getServicioGarage() {
+		return servicioGarage;
+	}
+
+	public void setServicioGarage(ServicioGarage servicioGarage) {
+		this.servicioGarage = servicioGarage;
+	}
+
+	public ServicioRegistro getServicioRegistro() {
+		return servicioRegistro;
+	}
+
+	public void setServicioRegistro(ServicioRegistro servicioRegistro) {
+		this.servicioRegistro = servicioRegistro;
+	}
+
+	public ServicioAuto getServicioAuto() {
+		return servicioAuto;
+	}
+
+	public void setServicioAuto(ServicioAuto servicioAuto) {
+		this.servicioAuto = servicioAuto;
+	}
+
+	public ServicioCliente getServicioCliente() {
+		return servicioCliente;
+	}
+
+	public void setServicioCliente(ServicioCliente servicioCliente) {
+		this.servicioCliente = servicioCliente;
+	}
+
+	public ServicioLogin getServicioLogin() {
+		return servicioLogin;
+	}
+
+	public void setServicioLogin(ServicioLogin servicioLogin) {
+		this.servicioLogin = servicioLogin;
+	}
+
+	public ServicioLocalidad getServicioLoc() {
+		return servicioLoc;
+	}
+
+	public void setServicioLoc(ServicioLocalidad servicioLoc) {
+		this.servicioLoc = servicioLoc;
+	}
+
+	public ServicioEstacionamiento getServicioEst() {
+		return servicioEst;
+	}
+
+	public void setServicioEst(ServicioEstacionamiento servicioEst) {
+		this.servicioEst = servicioEst;
+	}
+	
+	
 	
 	
 }

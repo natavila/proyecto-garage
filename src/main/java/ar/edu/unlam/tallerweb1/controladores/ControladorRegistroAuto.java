@@ -22,8 +22,6 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
 @Controller
 public class ControladorRegistroAuto {
-
-	private ServicioRegistro servicioRegistro;
 	
 	private ServicioCliente servicioCliente;
 	
@@ -31,52 +29,48 @@ public class ControladorRegistroAuto {
 	
 	
 	@Autowired
-	public ControladorRegistroAuto(ServicioRegistro servicioRegistro, ServicioCliente servicioCliente, ServicioAuto servicioAuto){
-		
-		this.servicioRegistro = servicioRegistro;
+	public ControladorRegistroAuto(ServicioCliente servicioCliente, ServicioAuto servicioAuto){
+
 		this.servicioCliente = servicioCliente;
 		this.servicioAuto = servicioAuto;
 	}
 	
 	
-	@RequestMapping("/mostrarRegistroAuto/{id}")
-	public 	ModelAndView registro(@PathVariable("id") Long id, 
-			HttpServletRequest request) {
+	@RequestMapping("/mostrarRegistroAuto")
+	public 	ModelAndView registro(HttpServletRequest request) {
 		
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
-			if(rol.equals("cliente")) {
-		ModelMap modelo = new ModelMap(); //Agrupa todo para mandarlo a vista
-		Auto auto = new Auto(); //Se crea un usuario vacio para mandarlo vacio para que el formulario se vaya llenando
+		Long id = (Long) request.getSession().getAttribute("id");
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		ModelMap modelo = new ModelMap();
+		Auto auto = new Auto(); 
 		
-		if(cliente != null) {
+		if(cliente != null && rol != null)
+			if(rol.equals("cliente")) {
+
 			modelo.put("cliente", cliente);
-			
 			auto.setCliente(cliente);
 			modelo.put("auto", auto);
 			
 			return new ModelAndView("registroAuto", modelo);
-		}else {
-			
-			modelo.put("error", "Cliente no registrado");
 		}
-		
-		 return new ModelAndView("registroAuto", modelo);
-			}
-		return new ModelAndView("redirect:/login");//Se le envia a la vista registro el modelo con el objeto usuario
+			
+		return new ModelAndView("redirect:/login");
 	}
 	
-	@RequestMapping(path="/procesarRegistroAuto/{id}/{nombre}", method=RequestMethod.POST)
+	@RequestMapping(path="/procesarRegistroAuto", method=RequestMethod.POST)
 	public ModelAndView procesarRegistroAuto(
-			@ModelAttribute("auto") Auto auto,
-			@PathVariable("id") Long id,
-			@PathVariable("nombre") String nombre){
+			@ModelAttribute("auto") Auto auto, HttpServletRequest request){
+		
+		String rol = (String) request.getSession().getAttribute("roll");
+		Long id = (Long) request.getSession().getAttribute("id");
 		ModelMap modelo = new ModelMap();
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
-		Auto auto1= servicioAuto.consultarAuto(auto);
+		Auto autoRegistrado= servicioAuto.consultarAuto(auto);
 		
-		 if(auto.getPatente() != "" && cliente != null && auto1 == null) {
+		if(cliente != null && rol.equals("cliente")) {
+		 if(auto.getPatente() != "") {
+			 if(autoRegistrado == null) {
 			 
 				 	modelo.put("cliente", cliente);
 					auto.setCliente(cliente);
@@ -89,31 +83,36 @@ public class ControladorRegistroAuto {
 
 					modelo.put("mensaje", "Auto Registrado correctamente");
 			 		
-					return new ModelAndView("confirmacionRegistroAuto", modelo);
-
-					
-
-			 
+					return new ModelAndView("redirect:/misAutos");
+			 }else {
+			 		modelo.put("cliente", cliente);
+			 		modelo.put("auto", auto);
+			 		modelo.put("mensaje", "Patente ya registrada. Ingrese otra patente.");
+			 		return new ModelAndView("registroAuto", modelo);
+			 	}
 			 	// Lo que hace es: poder cambiar de dueño del auto o sacarlo y ponerlo, sin q tenga duplicados o que no se pueda agregar
-		 	}else if(auto1 != null && auto1.getEnUso().equals(false)) {
+		 	}else {
+		 		
+		 		modelo.put("cliente", cliente);
+		 		modelo.put("auto", auto);
+		 		modelo.put("mensaje", "Ingrese una patente valida.");
+		 		return new ModelAndView("registroAuto", modelo);
+		 	}
+		 
+		}else if(autoRegistrado != null && autoRegistrado.getEnUso().equals(false)) {
 		 		modelo.addAttribute("cliente", cliente);
 		 
-				auto1.setCliente(cliente);
+		 		autoRegistrado.setCliente(cliente);
 
-				servicioAuto.cambiarEstadoDeUso(auto1);
-				modelo.put("auto", auto1);
+				servicioAuto.cambiarEstadoDeUso(autoRegistrado);
+				modelo.put("auto", autoRegistrado);
 				
 				modelo.put("mensaje", "Auto Reingresado Correctamene");
 		 		
 				return new ModelAndView("confirmacionRegistroAuto", modelo);
-		 	}else {
-		 		modelo.put("cliente", cliente);
-		 		modelo.put("auto", auto);
-		 		modelo.put("mensaje", "Patente ya registrada. Ingrese otra patente.");
-		 		return new ModelAndView("registroAuto", modelo);
 		 	}
-
-
+		
+		return new ModelAndView("redirect:/login");
 		
 		}
 	

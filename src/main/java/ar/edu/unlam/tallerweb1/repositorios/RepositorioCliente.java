@@ -28,7 +28,7 @@ public interface RepositorioCliente {
 	
 	ArrayList<Cliente> listaDeClientes();
 	
-	
+	void modificarDatosCliente(Cliente cliente);
 	
 	
 	
