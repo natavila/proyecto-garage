@@ -179,7 +179,7 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				ArrayList<Estacionamiento> est = (ArrayList<Estacionamiento>) buscarEstacionamientoPorCliente( cliente);
 				ArrayList<Estacionamiento> estac = new ArrayList<Estacionamiento>();
 				for(Estacionamiento e: est) {
-					if(/*e.getReservado().equals(false) &&*/ e.getAuto().getUsandoGarage().equals(true) && e.getActiva().equals(true)) {
+					if(e.getReservado().equals(false) && e.getAuto().getUsandoGarage().equals(true) && e.getActiva().equals(true)) {
 						estac.add(e);
 					}
 				}
