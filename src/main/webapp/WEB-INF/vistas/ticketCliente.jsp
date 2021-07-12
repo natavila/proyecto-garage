@@ -49,8 +49,7 @@
 	  </tbody>
 	 
 	</table>
-	<button onclick="miFunc()">Imprimir</button>
-	<div id="elementH">Imprimir</div>
+	
 	
 	</div>
 	<c:if test="${empty estacionamiento}">

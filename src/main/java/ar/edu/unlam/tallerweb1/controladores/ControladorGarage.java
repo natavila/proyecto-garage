@@ -163,26 +163,7 @@ public class ControladorGarage {
 		return new ModelAndView("DatosDeUnGaragePorPantalla", modelo);
 	}
 
-	/*
-	@RequestMapping(path="/mostrarAutosDeUnGarage/{id}", method=RequestMethod.GET)
-	public ModelAndView MostrarAutosDeGarage( @PathVariable("id")Long id,
-			HttpServletRequest request){
-		
-		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
-			if(rol.equals("admin")) {
-				
-		    ModelMap modelo = new ModelMap();
-			Garage garage2 = servicioGarage.buscarGarage(id);
-			HashSet<Auto> autos = (HashSet<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
-			modelo.put("garage", garage2);
-			modelo.put("auto", autos);
-			
-			return new ModelAndView("ListaAutosEnGarage", modelo);
-			}
-		return new ModelAndView("redirect:/login");
-	}
-	*/
+	
 	@RequestMapping(path="/mostrarHistoricoDeUnGarage/{id}", method=RequestMethod.GET)
 	public ModelAndView MostrarHistoricoDeGarage( @PathVariable("id")Long id,
 			HttpServletRequest request){

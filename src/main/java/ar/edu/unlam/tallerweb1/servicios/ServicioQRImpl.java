@@ -44,7 +44,7 @@ public class ServicioQRImpl implements ServicioQR{
 	
 	
        @Override
-	 public File generateQR( String text) throws WriterException, IOException {
+	 public File generateQR(String text) throws WriterException, IOException {
 		
 	            String content = text;
 	            //String filePath = directorioTrabajo(); 
