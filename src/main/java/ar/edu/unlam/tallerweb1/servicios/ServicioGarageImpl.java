@@ -196,6 +196,10 @@ private RepositorioGarage repositorioGarage;
 		return repositorioGarage.buscarGarageQueCoincidanConLocalidadDeCliente(cliente);
 	}
 	
+	@Override
+	public void modificarGarage(Garage garage) {
+		repositorioGarage.modificarDatosGarage(garage);
+	}
 	
 
 }

@@ -313,6 +313,42 @@ public class ControladorGarage {
 			}
 		return new ModelAndView("redirect:/login");
 	}
+	
+	
+	
+	
+	@RequestMapping(path="/modificarGarage")
+	public ModelAndView modificarGarage(HttpServletRequest request) {
+		
+		ModelMap modelo = new ModelMap();
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Garage garage =   servicioGarage.buscarGarage(idUsuario); 
+		
+		if(garage != null) {
+			modelo.put("garage", garage);
+			return new ModelAndView("modificarGarage", modelo);
+		}
+		
+		return new ModelAndView("redirect:/login");
+		
+	}
+	
+	@RequestMapping(path="/procesarModificarGarage")
+	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage) {
+		ModelMap modelo = new ModelMap();
+		
+		
+		if(garage != null) {
+			servicioGarage.modificarGarage(garage);
+			
+			modelo.put("garage", garage);
+			return new ModelAndView("modificarGarage", modelo);
+		}
+		
+		return new ModelAndView("redirect:/login");
+	}
+	
+	
 
 	public ServicioGarage getServicioGarage() {
 		return servicioGarage;
