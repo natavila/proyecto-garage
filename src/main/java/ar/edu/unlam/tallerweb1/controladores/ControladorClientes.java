@@ -39,7 +39,7 @@ public class ControladorClientes {
 	private ServicioEstacionamiento servicioEstacionamiento;
 	
 	@Autowired
-	private ControladorClientes(ServicioLogin servicioLogin, ServicioRegistro servicioRegistro, ServicioAuto servicioAuto, ServicioCliente servicioCliente, ServicioBilletera servicioBilletera, ServicioEstacionamiento servicioEstacionamiento) {
+	public ControladorClientes(ServicioLogin servicioLogin, ServicioRegistro servicioRegistro, ServicioAuto servicioAuto, ServicioCliente servicioCliente, ServicioBilletera servicioBilletera, ServicioEstacionamiento servicioEstacionamiento) {
 		this.servicioAuto =servicioAuto;
 		this.servicioLogin = servicioLogin;
 		this.servicioCliente = servicioCliente;
@@ -49,7 +49,7 @@ public class ControladorClientes {
 	}
 	
 	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
-		public String clientes(Model modelo,
+		public ModelAndView clientes(Model modelo,
 				HttpServletRequest request) {
 		String rol = (String) request.getSession().getAttribute("roll");
 		if(rol != null)
@@ -57,9 +57,9 @@ public class ControladorClientes {
 			modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
 			
 			servicioRegistro.NotificacionesVistas();
-			return("ListaClientes");
+			 return new ModelAndView("ListaClientes");
 			}
-		return ("redirect:/login");
+		return new ModelAndView("redirect:/login");
 	}
 	@RequestMapping(path="/misAutos", method=RequestMethod.GET)
 	public ModelAndView misAutos( HttpServletRequest request) {
@@ -69,8 +69,7 @@ public class ControladorClientes {
 		Long idUsuario = (Long) request.getSession().getAttribute("id");
 		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
 		
-		if(cliente != null)
-			
+		if(cliente != null) {
 			if(rol.equals("cliente")) {
 		
 		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
@@ -80,7 +79,7 @@ public class ControladorClientes {
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		
 		}
-		
+		}
 		return new ModelAndView("redirect:/login");
 }
 	
@@ -107,24 +106,7 @@ public class ControladorClientes {
 		return new ModelAndView("redirect:/misAutos/{idC}");
 	}
 	
-	/*@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
-	public ModelAndView misAutos(
-			@PathVariable("id")Long id, 
-			HttpServletRequest request) {
-		ModelMap modelo = new ModelMap();
-		Cliente cliente = servicioLogin.consultarClientePorId(id);
-		List<Auto> autos =  servicioAuto.consultarAutoDeClienteActivo(cliente);
-		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null )
-			if(rol.equals("cliente") && cliente != null && autos != null) {	
-				modelo.put("cliente", cliente);
-				modelo.put("auto", autos);
-				modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
-		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
-		}
-		return new ModelAndView("redirect:/login");
-}
-	*/
+	
 	@RequestMapping(path="/datosCliente")
 	public ModelAndView mostrarDatosCliente(HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
@@ -210,7 +192,58 @@ public class ControladorClientes {
 		}
 		
 	}
+
+	public ServicioLogin getServicioLogin() {
+		return servicioLogin;
+	}
+
+	public void setServicioLogin(ServicioLogin servicioLogin) {
+		this.servicioLogin = servicioLogin;
+	}
+
+	public ServicioAuto getServicioAuto() {
+		return servicioAuto;
+	}
+
+	public void setServicioAuto(ServicioAuto servicioAuto) {
+		this.servicioAuto = servicioAuto;
+	}
+
+	public ServicioCliente getServicioCliente() {
+		return servicioCliente;
+	}
+
+	public void setServicioCliente(ServicioCliente servicioCliente) {
+		this.servicioCliente = servicioCliente;
+	}
+
+	public ServicioBilletera getServicioBilletera() {
+		return servicioBilletera;
+	}
+
+	public void setServicioBilletera(ServicioBilletera servicioBilletera) {
+		this.servicioBilletera = servicioBilletera;
+	}
+
+	public ServicioRegistro getServicioRegistro() {
+		return servicioRegistro;
+	}
+
+	public void setServicioRegistro(ServicioRegistro servicioRegistro) {
+		this.servicioRegistro = servicioRegistro;
+	}
+
+	public ServicioEstacionamiento getServicioEstacionamiento() {
+		return servicioEstacionamiento;
+	}
+
+	public void setServicioEstacionamiento(ServicioEstacionamiento servicioEstacionamiento) {
+		this.servicioEstacionamiento = servicioEstacionamiento;
+	}
 			
+	
+	
+	
 	
 		
 	

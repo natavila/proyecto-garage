@@ -28,7 +28,7 @@ import org.mockito.Mockito;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.web.servlet.ModelAndView;
 
-public class testControladorGarage extends SpringTest {
+public class testControladorGarageMock extends SpringTest {
 
 	private ServicioGarage servicioGarageMock;
 	private ServicioEstacionamiento servicioEstMock;
@@ -101,6 +101,75 @@ public class testControladorGarage extends SpringTest {
 		ModelAndView vista = controladorGarage.MostrarHistoricoDeGarage(5L, requestMock);
 		assertThat(vista.getViewName()).isEqualTo("redirect:/login");
 	}
+	
+	
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAVistaAgregarGarage() {
+		List<String> listaMock = new ArrayList<>();
+		listaMock.add("Laferrere");
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		
+		when(servicioLocMock.devolverNombresDeLocalidades()).thenReturn(listaMock);
+		
+		ModelAndView vista = controladorGarage.mostrarFormularioGaraga(requestMock);
+		assertThat(vista.getViewName()).isEqualTo("agregarGarage");
+		
+	}
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAVistaDatosGaragePorPantalla() {
+		
+		List<Garage> listaMock = new ArrayList<>();
+		listaMock.add(garageMock);
+		
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		
+		when(servicioGarageMock.consultarGarage()).thenReturn(listaMock);
+		ModelAndView vista = controladorGarage.Listar(requestMock);
+		assertThat(vista.getViewName()).isEqualTo("DatosGaragesPorPantalla");
+		
+		
+	}
+	
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAVistaDatosGaragePorPantallaOrdenadoPorHora() {
+		List<Garage> listaMock = new ArrayList<>();
+		listaMock.add(garageMock);
+		
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		when(servicioGarageMock.ordenarGaragePorHora()).thenReturn((ArrayList<Garage>) listaMock);
+		
+		ModelAndView vista = controladorGarage.Listar(requestMock);
+		assertThat(vista.getViewName()).isEqualTo("DatosGaragesPorPantalla");
+		
+		
+	}
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAVistaDatosGaragePorPantallaOrdenadoPorEstadia() {
+		List<Garage> listaMock = new ArrayList<>();
+		listaMock.add(garageMock);
+		
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		when(servicioGarageMock.ordenarGaragePorEstadia()).thenReturn((ArrayList<Garage>) listaMock);
+		
+		ModelAndView vista = controladorGarage.Listar(requestMock);
+		assertThat(vista.getViewName()).isEqualTo("DatosGaragesPorPantalla");
+		
+		
+	}
+	
+	
 
 
 	
