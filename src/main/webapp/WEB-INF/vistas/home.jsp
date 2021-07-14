@@ -73,8 +73,8 @@
 
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
 		<a class="btn btn-primary" href="ElegirAuto" role="button">Hacer reserva</a>
-		<a class="btn btn-primary" href="misAutos" role="button">Mis Autos<a>
-		<a class="btn btn-primary" href="ticketsCliente" role="button">Mis Tickets<a>
+		<a class="btn btn-primary" href="misAutos" role="button">Mis Autos</a>
+		<a class="btn btn-primary" href="ticketsCliente" role="button">Mis Tickets</a>
 		<a class="btn btn-primary" href="mostrarBilletera" role="button">Mi billetera</a>
 		<a class="btn btn-primary" href="planes/${cliente.id}" role="button">Elegir Plan</a>
 		</div>
@@ -118,7 +118,7 @@
 	  </tbody>
 	</table>
 	<div class="d-grid gap-2 col-6 mx-auto mt-3">
-	<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
+	<a class="btn btn-primary" href="ElegirAuto" role="button">Hacer reserva</a>
 	</div>
 	</div>
 	<div style="grid-column:3; grid-row:1;">

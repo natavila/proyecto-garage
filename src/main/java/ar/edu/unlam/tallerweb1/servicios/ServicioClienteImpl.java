@@ -71,8 +71,8 @@ public class ServicioClienteImpl implements ServicioCliente{
 	}
 
 	@Override
-	public void modificarDatosCliente(Cliente cliente) {
-		servicioCliente.modificarDatosCliente(cliente);
+	public void modificarDatosCliente(Cliente cliente, Cliente modificado) {
+		servicioCliente.modificarDatosCliente(cliente, modificado);
 	}
 	
 
