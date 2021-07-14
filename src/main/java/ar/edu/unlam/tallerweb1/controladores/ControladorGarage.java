@@ -174,6 +174,7 @@ public class ControladorGarage {
 		    ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(id);
 			List<Auto> autos = servicioEst.buscarAutosDeUnGarage(garage2);
+			
 			modelo.put("garage", garage2);
 			modelo.put("auto", autos);
 			
@@ -334,7 +335,7 @@ public class ControladorGarage {
 	}
 	
 	@RequestMapping(path="/procesarModificarGarage")
-	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage) {
+	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage,HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
 		
 		

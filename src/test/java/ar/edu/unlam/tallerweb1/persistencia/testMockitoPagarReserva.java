@@ -105,7 +105,7 @@ public class testMockitoPagarReserva extends SpringTest{
 		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);	
 		
-		ModelAndView modelAndView = controladorPagarGarage.mostrarFormularioReservaEstadia(idClienteMock, idAutoMock, idGarageMock, requestMock);
+		ModelAndView modelAndView = controladorPagarGarage.mostrarFormularioReservaEstadia(idClienteMock, idAutoMock, requestMock);
 		
 		assertThat(modelAndView.getViewName()).isEqualTo("formularioReservaEstadia");
 		
@@ -136,7 +136,7 @@ public class testMockitoPagarReserva extends SpringTest{
 		when(servicioCobrarTicketsMock.calcularDias(fechaDesde, fechaHasta)).thenReturn(diasEnGarage);
 		when(servicioCobrarTicketsMock.calcularPrecioPorEstadia(precioEstadia, fechaDesde, fechaHasta)).thenReturn(total);
 		
-		ModelAndView modelAndView = controladorPagarGarage.procesarPagoEstadia(fechaDesde, fechaHasta, idClienteMock, idAutoMock, idGarageMock, requestMock);
+		ModelAndView modelAndView = controladorPagarGarage.procesarPagoEstadia(fechaDesde, fechaHasta, idClienteMock, idAutoMock, requestMock);
 		
 		assertThat(modelAndView.getViewName()).isEqualTo("pagarMontoEstadia");
 	}

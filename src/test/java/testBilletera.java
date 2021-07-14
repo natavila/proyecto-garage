@@ -39,11 +39,15 @@ public class testBilletera extends SpringTest{
 		Billetera billetera = new Billetera();
 		
 		cliente.setNombre("Pepe");
+		cliente.setApellido("Santoro");
 		cliente.setEmail("pepe@hotmail.com");
+		cliente.setLocalidad("Laferrere");
 		servicioRegistro.agregarCliente(cliente);
 		
 		cliente2.setNombre("Pepe2");
+		cliente2.setApellido("Santoro");
 		cliente2.setEmail("pepe2@hotmail.com");
+		cliente2.setLocalidad("Laferrere");
 		servicioRegistro.agregarCliente(cliente2);
 		
 		//((Object) billetera).setAlias("elpepe");
@@ -67,6 +71,7 @@ public class testBilletera extends SpringTest{
 		Cliente cliente = new Cliente();
 		cliente.setNombre("Pepe");
 		cliente.setApellido("roberto");
+		cliente.setLocalidad("Laferrere");
 		cliente.setEmail("pepe@hotmail.com");
 		servicioRegistro.agregarCliente(cliente);
 		billetera.setCliente(cliente);
@@ -92,6 +97,7 @@ public class testBilletera extends SpringTest{
 		Cliente cliente = new Cliente();
 		cliente.setNombre("Pepe");
 		cliente.setApellido("roberto");
+		cliente.setLocalidad("Laferrere");
 		cliente.setEmail("pepe@hotmail.com");
 		servicioRegistro.agregarCliente(cliente);
 		billetera.setCliente(cliente);
@@ -119,6 +125,7 @@ public class testBilletera extends SpringTest{
 		Cliente cliente = new Cliente();
 		cliente.setNombre("Pepe");
 		cliente.setApellido("roberto");
+		cliente.setLocalidad("Laferrere");
 		cliente.setEmail("pepe@hotmail.com");
 		servicioRegistro.agregarCliente(cliente);
 		billetera.setCliente(cliente);
