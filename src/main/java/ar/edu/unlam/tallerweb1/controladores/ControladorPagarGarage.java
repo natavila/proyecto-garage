@@ -208,35 +208,33 @@ public class ControladorPagarGarage {
 		return new ModelAndView("redirect:/login");
 	}
 	
-	@RequestMapping(path="/mostrarFormularioReservaHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
+	@RequestMapping(path="/mostrarFormularioReservaHora/{auto.id}/{garage.id}", method=RequestMethod.GET)
 	public ModelAndView mostrarFormularioReservaHora(
-			@PathVariable("cliente.id") Long idCliente,
 			@PathVariable("auto.id") Long idAuto,
 			@PathVariable("garage.id") Long idGarage, 
 			HttpServletRequest request) {
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
-			if(rol.equals("cliente")) {
-		
-		
+		Long id = (Long) request.getSession().getAttribute("id");
 		ModelMap modelo = new ModelMap();
 		Estacionamiento ticket = new Estacionamiento();
-		Auto auto1 = servicioAuto.buscarAuto(idAuto);
-		Cliente cliente1 = servicioCliente.consultarClientePorId(idCliente);
+		Auto auto = servicioAuto.buscarAuto(idAuto);
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		
-			if(auto1 !=null && cliente1 !=null && garage !=null) {
+		if(rol != null && rol.equals("cliente"))
+			if(cliente != null) {
+			if(auto !=null && garage !=null) {
 				
-				modelo.put("auto", auto1);
-				modelo.put("cliente", cliente1);
+				modelo.put("auto", auto);
+				modelo.put("cliente", cliente);
 				modelo.put("ticket", ticket);
 				modelo.put("garage", garage);
 				
 				return new ModelAndView("formularioReservaHora", modelo);
 			}
-	
-		return new ModelAndView("formularioReservaHora", modelo);
+			return new ModelAndView("formularioReservaHora", modelo);
 			}
+		
 		return new ModelAndView("redirect:/login");
 	}
 	

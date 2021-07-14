@@ -72,7 +72,7 @@ public class ControladorPlan {
 					modelo.put("cliente", c1);
 					modelo.put("plan", p1);
 				}else {
-					modelo.put("mensajeExito", "No se pudo Asignar Plan");
+					modelo.put("mensajeTienePlan", "No se pudo Asignar Plan");
 				}
 				
 	

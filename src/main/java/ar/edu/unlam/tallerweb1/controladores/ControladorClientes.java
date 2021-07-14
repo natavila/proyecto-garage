@@ -195,7 +195,7 @@ public class ControladorClientes {
 				modelo.put("cliente", cliente);
 				modelo.put("billetera", billetera);
 				modelo.put("estacionamiento", estacionamiento);
-				
+				modelo.put("mensaje", "¡No posee reservas activas!");
 				return new ModelAndView("ticketCliente", modelo);
 			}else {
 				modelo.put("cliente", cliente);

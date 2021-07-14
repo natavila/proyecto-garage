@@ -37,27 +37,7 @@ public class ControladorEstacionamiento {
 		this.servicioAuto = servicioAuto;
 		this.servicioEst = servicioEst;
 	}
-	/*
-	@RequestMapping(path="/sacarAutoDeGarage/{GarageId}/{AutoId}", method=RequestMethod.GET)
-	public ModelAndView SacarAutosDeGarage( @PathVariable("GarageId")Long Gid,
-			@PathVariable("AutoId")Long Aid){
-		
-		ModelMap modelo = new ModelMap();
-			Garage garage2 = servicioGarage.buscarGarage(Gid);
-			List<Auto> autos = (List<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
-			Auto autoSalir = servicioAuto.buscarAuto(Aid);
-				
-			modelo.put("auto", autos);
-			for(Auto e: autos) {
-				if(e.getId().equals(autoSalir.getId())) {
-					servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
-				}
-			}
-			
-			return new ModelAndView("redirect:/mostrarAutosDeUnGarage/{GarageId}", modelo);
-	}
-	
-*/
+
 	
 	@RequestMapping(path = "/sacarAuto/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
 	public ModelAndView sacarAuto(@PathVariable("id")Long id) {
@@ -90,7 +70,6 @@ public class ControladorEstacionamiento {
 				if(est !=null && garage2 != null) {
 					servicioGarage.restarContador(garage2);
 					servicioEst.cambiarEstadoEstacionamiento(est);
-					//saco la reserva De Estacionamiento
 					servicioEst.cambiarEstadoDeReserva(est);
 					model.put("error", "Baja correcta");
 				}else {
@@ -100,5 +79,38 @@ public class ControladorEstacionamiento {
 			}
 		return new ModelAndView("confirmacionSacarTicket", model);
 	}
+
+
+	public ServicioAuto getServicioAuto() {
+		return servicioAuto;
+	}
+
+
+	public void setServicioAuto(ServicioAuto servicioAuto) {
+		this.servicioAuto = servicioAuto;
+	}
+
+
+	public ServicioGarage getServicioGarage() {
+		return servicioGarage;
+	}
+
+
+	public void setServicioGarage(ServicioGarage servicioGarage) {
+		this.servicioGarage = servicioGarage;
+	}
+
+
+	public ServicioEstacionamiento getServicioEst() {
+		return servicioEst;
+	}
+
+
+	public void setServicioEst(ServicioEstacionamiento servicioEst) {
+		this.servicioEst = servicioEst;
+	}
+	
+	
+	
 	
 }
