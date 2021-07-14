@@ -36,8 +36,10 @@
 				</tr>
 			</tbody>
 		</table>
+		
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/ticketsCliente/${cliente.id}" role="button">Imprimir Mi Ticket<a>
 	</div>
-	
+	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 
 </body>
 </html>

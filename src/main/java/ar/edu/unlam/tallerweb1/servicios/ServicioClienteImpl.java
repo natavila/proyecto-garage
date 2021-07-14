@@ -69,6 +69,11 @@ public class ServicioClienteImpl implements ServicioCliente{
 		 Integer contador = servicioCliente.listaDeClientes().size();
 		 return contador;
 	}
+
+	@Override
+	public void modificarDatosCliente(Cliente cliente, Cliente modificado) {
+		servicioCliente.modificarDatosCliente(cliente, modificado);
+	}
 	
 
 }

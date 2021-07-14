@@ -20,7 +20,7 @@
 		<%@ include file="header.jsp" %>
 		<c:if test="${empty billetera}">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert">
-		  <strong>¿Todavia no tenes una billetera?</strong> Genera una <a href="${pageContext.request.contextPath}/registroBilletera/${cliente.id}">aqui</a>.
+		  <strong>¿Todavia no tenes una billetera?</strong> Genera una <a href="registroBilletera">aqui</a>.
 		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		</c:if>
@@ -72,10 +72,10 @@
 		</div>
 
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/misAutos/${cliente.id}" role="button">Mis Autos<a>
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/ticketsCliente/${cliente.id}" role="button">Mis Tickets<a>
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarBilletera/${cliente.id}" role="button">Mi billetera</a>
+		<a class="btn btn-primary" href="ElegirAuto" role="button">Hacer reserva</a>
+		<a class="btn btn-primary" href="misAutos" role="button">Mis Autos</a>
+		<a class="btn btn-primary" href="ticketsCliente" role="button">Mis Tickets</a>
+		<a class="btn btn-primary" href="mostrarBilletera" role="button">Mi billetera</a>
 		<a class="btn btn-primary" href="planes/${cliente.id}" role="button">Elegir Plan</a>
 		</div>
 		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>
@@ -118,7 +118,7 @@
 	  </tbody>
 	</table>
 	<div class="d-grid gap-2 col-6 mx-auto mt-3">
-	<a class="btn btn-primary" href="${pageContext.request.contextPath}/mostrarGarages/${cliente.id}/${cliente.nombre}" role="button">Hacer reserva</a>
+	<a class="btn btn-primary" href="ElegirAuto" role="button">Hacer reserva</a>
 	</div>
 	</div>
 	<div style="grid-column:3; grid-row:1;">

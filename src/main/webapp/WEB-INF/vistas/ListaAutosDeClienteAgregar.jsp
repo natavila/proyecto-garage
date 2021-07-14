@@ -15,7 +15,7 @@
 		<table class="table table-hover">
 		<h1 style="text-align:center">Mis Autos</h1>
 		<h4 style="text-align:center">Cantidad de Autos: ${cantidad}</h4>
-			<a class="btn btn-primary mb-3" href="${pageContext.request.contextPath}/mostrarRegistroAuto/${cliente.id}/${cliente.nombre}" role="button">Agregar Auto</a><br>
+		<a class="btn btn-primary mb-3" href="mostrarRegistroAuto" role="button">Agregar Auto</a><br>
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
@@ -35,7 +35,7 @@
 	            </c:forEach>
 	  </tbody>
 	</table>
-	<a class="btn btn-primary" href="home" role="button">Volver</a>
+	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 		</div>
 </body>
 </html>

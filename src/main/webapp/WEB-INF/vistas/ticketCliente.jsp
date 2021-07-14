@@ -13,6 +13,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
+
 	<div class="container col-6">
 		<div class="border mt-3 mb-3 shadow p-3 mb-5 bg-body rounded">
 		<h5>Cliente: ${cliente.nombre} ${cliente.apellido}</h5>
@@ -21,7 +22,9 @@
 		<h5>Plan contratado: ${cliente.plan}</h5>
 		</div>
 	</div>
-	<div class="container col-4 ">
+	
+	<div class="container col-4">
+	 <div id="content">
 		<table class="table table-hover">
 		<h3>Tickets</h3>
 	
@@ -46,12 +49,43 @@
 	  </tbody>
 	 
 	</table>
+	
+	
+	</div>
 	<c:if test="${empty estacionamiento}">
 		<div class="alert alert-warning" role="alert">
   			${mensaje}
 		</div>
 	</c:if>
 	</div>
+	
+	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
+	<!-- jQuery library -->
+		<script src="js/jquery.min.js"></script>
+
+	<!-- jsPDF library -->
+		<script src="js/jsPDF/dist/jspdf.min.js"></script>
+	
+	<script type="text/javascript">
+	function miFunc(){
+		var doc = new jsPDF();
+		var elementJSP = $('#content').jsp();
+		var specialElementHandlers = {
+	    '#elementH': function (element, renderer) {
+	        return true;
+	    }
+	};
+	doc.fromHTML(elementHTML, 15, 15, {
+	    'width': 170,
+	    'elementHandlers': specialElementHandlers
+	});
+
+	// Save the PDF
+	doc.save('sample-document.pdf');
+	}
+		
+	
+	</script>
 	
 </body>
 </html>

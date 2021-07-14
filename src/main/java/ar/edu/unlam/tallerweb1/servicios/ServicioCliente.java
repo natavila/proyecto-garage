@@ -22,4 +22,6 @@ public interface ServicioCliente {
 	ArrayList<Cliente> listaCliente();
 
 	Integer notificadorDeClientesNuevos();
+	
+	public void modificarDatosCliente(Cliente cliente, Cliente modificado);
 }

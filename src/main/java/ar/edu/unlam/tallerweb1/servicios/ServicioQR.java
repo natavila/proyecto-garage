@@ -6,7 +6,6 @@ import java.net.UnknownHostException;
 
 import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File;
 import com.google.zxing.WriterException;
-import com.itextpdf.layout.element.Image;
 
 public interface ServicioQR {
 	java.io.File generateQR( String text) throws WriterException, IOException;
@@ -14,6 +13,8 @@ public interface ServicioQR {
 	String devolverIp() throws UnknownHostException;
 
 	String random();
+
+	String directorioTrabajo() throws IOException;
 
 	
 }

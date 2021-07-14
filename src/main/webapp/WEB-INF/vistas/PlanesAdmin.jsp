@@ -14,7 +14,7 @@
 <title>Lista de planes</title>
 </head>
 <body>
-
+<%@ include file="header.jsp" %>
 	<div class="container mt-3">
 		<table class="table table-hover">
 <h2>Lista de planes</h2>

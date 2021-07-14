@@ -38,7 +38,7 @@
 		          <a class="nav-link active" aria-current="page" href="#">Home</a>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="#">Garajes</a>
+		          <a class="nav-link" href="#">Garages</a>
 		        </li>
 		        <li class="nav-item">
 		          <a class="nav-link" href="#">Mi perfil</a>
@@ -55,7 +55,7 @@
 		          </ul>
 		        </li>
 		        <li class="nav-item">
-		          <a class="nav-link" href="cerrarSesion">Cerrar Sesion</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/cerrarSesion">Cerrar Sesion</a>
 		        </li>
 		      </ul>
 		      <form class="d-flex">

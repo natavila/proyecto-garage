@@ -17,8 +17,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
@@ -32,6 +35,7 @@ import java.util.List;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class ControladorLogin {
@@ -58,7 +62,7 @@ public class ControladorLogin {
 		this.servicioCliente = servicioCliente;
 		this.servicioRegistro = servicioRegistro;
 	}
-
+	
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
 	@RequestMapping("/login")
 	public ModelAndView irALogin() {
@@ -80,19 +84,41 @@ public class ControladorLogin {
 	public ModelAndView validarLogin(@ModelAttribute("usuario") Cliente cliente, HttpServletRequest request) {
 		ModelMap model = new ModelMap();
 		Cliente usuarioBuscado = servicioLogin.consultarCliente(cliente);
-		
+		//String rol = (String) request.getSession().getAttribute("roll");
+		//String rol = usuarioBuscado.getRoll();
+		if(usuarioBuscado != null) {
+			HttpSession misession= request.getSession(true);
+			misession.setAttribute("id", usuarioBuscado.getId());
+			misession.setAttribute("roll", usuarioBuscado.getRoll());
+			model.put("usuario", usuarioBuscado);
+			model.put("misession", misession);
+			return new ModelAndView("redirect:/home");
+		}
+			
+			return new ModelAndView("login", model);
+	}
+
+	// Escucha la URL /home por GET, y redirige a una vista.
+
+	@RequestMapping(path = "/home", method = RequestMethod.GET)
+	public ModelAndView irAHome(HttpServletRequest request) {
+
+		ModelMap model = new ModelMap();
 		String rol = (String) request.getSession().getAttribute("roll");
-		if (usuarioBuscado != null) {
-			if(usuarioBuscado.getRoll().equals("admin")) {
-				
-				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente usuarioBuscado = servicioCliente.consultarClientePorId(idUsuario);
+		if(usuarioBuscado != null) {
+			switch(rol) {
+			case "admin":
 				model.put("admin", usuarioBuscado);
-				List<Garage> listaGarage = servicioGarage.consultarGarage();
+				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
+				
+				//List<Garage> listaGarage = servicioGarage.consultarGarage();
 				ArrayList<Integer> ocupacion = new ArrayList<Integer>();
 				
 				Integer notifNuevos = servicioRegistro.NotificacionesClientes();
 				
-				for(Garage e: listaGarage) {
+				for(Garage e: servicioGarage.consultarGarage()) {
 					
 					ocupacion.add(servicioGarage.cantidadDeLugarEnEst(e));	
 				}
@@ -100,31 +126,36 @@ public class ControladorLogin {
 				for(Integer e: ocupacion) {
 					if(e<=5 && e>=1 ) {
 						model.put("alerta","mensaje");
-						break;
+						
 					}else if(e<=0){
 						model.put("Lleno", "mensaje");
-						break;
+						
 					}	else {
 						model.put("ConLugar", "ConLugar");
 					}
 				}
 				
 				Integer notif = servicioCliente.notificadorDeClientesNuevos();
+
+
+				model.put("notifNuevos", notifNuevos);
+
 				
 				model.put("fecha", LocalDate.now());
 				
 				
-				model.put("notifNuevos", notifNuevos);
+				model.put("notifNuevos", servicioRegistro.NotificacionesClientes());
+
 				model.put("notif", notif);
 				model.put("ocupacion", ocupacion);
-				model.addAttribute("garages", servicioGarage.consultarGarage());
+				
+				model.put("garages",/*listaGarage*/ servicioGarage.consultarGarage());
 				model.put("ganancia",servEst.dineroGanadoEnTotal() );
 				
 				return new ModelAndView("homeAdmin", model);
 				
-			}else {
-
-				
+			case "cliente":
+				model.put("cliente", usuarioBuscado);
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());			
 
 				Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
@@ -137,34 +168,15 @@ public class ControladorLogin {
 				model.put("plan",usuarioBuscado.getPlan());
 				model.put("garages", listaGarage);
 				model.put("garagesCercanos", garagesCercanos);
-				return new ModelAndView("home", model);
-			}	
 	
-		}else {
-			
-			model.put("Error", "Usuario o clave incorrecta");
+				return new ModelAndView("home", model);		
+		
+			}
 		}
-			
-			return new ModelAndView("login", model);
+		
+		return new ModelAndView("redirect:/login");
+
 	}
-
-	// Escucha la URL /home por GET, y redirige a una vista.
-	@RequestMapping(path = "/home", method = RequestMethod.GET)
-	public ModelAndView irAHome() {
-		ModelMap model = new ModelMap();
-	
-		return new ModelAndView("home", model);
-	}
-
-	
-	
-
-	/*@RequestMapping(path = "/homeAdmin", method = {RequestMethod.GET, RequestMethod.PUT})
-
-	public ModelAndView irAHomeAdmin() {
-		return new ModelAndView("homeAdmin");
-	}
-	*/
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
 	@RequestMapping(path = "/", method = RequestMethod.GET)
@@ -178,5 +190,75 @@ public class ControladorLogin {
 		return new ModelAndView("redirect:/login");
 	}
 	
+	
+	public ServicioLogin getServicioLogin() {
+		return servicioLogin;
+	}
+
+
+
+	public void setServicioLogin(ServicioLogin servicioLogin) {
+		this.servicioLogin = servicioLogin;
+	}
+
+
+
+	public ServicioEstacionamiento getServEst() {
+		return servEst;
+	}
+
+
+
+	public void setServEst(ServicioEstacionamiento servEst) {
+		this.servEst = servEst;
+	}
+
+
+
+	public ServicioBilletera getServicioBilletera() {
+		return servicioBilletera;
+	}
+
+
+
+	public void setServicioBilletera(ServicioBilletera servicioBilletera) {
+		this.servicioBilletera = servicioBilletera;
+	}
+
+
+
+	public ServicioGarage getServicioGarage() {
+		return servicioGarage;
+	}
+
+
+
+	public void setServicioGarage(ServicioGarage servicioGarage) {
+		this.servicioGarage = servicioGarage;
+	}
+
+
+
+	public ServicioCliente getServicioCliente() {
+		return servicioCliente;
+	}
+
+
+
+	public void setServicioCliente(ServicioCliente servicioCliente) {
+		this.servicioCliente = servicioCliente;
+	}
+
+
+
+	public ServicioRegistro getServicioRegistro() {
+		return servicioRegistro;
+	}
+
+
+
+	public void setServicioRegistro(ServicioRegistro servicioRegistro) {
+		this.servicioRegistro = servicioRegistro;
+	}
 	
 }

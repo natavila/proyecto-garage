@@ -14,6 +14,7 @@
 <title>Lista de planes</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 
 	<div class="container mt-3">
 		<h1>  Hola ${cliente.nombre}, Qué plan querés elegir?</h1>
