@@ -39,9 +39,11 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 		String nombreUpp = cliente.getNombre().toUpperCase();
 		String apellidoUpp = cliente.getApellido().toUpperCase();
 		String emailUpp = cliente.getEmail().toUpperCase();
+		String locUpp = cliente.getLocalidad().toUpperCase();
 		cliente.setNombre(nombreUpp);
 		cliente.setApellido(apellidoUpp);
 		cliente.setEmail(emailUpp);
+		cliente.setLocalidad(locUpp);
 		session.save(cliente);
 		
 	}
@@ -137,9 +139,17 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 	}
 
 	@Override
-	public void modificarDatosCliente(Cliente cliente) {
+	public void modificarDatosCliente(Cliente cliente, Cliente modificado) {
 		final Session session = sessionFactory.getCurrentSession();
-		session.update(cliente);
+		String nombreUpp = cliente.getNombre().toUpperCase();
+		String apellidoUpp = cliente.getApellido().toUpperCase();
+		String emailUpp = cliente.getEmail().toUpperCase();
+		String locUpp = cliente.getLocalidad().toUpperCase();
+		modificado.setNombre(nombreUpp);
+		modificado.setApellido(apellidoUpp);
+		modificado.setEmail(emailUpp);
+		modificado.setLocalidad(locUpp);
+		session.update(modificado);
 	}
 
 	
