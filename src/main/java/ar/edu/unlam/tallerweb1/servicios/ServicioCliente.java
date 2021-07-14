@@ -23,5 +23,5 @@ public interface ServicioCliente {
 
 	Integer notificadorDeClientesNuevos();
 	
-	public void modificarDatosCliente(Cliente cliente);
+	public void modificarDatosCliente(Cliente cliente, Cliente modificado);
 }

@@ -44,7 +44,7 @@ public class ServicioQRImpl implements ServicioQR{
 	 public File generateQR( String text) throws WriterException, IOException {
 		
 	            String content = text;
-	            String filePath = "D:\\Universidad\\Primer cuatrimestre 2021\\Taller web I\\proyecto-garage\\backup-proyecto\\proyecto-garage";
+	            String filePath = "D:\\Universidad\\Primer cuatrimestre 2021\\Taller web I\\proyecto-garage\\backup-proyecto\\proyecto-garage\\src\\main\\webapp\\imagenes\\";
 	            //String filePath = directorioTrabajo(); 
 	            String fileType = "jpg";
 	            int size = 300;

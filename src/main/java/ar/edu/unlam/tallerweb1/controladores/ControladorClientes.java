@@ -164,14 +164,16 @@ public class ControladorClientes {
 	}
 	
 	@RequestMapping(path="/procesarModificarCliente")
-	public ModelAndView procesarModificarCliente(@ModelAttribute("cliente") Cliente cliente) {
+	public ModelAndView procesarModificarCliente(@ModelAttribute("cliente") Cliente cliente, HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente clienteBuscado = servicioCliente.consultarClientePorId(idUsuario);
 		
-		
-		if(cliente != null) {
-			servicioCliente.modificarDatosCliente(cliente);
-			modelo.put("cliente", cliente);
-			return new ModelAndView("modificarCliente", modelo);
+		if(clienteBuscado != null) {
+			
+			servicioCliente.modificarDatosCliente(cliente, clienteBuscado);
+			modelo.put("cliente", clienteBuscado);
+			return new ModelAndView("redirect:/datosCliente");
 		}
 		
 		return new ModelAndView("redirect:/login");
