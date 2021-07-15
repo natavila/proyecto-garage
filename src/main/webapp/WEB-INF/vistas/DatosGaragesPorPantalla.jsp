@@ -43,7 +43,7 @@
                     <td>${garage.capacidad}</td>
                     <td>${garage.contador}</td>
 					<td><a href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}">Eliminar Garage</a></td>
-   					<td> <a href="">Modificar Garage</a> </td>
+   					<td> <a class="btn btn-warning justify-content-md-end" href="modificarGarage" role="button">Modificar datos</a></td>
 					
 					
 					

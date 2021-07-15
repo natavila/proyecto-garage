@@ -55,6 +55,7 @@ public class testAutos extends SpringTest{
 		Cliente usuario1 = new Cliente();
 		usuario1.setNombre("pepe");
 		usuario1.setApellido("rodriguez");
+		usuario1.setLocalidad("Laferrere");
 		usuario1.setEmail("pepito@hotmail.com");
 		usuario1.setPassword("123");
 		
@@ -85,6 +86,7 @@ public class testAutos extends SpringTest{
 		Cliente cliente1 = new Cliente();
 		cliente1.setNombre("pepe");
 		cliente1.setApellido("rodriguez");
+		cliente1.setLocalidad("Laferrere");
 		cliente1.setEmail("pepito@hotmail.com");
 		cliente1.setPassword("123");
 		
@@ -120,6 +122,7 @@ public class testAutos extends SpringTest{
 		Cliente cliente1 = new Cliente();
 		cliente1.setNombre("pepe");
 		cliente1.setApellido("rodriguez");
+		cliente1.setLocalidad("Laferrere");
 		cliente1.setEmail("pepito@hotmail.com");
 		cliente1.setPassword("123");
 		
@@ -128,16 +131,20 @@ public class testAutos extends SpringTest{
 		Auto auto = new Auto();
 		Auto auto2= new Auto();
 		auto.setPatente("asd123");
-		auto2.setPatente("aaa555");
+		auto2.setPatente("ART123");
+		auto.setEnUso(true);
+		auto.setEnUso(true);
 		servAuto.registrarAuto(auto);
 		servAuto.registrarAuto(auto2);
 		
 		auto.setCliente(cliente1);
 		auto2.setCliente(cliente1);
-		reg.agregarCliente(cliente1);
-		servAuto.eliminarAuto(auto);
 		
-		assertEquals(1,servAuto.consultarAutoDeCliente(cliente1).size());
+		reg.agregarCliente(cliente1);
+		
+		repoA.eliminarAuto(auto2);
+		
+		assertEquals(1,servAuto.consultarAutoDeClienteActivo(cliente1).size());
 		
 	}
 	
@@ -159,12 +166,15 @@ public void queUnAutoIngresaAUnGarage() {
 		Cliente cliente1 = new Cliente();
 		cliente1.setNombre("pepe");
 		cliente1.setApellido("rodriguez");
+		cliente1.setLocalidad("Localidad");
 		cliente1.setEmail("pepito@hotmail.com");
 		cliente1.setPassword("123");
 		reg.agregarCliente(cliente1);
 		
 		Auto auto = new Auto();
 		auto.setPatente("asd123");
+		
+		auto.setReservado(true);
 		servAuto.registrarAuto(auto);
 		//Auto a Cliente
 		auto.setCliente(cliente1);
@@ -182,6 +192,7 @@ public void queUnAutoIngresaAUnGarage() {
 		est.setAuto(auto);
 		est.setGarage1(garage);
 		est.setActiva(true);
+		est.setReservado(true);
 		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 		
 		
@@ -209,6 +220,7 @@ public void queMasDeUnAutoIngresaAUnGarage() {
 		Cliente cliente1 = new Cliente();
 		cliente1.setNombre("pepe");
 		cliente1.setApellido("rodriguez");
+		cliente1.setLocalidad("Laferrere");
 		cliente1.setEmail("pepito@hotmail.com");
 		cliente1.setPassword("123");
 		reg.agregarCliente(cliente1);
@@ -238,6 +250,7 @@ public void queMasDeUnAutoIngresaAUnGarage() {
 		est.setAuto(auto);
 		est.setGarage1(garage);
 		est.setActiva(true);
+		est.setReservado(true);
 		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 		
 		Estacionamiento est1 = new Estacionamiento();
@@ -245,6 +258,7 @@ public void queMasDeUnAutoIngresaAUnGarage() {
 		est1.setAuto(auto1);
 		est1.setGarage1(garage);
 		est1.setActiva(true);
+		est1.setReservado(true);
 		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto1);
 		
 		Integer vp = servEst.buscarAutosQueEstenActivosEnUnGarage(garage).size();
@@ -270,6 +284,7 @@ public void queSacoUnAutoDeUnGarage() {
 		Cliente cliente1 = new Cliente();
 		cliente1.setNombre("pepe");
 		cliente1.setApellido("rodriguez");
+		cliente1.setLocalidad("Localidad");
 		cliente1.setEmail("pepito@hotmail.com");
 		cliente1.setPassword("123");
 		reg.agregarCliente(cliente1);
@@ -299,6 +314,7 @@ public void queSacoUnAutoDeUnGarage() {
 		est.setAuto(auto);
 		est.setGarage1(garage);
 		est.setActiva(true);
+		est.setReservado(true);
 		
 		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 		
@@ -307,6 +323,7 @@ public void queSacoUnAutoDeUnGarage() {
 		est1.setAuto(auto1);
 		est1.setGarage1(garage);
 		est1.setActiva(true);
+		est1.setReservado(true);
 		
 		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto1);
 		
@@ -338,6 +355,7 @@ public void queFuncioneElContador() {
 		Cliente cliente1 = new Cliente();
 		cliente1.setNombre("pepe");
 		cliente1.setApellido("rodriguez");
+		cliente1.setLocalidad("Laferrere");
 		cliente1.setEmail("pepito@hotmail.com");
 		cliente1.setPassword("123");
 		reg.agregarCliente(cliente1);
@@ -367,6 +385,7 @@ public void queFuncioneElContador() {
 		est.setAuto(auto);
 		est.setGarage1(garage);
 		est.setActiva(true);
+		est.setReservado(true);
 		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
 		servG.sumarContador(garage);
 		
@@ -376,6 +395,7 @@ public void queFuncioneElContador() {
 		est1.setAuto(auto1);
 		est1.setGarage1(garage);
 		est1.setActiva(true);
+		est1.setReservado(true);
 		servG.sumarContador(garage);
 		servAuto.cambiarEstadoDeSiestaEnGarageOno(auto1);
 		
@@ -403,6 +423,7 @@ public void queNoPuedaIngresarAutoSiEstaGarageLLeno() {
 		Cliente cliente1 = new Cliente();
 		cliente1.setNombre("pepe");
 		cliente1.setApellido("rodriguez");
+		cliente1.setLocalidad("Laferrere");
 		cliente1.setEmail("pepito@hotmail.com");
 		cliente1.setPassword("123");
 		reg.agregarCliente(cliente1);

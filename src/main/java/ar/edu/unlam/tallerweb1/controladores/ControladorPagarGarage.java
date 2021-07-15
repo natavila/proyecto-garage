@@ -3,7 +3,7 @@ package ar.edu.unlam.tallerweb1.controladores;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.JOptionPane;
-
+/*
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -12,7 +12,7 @@ import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
+*/
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -315,8 +315,8 @@ public class ControladorPagarGarage {
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
-		
-		Document documento = new Document();
+
+		//Document documento = new Document();
 		
 			if(billetera != null && garage != null && auto != null) {
 				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
@@ -337,7 +337,7 @@ public class ControladorPagarGarage {
 					servicioEst.meterImagenQr(estacionamiento, imagenQr);
 
 						
-					try {
+				/*	try {
 			        	String path = new File(".").getCanonicalPath();
 			        	String FILE_NAME = path + "/itext-test-file.pdf";
 			        	
@@ -384,8 +384,8 @@ public class ControladorPagarGarage {
 					}
 
 					modelo.put("file", imagenQr);
-					
-					
+					*/
+					//
 					return new ModelAndView("confirmacionReservaPorHora", modelo);
 				}else {
 					return new ModelAndView("saldoInsuficiente", modelo);
@@ -415,6 +415,8 @@ public class ControladorPagarGarage {
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		Estacionamiento est = servicioEst.buscarEstacionamiento(id);
+	//Document documento = new Document();
+
 	               
 			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(true) && servicioGarage.GarageLleno(garage).equals(false) && auto.getReservado().equals(false) ) {
 				modelo.put("auto", auto);
@@ -446,7 +448,7 @@ public class ControladorPagarGarage {
 		}
 		
 	
-			
+	/*		
 	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
 	public void generarPdf() throws Exception{
 		
@@ -500,7 +502,7 @@ public class ControladorPagarGarage {
 			
 		}
     }
-
+*/
 	
 
 	public void setServicioBilletera(ServicioBilletera servicioBilletera) {

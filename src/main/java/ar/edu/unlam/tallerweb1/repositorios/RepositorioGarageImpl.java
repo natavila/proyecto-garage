@@ -164,7 +164,13 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 				.list();
 		return lista;
 	}
-
+	@Override
+	public void modificarDatosGarage(Garage garage) {
+		final Session session = sessionFactory.getCurrentSession();
+		session.update(garage);
+	}
+	
+	
 
 	/*@Override
 	public Boolean sacarAutoDegarage(Auto auto, Garage garage) {

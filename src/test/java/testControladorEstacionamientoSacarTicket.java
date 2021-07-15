@@ -82,8 +82,6 @@ public class testControladorEstacionamientoSacarTicket  extends SpringTest{
 		assertThat(vista.getViewName()).isEqualTo("confirmacionSacarTicket");		
 			
 	}
-	
-	
-	
+
 	
 }
