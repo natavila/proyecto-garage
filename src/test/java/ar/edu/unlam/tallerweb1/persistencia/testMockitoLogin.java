@@ -1,3 +1,4 @@
+package ar.edu.unlam.tallerweb1.persistencia;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertThat;
@@ -30,7 +31,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
-public class testControladorLogin extends SpringTest{
+public class testMockitoLogin extends SpringTest{
 
 	private ServicioLogin servicioLoginMock;
 	//private ServicioLogin servicioLogin;

@@ -10,13 +10,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 </head>
 <body>
+<%@ include file="headerAdmin.jsp" %>
+
+
+
 <div class="container mt-3">
 		<table class="table table-hover">
 		<h1>Garages registrados</h1>
-		<h5><a href="formularioAgregarGarage">Agregar Garage</a></h5>  
+		
+		<h5><a class="btn btn-success justify-content-md-end" href="formularioAgregarGarage">Agregar Garage</a></h5>
 	  <thead>
 	    <tr>
-	       		<th scope="col">Id</th>
+	       		
                 <th scope="col">Nombre</th>
                 <th scope="col">Localidad</th>
                 <th scope="col">Calle</th>
@@ -33,7 +38,7 @@
 	             items="${garages}"
 	             varStatus="status">
 	                <tr>
-	                    <td><b>${garage.id}</b></td>
+	                    
                     <td>${garage.nombre}</td>
                     <td>${garage.localidad}</td>
                     <td>${garage.calle}</td>
@@ -42,7 +47,8 @@
                     <td>${garage.precioEstadia}</td>
                     <td>${garage.capacidad}</td>
                     <td>${garage.contador}</td>
-					<td><a href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}">Eliminar Garage</a></td>
+                    <td><a class="btn btn-danger justify-content-md-end" href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}" role="button">Eliminar Garage</a></td>
+     
    					<td> <a class="btn btn-warning justify-content-md-end" href="modificarGarage" role="button">Modificar datos</a></td>
 					
 					
@@ -52,7 +58,7 @@
 	            </c:forEach>
 	  </tbody>
 	</table>
-	<a class="btn btn-primary" href="validar-login" role="button">Volver</a>
+	<a class="btn btn-primary" href="javascript:history.back()" role="button">Volver</a>
 		</div>
     <footer th:replace="layout/layout::footer" class="bg-dark"></footer>
 </body>

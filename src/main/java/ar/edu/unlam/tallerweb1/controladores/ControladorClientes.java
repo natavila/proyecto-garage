@@ -52,7 +52,9 @@ public class ControladorClientes {
 		public ModelAndView clientes(Model modelo,
 				HttpServletRequest request) {
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
+		if(cliente != null)
 			if(rol.equals("admin")) {
 			modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
 			

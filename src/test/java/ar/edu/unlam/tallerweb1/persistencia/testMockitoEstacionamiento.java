@@ -1,3 +1,4 @@
+package ar.edu.unlam.tallerweb1.persistencia;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -27,7 +28,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 
-public class testControladorEstacionamientoSacarTicket  extends SpringTest{
+public class testMockitoEstacionamiento  extends SpringTest{
 
 	private ServicioAuto servicioAutoMock;
 	private ServicioGarage servicioGarageMock;

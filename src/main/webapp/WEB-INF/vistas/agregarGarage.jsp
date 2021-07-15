@@ -15,26 +15,27 @@
 <body>
 
 	<body>
+	
+	
+	
+	
 		<div class = "container">
 			<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 				<%--Definicion de un form asociado a la accion /validar-login por POST. Se indica ademas que el model attribute se--%>
 				<%--debe referenciar con el nombre usuario, spring mapea los elementos de la vista con los atributos de dicho objeto--%>
 					<%--para eso debe coincidir el valor del elemento path de cada input con el nombre de un atributo del objeto --%>
 				<form:form action="confirmarAgregarGarage" method="POST" modelAttribute="garage">
-			    	<h3 class="form-signin-heading">Garage</h3>
+			    	<h3 class="form-signin-heading">Agregar Garage</h3>
 					<hr class="colorgraph"><br>
-
-					
-					
 					<%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados--%>
-					<p>NOMBRE</p>
+					<p><b>NOMBRE</b></p>
 					<form:input path="nombre" id="nombre" name="nombre" type="text" class="form-control"/>
-					<p>CALLE</p>
+					<p><b>CALLE</b></p>
 					<form:input path="calle" id="calle" name="calle" type="text" class="form-control"/>
-					<p>Numero</p>
+					<p><b>Numero</b></p>
 					<form:input path="numero" id="numero" name="numero" type="text" class="form-control" />
 					
-					<p>Localidad</p>
+					<p><b>Localidad</b></p>
 
 					<form:select path = "localidad" id="localidad" name="localidad" class="form-control" >
                      <form:option value = "NONE" label = "Select"/>
@@ -42,15 +43,17 @@
                     </form:select>  
 					
 					<br>
-					<p>PRECIO HORA</p>
+					<p><b>PRECIO HORA $$</b></p>
 					<form:input path="precioHora" id="precioHora" name="precioHora" type="text" class="form-control"/>
-					<p>PRECIO ESTADIA</p>
+					<p><b>PRECIO ESTADIA$$</b></p>
 					<form:input path="precioEstadia" id="precioEstadia" name="precioEstadia" type="text" class="form-control"/>
-					<p>CAPACIDAD</p>	
+					<p><b>CAPACIDAD</b></p>	
 					<form:input path="capacidad" id="capacidad" name="capacidad" type="text" class="form-control"/>
-					<button class="btn btn-lg btn-primary btn-block" Type="Submit">Agregar</button>
+					<button class="btn btn-lg btn-success btn-block" Type="Submit">Agregar</button>
+					
 				</form:form>
-
+				</br>
+				<a class="btn btn-primary" href="javascript:history.back()" role="button">Volver</a>
 				<%--Bloque que es visible si el elemento error no está vacío	--%>
 				<c:if test="${not empty error}">
 			        <h4><span>${error}</span></h4>
@@ -61,9 +64,9 @@
 		       
 		        
 		      
-		        <p class="text-center">
-		        <a href="lista">Volver</a>
-		        </p>
+		        
+		       
+		      
 		        
 			</div>
 		</div>

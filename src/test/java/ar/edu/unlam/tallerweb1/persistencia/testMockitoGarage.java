@@ -1,3 +1,4 @@
+package ar.edu.unlam.tallerweb1.persistencia;
 import ar.edu.unlam.tallerweb1.SpringTest;
 
 import ar.edu.unlam.tallerweb1.controladores.ControladorGarage;
@@ -28,7 +29,7 @@ import org.mockito.Mockito;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.web.servlet.ModelAndView;
 
-public class testControladorGarageMock extends SpringTest {
+public class testMockitoGarage extends SpringTest {
 
 	private ServicioGarage servicioGarageMock;
 	private ServicioEstacionamiento servicioEstMock;

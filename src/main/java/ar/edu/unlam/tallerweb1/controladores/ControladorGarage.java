@@ -64,7 +64,9 @@ public class ControladorGarage {
 	@RequestMapping("/formularioAgregarGarage")
 	public ModelAndView mostrarFormularioGaraga(HttpServletRequest request) {
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
+		if(cliente != null)
 			if(rol.equals("admin")) {
 				ModelMap modelo = new ModelMap();
 				Garage garage1 = new Garage();
@@ -96,7 +98,10 @@ public class ControladorGarage {
 	@RequestMapping("/lista")
 	public ModelAndView Listar(HttpServletRequest request){
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
+		
+		if(cliente != null)
 			if(rol.equals("admin")) {
 		ModelMap modelo = new ModelMap();
 		modelo.addAttribute("garages", servicioGarage.consultarGarage());
@@ -169,7 +174,9 @@ public class ControladorGarage {
 			HttpServletRequest request){
 		
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
+		if(cliente != null)
 			if(rol.equals("admin")) {
 		    ModelMap modelo = new ModelMap();
 			Garage garage2 = servicioGarage.buscarGarage(id);
@@ -297,9 +304,11 @@ public class ControladorGarage {
 	public ModelAndView administrarGarage(HttpServletRequest request,
 			@PathVariable("id") Long garage1){
 		String rol = (String) request.getSession().getAttribute("roll");
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
 		ModelMap modelo = new ModelMap();
 		Garage garage = servicioGarage.buscarGarage(garage1);
-		if(rol != null)
+		if(cliente != null)
 			if(rol.equals("admin")) {
 				ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage);
 				modelo.put("garage", garage);

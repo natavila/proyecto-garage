@@ -17,7 +17,7 @@
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 		  <div class="container">
-		    <a class="navbar-brand" href="#">Navbar</a>
+		    
 		    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		      <span class="navbar-toggler-icon"></span>
 		    </button>
@@ -47,10 +47,7 @@
 		          <a class="nav-link" href="cerrarSesion">Cerrar Sesion</a>
 		        </li>
 		      </ul>
-		      <form class="d-flex">
-		        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-		        <button class="btn btn-outline-success" type="submit">Search</button>
-		      </form>
+		      
 		      
 		    </div>
 		  </div>
@@ -127,7 +124,7 @@
                     
                    
          
-					<td> <a href="${pageContext.request.contextPath}/AdministrarGarage/${garage.id}">Mostrar</a> </td>	
+					<td> <a class="btn btn-success justify-content-md-end btn-sm"  href="${pageContext.request.contextPath}/AdministrarGarage/${garage.id}">Mostrar</a> </td>	
 			
 			</c:forEach>
 	        </tbody>
