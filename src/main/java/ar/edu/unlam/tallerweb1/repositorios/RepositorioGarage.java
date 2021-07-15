@@ -10,7 +10,7 @@ import ar.edu.unlam.tallerweb1.modelo.Garage;
 public interface RepositorioGarage {
 
 	List<Garage> consultarGarage();
-	Boolean EliminarGarage(Long id);
+	Garage EliminarGarage(Long id);
 	Boolean agregarGarage(Garage garage1);
 	
 	//Boolean asignarAutoaGarage(Garage garage1, Auto auto1);
@@ -26,7 +26,7 @@ public interface RepositorioGarage {
 	List <Garage> buscarPorPrecioHora(Double precio1, Double precio2);
 	List <Garage> buscarPorPrecioMes(Double precio1, Double precio2);
 	List <Garage> buscarPorPrecioEstadia(Double precio1, Double precio2);
-	void modificarDatosGarage(Garage garage);
+	void modificarDatosGarage(Garage garage, Garage modificado);
 	
 	
 	

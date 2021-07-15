@@ -34,7 +34,7 @@
 	                    <td>${cliente.email}</td>
 	                    <td><a class="btn btn-success justify-content-md-end" href="${pageContext.request.contextPath}/misAutos/${cliente.id}">Mostrar Autos</a></td>
 						
-						<td><a class="btn btn-danger justify-content-md-end" href="">Eliminar Cliente</a></td>
+						<td><a class="btn btn-danger justify-content-md-end" href="${pageContext.request.contextPath}/mostrarClientes/eliminar/${cliente.id}">Eliminar Cliente</a></td>
 	                </tr>
 	                
 	            </c:forEach>

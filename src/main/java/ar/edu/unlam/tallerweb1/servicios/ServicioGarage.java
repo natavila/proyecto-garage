@@ -40,6 +40,6 @@ public interface ServicioGarage {
 	ArrayList<Garage> ordenarGaragePorHora();
 	ArrayList<Garage> ordenarGaragePorEstadia();
 	List <Garage> buscarGarageQueCoincidanConLocalidadDeCliente(Cliente cliente);
-	void modificarGarage(Garage garage);
-
+	void modificarGarage(Garage garage, Garage modificado);
+	
 }

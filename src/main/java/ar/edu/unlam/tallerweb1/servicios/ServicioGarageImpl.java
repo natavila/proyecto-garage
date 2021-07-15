@@ -38,13 +38,28 @@ private RepositorioGarage repositorioGarage;
 	
 	@Override
 	public Boolean eliminarGarage(Long id) {
-		return repositorioGarage.EliminarGarage(id);
+		Garage garage = repositorioGarage.EliminarGarage(id);
+		if(garage.getActivo().equals(true)) {
+			garage.setActivo(false);
+			return true;
+			
+		}else {
+			return false;
+		}
+		
+		
 	}
 	
 	@Override
 	public List<Garage> consultarGarage() {
+		ArrayList<Garage> listaActivos = new ArrayList<Garage>();
 		
-		return repositorioGarage.consultarGarage();
+		for(Garage e: repositorioGarage.consultarGarage()) {
+			if(e.getActivo() == true) {
+				listaActivos.add(e);
+			}
+		}
+		return listaActivos;
 	}
 	
 	
@@ -197,8 +212,8 @@ private RepositorioGarage repositorioGarage;
 	}
 	
 	@Override
-	public void modificarGarage(Garage garage) {
-		repositorioGarage.modificarDatosGarage(garage);
+	public void modificarGarage(Garage garage, Garage modificado) {
+		repositorioGarage.modificarDatosGarage(garage, modificado);
 	}
 	
 
