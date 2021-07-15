@@ -49,12 +49,18 @@ public class ControladorPlan {
 		Long idCliente = (Long) request.getSession().getAttribute("id");
 		String rol = (String) request.getSession().getAttribute("roll");
 		Cliente c1 = servicioCliente.consultarClientePorId(idCliente);
+		
 		if(c1 != null) {
 			if(rol.equals("cliente")) {
-				modelo.put("cliente", c1);
-				modelo.put("planes", servicioPlan.obtenerPlanes());
-
-				return new ModelAndView("planes", modelo);
+				if(c1.getPlan() == null) {
+					modelo.put("cliente", c1);
+					modelo.put("planes", servicioPlan.obtenerPlanes());
+	
+					return new ModelAndView("planes", modelo);
+				}else {
+					modelo.put("cliente", c1);
+					return new ModelAndView("redirect:/datosCliente");
+				}
 			}
 		}
 			return new ModelAndView("redirect:/login");

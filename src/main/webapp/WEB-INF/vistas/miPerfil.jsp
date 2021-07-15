@@ -20,9 +20,17 @@
 		<h5>Cliente: ${cliente.nombre} ${cliente.apellido}</h5>
 		<h5>Email: ${cliente.email}</h5>
 		<h5>Localidad: ${cliente.localidad}</h5>
-		<h5>Plan contratado: ${cliente.plan.nombre}</h5>
+		<h5>Plan contratado: 
+		<c:if test="${empty cliente.plan.nombre}">
+		No posee plan contratado</h5>
+		</c:if>
+		<c:if test="${not empty cliente.plan.nombre}">
+		${cliente.plan.nombre}</h5>
+		</c:if>
 		</div>
+		<c:if test="${not empty billetera}">
 		<h3 style="text-align:center; margin-top:20px; margin-bottom:50px;">Saldo actual: $${billetera.saldo}</h3>
+		</c:if>
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 		<a class="btn btn-warning justify-content-md-end" href="modificarCliente" role="button">Modificar datos</a>
 		</div>
@@ -31,7 +39,6 @@
 		<a class="btn btn-primary" href="misAutos" role="button">Mis Autos</a>
 		<a class="btn btn-primary" href="ticketsCliente" role="button">Mis Tickets</a>
 		<a class="btn btn-primary" href="mostrarBilletera" role="button">Mi billetera</a>
-		<a class="btn btn-primary" href="planes" role="button">Elegir Plan</a>
 		</div>
 		<table class="table table-hover">
 		<h3>Últimas reservas</h3>

@@ -158,7 +158,7 @@ public void queUnAutoIngresaAUnGarage() {
 		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
 		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
 		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
-		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst);
 		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
 		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
 		
@@ -212,7 +212,7 @@ public void queMasDeUnAutoIngresaAUnGarage() {
 		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
 		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
 		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
-		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst);
 		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
 		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
 		
@@ -276,7 +276,7 @@ public void queSacoUnAutoDeUnGarage() {
 		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
 		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
 		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
-		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst);
 		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
 		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
 		
@@ -347,7 +347,7 @@ public void queFuncioneElContador() {
 		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
 		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
 		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
-		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst);
 		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
 		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
 		
@@ -409,13 +409,13 @@ public void queFuncioneElContador() {
 	@Test
 	@Transactional
 	@Rollback
-public void queNoPuedaIngresarAutoSiEstaGarageLLeno() {
+	public void queNoPuedaIngresarAutoSiEstaGarageLLeno() {
 		RepositorioClienteImpl repo = new RepositorioClienteImpl(sessionFactory);
 		ServicioRegistroImpl reg = new ServicioRegistroImpl(repo);
 		RepositorioAutoImpl repoA = new RepositorioAutoImpl(sessionFactory);
 		ServicioAutoImpl servAuto = new ServicioAutoImpl(repoA);
 		RepositorioEstacionamientoImpl repoEst= new RepositorioEstacionamientoImpl(sessionFactory);
-		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst, null, servAuto);
+		ServicioEstacionamientoImpl servEst = new ServicioEstacionamientoImpl(repoEst);
 		RepositorioGarageImpl repoG = new RepositorioGarageImpl(sessionFactory);
 		ServicioGarageImpl servG = new ServicioGarageImpl(repoG);
 		

@@ -190,19 +190,27 @@ public class ControladorGarage {
 	public ModelAndView autosParaReservar(HttpServletRequest request
 			){
 		
+		ModelMap modelo = new ModelMap();
 		Long id = (Long) request.getSession().getAttribute("id");
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		List<Auto> autosDeCliente = servicioAuto.consultarAutoDeCliente(cliente);
+		if(cliente != null)
 			if(rol.equals("cliente")) {
-				ModelMap modelo = new ModelMap();
-				List<Auto> autosSinGarage = servicioAuto.consultarAutosSinGarage();
-				Cliente cliente = servicioLogin.consultarClientePorId(id);				
+				if(autosDeCliente != null) {
+					List<Auto> autosSinGarage = servicioAuto.consultarAutosSinGarage();
+					//Cliente cliente = servicioLogin.consultarClientePorId(id);				
 
-				modelo.put("cliente", cliente);
-				modelo.put("autosSinGarage",autosSinGarage);
+					modelo.put("cliente", cliente);
+					modelo.put("autosSinGarage",autosSinGarage);
+					
+					modelo.put("mensaje", "Sus autos ya se encuentran en un garage o tienen una reserva activa.");
+					return new ModelAndView ("ListaAutosDeCliente", modelo);
+				}else {
+					
+					return new ModelAndView ("redirect:/misAutos");
+				}
 				
-				modelo.put("mensaje", "Sus autos ya se encuentran en un garage o tienen una reserva activa.");
-				return new ModelAndView ("ListaAutosDeCliente", modelo);
 			}
 		return new ModelAndView("redirect:/login");
 		

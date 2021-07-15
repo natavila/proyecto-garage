@@ -87,11 +87,11 @@ public class ControladorLogin {
 		//String rol = (String) request.getSession().getAttribute("roll");
 		//String rol = usuarioBuscado.getRoll();
 		if(usuarioBuscado != null) {
-			HttpSession misession= request.getSession(true);
-			misession.setAttribute("id", usuarioBuscado.getId());
-			misession.setAttribute("roll", usuarioBuscado.getRoll());
+			//HttpSession misession= request.getSession(true);
+			request.getSession().setAttribute("id", usuarioBuscado.getId());
+			request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 			model.put("usuario", usuarioBuscado);
-			model.put("misession", misession);
+			model.put("misession", request);
 			return new ModelAndView("redirect:/home");
 		}
 			return new ModelAndView("redirect:/login");

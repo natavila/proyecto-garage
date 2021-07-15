@@ -33,10 +33,10 @@
 		   <br>
 		    �Desea continuar?
 		  </div>
-		  <div class="col-12">
-		    <a href="procesarRegistroBilletera">Generar</a>
-		    <button type="submit" class="btn btn-primary control-label mb-3">Cancelar</button>
-		  </div>
+		  <div class="col-12" style="margin-top:20px;">
+		  	<a href="javascript:history.back()" role="button" class="btn btn-dark control-label mb-3">Cancelar</a>
+		    <a role="button" class="btn btn-primary control-label mb-3" href="procesarRegistroBilletera">Generar</a>
+		   </div>
   	
   		<%--Bloque que es visible si el elemento error no está vacío	--%>
 				<%--Bloque que es visible si el elemento error no está vacío	--%>

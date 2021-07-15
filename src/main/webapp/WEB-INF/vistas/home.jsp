@@ -41,8 +41,11 @@
 		<h5>Y usar ${plan.cantidadHorasPermitidas} horas en cualquiera de nuestros Garages </h5> 				        	        
 		</c:if>	
 		</div>
-		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
 		
+		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
+		<c:if test="">${not empty cliente.plan}
+		<a class="btn btn-primary" href="planes" role="button">Elegir Plan</a>
+		</c:if>
 		</div>
 		<div class="container" style="display:grid; grid-template-columns:200px 20px 200px 20px 200x; grid-template-rows: 250px; margin-top:50px;">
 		<div class="card" style="width: 18rem; grid-column:1; grid-row:1;">

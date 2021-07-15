@@ -65,6 +65,9 @@ public class ControladorBilletera {
 					modelo.put("saldo", billetera.getSaldo());
 					
 					return new ModelAndView("confirmacionBilletera", modelo);
+			}else {
+				
+				return new ModelAndView("redirect:/home");
 			}
 				
 		}else {
@@ -82,6 +85,7 @@ public class ControladorBilletera {
 		return new ModelAndView("registroBilletera", modelo);
 		
 	}
+	
 	
 	@RequestMapping("/mostrarBilletera")
 	public ModelAndView mostrarBilletera(HttpServletRequest request) {

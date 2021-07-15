@@ -25,8 +25,9 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 			/*private ServicioGarage servicioGarage;
 			private ServicioAuto servicioAuto;
 			*/
+			
 			@Autowired 
-			public ServicioEstacionamientoImpl(RepositorioEstacionamiento repositorioEst, ServicioGarage servicioGarage, ServicioAuto servicioAuto) {
+			public ServicioEstacionamientoImpl(RepositorioEstacionamiento repositorioEst) {
 				this.repositorioEst=repositorioEst;
 				/*this.servicioGarage = servicioGarage;
 				this.servicioAuto = servicioAuto;*/

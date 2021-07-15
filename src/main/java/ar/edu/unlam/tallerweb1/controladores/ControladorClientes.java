@@ -61,6 +61,7 @@ public class ControladorClientes {
 			}
 		return new ModelAndView("redirect:/login");
 	}
+	
 	@RequestMapping(path="/misAutos", method=RequestMethod.GET)
 	public ModelAndView misAutos( HttpServletRequest request) {
 		
@@ -72,13 +73,14 @@ public class ControladorClientes {
 		if(cliente != null) {
 			if(rol.equals("cliente")) {
 		
-		//modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
+		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
 		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
 		modelo.put("cliente", cliente);
+		modelo.put("mensaje", "Registre sus autos para realizar una reserva.");
 		
 		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
 		
-		}
+			}
 		}
 		return new ModelAndView("redirect:/login");
 }
@@ -112,15 +114,16 @@ public class ControladorClientes {
 		ModelMap modelo = new ModelMap();
 		Long idUsuario = (Long) request.getSession().getAttribute("id");
 		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
-		if(cliente != null && billetera != null) {
+		
+		if(cliente != null) {
+			Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 			List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente);
 			modelo.put("cliente", cliente);
 			modelo.put("billetera", billetera);
 			modelo.put("estacionamiento", estacionamiento);
 			modelo.put("reservas", servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente));
-			modelo.put("plan", cliente.getPlan());
+			//modelo.put("plan", cliente.getPlan());
 			
 			return new ModelAndView("miPerfil", modelo);
 		}else {

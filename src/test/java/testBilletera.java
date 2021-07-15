@@ -30,7 +30,6 @@ public class testBilletera extends SpringTest{
 		
 		RepositorioBilleteraImpl repoBilletera = new RepositorioBilleteraImpl(sessionFactory);
 		RepositorioClienteImpl repoCliente = new RepositorioClienteImpl(sessionFactory);
-		ServicioClienteImpl servicioCliente = new ServicioClienteImpl(repoCliente);
 		ServicioBilleteraImpl servicioBilletera = new ServicioBilleteraImpl(repoBilletera);
 		ServicioRegistroImpl servicioRegistro = new ServicioRegistroImpl(repoCliente);
 		
@@ -50,7 +49,6 @@ public class testBilletera extends SpringTest{
 		cliente2.setLocalidad("Laferrere");
 		servicioRegistro.agregarCliente(cliente2);
 		
-		//((Object) billetera).setAlias("elpepe");
 		billetera.setCliente(cliente);
 		servicioBilletera.registrarBilletera(billetera);
 		
@@ -62,7 +60,6 @@ public class testBilletera extends SpringTest{
 	public void quepuedaConsultarSaldoDeCliente() {
 		RepositorioBilleteraImpl repoBilletera = new RepositorioBilleteraImpl(sessionFactory);
 		RepositorioClienteImpl repoCliente = new RepositorioClienteImpl(sessionFactory);
-		ServicioClienteImpl servicioCliente = new ServicioClienteImpl(repoCliente);
 		ServicioBilleteraImpl servicioBilletera = new ServicioBilleteraImpl(repoBilletera);
 		ServicioRegistroImpl servicioRegistro = new ServicioRegistroImpl(repoCliente);
 		
@@ -73,9 +70,13 @@ public class testBilletera extends SpringTest{
 		cliente.setApellido("roberto");
 		cliente.setLocalidad("Laferrere");
 		cliente.setEmail("pepe@hotmail.com");
+		
 		servicioRegistro.agregarCliente(cliente);
+		
 		billetera.setCliente(cliente);
+		
 		servicioBilletera.registrarBilletera(billetera);
+		
 		billetera.setSaldo(500.0);
 		
 		Double vo=servicioBilletera.consultarSaldo(billetera);
@@ -88,7 +89,6 @@ public class testBilletera extends SpringTest{
 	public void quepuedaIngresarSaldoDeCliente() {
 		RepositorioBilleteraImpl repoBilletera = new RepositorioBilleteraImpl(sessionFactory);
 		RepositorioClienteImpl repoCliente = new RepositorioClienteImpl(sessionFactory);
-		ServicioClienteImpl servicioCliente = new ServicioClienteImpl(repoCliente);
 		ServicioBilleteraImpl servicioBilletera = new ServicioBilleteraImpl(repoBilletera);
 		ServicioRegistroImpl servicioRegistro = new ServicioRegistroImpl(repoCliente);
 		
@@ -99,11 +99,17 @@ public class testBilletera extends SpringTest{
 		cliente.setApellido("roberto");
 		cliente.setLocalidad("Laferrere");
 		cliente.setEmail("pepe@hotmail.com");
+		
 		servicioRegistro.agregarCliente(cliente);
+		
 		billetera.setCliente(cliente);
+		
 		servicioBilletera.registrarBilletera(billetera);
+		
 		billetera.setSaldo(0.0);
+		
 		servicioBilletera.ingresarSaldo(billetera, 500.0);
+		
 		Double ve =500.0;
 		Double vo=servicioBilletera.consultarSaldo(billetera);
 		assertEquals(ve,vo);
@@ -116,7 +122,6 @@ public class testBilletera extends SpringTest{
 	
 		RepositorioBilleteraImpl repoBilletera = new RepositorioBilleteraImpl(sessionFactory);
 		RepositorioClienteImpl repoCliente = new RepositorioClienteImpl(sessionFactory);
-		ServicioClienteImpl servicioCliente = new ServicioClienteImpl(repoCliente);
 		ServicioBilleteraImpl servicioBilletera = new ServicioBilleteraImpl(repoBilletera);
 		ServicioRegistroImpl servicioRegistro = new ServicioRegistroImpl(repoCliente);
 		
@@ -127,10 +132,15 @@ public class testBilletera extends SpringTest{
 		cliente.setApellido("roberto");
 		cliente.setLocalidad("Laferrere");
 		cliente.setEmail("pepe@hotmail.com");
+		
 		servicioRegistro.agregarCliente(cliente);
+		
 		billetera.setCliente(cliente);
+		
 		servicioBilletera.registrarBilletera(billetera);
+		
 		billetera.setSaldo(0.0);
+		
 		servicioBilletera.ingresarSaldo(billetera, 500.0);
 		servicioBilletera.ingresarSaldo(billetera, 200.0);
 		Double ve =700.0;

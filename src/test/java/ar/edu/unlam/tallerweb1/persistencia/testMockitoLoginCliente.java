@@ -68,14 +68,17 @@ public class testMockitoLoginCliente extends SpringTest{
 	@Transactional
 	public void loginConUsuarioExistenteDeberiaLLevarASuHomeCorrespondiente(){
 		
+		Long idClienteMock = 1L;
 		List<Garage> listaMock  = new ArrayList<>();
 		listaMock.add(garageMock);
 		List<Garage> listaGaragesCercanos  = new ArrayList<>();
 		listaGaragesCercanos.add(garageMock);
+		sessionMock.setAttribute("id", idClienteMock);
 		
 		// preparacion
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("cliente");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
 		when(servicioLoginMock.consultarCliente(usuarioMock)).thenReturn(usuarioMock);
 		when(servicioBilleteraMock.consultarBilleteraDeCliente(usuarioMock)).thenReturn(billeteraMock);
 		when(servicioGarageMock.consultarGarage()).thenReturn(listaMock);
@@ -86,7 +89,7 @@ public class testMockitoLoginCliente extends SpringTest{
 		ModelAndView modelAndView = controladorLogin.validarLogin(usuarioMock, requestMock);
 		
 		// validacion
-		assertThat(modelAndView.getViewName()).isEqualTo("home");
+		assertThat(modelAndView.getViewName()).isEqualTo("redirect:/home");
 		//verify(sessionMock, times(1)).setAttribute("roll", "cliente");
 	}
 

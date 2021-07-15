@@ -35,6 +35,11 @@
 	            </c:forEach>
 	  </tbody>
 	</table>
+	<c:if test="${empty auto}">
+	<div class="alert alert-warning" role="alert">
+  			${mensaje}
+		</div>
+	</c:if>
 	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 		</div>
 </body>

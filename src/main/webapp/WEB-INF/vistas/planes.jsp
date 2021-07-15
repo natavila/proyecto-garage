@@ -55,7 +55,7 @@
 
 			</tbody>
 		</table>
-		<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
+		<a class="btn btn-primary" role="button" href="datosCliente"> Volver</a>
 
 	</div>
 		<c:if test="${not empty mensajeExito}">
