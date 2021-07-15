@@ -44,14 +44,24 @@ public class ControladorRegistro {
 		ModelMap modelo = new ModelMap();
 		Usuario usuario = new Usuario();
 		Cliente verif = servicioLogin.verificarCorreo(cliente);
-		if(cliente.getPassword().equals(repass) && verif == null && cliente.getNombre() != "") {
-			modelo.put("cliente", cliente);
-			modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
-			cliente.setRoll("cliente");
-			usuario.setEmail(cliente.getEmail());
-			usuario.setPassword(cliente.getPassword());
-			servicioRegistro.agregarCliente(cliente);
+		if(cliente.getPassword().equals(repass)) {
+			if(verif == null) {
+				if(cliente.getNombre() != "" && cliente.getApellido() != null && cliente.getLocalidad() != null && cliente.getPassword() != null) {
+					modelo.put("cliente", cliente);
+					modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
+					cliente.setRoll("cliente");
+					usuario.setEmail(cliente.getEmail());
+					usuario.setPassword(cliente.getPassword());
+					servicioRegistro.agregarCliente(cliente);
+				}else {
+					modelo.put("mensaje", "Complete los campos faltantes");
+					return new ModelAndView("registro", modelo);
+				}
 				
+			}else {
+				modelo.put("mensaje", "Correo ya registrado. Por favor, ingrese otro.");
+				return new ModelAndView("registro", modelo);
+			}		
 				
 		}else {
 			modelo.put("mensaje", "Error. No coinciden las passwords");

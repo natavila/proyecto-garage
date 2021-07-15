@@ -28,6 +28,7 @@
 	<body>
 	<%@ include file="header.jsp" %>
 		<main class="container"> <!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
+			<div class="d-flex justify-content-center">
 			<form:form  action="procesarRegistroAuto" method="POST" modelAttribute="auto" class="row g-3">
 			<h1 class="mt-3">Registro de auto</h1>
 			<h3> ${cliente.nombre} </h3>
@@ -36,10 +37,10 @@
 		    <form:input type="text" class="form-control" id="patente" path="patente"/>
 		  </div>
 		  <div class="col-12">
-		    <button type="submit" class="btn btn-primary control-label mb-3">Registrar</button>
+		    <button type="submit" class="btn btn-primary control-label mb-3 ">Registrar</button>
 		  </div>
   		</form:form>
-  		<a href="javascript:history.back()"> Volver</a>
+  		
   		<%--Bloque que es visible si el elemento error no está vacío	--%>
 				<%--Bloque que es visible si el elemento error no está vacío	--%>
 				<c:if test="${not empty mensaje}">
@@ -49,7 +50,9 @@
 				</div>				        
 			        <br>				        	        
 				</c:if>
-				<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
+				</div>
+				<a class="btn btn-dark mt-3" role="button" href="javascript:history.back()"> Volver</a>
 	</main>
+	
 	</body>
 </html>

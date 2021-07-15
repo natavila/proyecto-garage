@@ -166,7 +166,7 @@ public class ControladorBilletera {
 						modelo.put("cliente", cliente);
 						modelo.put("saldo", billetera.getSaldo());
 						
-						return new ModelAndView("confirmacionSaldo", modelo);
+						return new ModelAndView("redirect:/dineroCargadoExitosamente");
 					}else {
 						
 						modelo.put("cliente", cliente);
@@ -188,5 +188,34 @@ public class ControladorBilletera {
 		}
 		
 		return new ModelAndView("redirect:/login"); 
+	}
+	
+	@RequestMapping(path="dineroCargadoExitosamente", method= RequestMethod.GET)
+	public ModelAndView mostrarVistaDeExito(HttpServletRequest request) {
+		ModelMap modelo = new ModelMap();
+		Long id = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+		
+		if(cliente != null) {
+		modelo.put("billetera", billetera);
+		modelo.put("cliente", cliente);
+		modelo.put("saldo", billetera.getSaldo());
+		
+		return new ModelAndView("confirmacionSaldo", modelo);
+		
+		}
+		
+		return new ModelAndView("redirect:/login");
+	}
+
+	public void setServicioCliente(ServicioCliente servicioClienteMock) {
+		this.servicioCliente = servicioClienteMock;
+		
+	}
+
+	public void setServicioBilletera(ServicioBilletera servicioBilleteraMock) {
+		this.servicioBilletera = servicioBilleteraMock;
+		
 	}
 }

@@ -66,8 +66,7 @@
 		$(document).ready( function () {
 		    $('#datatable').DataTable({
 		        language: {
-		            search: "Buscar:",
-		            zeroRecords: "No se encontró resultados"
+		        	"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
 		        }
 		    } );
 		    } );</script>

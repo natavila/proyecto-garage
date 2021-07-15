@@ -115,5 +115,17 @@ public class ControladorRegistroAuto {
 		return new ModelAndView("redirect:/login");
 		
 		}
+
+
+	public void setServicioCliente(ServicioCliente servicioClienteMock) {
+		this.servicioCliente = servicioClienteMock;
+		
+	}
+
+
+	public void setServicioAuto(ServicioAuto servicioAutoMock) {
+		this.servicioAuto = servicioAutoMock;
+		
+	}
 	
 }

@@ -94,8 +94,7 @@ public class ControladorLogin {
 			model.put("misession", misession);
 			return new ModelAndView("redirect:/home");
 		}
-			
-			return new ModelAndView("login", model);
+			return new ModelAndView("redirect:/login");
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.

@@ -39,7 +39,7 @@ public class ControladorClientes {
 	private ServicioEstacionamiento servicioEstacionamiento;
 	
 	@Autowired
-	private ControladorClientes(ServicioLogin servicioLogin, ServicioRegistro servicioRegistro, ServicioAuto servicioAuto, ServicioCliente servicioCliente, ServicioBilletera servicioBilletera, ServicioEstacionamiento servicioEstacionamiento) {
+	public ControladorClientes(ServicioLogin servicioLogin, ServicioRegistro servicioRegistro, ServicioAuto servicioAuto, ServicioCliente servicioCliente, ServicioBilletera servicioBilletera, ServicioEstacionamiento servicioEstacionamiento) {
 		this.servicioAuto =servicioAuto;
 		this.servicioLogin = servicioLogin;
 		this.servicioCliente = servicioCliente;
@@ -73,7 +73,7 @@ public class ControladorClientes {
 			
 			if(rol.equals("cliente")) {
 		
-		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
+		//modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
 		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
 		modelo.put("cliente", cliente);
 		
@@ -104,7 +104,7 @@ public class ControladorClientes {
 		}
 		
 
-		return new ModelAndView("redirect:/misAutos/{idC}");
+		return new ModelAndView("redirect:/misAutos");
 	}
 	
 	/*@RequestMapping(path="/misAutos/{id}", method=RequestMethod.GET)
@@ -138,6 +138,7 @@ public class ControladorClientes {
 			modelo.put("billetera", billetera);
 			modelo.put("estacionamiento", estacionamiento);
 			modelo.put("reservas", servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente));
+			modelo.put("plan", cliente.getPlan());
 			
 			return new ModelAndView("miPerfil", modelo);
 		}else {
@@ -188,7 +189,7 @@ public class ControladorClientes {
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
-		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorClienteQueTengaReserva(cliente);
+		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente);
 		if(cliente != null && billetera != null) {
 			
 			if(estacionamiento != null) {
@@ -208,6 +209,26 @@ public class ControladorClientes {
 		}else {
 			return new ModelAndView("redirect:/login");
 		}
+		
+	}
+
+	public void setServicioCliente(ServicioCliente servicioClienteMock) {
+		this.servicioCliente = servicioClienteMock;
+		
+	}
+
+	public void setServicioEstacionamiento(ServicioEstacionamiento servicioEstacionamientoMock) {
+		this.servicioEstacionamiento = servicioEstacionamientoMock;
+		
+	}
+
+	public void setServicioBilletera(ServicioBilletera servicioBilleteraMock) {
+		this.servicioBilletera = servicioBilleteraMock;
+		
+	}
+
+	public void setServicioAuto(ServicioAuto servicioAutoMock) {
+		this.servicioAuto = servicioAutoMock;
 		
 	}
 			

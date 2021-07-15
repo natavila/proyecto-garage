@@ -75,11 +75,7 @@
 				</div>
 				</div>
 				<%--Bloque que es visible si el elemento error no estÃ¡ vacÃ­o	--%>
-				<c:if test="${not empty Error}">
 				
-				    <h4>${Error}</h4>
-				 				        	        
-		        </c:if>
 
 		        <p>�Todavia no tenes cuenta? <a href="mostrarRegistro">Registrate</a></p>
 
@@ -100,6 +96,11 @@
 		    </div>
 		  
 		</nav>
+		<c:if test="${not empty Error}">
+				
+				    <h4>${Error}</h4>
+				 				        	        
+		        </c:if>
 		<div class="container">
 		<div class="grid-log">
 		<div class="slogan">

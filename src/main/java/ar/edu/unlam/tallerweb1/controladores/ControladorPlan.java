@@ -43,41 +43,47 @@ public class ControladorPlan {
 		return new ModelAndView("redirect:/login");
 	}
 
-	@RequestMapping(path = "/planes/{id}", method = RequestMethod.GET)
-	public ModelAndView planes(@ModelAttribute("cliente") Cliente cliente,@PathVariable("id") Long id) {
+	@RequestMapping(path = "/planes", method = RequestMethod.GET)
+	public ModelAndView planes(HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
-		Cliente c1 = servicioCliente.consultarClientePorId(id);
-		
-		modelo.put("cliente", c1);
-		modelo.put("planes", servicioPlan.obtenerPlanes());
+		Long idCliente = (Long) request.getSession().getAttribute("id");
+		String rol = (String) request.getSession().getAttribute("roll");
+		Cliente c1 = servicioCliente.consultarClientePorId(idCliente);
+		if(c1 != null) {
+			if(rol.equals("cliente")) {
+				modelo.put("cliente", c1);
+				modelo.put("planes", servicioPlan.obtenerPlanes());
 
-		return new ModelAndView("planes", modelo);
+				return new ModelAndView("planes", modelo);
+			}
+		}
+			return new ModelAndView("redirect:/login");
 	}
 
 
 
-	@RequestMapping(path = "/asignarplan/{cliente}/{plan}", method = RequestMethod.GET)
-	public ModelAndView elegirPlan( @PathVariable("cliente") Long idC ,@PathVariable("plan") Long idP) {
+	@RequestMapping(path = "/asignarplan/{plan}", method = RequestMethod.GET)
+	public ModelAndView elegirPlan(@PathVariable("plan") Long idP, HttpServletRequest request) {
 
 		ModelMap modelo = new ModelMap();
-
-		Cliente c1 = servicioCliente.consultarClientePorId(idC);
+		Long idCliente = (Long) request.getSession().getAttribute("id");
+		String rol = (String) request.getSession().getAttribute("roll");
+		Cliente c1 = servicioCliente.consultarClientePorId(idCliente);
 		Plan p1 = servicioPlan.consultarPlan(idP);
-		
-			
-				if(c1.getPlan()==null) {
-					servicioPlan.asignarPlanACliente(c1, p1);
-					
-					modelo.put("mensajeExito", "El plan se asigno correctamente");
-					modelo.put("cliente", c1);
-					modelo.put("plan", p1);
-				}else {
-					modelo.put("mensajeTienePlan", "No se pudo Asignar Plan");
+			if(c1 != null) {
+				if(rol.equals("cliente")) {
+					if(c1.getPlan()==null) {
+						servicioPlan.asignarPlanACliente(c1, p1);
+						modelo.put("mensajeExito", "El plan se asigno correctamente");
+						modelo.put("cliente", c1);
+						modelo.put("plan", p1);
+					}else {
+						modelo.put("mensajeTienePlan", "No se pudo Asignar Plan");
+						return new ModelAndView("planes", modelo);
+					}
 				}
-				
-	
-		return new ModelAndView("redirect:/planes/{cliente}", modelo);
-		
+			}					
+				return new ModelAndView("planes", modelo);
 	}
 
 }

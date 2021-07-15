@@ -102,7 +102,7 @@ public class ControladorPagarGarage {
 		
 
 	@RequestMapping(path="/realizarReservaEstadia/{auto.id}/{garage.id}", method=RequestMethod.POST)
-	public ModelAndView procesarPagoEstadia(@RequestParam(value="fechaDesde")String fechaDesde,
+	public ModelAndView realizarReservaEstadia(@RequestParam(value="fechaDesde")String fechaDesde,
 									@RequestParam(value="fechaHasta")String fechaHasta,
 									@PathVariable("auto.id") Long idAuto,
 									@PathVariable("garage.id") Long idGarage,
@@ -151,7 +151,7 @@ public class ControladorPagarGarage {
 				
 				servicioCobrarTickets.registrarTicket(est);
 				
-				return new ModelAndView("pagarMontoEstadia", modelo);
+				return new ModelAndView("realizarReservaEstadia", modelo);
 			}
 			
 			return new ModelAndView("AlertaAutoEnGarage", modelo);
@@ -238,23 +238,24 @@ public class ControladorPagarGarage {
 		return new ModelAndView("redirect:/login");
 	}
 	
-	@RequestMapping(path="/realizarReservaHora/{cliente.id}/{auto.id}/{garage.id}")
-	public ModelAndView procesarPagoHora(@RequestParam(value="horaDesde")String horaDesde,
+	@RequestMapping(path="/realizarReservaHora/{auto.id}/{garage.id}")
+	public ModelAndView realizarReservaHora(@RequestParam(value="horaDesde")String horaDesde,
 									@RequestParam(value="horaHasta")String horaHasta,
-									@PathVariable("cliente.id") Long idCliente,
 									@PathVariable("auto.id") Long idAuto,
 									@PathVariable("garage.id") Long idGarage,
 									HttpServletRequest request
-									) throws WriterException, IOException{
+									){
 		
 		
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
-			if(rol.equals("cliente")) {
+		Long id = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(id);
+		if(rol != null && rol.equals("cliente"))
+			if(cliente != null) {
 		ModelMap modelo = new ModelMap();
 		Estacionamiento est = new Estacionamiento();
 		Auto auto = servicioAuto.buscarAuto(idAuto);
-		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		//Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		                                       //Esto le puse Nuevo
 			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && servicioGarage.GarageLleno(garage).equals(false) ) {
@@ -288,7 +289,7 @@ public class ControladorPagarGarage {
 				
 				servicioCobrarTickets.registrarTicket(est);
 				
-				return new ModelAndView("pagarMontoHora", modelo);
+				return new ModelAndView("realizarReservaHora", modelo);
 			}
 			return new ModelAndView("AlertaAutoEnGarage", modelo);
 		
@@ -298,25 +299,23 @@ public class ControladorPagarGarage {
 			
 }
 	
-	@RequestMapping(path="/pagarReservaPorHora/{cliente.id}/{auto.id}/{garage.id}", method=RequestMethod.GET)
-	public ModelAndView pagarReservaPorHora(@PathVariable("cliente.id") Long idCliente,
-											@PathVariable("auto.id") Long idAuto,
+	@RequestMapping(path="/pagarReservaPorHora/{auto.id}/{garage.id}", method=RequestMethod.GET)
+	public ModelAndView pagarReservaPorHora(@PathVariable("auto.id") Long idAuto,
 											@PathVariable("garage.id") Long idGarage,
 											
 											HttpServletRequest request) throws Exception {
 		
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
-			if(rol.equals("cliente")) {
-		ModelMap modelo = new ModelMap();
+		Long idCliente = (Long) request.getSession().getAttribute("id");
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
+		if(rol != null && rol.equals("cliente"))
+			if(cliente != null) {
+		ModelMap modelo = new ModelMap();
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		Auto auto = servicioAuto.buscarAuto(idAuto);
-		
 		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
 		
-
 		Document documento = new Document();
 		
 			if(billetera != null && garage != null && auto != null) {
@@ -394,9 +393,9 @@ public class ControladorPagarGarage {
 				
 			}
 		
-		return new ModelAndView("realizarReservaEstadia/{cliente.id}/{auto.id}/{garage.id}");
+					return new ModelAndView("realizarReservaEstadia/{auto.id}/{garage.id}");
 			}
-		return new ModelAndView("redirect:/login");
+					return new ModelAndView("redirect:/login");
 			
 	}
 	
@@ -416,7 +415,6 @@ public class ControladorPagarGarage {
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		Estacionamiento est = servicioEst.buscarEstacionamiento(id);
-		Document documento = new Document();
 	               
 			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(true) && servicioGarage.GarageLleno(garage).equals(false) && auto.getReservado().equals(false) ) {
 				modelo.put("auto", auto);

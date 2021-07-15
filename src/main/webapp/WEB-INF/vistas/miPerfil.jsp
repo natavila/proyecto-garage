@@ -9,7 +9,7 @@
 	    <link href="css/estilos.css"/>
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 <meta charset="ISO-8859-1">
-<title>Mi perfil</title>
+<title>${cliente.nombre} ${cliente.apellido} - (${cliente.email})</title>
 </head>
 <body>
 <%@ include file="header.jsp" %>
@@ -20,12 +20,18 @@
 		<h5>Cliente: ${cliente.nombre} ${cliente.apellido}</h5>
 		<h5>Email: ${cliente.email}</h5>
 		<h5>Localidad: ${cliente.localidad}</h5>
-		<h5>Plan contratado: ${cliente.plan}</h5>
+		<h5>Plan contratado: ${cliente.plan.nombre}</h5>
 		</div>
 		<h3 style="text-align:center; margin-top:20px; margin-bottom:50px;">Saldo actual: $${billetera.saldo}</h3>
 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 		<a class="btn btn-warning justify-content-md-end" href="modificarCliente" role="button">Modificar datos</a>
 		</div>
+		</div>
+		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
+		<a class="btn btn-primary" href="misAutos" role="button">Mis Autos</a>
+		<a class="btn btn-primary" href="ticketsCliente" role="button">Mis Tickets</a>
+		<a class="btn btn-primary" href="mostrarBilletera" role="button">Mi billetera</a>
+		<a class="btn btn-primary" href="planes" role="button">Elegir Plan</a>
 		</div>
 		<table class="table table-hover">
 		<h3>Últimas reservas</h3>

@@ -11,17 +11,16 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-	<div class="container">
-	<form:form action="procesarSaldo" method="POST" modelAttribute="billetera">
-	<div class="col-md-6">
-		<h1>Recargar billetera</h1>	
+	<div class="container mt-5">
+	<form:form action="procesarSaldo" method="POST" modelAttribute="billetera" style="text-align:center;">
+		<h1 class="mb-5">Recargar billetera</h1>	
 		<label>Ingrese el monto</label>
 		<input type="number" name="monto" id="saldo"/>
+		<div class="d-grid gap-2 col-3 mx-auto mt-3">
+		<button type="submit" class="btn btn-primary">Ingresar</button>
 		</div>
-		<div class="col-12">
-		    <button type="submit" class="btn btn-primary control-label mb-3">Ingresar</button>
-		  </div>
 	</form:form>
+	<a class="btn btn-dark mt-5" role="button" href="javascript:history.back()"> Volver</a>
 	</div>
 	<c:if test="${not empty error}">
 			<div class="alert alert-danger" role="alert">
@@ -29,6 +28,6 @@
 
 			</div>
 		</c:if>
-		<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
+		
 </body>
 </html>

@@ -71,17 +71,8 @@
 		</div>
 		</div>
 
-		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
-		<a class="btn btn-primary" href="ElegirAuto" role="button">Hacer reserva</a>
-		<a class="btn btn-primary" href="misAutos" role="button">Mis Autos</a>
-		<a class="btn btn-primary" href="ticketsCliente" role="button">Mis Tickets</a>
-		<a class="btn btn-primary" href="mostrarBilletera" role="button">Mi billetera</a>
-		<a class="btn btn-primary" href="planes/${cliente.id}" role="button">Elegir Plan</a>
-		</div>
-		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>
 		
-		<div class="container" style="display:grid; grid-template-columns:500px 50px 600px; grid-template-rows:500px;">
-		
+		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>	
 
 		<div class="container" style="display:grid; grid-template-columns:650px 50px 400px; grid-template-rows:500px;">
 
@@ -134,8 +125,7 @@
 		$(document).ready( function () {
 		    $('#datatable').DataTable({
 		        language: {
-		            search: "Buscar:",
-		            zeroRecords: "No se encontró resultados"
+		        	"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
 		        }
 		    } );
 		    } );</script>

@@ -12,7 +12,7 @@
 <body>
 <%@ include file="header.jsp" %>
 <div class="container" style="margin-left: 30%; margin-top: 100px">
-<form:form action="${pageContext.request.contextPath}/realizarReservaHora/${cliente.id}/${auto.id}/${garage.id}" method="POST" modelAttribute="ticket">
+<form:form action="${pageContext.request.contextPath}/realizarReservaHora/${auto.id}/${garage.id}" method="POST" modelAttribute="ticket">
 <div style="display:grid; grid-template-columns: 200px 185px 200px; grid-template-rows: auto;">
 <div style="grid-column:1; grid-row: 1;">
 <h2>Hora Desde</h2>

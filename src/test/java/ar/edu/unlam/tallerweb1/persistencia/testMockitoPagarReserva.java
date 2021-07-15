@@ -69,7 +69,7 @@ public class testMockitoPagarReserva extends SpringTest{
 	@Before
 	public void init(){
 		clienteMock = mock(Cliente.class);
-		garageMock =mock(Garage.class);
+		garageMock = mock(Garage.class);
 		billeteraMock = mock(Billetera.class);
 		autoMock = mock(Auto.class);
 		ticketMock = mock(Estacionamiento.class);
@@ -98,14 +98,15 @@ public class testMockitoPagarReserva extends SpringTest{
 		Long idClienteMock = 1L;
 		Long idAutoMock = 1L;
 		Long idGarageMock = 1L;
-		
+
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(requestMock.getSession().getAttribute("roll")).thenReturn("cliente");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
 		when(servicioAutoMock.buscarAuto(idAutoMock)).thenReturn(autoMock);
 		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);	
 		
-		ModelAndView modelAndView = controladorPagarGarage.mostrarFormularioReservaEstadia(idClienteMock, idAutoMock, idGarageMock, requestMock);
+		ModelAndView modelAndView = controladorPagarGarage.mostrarFormularioReservaEstadia(idAutoMock, idGarageMock, requestMock);
 		
 		assertThat(modelAndView.getViewName()).isEqualTo("formularioReservaEstadia");
 		
@@ -127,6 +128,7 @@ public class testMockitoPagarReserva extends SpringTest{
 		
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(requestMock.getSession().getAttribute("roll")).thenReturn("cliente");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
 		when(autoMock.getUsandoGarage()).thenReturn(false);
 		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);
@@ -136,9 +138,9 @@ public class testMockitoPagarReserva extends SpringTest{
 		when(servicioCobrarTicketsMock.calcularDias(fechaDesde, fechaHasta)).thenReturn(diasEnGarage);
 		when(servicioCobrarTicketsMock.calcularPrecioPorEstadia(precioEstadia, fechaDesde, fechaHasta)).thenReturn(total);
 		
-		ModelAndView modelAndView = controladorPagarGarage.procesarPagoEstadia(fechaDesde, fechaHasta, idClienteMock, idAutoMock, idGarageMock, requestMock);
+		ModelAndView modelAndView = controladorPagarGarage.realizarReservaEstadia(fechaDesde, fechaHasta, idAutoMock, idGarageMock, requestMock);
 		
-		assertThat(modelAndView.getViewName()).isEqualTo("pagarMontoEstadia");
+		assertThat(modelAndView.getViewName()).isEqualTo("realizarReservaEstadia");
 	}
 	
 	@Test
@@ -156,6 +158,7 @@ public class testMockitoPagarReserva extends SpringTest{
 		
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(requestMock.getSession().getAttribute("roll")).thenReturn("cliente");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
 		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);
 		when(servicioAutoMock.buscarAuto(idAutoMock)).thenReturn(autoMock);
@@ -166,11 +169,94 @@ public class testMockitoPagarReserva extends SpringTest{
 		when(servQrMock.devolverIp()).thenReturn(ip);
 		when(servQrMock.generateQR(anyString())).thenReturn(fileMock);
 		
-		ModelAndView modelAndView = controladorPagarGarage.pagarReservaEstadia(idClienteMock, idAutoMock, idGarageMock);
+		ModelAndView modelAndView = controladorPagarGarage.pagarReservaEstadia(idAutoMock, idGarageMock, requestMock);
 		
 		assertThat(modelAndView.getViewName()).isEqualTo("confirmacionReservaEstadia");
 		
 	}
 	
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void clientePuedaVerFormularioDeReservaPorHora(){
+		Long idClienteMock = 1L;
+		Long idAutoMock = 1L;
+		Long idGarageMock = 1L;
+
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("cliente");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioAutoMock.buscarAuto(idAutoMock)).thenReturn(autoMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
+		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);	
+		
+		ModelAndView modelAndView = controladorPagarGarage.mostrarFormularioReservaHora(idAutoMock, idGarageMock, requestMock);
+		
+		assertThat(modelAndView.getViewName()).isEqualTo("formularioReservaHora");
+		
+	}
+	
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void clientePuedaRealizarReservaPorHora(){
+		Long idClienteMock = 1L;
+		Long idAutoMock = 1L;
+		Long idGarageMock = 1L;
+		String horaDesde = "18:00";
+		String horaHasta = "20:00";
+		Long diasEnGarage = servicioCobrarTicketsMock.calcularHoras(horaDesde, horaHasta);
+		Double precioPorHora = 100.0;
+		Double total = servicioCobrarTicketsMock.calcularPrecioPorHora(precioPorHora, horaDesde, horaHasta);
+		garageMock.setCapacidad(10);
+		
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("cliente");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(autoMock.getUsandoGarage()).thenReturn(false);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
+		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);
+		when(servicioAutoMock.buscarAuto(idAutoMock)).thenReturn(autoMock);
+		when(autoMock.getUsandoGarage()).thenReturn(false);
+		when(garageMock.getCapacidad()).thenReturn(4);
+		when(servicioCobrarTicketsMock.calcularDias(horaDesde, horaHasta)).thenReturn(diasEnGarage);
+		when(servicioCobrarTicketsMock.calcularPrecioPorEstadia(precioPorHora, horaDesde, horaHasta)).thenReturn(total);
+		
+		ModelAndView modelAndView = controladorPagarGarage.realizarReservaHora(horaDesde, horaHasta, idAutoMock, idGarageMock, requestMock);
+		
+		assertThat(modelAndView.getViewName()).isEqualTo("realizarReservaHora");
+	}
+	
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void clientePuedaPagarReservaPorHora() throws Exception{
+		
+		Long idClienteMock = 1L;
+		Long idAutoMock = 1L;
+		Long idGarageMock = 1L;
+		File fileMock = mock(File.class);
+		Double total = 500.0;
+		String ip = servQrMock.devolverIp();
+		billeteraMock.setSaldo(10000.0);
+		
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("cliente");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
+		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);
+		when(servicioAutoMock.buscarAuto(idAutoMock)).thenReturn(autoMock);
+		when(servicioEstacionamientoMock.buscarEstacionamientoPorAuto(autoMock)).thenReturn(ticketMock);
+		when(servicioBilleteraMock.consultarBilleteraDeCliente(clienteMock)).thenReturn(billeteraMock);
+		when(ticketMock.getEstaPagado()).thenReturn(false);
+		when(billeteraMock.getSaldo()).thenReturn(total);
+		when(servQrMock.devolverIp()).thenReturn(ip);
+		when(servQrMock.generateQR(anyString())).thenReturn(fileMock);
+		
+		ModelAndView modelAndView = controladorPagarGarage.pagarReservaPorHora(idAutoMock, idGarageMock, requestMock);
+		
+		assertThat(modelAndView.getViewName()).isEqualTo("confirmacionReservaPorHora");
+		
+	}
 	
 }

@@ -36,6 +36,7 @@
 	<c:if test="${empty autosSinGarage}">
 		<div class="alert alert-warning" role="alert">
   			${mensaje}
+  			<a class="btn btn-link" role="button" href="mostrarRegistroAuto"> Agregar auto</a>
 		</div>
 	</c:if>
 

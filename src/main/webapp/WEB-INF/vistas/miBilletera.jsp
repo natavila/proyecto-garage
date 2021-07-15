@@ -9,12 +9,15 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-	<div class="container" style="text-align: center;">
+	<div class="container">
+	<div style="text-align: center;">
 		<h1 style="margin-top: 30px; margin-bottom: 30px;">Mi billetera</h1>
 		<h3>${nombre} ${apellido}</h3>
 		<h3>Saldo: $${saldo}</h3>
-		<a class="btn btn-primary mt-3 justify-content-md-start" role="button" href="javascript:history.back()"> Volver</a>
+		
 		<a class="btn btn-primary mt-3" href="formularioSaldo" role="button">Ingresar dinero</a>
+		</div>
+		<a class="btn btn-dark mt-5" role="button" href="javascript:history.back()"> Volver</a>
 	 </div>
 </body>
 </html>

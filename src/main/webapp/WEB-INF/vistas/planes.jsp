@@ -43,7 +43,7 @@
 						<td>${plan.cantidadHorasPermitidas}</td>
 						<td>${plan.precio}</td>
 
-						<td><a class="btn btn-primary" href="${pageContext.request.contextPath}/asignarplan/${cliente.id}/${plan.id}" role="button">Elegir</a></td>
+						<td><a class="btn btn-primary" href="${pageContext.request.contextPath}/asignarplan/${plan.id}" role="button">Elegir</a></td>
 
 						<br>
 						</td>
@@ -55,7 +55,7 @@
 
 			</tbody>
 		</table>
-		<a class="btn btn-primary" href="home" role="button">Volver</a>
+		<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
 
 	</div>
 		<c:if test="${not empty mensajeExito}">
