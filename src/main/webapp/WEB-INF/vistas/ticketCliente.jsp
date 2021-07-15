@@ -57,9 +57,10 @@
   			${mensaje}
 		</div>
 	</c:if>
+	<a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
 	</div>
 	
-	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
+	
 	<!-- jQuery library -->
 		<script src="js/jquery.min.js"></script>
 

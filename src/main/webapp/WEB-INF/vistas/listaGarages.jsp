@@ -17,8 +17,6 @@
 		<h1>Eliga un garage</h1>
 		<h4>Cliente: ${cliente.nombre} </h4>
 		<h4>Patente del auto: ${auto.patente} </h4>
-		<h4>Garages registrados</h4>  
-
 
 	  <thead>
 	    <tr>
@@ -54,7 +52,7 @@
 	            </c:forEach>
 	  </tbody>
 	</table>
-	<a class="btn btn-primary" href="home" role="button">Volver</a>
+	<a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
 		</div>
     <footer th:replace="layout/layout::footer" class="bg-dark"></footer>
 </body>

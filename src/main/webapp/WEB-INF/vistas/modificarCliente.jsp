@@ -11,7 +11,7 @@
 <body>
 <%@ include file="header.jsp" %>
 <div class="container">
-<h1>Modificar mis datos</h1>
+<h1 style="margin-top: 20px; margin-bottom: 20px;">Modificar mis datos</h1>
 <form:form  action="procesarModificarCliente" method="POST" modelAttribute="cliente" class="row g-3 border border-3 bg-light">
 		<div class="col-dm-12">
 			<form:input type="text" class="form-control" id="nombre" path="nombre" placeholder="Nombre"/>
@@ -30,7 +30,7 @@
 		    <button type="submit" class="btn btn-outline-dark mb-3">Modificar</button>		    
 		  </div>
   		</form:form>
-  		<a class="btn btn-dark" role="button" href="javascript:history.back()"> Volver</a>
+  		<a class="btn btn-dark mt-5" role="button" href="javascript:history.back()"> Volver</a>
   		</div>
 </body>
 </html>

@@ -152,6 +152,33 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 		session.update(modificado);
 	}
 
+	@Override
+	public Boolean verificarPassword(Cliente cliente) {
+		
+		String passValidar = cliente.getPassword();
+		char pass;
+		byte contNumero = 0, contMayus = 0, contMin = 0;
+		
+		if(passValidar.length() >= 8) {
+			for(byte i = 0; i < passValidar.length(); i++) {
+				pass = passValidar.charAt(i);
+				String passValue = String.valueOf(pass);
+				if (passValue.matches("[A-Z]")) {
+					contMayus++;
+	            } else if (passValue.matches("[a-z]")) {
+	            	contMin++;
+	            } else if (passValue.matches("[0-9]")) {
+	                contNumero++;
+	            }
+			}if(contNumero >= 1 && contMayus >= 1 && contMin >= 1) {
+				return true;
+			}
+				return false;
+		}else {
+			return false;
+		}
+}
+
 	
 
 

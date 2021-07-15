@@ -30,7 +30,7 @@ public interface RepositorioCliente {
 	
 	void modificarDatosCliente(Cliente cliente, Cliente modificado);
 	
-	
+	Boolean verificarPassword(Cliente cliente);
 	
 	// El usuario podra pagar la reserva solo si eligio un garaje, lugar de estacionamiento y plan de alquiler.
 	Cliente pagarReserva(Estacionamiento  ticket);

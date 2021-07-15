@@ -16,6 +16,8 @@ public interface ServicioCliente {
 
 	public Cliente consultarClientePorId(Long id);
 	
+	public Boolean verificarPassword(Cliente cliente);
+	
 	Cliente consultarCliente(Cliente cliente);
 	Cliente buscarCliente(Cliente cliente);
 

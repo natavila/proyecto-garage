@@ -29,10 +29,6 @@ public class Cliente {
 
 	@ManyToOne
 	Usuario usuario;
-
-	
-	
-
 	
 	public String getLocalidad() {
 		return localidad;

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
@@ -20,11 +21,13 @@ public class ControladorRegistro {
 	
 	private ServicioRegistro servicioRegistro;
 	private ServicioLogin servicioLogin;
+	private ServicioCliente servicioCliente;
 	
 	@Autowired
-	public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioLogin servicioLogin){
+	public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioLogin servicioLogin, ServicioCliente servicioCliente){
 		this.servicioRegistro = servicioRegistro;
 		this.servicioLogin = servicioLogin;
+		this.servicioCliente = servicioCliente;
 	}
 	
 	
@@ -44,9 +47,12 @@ public class ControladorRegistro {
 		ModelMap modelo = new ModelMap();
 		Usuario usuario = new Usuario();
 		Cliente verif = servicioLogin.verificarCorreo(cliente);
-		if(cliente.getPassword().equals(repass)) {
+		Boolean verificarPass = servicioCliente.verificarPassword(cliente);
+		
+		if(cliente.getNombre() != "" && cliente.getApellido() != "" && cliente.getLocalidad() != ""){
 			if(verif == null) {
-				if(cliente.getNombre() != "" && cliente.getApellido() != null && cliente.getLocalidad() != null && cliente.getPassword() != null) {
+				if(verificarPass == true) {
+					if(cliente.getPassword().equals(repass)) {
 					modelo.put("cliente", cliente);
 					modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
 					cliente.setRoll("cliente");
@@ -54,7 +60,12 @@ public class ControladorRegistro {
 					usuario.setPassword(cliente.getPassword());
 					servicioRegistro.agregarCliente(cliente);
 				}else {
-					modelo.put("mensaje", "Complete los campos faltantes");
+					modelo.put("mensaje", "Error. No coinciden las passwords");
+					return new ModelAndView("registro", modelo);
+				}
+				
+				}else {
+					modelo.put("mensaje", "Su contraseña debe contener al menos 8 caractéres, 1 mayúscula, 1 minúscula y 1 número.");
 					return new ModelAndView("registro", modelo);
 				}
 				
@@ -64,8 +75,9 @@ public class ControladorRegistro {
 			}		
 				
 		}else {
-			modelo.put("mensaje", "Error. No coinciden las passwords");
+			modelo.put("mensaje", "Complete los campos faltantes");
 			return new ModelAndView("registro", modelo);
+			
 		}
 		return new ModelAndView("confirmacionRegistro", modelo);
 			

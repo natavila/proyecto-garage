@@ -26,7 +26,7 @@
 		</c:if>
 		<c:if test="${empty cliente.plan}">
 		<div class="alert alert-warning alert-dismissible fade show" role="alert">
-		  <strong>¿Todavia no tenes un Plan?</strong> Adherite a uno <a href="${pageContext.request.contextPath}/planes/${cliente.id}">aqui</a>.
+		  <strong>¿Todavia no tenes un Plan?</strong> Adherite a uno <a href="${pageContext.request.contextPath}/planes">aqui</a>.
 		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 		</c:if>

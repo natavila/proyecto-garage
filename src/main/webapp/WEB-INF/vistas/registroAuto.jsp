@@ -28,7 +28,7 @@
 	<body>
 	<%@ include file="header.jsp" %>
 		<main class="container"> <!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
-			<div class="d-flex justify-content-center">
+
 			<form:form  action="procesarRegistroAuto" method="POST" modelAttribute="auto" class="row g-3">
 			<h1 class="mt-3">Registro de auto</h1>
 			<h3> ${cliente.nombre} </h3>
@@ -50,7 +50,7 @@
 				</div>				        
 			        <br>				        	        
 				</c:if>
-				</div>
+
 				<a class="btn btn-dark mt-3" role="button" href="javascript:history.back()"> Volver</a>
 	</main>
 	

@@ -74,6 +74,12 @@ public class ServicioClienteImpl implements ServicioCliente{
 	public void modificarDatosCliente(Cliente cliente, Cliente modificado) {
 		servicioCliente.modificarDatosCliente(cliente, modificado);
 	}
+
+	@Override
+	public Boolean verificarPassword(Cliente cliente) {
+		
+		return servicioCliente.verificarPassword(cliente);
+	}
 	
 
 }

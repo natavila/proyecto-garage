@@ -25,6 +25,7 @@ import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
 
@@ -33,8 +34,9 @@ public class testMockitoEstacionamiento  extends SpringTest{
 	private ServicioAuto servicioAutoMock;
 	private ServicioGarage servicioGarageMock;
 	private ServicioEstacionamiento servicioEstacionamientoMock;
+	private ServicioCliente servicioClienteMock;
 	
-	private ControladorEstacionamiento controladorEstacionamiento = new ControladorEstacionamiento(servicioGarageMock, servicioAutoMock, servicioEstacionamientoMock);
+	private ControladorEstacionamiento controladorEstacionamiento = new ControladorEstacionamiento(servicioClienteMock, servicioGarageMock, servicioAutoMock, servicioEstacionamientoMock);
 	
 	private Cliente clienteMock;
 	private Auto autoMock;
