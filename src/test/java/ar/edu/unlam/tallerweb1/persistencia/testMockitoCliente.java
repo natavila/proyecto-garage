@@ -68,6 +68,26 @@ public class testMockitoCliente extends SpringTest{
 		controladorClientes.setServicioBilletera(servicioBilleteraMock);
 		controladorClientes.setServicioAuto(servicioAutoMock);
 	}
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void testQueMuestraListaDeAutosDeCliente() {
+		List<Auto> listaMock = new ArrayList<>();
+		listaMock.add(autoMock);
+		Long idClienteMock = 5L;
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("cliente");
+		when(servicioClienteMock.consultarClientePorId((long) 5)).thenReturn(clienteMock);
+		
+		
+		
+		when(servicioAutoMock.consultarAutoDeClienteActivo(clienteMock)).thenReturn(listaMock);
+		
+		ModelAndView vista = (controladorClientes.misAutos(requestMock));
+		assertThat(vista.getViewName()).isEqualTo("ListaAutosDeClienteAgregar");
+		
+	}
 	
 	@Test
 	@Rollback(true)
