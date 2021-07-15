@@ -26,7 +26,7 @@ public class Garage {
 	private String horario;
 	private String localidad;
 	private Integer contador = 0;
-	
+	private Boolean activo= true;
 	@OneToMany
 	private List<Lugar>lugares;
 	
@@ -105,6 +105,14 @@ public class Garage {
 	}
 	public void setHorario(String horario) {
 		this.horario = horario;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 	
 	

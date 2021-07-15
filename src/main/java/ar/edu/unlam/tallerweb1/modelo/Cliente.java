@@ -19,7 +19,7 @@ public class Cliente {
 	private String email;
 	private String password;
 	private String roll;
-
+	private Boolean activo= true;
 
 	private Integer contAutos;
 	private String localidad;
@@ -108,6 +108,14 @@ public class Cliente {
 
 	public void setContAutos(Integer contAutos) {
 		this.contAutos = contAutos;
+	}
+
+	public Boolean getActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 
 	

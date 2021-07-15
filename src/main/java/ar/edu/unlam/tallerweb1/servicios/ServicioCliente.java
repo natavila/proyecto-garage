@@ -6,7 +6,7 @@ import java.util.List;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 
 public interface ServicioCliente {
-	
+	Boolean eliminarCliente(Long cliente);
 	
 	public Cliente pagarReserva();
 

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.servicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import ar.edu.unlam.tallerweb1.repositorios.RepositorioCliente;
 import ar.edu.unlam.tallerweb1.modelo.Administrador;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 
 // Implelemtacion del Servicio de usuarios, la anotacion @Service indica a Spring que esta clase es un componente que debe
@@ -49,8 +51,14 @@ public class ServicioLoginImpl implements ServicioLogin {
 
 	@Override
 	public List<Cliente> listaDeClientes() {
+		ArrayList<Cliente> listaActivos = new ArrayList<Cliente>();
+		for(Cliente e: servicioLoginDao.listaDeClientes()) {
+			if(e.getActivo() == true) {
+				listaActivos.add(e);		
+				}
+		}
 		
-		return servicioLoginDao.listaDeClientes();
+		return listaActivos;
 	}
 
 	@Override

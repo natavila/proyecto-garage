@@ -52,13 +52,13 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 	}
 
 	@Override
-	public Boolean EliminarGarage(Long id) {
+	public Garage EliminarGarage(Long id) {
 		final Session session = sessionFactory.getCurrentSession();
 		Garage garage1 = (Garage) session.createCriteria(Garage.class)
 				.add(Restrictions.eq("id",id))
 				.uniqueResult();
-		sessionFactory.getCurrentSession().delete(garage1);
-		return true;
+		
+		return garage1;
 	}
 
 
@@ -91,26 +91,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		return lista;
 	}
 	
-	/*
-	@Override
-	//Falta Hacer
-	public Auto BuscarAutoEnGarage(Auto auto1, Garage garage1) {
-		RepositorioClienteImpl repo2 = new RepositorioClienteImpl(sessionFactory);
-		ServicioRegistroImpl serv2 = new ServicioRegistroImpl(repo2);
-
-		List<Auto> lista = consultarAutosEnGarage(garage1);
-		Auto buscado = new Auto();
-		for(Auto auto: lista) {
-			if(auto.getId().equals(auto1.getId())) {
-				buscado = auto ;
-			}else {
-				buscado= null;
-			}
-		}
 	
-		return buscado;
-}
-*/
 	@SuppressWarnings({ "deprecation", "unchecked" })
 	@Override
 	public List<Garage> buscarPorLocalidad(Garage garage1) {
@@ -165,36 +146,29 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		return lista;
 	}
 	@Override
-	public void modificarDatosGarage(Garage garage) {
+	public void modificarDatosGarage(Garage garage, Garage modificado) {
 		final Session session = sessionFactory.getCurrentSession();
-		session.update(garage);
+		String nombre = garage.getNombre();
+		String calle = garage.getCalle();
+		Integer capacidad = garage.getCapacidad();
+		Integer numero = garage.getNumero();
+		Double precioHora = garage.getPrecioHora();
+		Double precioEstadia = garage.getPrecioEstadia();
+		String localidad = garage.getLocalidad();
+		modificado.setNombre(nombre);
+		modificado.setCalle(calle);
+		modificado.setCapacidad(capacidad);
+		modificado.setNumero(numero);
+		modificado.setPrecioHora(precioHora);
+		modificado.setPrecioEstadia(precioEstadia);
+		modificado.setLocalidad(localidad);
+		
+		session.update(modificado);
 	}
 	
 	
 
-	/*@Override
-	public Boolean sacarAutoDegarage(Auto auto, Garage garage) {
-		//List<Auto> lista = consultarAutosEnGarage(garage);
-		
-		RepositorioClienteImpl repo2 = new RepositorioClienteImpl(sessionFactory);
-		ServicioRegistroImpl serv2 = new ServicioRegistroImpl(repo2);
-		
-		final Session session = sessionFactory.getCurrentSession();
-		Boolean salio= false;
-		Auto buscado=BuscarAutoEnGarage( auto,  garage);
-		Garage garage1 = contultarUnGarage(garage);
-		if(buscado!=null && garage1 !=null) {
-			buscado.setGarage(null);
-			garage1.setContador(garage1.getContador()-1);
-			salio = true;	
-		}else {
-			salio= false;
-			
-		}
-		return salio;
-
-	}*/
-		
+	
 	
 	
 	

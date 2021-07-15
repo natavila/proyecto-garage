@@ -63,6 +63,14 @@ public class ControladorClientes {
 			}
 		return new ModelAndView("redirect:/login");
 	}
+
+	@RequestMapping("/mostrarClientes/eliminar/{id}")
+	public ModelAndView eliminaCliente(@PathVariable("id")Long id) {
+		ModelMap modelo = new ModelMap();
+		modelo.addAttribute("cliente", servicioCliente.eliminarCliente(id));
+		return new ModelAndView("redirect:/mostrarClientes", modelo);
+	}
+
 	
 	@RequestMapping(path="/misAutos", method=RequestMethod.GET)
 	public ModelAndView misAutos( HttpServletRequest request) {

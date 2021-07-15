@@ -9,7 +9,7 @@
 <title>Modificar Garage</title>
 </head>
 <body>
-
+<%@ include file="headerAdmin.jsp" %>
 
 <div class="container">
 <h1>Modificar Garage</h1>
@@ -37,7 +37,7 @@
 		    <button type="submit" class="btn btn-outline-dark mb-3">Modificar</button>		    
 		  </div>
   		</form:form>
-  		<a class="btn btn-primary" role="button" href=""> Volver</a>
+  		<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
   		</div>
 </body>
 </html>

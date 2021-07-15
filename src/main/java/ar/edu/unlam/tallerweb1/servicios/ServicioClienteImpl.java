@@ -23,6 +23,17 @@ public class ServicioClienteImpl implements ServicioCliente{
 		this.servicioCliente = servicioCliente;
 	}
 	
+	@Override 
+	public Boolean eliminarCliente(Long cliente) {
+		Cliente cliente1 = servicioCliente.consultarPorId(cliente);
+		if(cliente1.getActivo() == true) {
+			cliente1.setActivo(false);
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	@Override
 	public Cliente pagarReserva() {
 		// TODO Auto-generated method stub

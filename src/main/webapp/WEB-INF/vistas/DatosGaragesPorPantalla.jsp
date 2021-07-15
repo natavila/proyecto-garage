@@ -49,7 +49,7 @@
                     <td>${garage.contador}</td>
                     <td><a class="btn btn-danger justify-content-md-end" href="${pageContext.request.contextPath}/lista/eliminar/${garage.id}" role="button">Eliminar Garage</a></td>
      
-   					<td> <a class="btn btn-warning justify-content-md-end" href="modificarGarage" role="button">Modificar datos</a></td>
+   					<td> <a class="btn btn-warning justify-content-md-end" href="${pageContext.request.contextPath}/modificarGarage/${garage.id}" role="button">Modificar datos</a></td>
 					
 					
 					
