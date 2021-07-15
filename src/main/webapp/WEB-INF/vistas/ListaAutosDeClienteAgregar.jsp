@@ -27,9 +27,9 @@
 	             items="${auto}"
 	             varStatus="status">
 	                <tr>
-	                    <td><b>${auto.id}</b></td>
-	                    <td>${auto.patente}</td>
-						<td><a href="${pageContext.request.contextPath}/mostrarAutosClientes/eliminar/${auto.id}/${cliente.id}">Eliminar Auto</a></td>
+	                    <td>${auto.id}</td>
+	                    <td><b>${auto.patente}</b></td>
+						<td><a class="btn btn-danger justify-content-md-end" href="${pageContext.request.contextPath}/mostrarAutosClientes/eliminar/${auto.id}/${cliente.id}">Eliminar Auto</a></td>
 	                </tr>
 	                
 	            </c:forEach>

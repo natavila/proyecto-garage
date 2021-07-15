@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
+import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
@@ -30,12 +31,14 @@ public class ControladorEstacionamiento {
 	private ServicioAuto servicioAuto;
 	private ServicioGarage servicioGarage;
 	private ServicioEstacionamiento servicioEst;
+	private ServicioCliente servicioCliente;
 	
 	@Autowired
-	public ControladorEstacionamiento(ServicioGarage servicioGarage,ServicioAuto servicioAuto,ServicioEstacionamiento servicioEst){
+	public ControladorEstacionamiento(ServicioCliente servicioCliente, ServicioGarage servicioGarage,ServicioAuto servicioAuto,ServicioEstacionamiento servicioEst){
 		this.servicioGarage= servicioGarage;
 		this.servicioAuto = servicioAuto;
 		this.servicioEst = servicioEst;
+		this.servicioCliente = servicioCliente;
 	}
 
 	
@@ -53,7 +56,9 @@ public class ControladorEstacionamiento {
 			){
 		ModelMap model = new ModelMap();
 		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
+		Long idUsuario = (Long) request.getSession().getAttribute("id");
+		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
+		if(cliente != null)
 			if(rol.equals("admin")) {
 				
 			
