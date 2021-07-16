@@ -362,7 +362,7 @@ public ModelAndView eliminaCliente(@PathVariable("id")Long id) {
 		}
 		
 
-		return new ModelAndView("redirect:/misAutosAdmin");
+		return new ModelAndView("redirect:/misAutosAdmin/{idC}");
 	}
 
 	public ServicioPlan getServicioPlan() {

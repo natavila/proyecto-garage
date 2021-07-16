@@ -15,7 +15,7 @@
 		<table class="table table-hover">
 		<h1 style="text-align:center">Mis Autos</h1>
 		<h4 style="text-align:center">Cantidad de Autos: ${cantidad}</h4>
-		<a class="btn btn-primary mb-3" href="mostrarRegistroAuto" role="button">Agregar Auto</a><br>
+		
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>
@@ -29,7 +29,7 @@
 	                <tr>
 	                    <td>${auto.id}</td>
 	                    <td><b>${auto.patente}</b></td>
-						<td><a class="btn btn-danger justify-content-md-end" href="${pageContext.request.contextPath}/mostrarAutosClientes/eliminar/${auto.id}/${cliente.id}">Eliminar Auto</a></td>
+						<td><a class="btn btn-danger justify-content-md-end" href="${pageContext.request.contextPath}/mostrarAutosClientesAdmin/eliminar/${auto.id}/${cliente.id}">Eliminar Auto</a></td>
 	                </tr>
 	                
 	            </c:forEach>
