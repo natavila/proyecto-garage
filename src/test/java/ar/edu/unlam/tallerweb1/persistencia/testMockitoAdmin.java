@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.persistencia;
 import ar.edu.unlam.tallerweb1.SpringTest;
-
+import ar.edu.unlam.tallerweb1.controladores.ControladorAdmin;
 import ar.edu.unlam.tallerweb1.controladores.ControladorGarage;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
@@ -29,7 +29,7 @@ import org.mockito.Mockito;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.web.servlet.ModelAndView;
 
-public class testMockitoGarage extends SpringTest {
+public class testMockitoAdmin extends SpringTest {
 
 	private ServicioGarage servicioGarageMock;
 	private ServicioEstacionamiento servicioEstMock;
@@ -38,8 +38,7 @@ public class testMockitoGarage extends SpringTest {
 	private ServicioAuto servicioAutoMock;
 	private ServicioCliente servicioClienteMock;
 	private ServicioLocalidad servicioLocMock;
-	private ControladorGarage controladorGarage = new ControladorGarage(servicioGarageMock, servicioRegistroMock,
-			servicioAutoMock, servicioClienteMock, servicioLocMock, servicioLoginMock, servicioEstMock);
+	private ControladorAdmin controladorAdmin= new ControladorAdmin(servicioRegistroMock, servicioLocMock, servicioEstMock, servicioGarageMock, servicioClienteMock, null, servicioLoginMock, servicioAutoMock);
 	private HttpServletRequest requestMock;
 	private HttpSession sessionMock;
 	private Garage garageMock;
@@ -63,13 +62,13 @@ public class testMockitoGarage extends SpringTest {
 		servicioClienteMock = mock(ServicioCliente.class);
 		servicioLocMock = mock(ServicioLocalidad.class);
 
-		controladorGarage.setServicioGarage(servicioGarageMock);
-		controladorGarage.setServicioEst(servicioEstMock);
-		controladorGarage.setServicioLogin(servicioLoginMock);
-		controladorGarage.setServicioRegistro(servicioRegistroMock);
-		controladorGarage.setServicioAuto(servicioAutoMock);
-		controladorGarage.setServicioCliente(servicioClienteMock);
-		controladorGarage.setServicioLoc(servicioLocMock);
+		controladorAdmin.setServicioGarage(servicioGarageMock);
+		controladorAdmin.setServicioEst(servicioEstMock);
+		controladorAdmin.setServicioLogin(servicioLoginMock);
+		controladorAdmin.setServicioRegistro(servicioRegistroMock);
+		controladorAdmin.setServicioAuto(servicioAutoMock);
+		controladorAdmin.setServicioCliente(servicioClienteMock);
+		controladorAdmin.setServicioLoc(servicioLocMock);
 
 	}
 
@@ -87,7 +86,7 @@ public class testMockitoGarage extends SpringTest {
 		when(servicioGarageMock.buscarGarage(idGarage)).thenReturn(garageMock);
 		when(servicioEstMock.buscarAutosDeUnGarage(garageMock)).thenReturn(listaMock);
 		
-		ModelAndView vista = controladorGarage.MostrarHistoricoDeGarage(idGarage, requestMock);
+		ModelAndView vista = controladorAdmin.MostrarHistoricoDeGarage(idGarage, requestMock);
 		assertThat(vista.getViewName()).isEqualTo("ListaHistoricaDeAutosEnGarage");
 	}
 	
@@ -99,7 +98,7 @@ public class testMockitoGarage extends SpringTest {
 		when(requestMock.getSession()).thenReturn(sessionMock);
 		when(sessionMock.getAttribute("roll")).thenReturn("cliente");
 		
-		ModelAndView vista = controladorGarage.MostrarHistoricoDeGarage(5L, requestMock);
+		ModelAndView vista = controladorAdmin.MostrarHistoricoDeGarage(5L, requestMock);
 		assertThat(vista.getViewName()).isEqualTo("redirect:/login");
 	}
 	
@@ -115,7 +114,7 @@ public class testMockitoGarage extends SpringTest {
 		
 		when(servicioLocMock.devolverNombresDeLocalidades()).thenReturn(listaMock);
 		
-		ModelAndView vista = controladorGarage.mostrarFormularioGaraga(requestMock);
+		ModelAndView vista = controladorAdmin.mostrarFormularioGaraga(requestMock);
 		assertThat(vista.getViewName()).isEqualTo("agregarGarage");
 		
 	}
@@ -131,7 +130,7 @@ public class testMockitoGarage extends SpringTest {
 		when(sessionMock.getAttribute("roll")).thenReturn("admin");
 		
 		when(servicioGarageMock.consultarGarage()).thenReturn(listaMock);
-		ModelAndView vista = controladorGarage.Listar(requestMock);
+		ModelAndView vista = controladorAdmin.Listar(requestMock);
 		assertThat(vista.getViewName()).isEqualTo("DatosGaragesPorPantalla");
 		
 		
@@ -148,7 +147,7 @@ public class testMockitoGarage extends SpringTest {
 		when(sessionMock.getAttribute("roll")).thenReturn("admin");
 		when(servicioGarageMock.ordenarGaragePorHora()).thenReturn((ArrayList<Garage>) listaMock);
 		
-		ModelAndView vista = controladorGarage.Listar(requestMock);
+		ModelAndView vista = controladorAdmin.Listar(requestMock);
 		assertThat(vista.getViewName()).isEqualTo("DatosGaragesPorPantalla");
 		
 		
@@ -164,7 +163,7 @@ public class testMockitoGarage extends SpringTest {
 		when(sessionMock.getAttribute("roll")).thenReturn("admin");
 		when(servicioGarageMock.ordenarGaragePorEstadia()).thenReturn((ArrayList<Garage>) listaMock);
 		
-		ModelAndView vista = controladorGarage.Listar(requestMock);
+		ModelAndView vista = controladorAdmin.Listar(requestMock);
 		assertThat(vista.getViewName()).isEqualTo("DatosGaragesPorPantalla");
 		
 		

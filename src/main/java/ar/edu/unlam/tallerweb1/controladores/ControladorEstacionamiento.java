@@ -41,50 +41,6 @@ public class ControladorEstacionamiento {
 		this.servicioCliente = servicioCliente;
 	}
 
-	
-	@RequestMapping(path = "/sacarAuto/{id}", method = {RequestMethod.GET, RequestMethod.PUT})
-	public ModelAndView sacarAuto(@PathVariable("id")Long id) {
-		ModelMap modelo = new ModelMap();
-		modelo.put("id", id);
-		return new ModelAndView("SacarAutoPorTicket", modelo);
-	}
-	
-	@RequestMapping(path="/sacarAutoDeGaragess/{id}", method=RequestMethod.GET)
-	public ModelAndView SacarAutoDeGaragePorTicket( @RequestParam(value="retirarAuto")Long retirarAuto,
-			@PathVariable("id")Long id,
-			HttpServletRequest request
-			){
-		ModelMap model = new ModelMap();
-		String rol = (String) request.getSession().getAttribute("roll");
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		if(cliente != null)
-			if(rol.equals("admin")) {
-				
-			
-				Garage garage2 = servicioGarage.buscarGarage(id);
-				ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage2);
-				Estacionamiento est= servicioEst.buscarEstacionamiento(retirarAuto);
-				for(Auto e: autos) {
-					if(e.getId().equals(est.getAuto().getId())) {
-						servicioAuto.cambiarEstadoDeSiestaEnGarageOno(e);
-						//saco la reserva de Auto
-						servicioAuto.cambiarEstadoReservaAuto(e);
-					}
-				}
-				if(est !=null && garage2 != null) {
-					servicioGarage.restarContador(garage2);
-					servicioEst.cambiarEstadoEstacionamiento(est);
-					servicioEst.cambiarEstadoDeReserva(est);
-					model.put("error", "Baja correcta");
-				}else {
-					model.put("error", "El Auto No esta");
-				}
-				
-			}
-		return new ModelAndView("confirmacionSacarTicket", model);
-	}
-
 
 	public ServicioAuto getServicioAuto() {
 		return servicioAuto;

@@ -48,29 +48,7 @@ public class ControladorClientes {
 		this.servicioEstacionamiento = servicioEstacionamiento;
 	}
 	
-	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
-		public ModelAndView clientes(Model modelo,
-				HttpServletRequest request) {
-		String rol = (String) request.getSession().getAttribute("roll");
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		if(cliente != null)
-			if(rol.equals("admin")) {
-			modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
-			
-			servicioRegistro.NotificacionesVistas();
-			 return new ModelAndView("ListaClientes");
-			}
-		return new ModelAndView("redirect:/login");
-	}
-
-	@RequestMapping("/mostrarClientes/eliminar/{id}")
-	public ModelAndView eliminaCliente(@PathVariable("id")Long id) {
-		ModelMap modelo = new ModelMap();
-		modelo.addAttribute("cliente", servicioCliente.eliminarCliente(id));
-		return new ModelAndView("redirect:/mostrarClientes", modelo);
-	}
-
+	
 	
 	@RequestMapping(path="/misAutos", method=RequestMethod.GET)
 	public ModelAndView misAutos( HttpServletRequest request) {

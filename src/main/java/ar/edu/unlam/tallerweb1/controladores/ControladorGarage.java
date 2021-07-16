@@ -61,54 +61,7 @@ public class ControladorGarage {
 		return new ModelAndView("HomeGarages", modelo);
 	}
 	
-	@RequestMapping("/formularioAgregarGarage")
-	public ModelAndView mostrarFormularioGaraga(HttpServletRequest request) {
-		String rol = (String) request.getSession().getAttribute("roll");
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		if(cliente != null)
-			if(rol.equals("admin")) {
-				ModelMap modelo = new ModelMap();
-				Garage garage1 = new Garage();
-				modelo.put("garage", garage1);
-				
-				List <String> loc = servicioLoc.devolverNombresDeLocalidades();
-				modelo.put("loc", loc);
-				
-				return new ModelAndView("agregarGarage", modelo);
-			}
-		return new ModelAndView("redirect:/login");	
-		
-	}
-	
-	
-	
-	@RequestMapping(path="confirmarAgregarGarage", method = RequestMethod.POST)
-	public String agregarGarage(HttpServletRequest request,
-	@ModelAttribute ("garage") Garage garage1){
-		String rol = (String) request.getSession().getAttribute("roll");
-		if(rol != null)
-			if(rol.equals("admin")) {
-	servicioGarage.agregarGarage(garage1);
-	return "redirect:/lista";
-			}
-		return ("redirect:/login");
-	}
-	
-	@RequestMapping("/lista")
-	public ModelAndView Listar(HttpServletRequest request){
-		String rol = (String) request.getSession().getAttribute("roll");
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		
-		if(cliente != null)
-			if(rol.equals("admin")) {
-		ModelMap modelo = new ModelMap();
-		modelo.addAttribute("garages", servicioGarage.consultarGarage());
-		return new ModelAndView("DatosGaragesPorPantalla", modelo);
-			}
-		return new ModelAndView("redirect:/login");
-	}
+
 	
 	@RequestMapping("/listaPorHora")
 	public ModelAndView ListarPorHora(HttpServletRequest request){
@@ -138,15 +91,7 @@ public class ControladorGarage {
 	
 	}
 	
-	
-	
-	
-	@RequestMapping("/lista/eliminar/{id}")
-	public ModelAndView eliminaGarge(@PathVariable("id")Long id) {
-		ModelMap modelo = new ModelMap();
-		modelo.addAttribute("garage", servicioGarage.eliminarGarage(id));
-		return new ModelAndView("redirect:/lista", modelo);
-	}
+
 	
 	@RequestMapping ("/mostrarGarage/{id}")
 	public ModelAndView mostrarGarage(@PathVariable ("id") Long id) {
@@ -169,26 +114,7 @@ public class ControladorGarage {
 	}
 
 	
-	@RequestMapping(path="/mostrarHistoricoDeUnGarage/{id}", method=RequestMethod.GET)
-	public ModelAndView MostrarHistoricoDeGarage( @PathVariable("id")Long id,
-			HttpServletRequest request){
-		
-		String rol = (String) request.getSession().getAttribute("roll");
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		if(cliente != null)
-			if(rol.equals("admin")) {
-		    ModelMap modelo = new ModelMap();
-			Garage garage2 = servicioGarage.buscarGarage(id);
-			List<Auto> autos = servicioEst.buscarAutosDeUnGarage(garage2);
-			
-			modelo.put("garage", garage2);
-			modelo.put("auto", autos);
-			
-			return new ModelAndView("ListaHistoricaDeAutosEnGarage", modelo);
-			}
-		return new ModelAndView("redirect:/login");
-	}
+	
 	
 	
 	
@@ -300,73 +226,13 @@ public class ControladorGarage {
 	
 	
 	
-	@RequestMapping(path="AdministrarGarage/{id}", method = RequestMethod.GET)
-	public ModelAndView administrarGarage(HttpServletRequest request,
-			@PathVariable("id") Long garage1){
-		String rol = (String) request.getSession().getAttribute("roll");
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		ModelMap modelo = new ModelMap();
-		Garage garage = servicioGarage.buscarGarage(garage1);
-		if(cliente != null)
-			if(rol.equals("admin")) {
-				ArrayList<Auto> autos = (ArrayList<Auto>) servicioEst.buscarAutosQueEstenActivosEnUnGarage(garage);
-				modelo.put("garage", garage);
-				modelo.put("lugar", servicioGarage.cantidadDeLugarEnEst(garage));
-				modelo.put("dinero", servicioEst.dineroGanadoEnElDia(garage));
-				modelo.put("autos",autos);
-				ArrayList<Long> tickets = servicioEst.numeroDeTicketAuto(garage);
-				modelo.put("tickets",tickets );
-				if(servicioGarage.cantidadDeLugarEnEst(garage)<=5 && servicioGarage.cantidadDeLugarEnEst(garage)>=1) {
-					modelo.put("alerta", "Garage Con Pocos Lugares Disponibles");
-				}else if(servicioGarage.cantidadDeLugarEnEst(garage)<=0) {
-					modelo.put("Lleno", "Garage Sin Lugares");
-					
-				}else {
-					modelo.put("ConLugar", "Con lugar");
-				}
-				
-				
-				return new ModelAndView ("AdministrarGarage", modelo);
-			}
-		return new ModelAndView("redirect:/login");
-	}
+
 	
 	
 	
 	
-	@RequestMapping(path="/modificarGarage/{id}")
-	public ModelAndView modificarGarage(HttpServletRequest request, 
-			@PathVariable("id") Long garage1) {
-		
-		ModelMap modelo = new ModelMap();
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario); 
-		Garage garage = servicioGarage.buscarGarage(garage1);
-		if(cliente != null) {
-			modelo.put("garage", garage);
-			return new ModelAndView("modificarGarage", modelo);
-		}
-		
-		return new ModelAndView("redirect:/login");
-		
-	}
 	
-	@RequestMapping(path="/procesarModificarGarage")
-	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage,HttpServletRequest request) {
-		ModelMap modelo = new ModelMap();
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		Garage garageBuscado = servicioGarage.contultarUnGarage(garage);
-		if(cliente != null) {
-			servicioGarage.modificarGarage(garage, garageBuscado);
-			
-			modelo.put("garage", garageBuscado);
-			return new ModelAndView("redirect:/lista");
-		}
-		
-		return new ModelAndView("redirect:/login");
-	}
+	
 	
 	
 
