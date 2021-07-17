@@ -108,9 +108,9 @@ public class ControladorAdmin {
 	}
 	
 	@RequestMapping(path="/sacarAutoDeGaragess/{id}", method=RequestMethod.GET)
-	public ModelAndView SacarAutoDeGaragePorTicket( @RequestParam(value="retirarAuto")Long retirarAuto,
+	public ModelAndView SacarAutoDeGaragePorTicket( HttpServletRequest request,
 			@PathVariable("id")Long id,
-			HttpServletRequest request
+			@RequestParam(value="retirarAuto")Long retirarAuto
 			){
 		ModelMap model = new ModelMap();
 		String rol = (String) request.getSession().getAttribute("roll");
@@ -277,8 +277,9 @@ public class ControladorAdmin {
 		
 	}
 	@RequestMapping(path="/mostrarClientes", method=RequestMethod.GET)
-	public ModelAndView clientes(Model modelo,
+	public ModelAndView clientes(/*Model modelo,*/
 			HttpServletRequest request) {
+		ModelMap modelo = new ModelMap();
 	String rol = (String) request.getSession().getAttribute("roll");
 	Long idUsuario = (Long) request.getSession().getAttribute("id");
 	Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
@@ -287,7 +288,7 @@ public class ControladorAdmin {
 		modelo.addAttribute("clientes", servicioLogin.listaDeClientes());
 		
 		servicioRegistro.NotificacionesVistas();
-		 return new ModelAndView("ListaClientes");
+		 return new ModelAndView("ListaClientes", modelo);
 		}
 	return new ModelAndView("redirect:/login");
 }

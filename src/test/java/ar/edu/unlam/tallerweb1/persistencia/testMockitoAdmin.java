@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.controladores.ControladorAdmin;
 import ar.edu.unlam.tallerweb1.controladores.ControladorGarage;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
@@ -44,7 +45,7 @@ public class testMockitoAdmin extends SpringTest {
 	private Garage garageMock;
 	private Auto autoMock;
 	private Cliente clienteMock;
-
+	 Estacionamiento estMock;
 	@Before
 
 	public void init() {
@@ -53,7 +54,7 @@ public class testMockitoAdmin extends SpringTest {
 		clienteMock = mock(Cliente.class);
 		requestMock = mock(HttpServletRequest.class);
 		sessionMock = mock(HttpSession.class);
-
+		estMock = mock(Estacionamiento.class);
 		servicioGarageMock = mock(ServicioGarage.class);
 		servicioEstMock = mock(ServicioEstacionamiento.class);
 		servicioLoginMock = mock(ServicioLogin.class);
@@ -169,8 +170,130 @@ public class testMockitoAdmin extends SpringTest {
 		
 	}
 	
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAVistaAdministrarGarage() {
+		List<Auto> listaMock = new ArrayList<>();
+		listaMock.add(autoMock);
+		
+		List<Long> listaTicketMock = new ArrayList<>();
+		listaTicketMock.add((long) 2);
+		Long idClienteMock = 5L;
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		
+		when(servicioClienteMock.consultarClientePorId((long) 5)).thenReturn(clienteMock);
+		when(servicioGarageMock.buscarGarage((long) 2)).thenReturn(garageMock);
+		when(servicioEstMock.buscarAutosQueEstenActivosEnUnGarage(garageMock)).thenReturn((ArrayList<Auto>) listaMock);
+		when(servicioGarageMock.cantidadDeLugarEnEst(garageMock)).thenReturn(2);
+		when(servicioEstMock.dineroGanadoEnElDia(garageMock)).thenReturn(200.0);
+		when(servicioEstMock.numeroDeTicketAuto(garageMock)).thenReturn((ArrayList<Long>) listaTicketMock);
+		when(servicioGarageMock.cantidadDeLugarEnEst(garageMock)).thenReturn(2);
+		
+		ModelAndView vista = controladorAdmin.administrarGarage(requestMock, (long) 5);
+		assertThat(vista.getViewName()).isEqualTo("AdministrarGarage");
+		
+	}
+
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAVistaSacarAuto() {
+		Long idClienteMock = 1L;
+		Long idGarageMock= 1L;
+		Long idAutoMock = 1L;
+		Long idEstMock = 1L;
+		List<Auto> listaMock = new ArrayList<>();
+		listaMock.add(autoMock);
+		
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
+		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);
+		when(servicioEstMock.buscarAutosQueEstenActivosEnUnGarage(garageMock)).thenReturn((ArrayList<Auto>) listaMock);
+		when(servicioEstMock.buscarEstacionamiento(idEstMock)).thenReturn(estMock);
+		
+		
+		
+		ModelAndView vista = controladorAdmin.SacarAutoDeGaragePorTicket(requestMock,idClienteMock,idEstMock);
+		assertThat(vista.getViewName()).isEqualTo("confirmacionSacarTicket");
+	}
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAVistaListaCliente() {
+		Long idClienteMock = 1L;
+		
+		List<Cliente> listaMock = new ArrayList<>();
+		listaMock.add(clienteMock);
+		
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
+		when(servicioLoginMock.listaDeClientes()).thenReturn(listaMock);
+		
+		
+		ModelAndView vista = controladorAdmin.clientes(requestMock);
+		assertThat(vista.getViewName()).isEqualTo("ListaClientes");
+		
+	}
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void eliminarCliente() {
+		Long idClienteMock = 1L;
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.eliminarCliente(idClienteMock)).thenReturn(true);
+		
+		ModelAndView vista = controladorAdmin.eliminaCliente(idClienteMock);
+		assertThat(vista.getViewName()).isEqualTo("redirect:/mostrarClientes");	
+	}
 	
 
-
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAVistaMisAutosAdmin() {
+		Long idClienteMock = 1L;
+		Long idClienteMock2 = 2L;
+		List<Auto> listaMock = new ArrayList<>();
+		listaMock.add(autoMock);
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
+		when(servicioClienteMock.consultarClientePorId( idClienteMock)).thenReturn(clienteMock);
+		when(servicioAutoMock.consultarAutoDeClienteActivo(clienteMock)).thenReturn(listaMock);
+		
+		
+		ModelAndView vista = controladorAdmin.misAutosAdmin(requestMock, idClienteMock);
+		assertThat(vista.getViewName()).isEqualTo("ListaAutosDeClienteAdmin");	
+	}
+	
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void eliminarAutoDeVistaAdmin() {
+		Long idClienteMock = 1L;
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioAutoMock.buscarAuto(idClienteMock)).thenReturn(autoMock);
+	
+		
+		
+		ModelAndView vista = controladorAdmin.eliminarAutoAdmin(idClienteMock, idClienteMock);
+		assertThat(vista.getViewName()).isEqualTo("redirect:/misAutosAdmin/{idC}");
+		
+	}
+	
 	
 }

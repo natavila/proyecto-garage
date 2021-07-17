@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.repositorios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -140,8 +141,9 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 	@Override
 	public List<Garage> buscarGarageQueCoincidanConLocalidadDeCliente(Cliente cliente) {
 		final Session session = sessionFactory.getCurrentSession();
-		List<Garage> lista = session.createCriteria(Garage.class)
+		List<Garage> lista =  session.createCriteria(Garage.class)
 				.add(Restrictions.eq("localidad", cliente.getLocalidad()))
+				.add(Restrictions.eq("activo", true))
 				.list();
 		return lista;
 	}

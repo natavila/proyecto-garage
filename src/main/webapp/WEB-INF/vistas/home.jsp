@@ -13,6 +13,10 @@
 	    <link href="css/estilos.css"/>
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"> 
+		<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+ 		<script src="http://maps.googleapis.com/maps/api/js"> </script>
+		<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		
 		
 	</head>
@@ -105,7 +109,7 @@
                     <td>${garagesCercanos.numero}</td>
                     <td>$${garagesCercanos.precioHora}</td>
                     <td>$${garagesCercanos.precioEstadia}</td>
-                  
+                  	
 	                </tr>	                
 	            </c:forEach>
 	       
@@ -115,9 +119,38 @@
 	<a class="btn btn-primary" href="ElegirAuto" role="button">Hacer reserva</a>
 	</div>
 	</div>
+	
 	<div style="grid-column:3; grid-row:1;">
-		<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13116.788103434623!2d-58.7946042!3d-34.725427749999994!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1624460773831!5m2!1ses-419!2sar" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>	</div>
+	<div id="showMap" style="width: 450px; height: 350px;"> </div>
+		
+	
 	</div>
+	
+	 <script type="text/javascript"> 
+	function showGoogleMaps()
+	{
+    //Creamos el punto a partir de la latitud y longitud de una dirección:
+    var point = new google.maps.LatLng(-34.742581147155605, -58.59683431535985);
+ 
+    //Configuramos las opciones indicando zoom, punto y tipo de mapa
+    var myOptions = {
+        zoom: 15, 
+        center: point, 
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+ 
+    //Creamos el mapa y lo asociamos a nuestro contenedor
+    var map = new google.maps.Map(document.getElementById("showMap"),  myOptions);
+ 
+    //Mostramos el marcador en el punto que hemos creado
+    var marker = new google.maps.Marker({
+        position:point,
+        map: map,
+        title: "Nombre empresa - Calle Balmes 192, Barcelona"
+    });
+	}
+	showGoogleMaps();
+	</script>
 		
 	</body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" ></script>
@@ -132,4 +165,6 @@
 		        }
 		    } );
 		    } );</script>
+		    
+		   
 </html>

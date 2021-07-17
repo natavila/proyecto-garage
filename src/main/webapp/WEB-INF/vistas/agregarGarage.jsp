@@ -49,6 +49,16 @@
 					<form:input path="precioEstadia" id="precioEstadia" name="precioEstadia" type="text" class="form-control"/>
 					<p><b>CAPACIDAD</b></p>	
 					<form:input path="capacidad" id="capacidad" name="capacidad" type="text" class="form-control"/>
+					<h4 class="form-signin-heading"><b>Coordenadas</b></h4>
+					<hr class="colorgraph"><br>
+					<a role="button"class="btn btn-primary"  href="https://www.google.com/maps/" target="_blank">Buscar Coordenadas?</a>
+					<hr class="colorgraph"><br>
+					<p><b>LATITUD</b></p>
+					<form:input path="latitud" id="latitud" name="latitud" type="text" class="form-control"/>
+					<p><b>LONGITUD</b></p>	
+					<form:input path="longitud" id="longitud" name="longitud" type="text" class="form-control"/>
+					<br>
+					
 					<button class="btn btn-lg btn-success btn-block" Type="Submit">Agregar</button>
 					
 				</form:form>

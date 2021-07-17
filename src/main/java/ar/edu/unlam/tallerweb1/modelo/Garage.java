@@ -25,6 +25,8 @@ public class Garage {
 	private Double precioEstadia;
 	private String horario;
 	private String localidad;
+	private String latitud;
+	private String longitud;
 	private Integer contador = 0;
 	private Boolean activo= true;
 	@OneToMany
@@ -113,6 +115,22 @@ public class Garage {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+
+	public String getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
 	}
 	
 	

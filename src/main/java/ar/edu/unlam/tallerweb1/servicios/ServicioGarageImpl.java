@@ -208,6 +208,7 @@ private RepositorioGarage repositorioGarage;
 
 	@Override
 	public List<Garage> buscarGarageQueCoincidanConLocalidadDeCliente(Cliente cliente) {
+	
 		return repositorioGarage.buscarGarageQueCoincidanConLocalidadDeCliente(cliente);
 	}
 	

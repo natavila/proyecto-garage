@@ -64,27 +64,9 @@ public class testMockitoEstacionamiento  extends SpringTest{
 	
 	}
 	
-	@Test
-	@Rollback(true)
-	@Transactional
-	public void irAVistaSacarAutoDeGarage() {
 		
-		List<Auto> mockList  = new ArrayList<>();
-		Auto autoMock = Mockito.mock(Auto.class);
-		mockList.add(autoMock);
-
-		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(clienteMock.getRoll()).thenReturn("admin");
-		when(servicioGarageMock.buscarGarage(anyLong())).thenReturn(garageMock);
-		
-		when(servicioEstacionamientoMock.buscarAutosQueEstenActivosEnUnGarage(garageMock)).thenReturn((ArrayList<Auto>) mockList);
-		
-		when(servicioEstacionamientoMock.buscarEstacionamiento(anyLong())).thenReturn(estacionamientoMock);
-		
-		ModelAndView vista = controladorEstacionamiento.SacarAutoDeGaragePorTicket((long) 5, (long) 5, requestMock);
-		assertThat(vista.getViewName()).isEqualTo("confirmacionSacarTicket");		
 			
-	}
+	
 
 	
 }
