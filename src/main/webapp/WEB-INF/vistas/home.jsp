@@ -102,16 +102,48 @@
 	             items="${garagesCercanos}"
 	             varStatus="status">
 	                <tr>
-	                
+	                <script type="text/javascript"> 
+	function showGoogleMaps()
+	{
+		
+		
+    //Creamos el punto a partir de la latitud y longitud de una dirección:
+    var point = new google.maps.LatLng(${garagesCercanos.latitud}, ${garagesCercanos.longitud});
+ 	
+    //Configuramos las opciones indicando zoom, punto y tipo de mapa
+    var myOptions = {
+        zoom: 15, 
+        center: point, 
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+ 	
+    //Creamos el mapa y lo asociamos a nuestro contenedor
+    var map = new google.maps.Map(document.getElementById("showMap"),  myOptions);
+ 
+    
+    //Mostramos el marcador en el punto que hemos creado
+    var marker = new google.maps.Marker({
+        position:point,
+        map: map,
+      title: "${garagesCercanos.nombre}"
+    });
+    
+	}
+	</script> 
                     <td>${garagesCercanos.nombre}</td>
                     <td>${garagesCercanos.localidad}</td>
                     <td>${garagesCercanos.calle}</td>
                     <td>${garagesCercanos.numero}</td>
                     <td>$${garagesCercanos.precioHora}</td>
                     <td>$${garagesCercanos.precioEstadia}</td>
-                  	
-	                </tr>	                
-	            </c:forEach>
+            
+                    
+  
+	                </tr>	
+  
+	
+	              
+	</c:forEach>
 	       
 	  </tbody>
 	</table>
@@ -126,31 +158,10 @@
 	
 	</div>
 	
+
+	
 	 <script type="text/javascript"> 
-	function showGoogleMaps()
-	{
-    //Creamos el punto a partir de la latitud y longitud de una dirección:
-    var point = new google.maps.LatLng(-34.742581147155605, -58.59683431535985);
- 	
-    //Configuramos las opciones indicando zoom, punto y tipo de mapa
-    var myOptions = {
-        zoom: 15, 
-        center: point, 
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
- 
-    //Creamos el mapa y lo asociamos a nuestro contenedor
-    var map = new google.maps.Map(document.getElementById("showMap"),  myOptions);
- 
-    //Mostramos el marcador en el punto que hemos creado
-    var marker = new google.maps.Marker({
-        position:point,
-        map: map,
-        title: ""
-    });
-    
-	}
-	showGoogleMaps();
+		showGoogleMaps();
 	</script>
 		
 	</body>
