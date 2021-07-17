@@ -19,8 +19,7 @@
  <script src="http://maps.googleapis.com/maps/api/js"> </script>
 <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-
-
+<script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAiq3xISXSZYgkd9GDAOdajy4NK2d3L7dY"></script>
 
 
 </head>
@@ -194,7 +193,8 @@ function showGoogleMaps()
     var marker = new google.maps.Marker({
         position:point,
         map: map,
-        title: "${garage.nombre} - ${garage.calle} ${garage.numero}, ${garage.localidad}"
+        title: "${garage.nombre} - ${garage.calle} ${garage.numero}, ${garage.localidad}",
+        animation:google.maps.Animation.BOUNCE
     });
 }
 showGoogleMaps();

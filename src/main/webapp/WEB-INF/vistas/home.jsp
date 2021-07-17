@@ -17,7 +17,7 @@
  		<script src="http://maps.googleapis.com/maps/api/js"> </script>
 		<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-		
+		<script src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyAiq3xISXSZYgkd9GDAOdajy4NK2d3L7dY"></script>
 		
 	</head>
 	<body>
@@ -131,7 +131,7 @@
 	{
     //Creamos el punto a partir de la latitud y longitud de una dirección:
     var point = new google.maps.LatLng(-34.742581147155605, -58.59683431535985);
- 	var point1 = new google.maps.LatLng(-34.742581147155600, -58.59683431535975);
+ 	
     //Configuramos las opciones indicando zoom, punto y tipo de mapa
     var myOptions = {
         zoom: 15, 
@@ -148,11 +148,7 @@
         map: map,
         title: ""
     });
-    var marker1 = new google.maps.Marker({
-        position:point1,
-        map: map,
-        title: ""
-    });
+    
 	}
 	showGoogleMaps();
 	</script>
