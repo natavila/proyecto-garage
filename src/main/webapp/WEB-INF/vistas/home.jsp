@@ -131,7 +131,7 @@
 	{
     //Creamos el punto a partir de la latitud y longitud de una dirección:
     var point = new google.maps.LatLng(-34.742581147155605, -58.59683431535985);
- 
+ 	var point1 = new google.maps.LatLng(-34.742581147155600, -58.59683431535975);
     //Configuramos las opciones indicando zoom, punto y tipo de mapa
     var myOptions = {
         zoom: 15, 
@@ -146,7 +146,12 @@
     var marker = new google.maps.Marker({
         position:point,
         map: map,
-        title: "Nombre empresa - Calle Balmes 192, Barcelona"
+        title: ""
+    });
+    var marker1 = new google.maps.Marker({
+        position:point1,
+        map: map,
+        title: ""
     });
 	}
 	showGoogleMaps();

@@ -194,7 +194,7 @@ function showGoogleMaps()
     var marker = new google.maps.Marker({
         position:point,
         map: map,
-        title: "Nombre empresa - Calle Balmes 192, Barcelona"
+        title: "${garage.nombre} - ${garage.calle} ${garage.numero}, ${garage.localidad}"
     });
 }
 showGoogleMaps();
