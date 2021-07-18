@@ -60,6 +60,7 @@ public class RepositorioClienteImpl implements RepositorioCliente{
 		return (Cliente) session.createCriteria(Cliente.class)
 				.add(Restrictions.eq("email", cliente.getEmail()))
 				.add(Restrictions.eq("password", cliente.getPassword()))
+				.add(Restrictions.eq("activo", true))				
 				.uniqueResult();
 	}
 	
