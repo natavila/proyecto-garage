@@ -32,6 +32,7 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		  final Session session = sessionFactory.getCurrentSession();
 		  
 		   List<Garage> listaGarage = session.createCriteria(Garage.class)
+				   .add(Restrictions.eq("activo", true))
 				  .list();
 				return listaGarage;  
 	  }

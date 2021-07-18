@@ -162,7 +162,7 @@ public class ControladorClientes {
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
 		
-		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorCliente(cliente);
+		List<Estacionamiento> estacionamiento = servicioEstacionamiento.buscarEstacionamientoPorClienteQueTengaReserva(cliente);
 		if(cliente != null && billetera != null) {
 			
 			if(estacionamiento != null) {

@@ -7,7 +7,15 @@
 <head>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
 	    <link href="css/estilos.css"/>
+	    <script src="js/jsPDF/dist/jspdf.min.js"></script>
+	    <script src="js/jquery.min.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+			<!-- jQuery library -->
+<script src="js/jquery.min.js"></script>
+
+<!-- jsPDF library -->
+<script src="js/jsPDF/dist/jspdf.min.js"></script>
+
 <meta charset="ISO-8859-1">
 <title>Tickets</title>
 </head>
@@ -23,8 +31,8 @@
 		</div>
 	</div>
 	
-	<div class="container col-4">
-	 <div id="content">
+	<div id="text" class="container col-4">
+	
 		<table class="table table-hover">
 		<h3>Tickets</h3>
 	
@@ -50,8 +58,10 @@
 	 
 	</table>
 	
+	 
 	
-	</div>
+	 <button  class ="btn btn-dark mb-3" role="button" id="btn">Imprimir Ticket</button>
+	
 	<c:if test="${empty estacionamiento}">
 		<div class="alert alert-warning" role="alert">
   			${mensaje}
@@ -61,32 +71,25 @@
 	</div>
 	
 	
-	<!-- jQuery library -->
-		<script src="js/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
+<script src="custom.js"></script>
 
-	<!-- jsPDF library -->
-		<script src="js/jsPDF/dist/jspdf.min.js"></script>
+<script type="text/javascript">
+  
+  $(document).on('click','#btn',function(){
+let pdf = new jsPDF();
+let section=$('#text');
+let page= function() {
+    pdf.save('ticket.pdf');
+   
+};
+pdf.addHTML(section,page);
+})
+</script>
 	
-	<script type="text/javascript">
-	function miFunc(){
-		var doc = new jsPDF();
-		var elementJSP = $('#content').jsp();
-		var specialElementHandlers = {
-	    '#elementH': function (element, renderer) {
-	        return true;
-	    }
-	};
-	doc.fromHTML(elementHTML, 15, 15, {
-	    'width': 170,
-	    'elementHandlers': specialElementHandlers
-	});
 
-	// Save the PDF
-	doc.save('sample-document.pdf');
-	}
-		
-	
-	</script>
 	
 </body>
 </html>

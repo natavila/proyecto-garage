@@ -40,4 +40,6 @@ public interface ServicioEstacionamiento {
 
 	List<Estacionamiento> buscarEstacionamientoPorClienteQueTengaReserva(Cliente cliente);
 
+	List<Estacionamiento> buscarEstacionamientoPorClienteEstActivo(Cliente cliente);
+
 }

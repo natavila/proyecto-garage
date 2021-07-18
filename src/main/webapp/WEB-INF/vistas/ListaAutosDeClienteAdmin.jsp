@@ -10,7 +10,7 @@
 <title>Lista de Autos</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="headerAdmin.jsp" %>
 	<div class="container mt-3">
 		<table class="table table-hover">
 		<h1 style="text-align:center">Mis Autos</h1>
