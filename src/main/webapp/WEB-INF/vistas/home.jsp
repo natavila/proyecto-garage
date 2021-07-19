@@ -42,9 +42,13 @@
 		<c:if test="${not empty cliente.plan}">			
 		<h5>Tu PLAN actual es ${plan.nombre} </h5>	
 		<h5>Podes Inscribir ${plan.cantidadAutosPermitidos} Autos </h5> 
-		<h5>Y usar ${plan.cantidadHorasPermitidas} horas en cualquiera de nuestros Garages </h5> 				        	        
+		<h5> Te quedan ${plan.cantidadAutosRestantes} autos</h5>
+		<h5>Y usar ${plan.cantidadHorasPermitidas} horas en cualquiera de nuestros Garages </h5>
+		<h5> Te quedan ${plan.cantidadHorasRestantes} horas</h5> 				        	        
 		</c:if>	
 		</div>
+		
+		
 		
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
 		<c:if test="">${not empty cliente.plan}
@@ -177,6 +181,15 @@
 		        }
 		    } );
 		    } );</script>
+		    </div>
+		    
+		    <c:if test="${not empty mensajeError}">
+			<div class="alert alert-success" role="alert">
+				<h6>${mensajeError}</h6>
+
+			</div>
+			</c:if>
+		
 		    
 		   
 </html>
