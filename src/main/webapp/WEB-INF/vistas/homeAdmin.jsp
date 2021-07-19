@@ -41,6 +41,7 @@
 		            <li><a class="dropdown-item" href="crearPlan">Crear Plan</a></li>
 		            <li><hr class="dropdown-divider"></li>
 		            <li><a class="dropdown-item" href="planesAdmin">Planes</a></li>
+		             <li><a class="dropdown-item" href="eliminarPlan">Eliminar Plan</a></li>
 		          </ul>
 		        </li>
 		        <li class="nav-item">

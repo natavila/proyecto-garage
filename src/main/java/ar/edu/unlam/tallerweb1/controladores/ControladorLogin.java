@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.modelo.Plan;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
@@ -51,9 +52,10 @@ public class ControladorLogin {
 	private ServicioGarage servicioGarage;
 	private ServicioCliente servicioCliente;
 	private ServicioRegistro servicioRegistro;
+	private ServicioAuto servicioAuto;
 	@Autowired
 
-	public ControladorLogin(ServicioLogin servicioLogin, ServicioRegistro servicioRegistro,ServicioCliente servicioCliente,ServicioBilletera servicioBilletera,ServicioGarage servicioGarage,ServicioEstacionamiento servEst){
+	public ControladorLogin(ServicioLogin servicioLogin, ServicioRegistro servicioRegistro,ServicioCliente servicioCliente,ServicioBilletera servicioBilletera,ServicioGarage servicioGarage,ServicioEstacionamiento servEst, ServicioAuto servicioAuto){
 
 		this.servicioLogin = servicioLogin;
 		this.servicioBilletera = servicioBilletera;
@@ -61,6 +63,7 @@ public class ControladorLogin {
 		this.servicioGarage = servicioGarage;
 		this.servicioCliente = servicioCliente;
 		this.servicioRegistro = servicioRegistro;
+		this.servicioAuto = servicioAuto;
 	}
 	
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
@@ -160,6 +163,8 @@ public class ControladorLogin {
 				Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(usuarioBuscado);
 				List<Garage> listaGarage = servicioGarage.consultarGarage();
 				List<Garage> garagesCercanos = servicioGarage.buscarGarageQueCoincidanConLocalidadDeCliente(usuarioBuscado);
+				
+			
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 
 				model.put("cliente", usuarioBuscado);
@@ -167,6 +172,7 @@ public class ControladorLogin {
 				model.put("plan",usuarioBuscado.getPlan());
 				model.put("garages", listaGarage);
 				model.put("garagesCercanos", garagesCercanos);
+				
 	
 				return new ModelAndView("home", model);		
 		
