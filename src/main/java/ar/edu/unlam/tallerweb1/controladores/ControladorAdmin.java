@@ -301,12 +301,14 @@ public ModelAndView eliminaCliente(@PathVariable("id")Long id) {
 }
 
 
-	@RequestMapping(path="/procesarModificarGarage")
-	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage,HttpServletRequest request) {
+	@RequestMapping(path="/procesarModificarGarage/{id}")
+	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage,
+												@PathVariable("id") Long idGarage, HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
 		Long idUsuario = (Long) request.getSession().getAttribute("id");
 		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		Garage garageBuscado = servicioGarage.contultarUnGarage(garage);
+		Garage garageBuscado = servicioGarage.buscarGarage(idGarage);
+		//Garage garageBuscado = servicioGarage.contultarUnGarage(garage);
 		if(cliente != null) {
 			servicioGarage.modificarGarage(garage, garageBuscado);
 			

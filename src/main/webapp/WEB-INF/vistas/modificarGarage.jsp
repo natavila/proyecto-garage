@@ -13,7 +13,7 @@
 
 <div class="container">
 <h1>Modificar Garage</h1>
-<form:form  action="procesarModificarGarage" method="POST" modelAttribute="garage" class="row g-3 border border-3 bg-light">
+<form:form  action="${pageContext.request.contextPath}/procesarModificarGarage/${garage.id}" method="POST" modelAttribute="garage" class="row g-3 border border-3 bg-light">
 		<div class="col-dm-12">
 			<form:input type="text" class="form-control" id="nombre" path="nombre" placeholder="Nombre"/>
 			</div>
@@ -21,16 +21,19 @@
 		    <form:input type="text" class="form-control" id="calle" path="calle" placeholder="Calle"/>
 		  </div>
 		  <div class="col-dm-12">
+		    <form:input type="number" class="form-control" id="numero" path="numero" placeholder="Numero"/>
+		  </div>
+		  <div class="col-dm-12">
 		    <form:input type="text" class="form-control" id="localidad" path="localidad" placeholder="Localidad"/>
 		  </div>
 		  <div class="col-dm-12">
-		    <form:input type="text" class="form-control" id="capacidad" path="capacidad" placeholder="capacidad"/>
+		    <form:input type="text" class="form-control" id="capacidad" path="capacidad" placeholder="Capacidad"/>
 		  </div>
 		  <div class="col-dm-12">
-		    <form:input type="text" class="form-control" id="precioHora" path="precioHora" placeholder="precioHora"/>
+		    <form:input type="text" class="form-control" id="precioHora" path="precioHora" placeholder="Precio hora"/>
 		  </div>
 		   <div class="col-dm-12">
-		    <form:input type="text" class="form-control" id="precioEstadia" path="precioEstadia" placeholder="precioEstadia"/>
+		    <form:input type="text" class="form-control" id="precioEstadia" path="precioEstadia" placeholder="Precio estadia"/>
 		  </div>
 		   <br>
 		  <div class="col-dm-12">
