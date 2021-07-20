@@ -446,12 +446,6 @@ public class ControladorPagarGarage {
 				//BUSCA EL ID DEL ESTACIONAMIENTO Y LO ACTIVA
 				// INGRESA EL AUTO AL GARAGE
 				
-				/*
-				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-				
-				servicioEst.ActivarQR(id);
-				
-				*/
 				servicioGarage.sumarContador(garage);
 				//meto la reserva de Estacionamient
 				servicioEst.cambiarEstadoDeReserva(est);
@@ -468,61 +462,7 @@ public class ControladorPagarGarage {
 		}
 		
 	
-	/*		
-	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
-	public void generarPdf() throws Exception{
-		
-		Document documento = new Document();
-		
-		try {
-			
-			String ruta = System.getProperty("user.home");
-			PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Descargas/Ticket.pdf"));
-			documento.open();
-			
-			PdfPTable tabla = new PdfPTable(6);
-			tabla.addCell("N° de ticket");
-			tabla.addCell("Cliente");
-			tabla.addCell("Garage");
-			tabla.addCell("Dirección");
-			tabla.addCell("Monto pagado");
-			tabla.addCell("Días de reserva");
-			
-			try {
-				
-				Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/garage", "root", "1234");
-				PreparedStatement pst = cn.prepareStatement("select * from clientes");
-				ResultSet rs = pst.executeQuery();
-				
-				if(rs.next()) {
-					
-					do {
-						
-						tabla.addCell(rs.getString(1));
-						tabla.addCell(rs.getString(2));
-						tabla.addCell(rs.getString(3));
-						tabla.addCell(rs.getString(4));
-						tabla.addCell(rs.getString(5));
-						tabla.addCell(rs.getString(6));
-						
-					}while(rs.next());
-					
-					documento.add(tabla);
-					
-				}
-				
-			}catch(Exception e) {
-				
-			}
-			
-			documento.close();
-			JOptionPane.showMessageDialog(null, "Reporte creado");
-			
-		}catch(Exception e) {
-			
-		}
-    }
-*/
+	
 	
 
 	

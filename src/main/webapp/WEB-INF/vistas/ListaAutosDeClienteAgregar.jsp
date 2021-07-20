@@ -15,7 +15,16 @@
 		<table class="table table-hover">
 		<h1 style="text-align:center">Mis Autos</h1>
 		<h4 style="text-align:center">Cantidad de Autos: ${cantidad}</h4>
-		<a class="btn btn-primary mb-3" href="mostrarRegistroAuto" role="button">Agregar Auto</a><br>
+		<h4 style="text-align:center">Limite de Autos: ${limite}</h4>
+		<c:if test="${not empty cantidad && cantidad < limite}">
+			<a class="btn btn-primary mb-3" href="mostrarRegistroAuto" role="button">Agregar Auto</a><br>
+		</c:if> 
+		<c:if test="${not empty cantidad  && cantidad >=limite}">
+						<div class="alert alert-danger " role="alert">
+		 			 	<strong>LLegaste al Limite de Autos Permitidos</strong>
+						</div>
+						</c:if> 
+	  
 	  <thead>
 	    <tr>
 	      <th scope="col">ID</th>

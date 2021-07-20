@@ -55,7 +55,7 @@ private RepositorioGarage repositorioGarage;
 		ArrayList<Garage> listaActivos = new ArrayList<Garage>();
 		
 		for(Garage e: repositorioGarage.consultarGarage()) {
-			if(e.getActivo() == true) {
+			if(e.getActivo() != null && e.getActivo() == true) {
 				listaActivos.add(e);
 			}
 		}

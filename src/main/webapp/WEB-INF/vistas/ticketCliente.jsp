@@ -30,9 +30,9 @@
 		<h5>Plan contratado: ${cliente.plan}</h5>
 		</div>
 	</div>
+	<div class="container col-4">
 	
-	<div id="text" class="container col-4">
-	
+	<div id="text" >
 		<table class="table table-hover">
 		<h3>Tickets</h3>
 	
@@ -58,17 +58,18 @@
 	 
 	</table>
 	
-	 
+</div> 
 	
 	 <button  class ="btn btn-dark mb-3" role="button" id="btn">Imprimir Ticket</button>
-	
+	 <a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
+	</div>
 	<c:if test="${empty estacionamiento}">
 		<div class="alert alert-warning" role="alert">
   			${mensaje}
 		</div>
 	</c:if>
-	<a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
-	</div>
+	
+	
 	
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -79,9 +80,15 @@
 <script type="text/javascript">
   
   $(document).on('click','#btn',function(){
-let pdf = new jsPDF();
+let pdf = new jsPDF('2','mm',[297, 210]);
+
+
 let section=$('#text');
+
+
+
 let page= function() {
+	
     pdf.save('ticket.pdf');
    
 };
