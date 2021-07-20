@@ -151,12 +151,14 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 	@Override
 	public void modificarDatosGarage(Garage garage, Garage modificado) {
 		final Session session = sessionFactory.getCurrentSession();
-		String nombre = garage.getNombre();
-		String calle = garage.getCalle();
+		String nombre = garage.getNombre().toUpperCase();
+		String calle = garage.getCalle().toUpperCase();
 		Integer capacidad = garage.getCapacidad();
 		Integer numero = garage.getNumero();
 		Double precioHora = garage.getPrecioHora();
 		Double precioEstadia = garage.getPrecioEstadia();
+		String latitud = garage.getLatitud();
+		String longitud = garage.getLongitud();
 		String localidad = garage.getLocalidad();
 		modificado.setNombre(nombre);
 		modificado.setCalle(calle);
@@ -165,6 +167,8 @@ public class RepositorioGarageImpl implements RepositorioGarage{
 		modificado.setPrecioHora(precioHora);
 		modificado.setPrecioEstadia(precioEstadia);
 		modificado.setLocalidad(localidad);
+		modificado.setLatitud(latitud);
+		modificado.setLongitud(longitud);
 		
 		session.update(modificado);
 	}
