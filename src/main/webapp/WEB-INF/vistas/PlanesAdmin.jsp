@@ -19,7 +19,7 @@
 		<table class="table table-hover">
 <h2>Lista de planes</h2>
 
-
+<h5><a class="btn btn-success justify-content-md-end" href="crearPlan">Agregar Plan</a></h5>
 			<thead>
 				<tr>
 					<th scope="col">Id</th>
@@ -51,7 +51,7 @@
 
 			</tbody>
 		</table>
-		<a class="btn btn-primary" href="home" role="button">Volver</a>
+		<a class="btn btn-dark" href="home" role="button">Volver</a>
 
 	
 	<footer th:replace="layout/layout::footer" class="bg-dark"></footer>

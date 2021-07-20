@@ -86,12 +86,14 @@ public class ControladorPagarGarage {
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Cliente cliente = servicioCliente.consultarClientePorId(id);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
-		
 		if(rol != null && rol.equals("cliente"))
 			if(cliente != null) {
 			if(auto !=null && garage !=null) {
-				if(cliente.getPlan().getCantidadAutosRestantes()==0 || cliente.getPlan().getCantidadHorasRestantes()==0) {
-					modelo.put("MensajeError", "Ya no posee mas autos disponibles o se agotaron las horas"); 
+				if(cliente.getPlan() != null) {
+					if(cliente.getCantidadAutosRestantes()==0 || cliente.getCantidadHorasRestantes()==0) {
+						modelo.put("MensajeError", "Ya no posee mas autos disponibles o se agotaron las horas"); 
+					}
+				
 					
 				}
 				
@@ -126,41 +128,44 @@ public class ControladorPagarGarage {
 		
 		if(rol != null && rol.equals("cliente"))
 			if(cliente != null) {	
-		                                       //Esto le puse Nuevo
-			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
-				modelo.put("auto", auto);
-				modelo.put("cliente", cliente);
-				modelo.put("garage", garage);
-				est.setFechaDesde(fechaDesde);
-				est.setFechaHasta(fechaHasta);
-				est.setGarage1(garage);
-				
-				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-			
-				
-				est.setAuto(auto);
-				est.setGarage1(garage);
-				est.setActiva(true);
-				est.setCliente(cliente);
-				
-				Long dias = servicioCobrarTickets.calcularDias(est.getFechaDesde(), est.getFechaHasta());
-				Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), fechaDesde, fechaHasta);
-				
-				est.setPrecioAPagar(precio);
-				
-				est.setEstaPagado(false);
-				
-				modelo.put("ticket", est);
-				
-				modelo.put("precio", precio);
-				
-				modelo.put("dias", dias);
-				
-				servicioCobrarTickets.registrarTicket(est);
-				servicioPlan.actualizarEstadoPlan(cliente, dias*24);
-				
-				return new ModelAndView("realizarReservaEstadia", modelo);
-			}
+				if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && garage.getCapacidad()>garage.getContador()) {
+						modelo.put("auto", auto);
+						modelo.put("cliente", cliente);
+						modelo.put("garage", garage);
+						est.setFechaDesde(fechaDesde);
+						est.setFechaHasta(fechaHasta);
+						est.setGarage1(garage);
+						
+						servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
+					
+						
+						est.setAuto(auto);
+						est.setGarage1(garage);
+						est.setActiva(true);
+						est.setCliente(cliente);
+						
+						Long dias = servicioCobrarTickets.calcularDias(est.getFechaDesde(), est.getFechaHasta());
+						Double precio = servicioCobrarTickets.calcularPrecioPorEstadia(garage.getPrecioEstadia(), fechaDesde, fechaHasta);
+						
+						est.setPrecioAPagar(precio);
+						
+						est.setEstaPagado(false);
+						
+						modelo.put("ticket", est);
+						
+						modelo.put("precio", precio);
+						
+						modelo.put("dias", dias);
+						
+						servicioCobrarTickets.registrarTicket(est);
+						
+						if(cliente.getPlan() != null) {
+							servicioPlan.actualizarEstadoPlan(cliente, dias*24);
+						}
+						
+						return new ModelAndView("realizarReservaEstadia", modelo);
+					
+				}
 			
 			return new ModelAndView("AlertaAutoEnGarage", modelo);
 		
@@ -184,28 +189,9 @@ public class ControladorPagarGarage {
 				
 		if(cliente != null && rol.equals("cliente")) {	
 			if(billetera != null && garage != null && auto != null && estacionamiento.getEstaPagado().equals(false)) {
-				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
-					servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);
-					modelo.put("cliente", cliente);
-					modelo.put("garage", garage);
-					modelo.put("estacionamiento", estacionamiento);
-					Long id = estacionamiento.getId();
-					//Devuelve LA IP DEL DUEÑO DE LA PC
-					String ip = servQr.devolverIp();
-			        //TEXTO DEL QR
-					String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
-					//GENERA EL QR
-					String imagenQr = servQr.generateQR(text).toString();
-					
-					//Guardo en Un String  la direccion de la Imagen de QR
-					servicioEst.meterImagenQr(estacionamiento, imagenQr);
-					
-					
-	
-					
-					
-					modelo.put("file", imagenQr);
-					return new ModelAndView("confirmacionReservaEstadia", modelo);
+				if(cliente.getPlan() == null) {
+					if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
+						servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);					
 				}else {
 					modelo.put("cliente", cliente);
 					modelo.put("garage", garage);
@@ -216,6 +202,23 @@ public class ControladorPagarGarage {
 			}
 			
 		}
+			servicioPlan.actualizarPagoDeReserva(estacionamiento);
+			modelo.put("cliente", cliente);
+			modelo.put("garage", garage);
+			modelo.put("estacionamiento", estacionamiento);
+			Long id = estacionamiento.getId();
+			//Devuelve LA IP DEL DUEÑO DE LA PC
+			String ip = servQr.devolverIp();
+	        //TEXTO DEL QR
+			String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
+			//GENERA EL QR
+			String imagenQr = servQr.generateQR(text).toString();
+			
+			//Guardo en Un String  la direccion de la Imagen de QR
+			servicioEst.meterImagenQr(estacionamiento, imagenQr);
+			modelo.put("file", imagenQr);
+			return new ModelAndView("confirmacionReservaEstadia", modelo);
+	}
 		
 		return new ModelAndView("redirect:/login");
 	}
@@ -235,20 +238,19 @@ public class ControladorPagarGarage {
 		
 		if(rol != null && rol.equals("cliente"))
 			if(cliente != null) {
-			if(auto !=null && garage !=null) {
-				if(cliente.getPlan().getCantidadAutosRestantes()==0 || cliente.getPlan().getCantidadHorasRestantes()==0) {
-					modelo.put("MensajeError", "Ya no posee mas autos disponibles o se agotaron las horas"); 
+				if(auto !=null && garage !=null) {
+					if(cliente.getCantidadAutosRestantes()==0 || cliente.getCantidadHorasRestantes()==0) {
+						modelo.put("MensajeError", "Ya no posee mas autos disponibles o se agotaron las horas"); 
+						
+					}
 					
+					modelo.put("auto", auto);
+					modelo.put("cliente", cliente);
+					modelo.put("ticket", ticket);
+					modelo.put("garage", garage);
+					
+					return new ModelAndView("formularioReservaHora", modelo);
 				}
-				
-				modelo.put("auto", auto);
-				modelo.put("cliente", cliente);
-				modelo.put("ticket", ticket);
-				modelo.put("garage", garage);
-				
-				return new ModelAndView("formularioReservaHora", modelo);
-			}
-			return new ModelAndView("formularioReservaHora", modelo);
 			}
 		
 		return new ModelAndView("redirect:/login");
@@ -271,9 +273,7 @@ public class ControladorPagarGarage {
 		ModelMap modelo = new ModelMap();
 		Estacionamiento est = new Estacionamiento();
 		Auto auto = servicioAuto.buscarAuto(idAuto);
-		//Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		Garage garage = servicioGarage.buscarGarage(idGarage);
-		                                       //Esto le puse Nuevo
 			if(garage !=null && auto!=null && auto.getUsandoGarage().equals(false) && servicioGarage.GarageLleno(garage).equals(false) ) {
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
@@ -305,9 +305,11 @@ public class ControladorPagarGarage {
 				
 				servicioCobrarTickets.registrarTicket(est);
 				
-				servicioPlan.actualizarEstadoPlan(cliente, horas);
 				
-			
+				
+				if(cliente.getPlan() != null) {
+					servicioPlan.actualizarEstadoPlan(cliente, horas);
+				}
 				
 				return new ModelAndView("realizarReservaHora", modelo);
 			}
@@ -335,12 +337,18 @@ public class ControladorPagarGarage {
 		Garage garage = servicioGarage.buscarGarage(idGarage);
 		Auto auto = servicioAuto.buscarAuto(idAuto);
 		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
-
-		//Document documento = new Document();
 		
 			if(billetera != null && garage != null && auto != null) {
 				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
-					servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
+					if(cliente.getPlan() == null) {
+						servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
+					}
+					
+				}else {
+					
+					return new ModelAndView("saldoInsuficiente", modelo);
+				}
+					servicioPlan.actualizarPagoDeReserva(estacionamiento);
 					modelo.put("cliente", cliente);
 					modelo.put("garage", garage);
 					modelo.put("estacionamiento", estacionamiento);
@@ -355,65 +363,11 @@ public class ControladorPagarGarage {
 					
 					//Guardo en Un String  la direccion de la Imagen de QR
 					servicioEst.meterImagenQr(estacionamiento, imagenQr);
-
-						
-				/*	try {
-			        	String path = new File(".").getCanonicalPath();
-			        	String FILE_NAME = path + "/itext-test-file.pdf";
-			        	
-			            PdfWriter.getInstance(documento, new FileOutputStream(new File(FILE_NAME)));
-			 
-			            documento.open();
-			 
-			            Paragraph paragraphHello = new Paragraph();
-			            paragraphHello.add("Hello iText paragraph!");
-			            paragraphHello.setAlignment(Element.ALIGN_JUSTIFIED);
-			 
-			            documento.add(paragraphHello);
-			 
-			            Paragraph paragraphLorem = new Paragraph();
-			            paragraphLorem.add("Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-			            		+ "Maecenas finibus fringilla turpis, vitae fringilla justo."
-			            		+ "Sed imperdiet purus quis tellus molestie, et finibus risus placerat."
-			            		+ "Donec convallis eget felis vitae interdum. Praesent varius risus et dictum hendrerit."
-			            		+ "Aenean eu semper nunc. Aenean posuere viverra orci in hendrerit. Aenean dui purus, eleifend nec tellus vitae,"
-			            		+ " pretium dignissim ex. Aliquam erat volutpat. ");
-			            
-			            List<Element> paragraphList = new ArrayList<>();
-			            
-			            paragraphList = paragraphLorem.breakUp();
-			 
-			            Font f = new Font();
-			            f.setFamily(FontFamily.COURIER.name());
-			            f.setStyle(Font.BOLDITALIC);
-			            f.setSize(8);
-			            
-			            Paragraph p3 = new Paragraph();
-			            p3.setFont(f);
-			            p3.addAll(paragraphList);
-			            p3.add("TEST LOREM IPSUM DOLOR SIT AMET CONSECTETUR ADIPISCING ELIT!");
-			 
-			            documento.add(paragraphLorem);
-			            documento.add(p3);
-			            documento.close();
-			 
-			        } catch (FileNotFoundException | DocumentException e) {
-			            e.printStackTrace();
-			        } catch (IOException e) {
-						e.printStackTrace();
-					}
-
-					modelo.put("file", imagenQr);
-					*/
-					//
+	
 					return new ModelAndView("confirmacionReservaPorHora", modelo);
-				}else {
-					return new ModelAndView("saldoInsuficiente", modelo);
-				}
-				
 			}
 		
-					return new ModelAndView("realizarReservaEstadia/{auto.id}/{garage.id}");
+
 			}
 					return new ModelAndView("redirect:/login");
 			

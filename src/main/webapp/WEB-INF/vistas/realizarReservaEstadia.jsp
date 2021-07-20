@@ -11,12 +11,13 @@
 <%@ include file="header.jsp" %>
 	<div class="container">
 	<h1>El precio es: </h1>
-		<h3>${precio}</h3><br>
+		<h3>$${precio}</h3><br>
 		<h1>Dias del auto en el garaje:</h1>
 		<h3>${dias}</h3>
-		<a class="btn btn-primary" href="${pageContext.request.contextPath}/pagarReservaEstadia/${auto.id}/${garage.id}" role="button">Pagar</a>
-		<a class="btn btn-primary" href="generarPdf" role="button">Generar factura</a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/pagarReservaEstadia/${auto.id}/${garage.id}" role="button">Pagar</a><br>
+		<br>
+		<a class="btn btn-dark mt-5" href="javascript:history.back()"> Volver</a>
 		</div>
-		<a href="javascript:history.back()"> Volver</a>
+		
 </body>
 </html>

@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.modelo.Plan;
 
 public interface ServicioBilletera {
 	
@@ -18,6 +19,8 @@ public interface ServicioBilletera {
 	void pagarReservaEstadia(Estacionamiento estacionamiento, Billetera billetera);
 	
 	void pagarReservaPorHora(Estacionamiento estacionamiento, Billetera billetera);
+	
+	void pagarPlan(Plan plan, Billetera billetera);
 	
 	Double consultarSaldo(Billetera saldo);
 	

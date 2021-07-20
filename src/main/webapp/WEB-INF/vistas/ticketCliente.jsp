@@ -27,7 +27,7 @@
 		<h5>Cliente: ${cliente.nombre} ${cliente.apellido}</h5>
 		<h5>Email: ${cliente.email}</h5>
 		<h5>Localidad: ${cliente.localidad}</h5>
-		<h5>Plan contratado: ${cliente.plan}</h5>
+		<h5>Plan contratado: ${cliente.plan.nombre}</h5>
 		</div>
 	</div>
 	<div class="container col-4">

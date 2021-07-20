@@ -171,7 +171,7 @@ public class ControladorAdmin {
 
 	}
 
-	@RequestMapping(path = "/crearPlan", method = RequestMethod.POST)
+	@RequestMapping(path = "/procesarCrearPlan", method = RequestMethod.POST)
 	public ModelAndView validacionPlan(@ModelAttribute("plan") Plan plan) {
 
 		ModelMap modelo = new ModelMap();

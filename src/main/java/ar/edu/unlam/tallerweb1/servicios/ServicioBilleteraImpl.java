@@ -11,6 +11,7 @@ import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.modelo.Plan;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioBilletera;
 
 @Service
@@ -72,6 +73,13 @@ public class ServicioBilleteraImpl implements ServicioBilletera{
 	public void pagarReservaPorHora(Estacionamiento estacionamiento, Billetera billetera) {
 		
 		servicioBilletera.pagarReservaHora(estacionamiento, billetera);
+		
+	}
+
+	@Override
+	public void pagarPlan(Plan plan, Billetera billetera) {
+		
+		servicioBilletera.pagarPlan(plan, billetera);
 		
 	}
 

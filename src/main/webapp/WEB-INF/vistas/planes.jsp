@@ -17,14 +17,14 @@
 <%@ include file="header.jsp" %>
 
 	<div class="container mt-3">
-		<h1>  Hola ${cliente.nombre}, Qué plan querés elegir?</h1>
+		<h1>  Hola ${cliente.nombre}, ¿qué plan querés elegir?</h1>
+		<h3>  Tu saldo es: $${billetera.saldo}</h3> <a href="formularioSaldo">Recargar billetera</a>
 		<table class="table table-hover">
 
 
 
 			<thead>
 				<tr>
-					<th scope="col">Id</th>
 					<th scope="col">Nombre</th>
 					<th scope="col">Cantidad de autos</th>
 					<th scope="col">Cantidad de horas</th>
@@ -36,17 +36,19 @@
 			<tbody>
 				<c:forEach var="plan" items="${planes}" varStatus="status">
 					<tr>
-						<td><b>${plan.id}</b></td>
-
-						<td>${plan.nombre}</td>
+						<td><b>${plan.nombre}</b></td>
 						<td>${plan.cantidadAutosPermitidos}</td>
 						<td>${plan.cantidadHorasPermitidas}</td>
-						<td>${plan.precio}</td>
+						<td>$${plan.precio}</td>
 
-						<td><a class="btn btn-primary" href="${pageContext.request.contextPath}/asignarplan/${plan.id}" role="button">Elegir</a></td>
-
-						<br>
+						<td>
+						<!-- Button trigger modal -->
+						<c:if test ="${empty mensaje}">
+						  <a class="btn btn-primary" href="${pageContext.request.contextPath}/asignarplan/${plan.id}" role="button">Pagar</a>
+						</button>
+						</c:if>
 						</td>
+
 					</tr>
 
 			
@@ -55,7 +57,7 @@
 
 			</tbody>
 		</table>
-		<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
+		<a class="btn btn-primary mb-5" role="button" href="javascript:history.back()"> Volver</a>
 
 	</div>
 		<c:if test="${not empty mensajeExito}">
@@ -68,6 +70,20 @@
 		<c:if test="${not empty mensajeTienePlan}">
 			<div class="alert alert-danger" role="alert">
 				<h6>${mensajeTienePlan}</h6>
+
+			</div>
+		</c:if>
+		
+		<c:if test="${not empty mensaje}">
+			<div class="alert alert-danger" role="alert">
+				<h6>${mensaje} <a href="registroBilletera"> aquí.</a></h6>
+
+			</div>
+		</c:if>
+		
+		<c:if test="${not empty fondoInsuficiente}">
+			<div class="alert alert-danger" role="alert">
+				<h6>${fondoInsuficiente} <a href="formularioSaldo"> aquí.</a></h6>
 
 			</div>
 		</c:if>

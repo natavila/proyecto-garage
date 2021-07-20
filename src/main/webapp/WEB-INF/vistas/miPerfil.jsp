@@ -22,11 +22,11 @@
 		<h5>Localidad: ${cliente.localidad}</h5>
 		<h5>Plan contratado: 
 		<c:if test="${empty cliente.plan.nombre}">
-		No posee plan contratado</h5>
+		No posee plan contratado
 		</c:if>
 		<c:if test="${not empty cliente.plan.nombre}">
-		${cliente.plan.nombre}</h5>
-		</c:if>
+		${cliente.plan.nombre}
+		</c:if></h5>
 		</div>
 		<c:if test="${not empty billetera}">
 		<h3 style="text-align:center; margin-top:20px; margin-bottom:50px;">Saldo actual: $${billetera.saldo}</h3>
@@ -39,6 +39,9 @@
 		<a class="btn btn-primary" href="misAutos" role="button">Mis Autos</a>
 		<a class="btn btn-primary" href="ticketsCliente" role="button">Mis Tickets</a>
 		<a class="btn btn-primary" href="mostrarBilletera" role="button">Mi billetera</a>
+		<c:if test="${empty cliente.plan.nombre}">
+		<a class="btn btn-primary" href="planes" role="button">Ver planes</a>
+		</c:if>
 		</div>
 		<table class="table table-hover">
 		<h3>Últimas reservas</h3>

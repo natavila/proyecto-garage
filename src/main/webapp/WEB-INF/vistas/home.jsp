@@ -40,20 +40,30 @@
 		<h5>Saldo disponible: $${billetera.saldo} </h5>	 				        	        
 		</c:if>	
 		<c:if test="${not empty cliente.plan}">			
-		<h5>Tu PLAN actual es ${plan.nombre} </h5>	
-		<h5>Podes Inscribir ${plan.cantidadAutosPermitidos} Autos </h5> 
-		<h5> Te quedan ${plan.cantidadAutosRestantes} autos</h5>
-		<h5>Y usar ${plan.cantidadHorasPermitidas} horas en cualquiera de nuestros Garages </h5>
-		<h5> Te quedan ${plan.cantidadHorasRestantes} horas</h5> 				        	        
+		<div class="container" style="margin-top:50px; margin-bottom:50px;">
+		<table class="table table-success table-striped">
+		  <thead>
+		    <tr>
+		      <th scope="col">Plan actual</th>
+		      <th scope="col">Autos restantes</th>
+		      <th scope="col">Horas restantes</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <th scope="row">${plan.nombre}</th>
+		      <td><b>${cliente.cantidadAutosRestantes}</b> de <b>${plan.cantidadAutosPermitidos}</b> autos permitidos</td>
+		      <td><b>${cliente.cantidadHorasRestantes}</b> de <b>${plan.cantidadHorasPermitidas}</b> horas permitidas</td>
+		    </tr>
+		    </tbody>
+		    </table>
+		    </div> 				        	        
 		</c:if>	
 		</div>
 		
-		
-		
+		<c:if test="${empty cliente.plan}">
 		<div style="margin-top:50px; margin-bottom:50px; text-align:center;">
-		<c:if test="">${not empty cliente.plan}
 		<a class="btn btn-primary" href="planes" role="button">Elegir Plan</a>
-		</c:if>
 		</div>
 		<div class="container" style="display:grid; grid-template-columns:200px 20px 200px 20px 200x; grid-template-rows: 250px; margin-top:50px;">
 		<div class="card" style="width: 18rem; grid-column:1; grid-row:1;">
@@ -81,9 +91,8 @@
 		  </div>
 		</div>
 		</div>
-
-		
-		<h3 style="text-align:center; margin-bottom:50px;">Garages cercanos a tu zona</h3>	
+		</c:if>
+		<h3 style="text-align:center; margin-bottom:50px; margin-top:50px;">Garages cercanos a tu zona</h3>	
 
 		<div class="container" style="display:grid; grid-template-columns:650px 50px 400px; grid-template-rows:500px;">
 

@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.servicios;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Plan;
 
 public interface ServicioPlan {
@@ -20,5 +21,7 @@ public interface ServicioPlan {
 	public Plan existeClienteConPlan(Cliente cliente, Plan plan);
 
 	void actualizarEstadoPlan(Cliente cliente, Long horas);
+	
+	public void actualizarPagoDeReserva(Estacionamiento estacionamiento);
 	
 }
