@@ -292,13 +292,16 @@ public class ControladorAdmin {
 		return new ModelAndView("redirect:/mostrarClientes", modelo);
 	}
 
-	@RequestMapping(path = "/procesarModificarGarage")
-	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage, HttpServletRequest request) {
+
+	@RequestMapping(path="/procesarModificarGarage/{id}")
+	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage,
+												@PathVariable("id") Long idGarage, HttpServletRequest request) {
+
 		ModelMap modelo = new ModelMap();
 		Long idUsuario = (Long) request.getSession().getAttribute("id");
 		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		Garage garageBuscado = servicioGarage.contultarUnGarage(garage);
-		if (cliente != null) {
+		Garage garageBuscado = servicioGarage.buscarGarage(idGarage);
+		if (cliente != null && cliente.getRoll().equals("admin")) {
 			servicioGarage.modificarGarage(garage, garageBuscado);
 
 			modelo.put("garage", garageBuscado);
