@@ -25,7 +25,7 @@
 <body>
 	<main class="container">
 		<!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
-		<form:form action="crearPlan" method="POST" modelAttribute="plan"
+		<form:form action="procesarCrearPlan" method="POST" modelAttribute="plan"
 			class="row g-3">
 			<h1 class="mt-3">Creacion de plan</h1>
 			<div class="col-md-6">
@@ -40,7 +40,7 @@
 				<form:input type="number" class="form-control"
 					id="cantidadAutosPermitidos" path="cantidadAutosPermitidos" />
 			</div>
-			<div class="col-md-6>
+			<div class="col-md-6">
 				<label for="cantidadHorasPermitidas"
 					class="form-label control-label">Cantidad de horas
 					permitidas</label> <input type="number" class="form-control"
@@ -55,7 +55,6 @@
 			</div>
 
 			<button type="submit" class="btn btn-primary control-label mb-3">Crear</button>
-			</div>
 		</form:form>
 		<%--Bloque que es visible si el elemento error no está vacío	--%>
 
@@ -72,6 +71,7 @@
 
 			</div>
 		</c:if>
+		<a class="btn btn-dark" href="planesAdmin" role="button">Volver</a>
 	</main>
 </body>
 </html>

@@ -30,7 +30,13 @@
 					<td> ${cliente.nombre} ${cliente.apellido} </td>
 					<td> ${garage.nombre} </td>
 					<td> ${garage.calle} ${garage.numero} ${garage.localidad} </td>
-					<td> $${estacionamiento.precioAPagar} </td>
+					<td><c:if test="${empty cliente.plan}">
+					 ${estacionamiento.precioAPagar}
+					</c:if>
+					<c:if test="${not empty cliente.plan}">
+						${cliente.plan.nombre}
+					</c:if>
+					 </td>
 					<td> Desde: ${estacionamiento.horaDesde} hs. <br> 
 					Hasta: ${estacionamiento.horaHasta} hs. </td>
 				</tr>

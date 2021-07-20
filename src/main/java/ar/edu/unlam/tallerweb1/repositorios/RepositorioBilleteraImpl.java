@@ -13,6 +13,11 @@ import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.modelo.Plan;
+import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
+import ar.edu.unlam.tallerweb1.servicios.ServicioBilleteraImpl;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioClienteImpl;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobrarTicketsImpl;
 
 @Repository("repositorioBilletera")
@@ -93,6 +98,15 @@ public class RepositorioBilleteraImpl implements RepositorioBilletera{
 		   List<Billetera> listaBilletera = session.createCriteria(Billetera.class)
 				  .list();
 		   return listaBilletera;
+	}
+
+	@Override
+	public void pagarPlan(Plan plan, Billetera billetera) {
+
+		final Session session = sessionFactory.getCurrentSession();
+		Double pago = billetera.getSaldo() - plan.getPrecio();
+		billetera.setSaldo(pago);
+		session.update(billetera);
 	}
 
 	
