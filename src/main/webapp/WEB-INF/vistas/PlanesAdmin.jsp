@@ -27,7 +27,7 @@
 					<th scope="col">Cantidad de autos</th>
 					<th scope="col">Cantidad de horas</th>
 					<th scope="col">Precio</th>
-
+					<th scope="col"></th>
 
 				</tr>
 			</thead>
@@ -40,6 +40,7 @@
 						<td>${plan.cantidadAutosPermitidos}</td>
 						<td>${plan.cantidadHorasPermitidas}</td>
 						<td>${plan.precio}</td>
+						<td><a class="btn btn-danger" href="${pageContext.request.contextPath}/eliminarPlan/${plan.id}" role="button">Eliminar</a></td>
 						<br>
 						</td>
 					</tr>

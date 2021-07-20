@@ -34,7 +34,6 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 public class testMockitoLogin extends SpringTest{
 
 	private ServicioLogin servicioLoginMock;
-	//private ServicioLogin servicioLogin;
 	private ServicioEstacionamiento servEstMock;
 	private ServicioBilletera servicioBilleteraMock;
 	private ServicioGarage servicioGarageMock;

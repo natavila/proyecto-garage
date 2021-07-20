@@ -18,9 +18,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorLogin;
+import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioBilletera;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
@@ -36,8 +38,9 @@ public class testMockitoLoginCliente extends SpringTest{
 	private ServicioGarage servicioGarage;
 	private ServicioCliente servicioCliente;
 	private ServicioRegistro servicioRegistro;
+	private ServicioAuto servicioAuto;
 	
-	private ControladorLogin controladorLogin = new ControladorLogin(servicioLogin, servicioRegistro, servicioCliente, servicioBilletera, servicioGarage, servEst);
+	private ControladorLogin controladorLogin = new ControladorLogin(servicioLogin, servicioRegistro, servicioCliente, servicioBilletera, servicioGarage, servEst, servicioAuto);
 	private Cliente usuarioMock;
 	private Billetera billeteraMock;
 	private Garage garageMock;
