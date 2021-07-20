@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Plan;
 
@@ -39,6 +40,8 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 				.add(Restrictions.eq("id",cliente.getId()))
 				.uniqueResult();
 		         cliente1.setPlan(plan);
+		         cliente1.setCantidadAutosRestantes(plan.getCantidadAutosPermitidos());
+		         cliente1.setCantidadHorasRestantes(plan.getCantidadHorasPermitidas());
 	}
 	
 	@Override
@@ -84,5 +87,13 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 		
 		
 	}
+
+	@Override
+	public void actualizarPagoDeReserva(Estacionamiento estacionamiento) {
+		final Session session = sessionFactory.getCurrentSession();
+		estacionamiento.setEstaPagado(true);
+		session.update(estacionamiento);
+	}
+
 
 }

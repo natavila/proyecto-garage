@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Plan;
 import ar.edu.unlam.tallerweb1.repositorios.RepositorioAuto;
@@ -24,6 +25,7 @@ public class ServicioPlanImpl implements ServicioPlan {
 
 	private RepositorioPlan repositorioPlan;
 	private RepositorioCliente repositorioCliente;
+	private ServicioPlan servicioPlan;
 	private ServicioCobrarTickets servicioCobrarTickets;
 	private RepositorioEstacionamiento RepositorioEst;
 	
@@ -68,8 +70,14 @@ public class ServicioPlanImpl implements ServicioPlan {
 	
 	@Override
 	public void actualizarEstadoPlan(Cliente cliente, Long horas) {
-		cliente.getPlan().actualizarEstado(horas);
+		cliente.actualizarEstado(horas);
 		repositorioPlan.actualizarPlan(cliente.getPlan());
+	}
+
+	@Override
+	public void actualizarPagoDeReserva(Estacionamiento estacionamiento) {
+		repositorioPlan.actualizarPagoDeReserva(estacionamiento);
+		
 	}
 
 

@@ -17,17 +17,17 @@
 		<label>Ingrese el monto</label>
 		<input type="number" name="monto" id="saldo"/>
 		<div class="d-grid gap-2 col-3 mx-auto mt-3">
-		<button type="submit" class="btn btn-primary">Ingresar</button>
+		<button type="submit" class="btn btn-primary mb-5">Ingresar</button>
 		</div>
 	</form:form>
-	<a class="btn btn-dark mt-5" role="button" href="javascript:history.back()"> Volver</a>
-	</div>
 	<c:if test="${not empty error}">
 			<div class="alert alert-danger" role="alert">
 				<h6>${error}</h6>
 
 			</div>
 		</c:if>
-		
+<a class="btn btn-dark mt-5" role="button" href="javascript:history.back()"> Volver</a>
+	</div>
+
 </body>
 </html>

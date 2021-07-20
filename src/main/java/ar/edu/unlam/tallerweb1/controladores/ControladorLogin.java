@@ -168,6 +168,8 @@ public class ControladorLogin {
 				request.getSession().setAttribute("roll", usuarioBuscado.getRoll());
 
 				model.put("cliente", usuarioBuscado);
+				model.put("cantidadDeAutos", usuarioBuscado.getCantidadAutosRestantes());
+				model.put("cantidadDeHoras", usuarioBuscado.getCantidadHorasRestantes());
 				model.put("billetera", billetera);
 				model.put("plan",usuarioBuscado.getPlan());
 				model.put("garages", listaGarage);

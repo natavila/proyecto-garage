@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.repositorios;
 import java.util.List;
 
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Plan;
 
 public interface RepositorioPlan {
@@ -20,5 +21,7 @@ public interface RepositorioPlan {
 	void asignarPlanACliente(Cliente cliente, Plan plan);
 
 	void actualizarPlan(Plan plan);
+	
+	void actualizarPagoDeReserva(Estacionamiento estacionamiento);
 
 }

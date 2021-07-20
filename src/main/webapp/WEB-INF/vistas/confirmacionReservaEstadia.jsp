@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,13 +30,20 @@
 					<td> ${cliente.nombre} ${cliente.apellido} </td>
 					<td> ${garage.nombre} </td>
 					<td> ${garage.calle} ${garage.numero} ${garage.localidad} </td>
-					<td> S${estacionamiento.precioAPagar} </td>
+					<td><c:if test="${empty cliente.plan}">
+					 ${estacionamiento.precioAPagar}
+					</c:if>
+					<c:if test="${not empty cliente.plan}">
+						${cliente.plan.nombre}
+					</c:if>
+					 </td>
 					<td> Desde: ${estacionamiento.fechaDesde} <br> 
 					Hasta: ${estacionamiento.fechaHasta}</td>
 				</tr>
 			</tbody>
 		</table>
+		<a class="btn btn-primary mt-5" role="button" href="javascript:history.back()"> Volver</a>
 	</div>
-	<a class="btn btn-primary" role="button" href="javascript:history.back()"> Volver</a>
+	
 </body>
 </html>

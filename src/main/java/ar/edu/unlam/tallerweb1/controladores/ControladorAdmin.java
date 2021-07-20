@@ -171,7 +171,7 @@ public class ControladorAdmin {
 
 	}
 
-	@RequestMapping(path = "/crearPlan", method = RequestMethod.POST)
+	@RequestMapping(path = "/procesarCrearPlan", method = RequestMethod.POST)
 	public ModelAndView validacionPlan(@ModelAttribute("plan") Plan plan) {
 
 		ModelMap modelo = new ModelMap();
@@ -357,21 +357,21 @@ public class ControladorAdmin {
 		return new ModelAndView("redirect:/misAutosAdmin/{idC}");
 	}
 
-	@RequestMapping("/eliminarPlan")
-	public ModelAndView borrarPlan() {
-		ModelMap modelo = new ModelMap();
-		Plan plan = new Plan();
-		modelo.put("plan", plan);
-		return new ModelAndView("eliminarPlan", modelo);
-
-	}
+//	@RequestMapping("/eliminarPlan")
+//	public ModelAndView borrarPlan() {
+//		ModelMap modelo = new ModelMap();
+//		Plan plan = new Plan();
+//		modelo.put("plan", plan);
+//		return new ModelAndView("eliminarPlan", modelo);
+//
+//	}
 
 	@RequestMapping("/eliminarPlan/{id}")
 	public ModelAndView eliminarPlan(@PathVariable("id") Long id) {
 		ModelMap modelo = new ModelMap();
-
+		
 		servicioPlan.darDeBajaPlan(id);
-		return new ModelAndView("redirect:/eliminarPlan", modelo);
+		return new ModelAndView("redirect:/planesAdmin");
 	}
 
 	public ServicioPlan getServicioPlan() {

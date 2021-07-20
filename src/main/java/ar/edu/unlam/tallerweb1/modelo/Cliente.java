@@ -19,17 +19,40 @@ public class Cliente {
 	private String email;
 	private String password;
 	private String roll;
-	private Boolean activo= true;
-
+	private Boolean activo = true;
 	private Integer contAutos;
 	private String localidad;
+	private Long cantidadAutosRestantes;
+	private Long cantidadHorasRestantes;
 	
 	@ManyToOne
 	private Plan plan;
 
 	@ManyToOne
 	Usuario usuario;
+
 	
+	public void actualizarEstado(Long horas) {
+		this.cantidadAutosRestantes--;
+		this.cantidadHorasRestantes = this.cantidadHorasRestantes - horas;
+	}
+	
+	public Long getCantidadAutosRestantes() {
+		return cantidadAutosRestantes;
+	}
+
+	public void setCantidadAutosRestantes(Long cantidadAutosRestantes) {
+		this.cantidadAutosRestantes = cantidadAutosRestantes;
+	}
+
+	public Long getCantidadHorasRestantes() {
+		return cantidadHorasRestantes;
+	}
+
+	public void setCantidadHorasRestantes(Long cantidadHorasRestantes) {
+		this.cantidadHorasRestantes = cantidadHorasRestantes;
+	}
+
 	public String getLocalidad() {
 		return localidad;
 	}

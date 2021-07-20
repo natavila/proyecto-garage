@@ -194,7 +194,7 @@ public class ControladorBilletera {
 		return new ModelAndView("redirect:/login"); 
 	}
 	
-	@RequestMapping(path="dineroCargadoExitosamente", method= RequestMethod.GET)
+	@RequestMapping(path="/dineroCargadoExitosamente", method= RequestMethod.GET)
 	public ModelAndView mostrarVistaDeExito(HttpServletRequest request) {
 		ModelMap modelo = new ModelMap();
 		Long id = (Long) request.getSession().getAttribute("id");
@@ -212,6 +212,7 @@ public class ControladorBilletera {
 		
 		return new ModelAndView("redirect:/login");
 	}
+	
 
 	public void setServicioCliente(ServicioCliente servicioClienteMock) {
 		this.servicioCliente = servicioClienteMock;
