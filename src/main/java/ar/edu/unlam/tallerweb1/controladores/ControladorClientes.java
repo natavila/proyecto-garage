@@ -57,7 +57,21 @@ public class ControladorClientes {
 		String rol = (String) request.getSession().getAttribute("roll");
 		Long idUsuario = (Long) request.getSession().getAttribute("id");
 		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
+		Integer cantidad = 3;
+		if(cliente != null) {
+			if(rol.equals("cliente")) {
+				if(cliente.getPlan() == null) {
+		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
+		modelo.put("limite", cantidad);
+		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
+		modelo.put("cliente", cliente);
+		modelo.put("mensaje", "Registre sus autos para realizar una reserva.");
 		
+		return new ModelAndView("ListaAutosDeClienteAgregar", modelo);
+		
+				}
+			}
+		}
 		if(cliente != null) {
 			if(rol.equals("cliente")) {
 		
