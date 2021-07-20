@@ -62,6 +62,7 @@ public class ControladorClientes {
 			if(rol.equals("cliente")) {
 		
 		modelo.put("cantidad", servicioAuto.consultarAutoDeClienteActivo(cliente).size());
+		modelo.put("limite", cliente.getPlan().getCantidadAutosPermitidos());
 		modelo.put("auto", servicioAuto.consultarAutoDeClienteActivo(cliente));
 		modelo.put("cliente", cliente);
 		modelo.put("mensaje", "Registre sus autos para realizar una reserva.");
@@ -184,6 +185,9 @@ public class ControladorClientes {
 		}
 		
 	}
+	
+	
+	
 
 
 	public void setServicioCliente(ServicioCliente servicioClienteMock) {

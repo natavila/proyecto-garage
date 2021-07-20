@@ -19,10 +19,10 @@ public class Plan {
 
 	private String nombre;
 
-	
-
 	private Long cantidadAutosPermitidos;
 	private Long cantidadHorasPermitidas;
+	private Long cantidadAutosRestantes;
+	private Long cantidadHorasRestantes;
 	private Double precio;
 	private Boolean estaActivo;
 
@@ -42,14 +42,13 @@ public class Plan {
 		this.nombre = nombre;
 	}
 
-	
-
 	public Long getCantidadAutosPermitidos() {
 		return cantidadAutosPermitidos;
 	}
 
 	public void setCantidadAutosPermitidos(Long cantidadAutosPermitidos) {
 		this.cantidadAutosPermitidos = cantidadAutosPermitidos;
+		this.cantidadAutosRestantes = cantidadAutosPermitidos;
 	}
 
 	public Long getCantidadHorasPermitidas() {
@@ -58,6 +57,28 @@ public class Plan {
 
 	public void setCantidadHorasPermitidas(Long cantidadHorasPermitidas) {
 		this.cantidadHorasPermitidas = cantidadHorasPermitidas;
+		this.cantidadHorasRestantes = cantidadHorasPermitidas;
+	}
+	
+	public void actualizarEstado(Long horas) {
+		this.cantidadAutosRestantes--;
+		this.cantidadHorasRestantes = this.cantidadHorasRestantes - horas;
+	}
+
+	public Long getCantidadAutosRestantes() {
+		return cantidadAutosRestantes;
+	}
+
+	public void setCantidadAutosRestantes(Long cantidadAutosRestantes) {
+		this.cantidadAutosRestantes = cantidadAutosRestantes;
+	}
+
+	public Long getCantidadHorasRestantes() {
+		return cantidadHorasRestantes;
+	}
+
+	public void setCantidadHorasRestantes(Long cantidadHorasRestantes) {
+		this.cantidadHorasRestantes = cantidadHorasRestantes;
 	}
 
 	public Boolean getEstaActivo() {

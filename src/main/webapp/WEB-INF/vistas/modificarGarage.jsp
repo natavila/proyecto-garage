@@ -13,8 +13,11 @@
 
 <div class="container">
 <h1>Modificar Garage</h1>
+
 <br>
-<form:form  action="procesarModificarGarage" method="POST" modelAttribute="garage" class="row g-3 border border-3 bg-light">
+
+<form:form  action="${pageContext.request.contextPath}/procesarModificarGarage/${garage.id}" method="POST" modelAttribute="garage" class="row g-3 border border-3 bg-light">
+
 		<div class="col-dm-12">
 		<p><b>Nombre</b></p>
 			<form:input type="text" class="form-control" id="nombre" path="nombre" placeholder="Nombre"/>
@@ -24,6 +27,7 @@
 		    <form:input type="text" class="form-control" id="calle" path="calle" placeholder="Calle"/>
 		  </div>
 		  <div class="col-dm-12">
+
 		  <p><b>Localidad</b></p>
 		    <form:input type="text" class="form-control" id="localidad" path="localidad" placeholder="Localidad"/>
 		  </div>
@@ -38,6 +42,7 @@
 		   <div class="col-dm-12">
 		   <p><b>Precio Estadia $</b></p>
 		    <form:input type="text" class="form-control" id="precioEstadia" path="precioEstadia" placeholder="precioEstadia"/>
+
 		  </div>
 		  <div class="col-dm-12">
 		  <p><b>Latitud</b></p>

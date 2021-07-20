@@ -18,4 +18,7 @@ public interface ServicioPlan {
 	public Plan consultarPlan(Long id);
 	
 	public Plan existeClienteConPlan(Cliente cliente, Plan plan);
+
+	void actualizarEstadoPlan(Cliente cliente, Long horas);
+	
 }

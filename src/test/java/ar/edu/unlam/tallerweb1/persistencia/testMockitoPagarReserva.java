@@ -49,7 +49,7 @@ public class testMockitoPagarReserva extends SpringTest{
 	private ServicioBilletera servicioBilletera;
 	private ServicioQR servQr;
 	
-	private ControladorPagarGarage controladorPagarGarage = new ControladorPagarGarage(servicioCobrarTickets, servicioAuto, servicioCliente, servicioEst, servicioGarage, servicioBilletera, servQr);
+	private ControladorPagarGarage controladorPagarGarage = new ControladorPagarGarage(servicioCobrarTickets, servicioAuto, servicioCliente, servicioEst, servicioGarage, servicioBilletera, servQr, null);
 	Cliente clienteMock;
 	Billetera billeteraMock;
 	Auto autoMock;
