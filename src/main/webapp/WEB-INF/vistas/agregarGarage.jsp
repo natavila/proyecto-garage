@@ -21,7 +21,7 @@
 				<%--debe referenciar con el nombre usuario, spring mapea los elementos de la vista con los atributos de dicho objeto--%>
 					<%--para eso debe coincidir el valor del elemento path de cada input con el nombre de un atributo del objeto --%>
 				<form:form action="confirmarAgregarGarage" method="POST" modelAttribute="garage">
-			    	<h3 class="form-signin-heading">Agregar Garage</h3>
+			    	<h3 class="form-signin-heading">Registrar Garage</h3>
 					<hr class="colorgraph"><br>
 					<%--Elementos de entrada de datos, el elemento path debe indicar en que atributo del objeto usuario se guardan los datos ingresados--%>
 					<p><b>NOMBRE</b></p>
@@ -29,7 +29,7 @@
 					<p><b>CALLE</b></p>
 					<form:input path="calle" id="calle" name="calle" type="text" class="form-control"/>
 					<p><b>Numero</b></p>
-					<form:input path="numero" id="numero" name="numero" type="text" class="form-control" />
+					<form:input path="numero" id="numero" name="numero" type="number" class="form-control" />
 					
 					<p><b>Localidad</b></p>
 
@@ -40,19 +40,19 @@
 					
 					<br>
 					<p><b>PRECIO HORA $$</b></p>
-					<form:input path="precioHora" id="precioHora" name="precioHora" type="text" class="form-control"/>
+					<form:input path="precioHora" id="precioHora" name="precioHora" type="number" class="form-control"/>
 					<p><b>PRECIO ESTADIA$$</b></p>
-					<form:input path="precioEstadia" id="precioEstadia" name="precioEstadia" type="text" class="form-control"/>
+					<form:input path="precioEstadia" id="precioEstadia" name="precioEstadia" type="number" class="form-control"/>
 					<p><b>CAPACIDAD</b></p>	
-					<form:input path="capacidad" id="capacidad" name="capacidad" type="text" class="form-control"/>
+					<form:input path="capacidad" id="capacidad" name="capacidad" type="number" class="form-control"/>
 					<h4 class="form-signin-heading"><b>Coordenadas</b></h4>
 					<hr class="colorgraph"><br>
 					<a role="button"class="btn btn-primary"  href="https://www.google.com/maps/" target="_blank">Buscar Coordenadas?</a>
 					<hr class="colorgraph"><br>
 					<p><b>LATITUD</b></p>
-					<form:input path="latitud" id="latitud" name="latitud" type="text" class="form-control"/>
+					<form:input path="latitud" id="latitud" name="latitud" type="number" class="form-control"/>
 					<p><b>LONGITUD</b></p>	
-					<form:input path="longitud" id="longitud" name="longitud" type="text" class="form-control"/>
+					<form:input path="longitud" id="longitud" name="longitud" type="number" class="form-control"/>
 					<br>
 					
 					<button class="btn btn-lg btn-success btn-block" Type="Submit">Agregar</button>

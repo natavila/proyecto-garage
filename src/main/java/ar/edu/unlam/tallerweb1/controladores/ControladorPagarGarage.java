@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Garage;
+import ar.edu.unlam.tallerweb1.modelo.Plan;
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Billetera;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
@@ -33,6 +34,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCobrarTickets;
 import ar.edu.unlam.tallerweb1.servicios.ServicioEstacionamiento;
 import ar.edu.unlam.tallerweb1.servicios.ServicioGarage;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPlan;
 import ar.edu.unlam.tallerweb1.servicios.ServicioQR;
 
 import com.google.zxing.WriterException;
@@ -59,8 +61,9 @@ public class ControladorPagarGarage {
 	private ServicioGarage servicioGarage;
 	private ServicioBilletera servicioBilletera;
 	private ServicioQR servQr;
+	private ServicioPlan servicioPlan;
 	@Autowired
-	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioEstacionamiento servicioEst,ServicioGarage servicioGarage, ServicioBilletera servicioBilletera,ServicioQR servQr) {
+	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioEstacionamiento servicioEst,ServicioGarage servicioGarage, ServicioBilletera servicioBilletera,ServicioQR servQr, ServicioPlan servicioPlan) {
 		this.servicioCobrarTickets = servicioCobrarTickets;
 		this.servicioAuto = servicioAuto;
 		this.servicioCliente = servicioCliente;
@@ -68,6 +71,7 @@ public class ControladorPagarGarage {
 		this.servicioGarage= servicioGarage;
 		this.servicioBilletera = servicioBilletera;
 		this.servQr = servQr;
+		this.servicioPlan = servicioPlan;
 	}
 	
 	@RequestMapping(path="/mostrarFormularioReservaEstadia/{auto.id}/{garage.id}", method=RequestMethod.GET)
@@ -86,6 +90,10 @@ public class ControladorPagarGarage {
 		if(rol != null && rol.equals("cliente"))
 			if(cliente != null) {
 			if(auto !=null && garage !=null) {
+				if(cliente.getPlan().getCantidadAutosRestantes()==0 || cliente.getPlan().getCantidadHorasRestantes()==0) {
+					modelo.put("MensajeError", "Ya no posee mas autos disponibles o se agotaron las horas"); 
+					
+				}
 				
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
@@ -128,8 +136,7 @@ public class ControladorPagarGarage {
 				est.setGarage1(garage);
 				
 				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-				//servicioGarage.sumarContador(garage);
-				//auto.setUsandoGarage(true);
+			
 				
 				est.setAuto(auto);
 				est.setGarage1(garage);
@@ -150,6 +157,7 @@ public class ControladorPagarGarage {
 				modelo.put("dias", dias);
 				
 				servicioCobrarTickets.registrarTicket(est);
+				servicioPlan.actualizarEstadoPlan(cliente, dias*24);
 				
 				return new ModelAndView("realizarReservaEstadia", modelo);
 			}
@@ -192,6 +200,10 @@ public class ControladorPagarGarage {
 					//Guardo en Un String  la direccion de la Imagen de QR
 					servicioEst.meterImagenQr(estacionamiento, imagenQr);
 					
+					
+	
+					
+					
 					modelo.put("file", imagenQr);
 					return new ModelAndView("confirmacionReservaEstadia", modelo);
 				}else {
@@ -224,6 +236,10 @@ public class ControladorPagarGarage {
 		if(rol != null && rol.equals("cliente"))
 			if(cliente != null) {
 			if(auto !=null && garage !=null) {
+				if(cliente.getPlan().getCantidadAutosRestantes()==0 || cliente.getPlan().getCantidadHorasRestantes()==0) {
+					modelo.put("MensajeError", "Ya no posee mas autos disponibles o se agotaron las horas"); 
+					
+				}
 				
 				modelo.put("auto", auto);
 				modelo.put("cliente", cliente);
@@ -288,6 +304,10 @@ public class ControladorPagarGarage {
 				modelo.put("horas", horas);
 				
 				servicioCobrarTickets.registrarTicket(est);
+				
+				servicioPlan.actualizarEstadoPlan(cliente, horas);
+				
+			
 				
 				return new ModelAndView("realizarReservaHora", modelo);
 			}
@@ -426,12 +446,6 @@ public class ControladorPagarGarage {
 				//BUSCA EL ID DEL ESTACIONAMIENTO Y LO ACTIVA
 				// INGRESA EL AUTO AL GARAGE
 				
-				/*
-				servicioAuto.cambiarEstadoDeSiestaEnGarageOno(auto);
-				
-				servicioEst.ActivarQR(id);
-				
-				*/
 				servicioGarage.sumarContador(garage);
 				//meto la reserva de Estacionamient
 				servicioEst.cambiarEstadoDeReserva(est);
@@ -448,63 +462,10 @@ public class ControladorPagarGarage {
 		}
 		
 	
-	/*		
-	@RequestMapping(path="/generarPdf", method=RequestMethod.GET)
-	public void generarPdf() throws Exception{
-		
-		Document documento = new Document();
-		
-		try {
-			
-			String ruta = System.getProperty("user.home");
-			PdfWriter.getInstance(documento, new FileOutputStream(ruta + "/Descargas/Ticket.pdf"));
-			documento.open();
-			
-			PdfPTable tabla = new PdfPTable(6);
-			tabla.addCell("N° de ticket");
-			tabla.addCell("Cliente");
-			tabla.addCell("Garage");
-			tabla.addCell("Dirección");
-			tabla.addCell("Monto pagado");
-			tabla.addCell("Días de reserva");
-			
-			try {
-				
-				Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/garage", "root", "1234");
-				PreparedStatement pst = cn.prepareStatement("select * from clientes");
-				ResultSet rs = pst.executeQuery();
-				
-				if(rs.next()) {
-					
-					do {
-						
-						tabla.addCell(rs.getString(1));
-						tabla.addCell(rs.getString(2));
-						tabla.addCell(rs.getString(3));
-						tabla.addCell(rs.getString(4));
-						tabla.addCell(rs.getString(5));
-						tabla.addCell(rs.getString(6));
-						
-					}while(rs.next());
-					
-					documento.add(tabla);
-					
-				}
-				
-			}catch(Exception e) {
-				
-			}
-			
-			documento.close();
-			JOptionPane.showMessageDialog(null, "Reporte creado");
-			
-		}catch(Exception e) {
-			
-		}
-    }
-*/
+	
 	
 
+	
 	public void setServicioBilletera(ServicioBilletera servicioBilletera) {
 		this.servicioBilletera = servicioBilletera;
 		

@@ -173,7 +173,18 @@ public class ServicioEstacionamientoImpl implements ServicioEstacionamiento{
 				
 				return repositorioEst.buscarEstacionamientoPorCliente(cliente);
 			}
-			
+			@Override
+			public List<Estacionamiento> buscarEstacionamientoPorClienteEstActivo(Cliente cliente) {
+				
+				ArrayList<Estacionamiento> est= (ArrayList<Estacionamiento>) repositorioEst.buscarEstacionamientoPorCliente(cliente);
+				for(Estacionamiento e: est) {
+					if(e.getReservado() == true && e.getActiva() == true && e.getEstaPagado() == true) {
+						est.add(e);
+					}
+				}
+				return est;
+				
+			}
 			
 			@Override
 			public List<Estacionamiento> buscarEstacionamientoPorClienteQueTengaReserva(Cliente cliente){

@@ -45,7 +45,7 @@
 		</nav>
 	<div class="container mt-3">
 		<table class="table table-hover">
-		<h1>Hostorial De Garage</h1>
+		<h1>Historial De Garage</h1>
 	  <thead>
 	    <tr>
 	      
