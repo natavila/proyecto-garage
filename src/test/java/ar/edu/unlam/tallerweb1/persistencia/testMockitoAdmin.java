@@ -81,8 +81,11 @@ public class testMockitoAdmin extends SpringTest {
 		List<Auto> listaMock = new ArrayList<>();
 		listaMock.add(autoMock);
 		
+		Long idClienteMock =5L; 
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		
 		when(servicioGarageMock.buscarGarage(idGarage)).thenReturn(garageMock);
 		when(servicioEstMock.buscarAutosDeUnGarage(garageMock)).thenReturn(listaMock);
@@ -110,11 +113,12 @@ public class testMockitoAdmin extends SpringTest {
 	public void irAVistaAgregarGarage() {
 		List<String> listaMock = new ArrayList<>();
 		listaMock.add("Laferrere");
+		 Long idClienteMock =5L; 
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("roll")).thenReturn("admin");
-		
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		when(servicioLocMock.devolverNombresDeLocalidades()).thenReturn(listaMock);
-		
 		ModelAndView vista = controladorAdmin.mostrarFormularioGaraga(requestMock);
 		assertThat(vista.getViewName()).isEqualTo("agregarGarage");
 		
@@ -126,9 +130,11 @@ public class testMockitoAdmin extends SpringTest {
 		
 		List<Garage> listaMock = new ArrayList<>();
 		listaMock.add(garageMock);
-		
+		Long idClienteMock = 5L;
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		
 		when(servicioGarageMock.consultarGarage()).thenReturn(listaMock);
 		ModelAndView vista = controladorAdmin.Listar(requestMock);
@@ -144,8 +150,11 @@ public class testMockitoAdmin extends SpringTest {
 		List<Garage> listaMock = new ArrayList<>();
 		listaMock.add(garageMock);
 		
+		Long idClienteMock =5L; 
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		when(servicioGarageMock.ordenarGaragePorHora()).thenReturn((ArrayList<Garage>) listaMock);
 		
 		ModelAndView vista = controladorAdmin.Listar(requestMock);
@@ -160,8 +169,11 @@ public class testMockitoAdmin extends SpringTest {
 		List<Garage> listaMock = new ArrayList<>();
 		listaMock.add(garageMock);
 		
+		Long idClienteMock =5L; 
 		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(sessionMock.getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
 		when(servicioGarageMock.ordenarGaragePorEstadia()).thenReturn((ArrayList<Garage>) listaMock);
 		
 		ModelAndView vista = controladorAdmin.Listar(requestMock);
@@ -293,6 +305,25 @@ public class testMockitoAdmin extends SpringTest {
 		ModelAndView vista = controladorAdmin.eliminarAutoAdmin(idClienteMock, idClienteMock);
 		assertThat(vista.getViewName()).isEqualTo("redirect:/misAutosAdmin/{idC}");
 		
+	}
+	@Test
+	@Rollback(true)
+	@Transactional
+	public void irAvistaModificarGarage() {
+		
+		List<Auto> listaMock = new ArrayList<>();
+		listaMock.add(autoMock);
+		
+		Long idClienteMock =5L; 
+		Long idGarageMock = 5L;
+		when(requestMock.getSession()).thenReturn(sessionMock);
+		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
+		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
+		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
+		
+		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);
+		ModelAndView vista = controladorAdmin.modificarGarage(requestMock, idGarageMock);
+		assertThat(vista.getViewName()).isEqualTo("modificarGarage");
 	}
 	
 	

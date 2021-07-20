@@ -252,6 +252,7 @@ public class ControladorAdmin {
 		return new ModelAndView("redirect:/lista", modelo);
 	}
 
+	
 	@RequestMapping(path = "/modificarGarage/{id}")
 	public ModelAndView modificarGarage(HttpServletRequest request, @PathVariable("id") Long garage1) {
 
@@ -267,7 +268,6 @@ public class ControladorAdmin {
 		return new ModelAndView("redirect:/login");
 
 	}
-
 	@RequestMapping(path = "/mostrarClientes", method = RequestMethod.GET)
 	public ModelAndView clientes(/* Model modelo, */
 			HttpServletRequest request) {
@@ -293,23 +293,25 @@ public class ControladorAdmin {
 	}
 
 
-	@RequestMapping(path="/procesarModificarGarage/{id}")
-	public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage,
-												@PathVariable("id") Long idGarage, HttpServletRequest request) {
+	
 
-		ModelMap modelo = new ModelMap();
-		Long idUsuario = (Long) request.getSession().getAttribute("id");
-		Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
-		Garage garageBuscado = servicioGarage.buscarGarage(idGarage);
-		if (cliente != null && cliente.getRoll().equals("admin")) {
-			servicioGarage.modificarGarage(garage, garageBuscado);
+		@RequestMapping(path="/procesarModificarGarage/{id}")
+		public ModelAndView procesarModificarCliente(@ModelAttribute("garage") Garage garage,
+													@PathVariable("id") Long idGarage, HttpServletRequest request) {
 
-			modelo.put("garage", garageBuscado);
-			return new ModelAndView("redirect:/lista");
+			ModelMap modelo = new ModelMap();
+			Long idUsuario = (Long) request.getSession().getAttribute("id");
+			Cliente cliente = servicioCliente.consultarClientePorId(idUsuario);
+			Garage garageBuscado = servicioGarage.buscarGarage(idGarage);
+			if (cliente != null && cliente.getRoll().equals("admin")) {
+				servicioGarage.modificarGarage(garage, garageBuscado);
+
+				modelo.put("garage", garageBuscado);
+				return new ModelAndView("redirect:/lista");
+			}
+
+			return new ModelAndView("redirect:/login");
 		}
-
-		return new ModelAndView("redirect:/login");
-	}
 
 	@RequestMapping(path = "/misAutosAdmin/{id}", method = RequestMethod.GET)
 	public ModelAndView misAutosAdmin(HttpServletRequest request, @PathVariable("id") Long id) {

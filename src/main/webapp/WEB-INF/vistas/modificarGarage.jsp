@@ -13,27 +13,44 @@
 
 <div class="container">
 <h1>Modificar Garage</h1>
+
+<br>
+
 <form:form  action="${pageContext.request.contextPath}/procesarModificarGarage/${garage.id}" method="POST" modelAttribute="garage" class="row g-3 border border-3 bg-light">
+
 		<div class="col-dm-12">
+		<p><b>Nombre</b></p>
 			<form:input type="text" class="form-control" id="nombre" path="nombre" placeholder="Nombre"/>
 			</div>
 		  <div class="col-dm-12">
+		  <p><b>Calle</b></p>
 		    <form:input type="text" class="form-control" id="calle" path="calle" placeholder="Calle"/>
 		  </div>
 		  <div class="col-dm-12">
-		    <form:input type="number" class="form-control" id="numero" path="numero" placeholder="Numero"/>
-		  </div>
-		  <div class="col-dm-12">
+
+		  <p><b>Localidad</b></p>
 		    <form:input type="text" class="form-control" id="localidad" path="localidad" placeholder="Localidad"/>
 		  </div>
 		  <div class="col-dm-12">
-		    <form:input type="text" class="form-control" id="capacidad" path="capacidad" placeholder="Capacidad"/>
+		  <p><b>Capacidad</b></p>
+		    <form:input type="text" class="form-control" id="capacidad" path="capacidad" placeholder="capacidad"/>
 		  </div>
 		  <div class="col-dm-12">
-		    <form:input type="text" class="form-control" id="precioHora" path="precioHora" placeholder="Precio hora"/>
+		   <p><b>Precio Hora $</b></p>
+		    <form:input type="text" class="form-control" id="precioHora" path="precioHora" placeholder="precioHora"/>
 		  </div>
 		   <div class="col-dm-12">
-		    <form:input type="text" class="form-control" id="precioEstadia" path="precioEstadia" placeholder="Precio estadia"/>
+		   <p><b>Precio Estadia $</b></p>
+		    <form:input type="text" class="form-control" id="precioEstadia" path="precioEstadia" placeholder="precioEstadia"/>
+
+		  </div>
+		  <div class="col-dm-12">
+		  <p><b>Latitud</b></p>
+		    <form:input type="text" class="form-control" id="latitud" path="latitud" placeholder="latitud"/>
+		  </div>
+		  <div class="col-dm-12">
+		   <p><b>Longitud</b></p>
+		    <form:input type="text" class="form-control" id="longitud" path="longitud" placeholder="longitud"/>
 		  </div>
 		   <br>
 		  <div class="col-dm-12">

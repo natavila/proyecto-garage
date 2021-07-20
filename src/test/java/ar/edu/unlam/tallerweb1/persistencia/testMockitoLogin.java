@@ -39,7 +39,7 @@ public class testMockitoLogin extends SpringTest{
 	private ServicioGarage servicioGarageMock;
 	private ServicioCliente servicioClienteMock;
 	private ServicioRegistro servicioRegistroMock;
-	private ControladorLogin controladorLogin = new ControladorLogin(servicioLoginMock, servicioRegistroMock, servicioClienteMock, servicioBilleteraMock, servicioGarageMock, servEstMock);
+	private ControladorLogin controladorLogin = new ControladorLogin(servicioLoginMock, servicioRegistroMock, servicioClienteMock, servicioBilleteraMock, servicioGarageMock, servEstMock, null);
 	
 	private Cliente clienteMock;
 	private Garage garageMock;
