@@ -177,7 +177,7 @@ public class ControladorAdmin {
 		ModelMap modelo = new ModelMap();
 		servicioPlan.consultarPlan(plan.getId());
 
-		try {
+		//try {
 			if (plan.getNombre() != "" && plan.getCantidadAutosPermitidos() > 0
 					&& plan.getCantidadHorasPermitidas() > 0) {
 				servicioPlan.crearPlan(plan);
@@ -186,11 +186,11 @@ public class ControladorAdmin {
 			} else {
 				modelo.put("mensajeError", "Error al crear el plan");
 			}
-		} catch (Exception e) {
+	/*	} catch (Exception e) {
 			modelo.put("mensajeError", "Error al crear el plan");
 			System.out.println(e.getMessage());
 		}
-
+*/
 		return new ModelAndView("crearPlan", modelo);
 	}
 
