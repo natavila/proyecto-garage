@@ -28,6 +28,9 @@
 		          <a class="nav-link" href="mostrarBilletera">Mi billetera</a>
 		        </li>
 		        <li class="nav-item">	       
+		          <a class="nav-link" href="misAutos">Mis autos</a>
+		        </li>
+		        <li class="nav-item">	       
 		          <a class="nav-link" href="ElegirAuto">Reservar</a>
 		        </li>
 		      </ul>

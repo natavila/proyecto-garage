@@ -50,8 +50,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 @Controller
 public class ControladorPagarGarage {
 	private ServicioEstacionamiento servicioEst;
@@ -62,6 +60,7 @@ public class ControladorPagarGarage {
 	private ServicioBilletera servicioBilletera;
 	private ServicioQR servQr;
 	private ServicioPlan servicioPlan;
+	
 	@Autowired
 	public ControladorPagarGarage(ServicioCobrarTickets servicioCobrarTickets,ServicioAuto servicioAuto,ServicioCliente servicioCliente,ServicioEstacionamiento servicioEst,ServicioGarage servicioGarage, ServicioBilletera servicioBilletera,ServicioQR servQr, ServicioPlan servicioPlan) {
 		this.servicioCobrarTickets = servicioCobrarTickets;
@@ -241,9 +240,11 @@ public class ControladorPagarGarage {
 		if(rol != null && rol.equals("cliente"))
 			if(cliente != null) {
 				if(auto !=null && garage !=null) {
-					if(cliente.getCantidadAutosRestantes()==0 || cliente.getCantidadHorasRestantes()==0) {
-						modelo.put("MensajeError", "Ya no posee mas autos disponibles o se agotaron las horas"); 
-						
+					if(cliente.getPlan() != null) {
+						if(cliente.getCantidadAutosRestantes()==0 || cliente.getCantidadHorasRestantes()==0) {
+							modelo.put("MensajeError", "Ya no posee mas autos disponibles o se agotaron las horas"); 
+							
+						}
 					}
 					
 					modelo.put("auto", auto);
@@ -350,6 +351,9 @@ public class ControladorPagarGarage {
 							modelo.put("estacionamiento", estacionamiento);
 							return new ModelAndView("saldoInsuficiente", modelo);
 					}
+						
+					}else {
+						
 						servicioPlan.actualizarHorasReservaHora(cliente, estacionamiento);
 					}
 						modelo.put("cliente", cliente);

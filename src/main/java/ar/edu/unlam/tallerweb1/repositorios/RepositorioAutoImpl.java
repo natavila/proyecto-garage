@@ -143,6 +143,17 @@ public class RepositorioAutoImpl implements RepositorioAuto{
 
 */
 
+	@Override
+	public List<Auto> consultarAutosSinGarageDeCliente(Cliente cliente) {
+		final Session session = sessionFactory.getCurrentSession();
+		List<Auto> listaAutosSinGarage = session.createCriteria(Auto.class)
+				.createAlias("cliente", "clienteBuscado")
+				.add(Restrictions.eq("clienteBuscado.id", cliente.getId()))
+				 .add(Restrictions.eq("usandoGarage", false))
+				 .list();
+				return listaAutosSinGarage;
+	}
+
 }
 
 
