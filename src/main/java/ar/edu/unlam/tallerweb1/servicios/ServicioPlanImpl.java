@@ -68,15 +68,33 @@ public class ServicioPlanImpl implements ServicioPlan {
 	}
 
 	
-	@Override
-	public void actualizarEstadoPlan(Cliente cliente, Long horas) {
-		cliente.actualizarEstado(horas);
-		repositorioPlan.actualizarPlan(cliente.getPlan());
-	}
+//	@Override
+//	public void actualizarEstadoPlan(Cliente cliente, Long horas) {
+//		cliente.actualizarEstado(horas);
+//		repositorioPlan.actualizarPlan(cliente.getPlan());
+//	}
 
 	@Override
 	public void actualizarPagoDeReserva(Estacionamiento estacionamiento) {
 		repositorioPlan.actualizarPagoDeReserva(estacionamiento);
+		
+	}
+
+	@Override
+	public void actualizarHorasReservaEstadia(Cliente cliente, Estacionamiento estacionamiento) {
+		repositorioPlan.actualizarHorasReservaEstadia(cliente, estacionamiento);
+		
+	}
+
+	@Override
+	public void actualizarCantidadDeAutosPlan(Cliente cliente) {
+		repositorioPlan.actualizarCantidadDeAutosPlan(cliente);
+		
+	}
+
+	@Override
+	public void actualizarHorasReservaHora(Cliente cliente, Estacionamiento estacionamiento) {
+		repositorioPlan.actualizarHorasReservaHora(cliente, estacionamiento);
 		
 	}
 

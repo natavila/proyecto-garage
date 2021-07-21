@@ -20,7 +20,12 @@ public interface ServicioPlan {
 	
 	public Plan existeClienteConPlan(Cliente cliente, Plan plan);
 
-	void actualizarEstadoPlan(Cliente cliente, Long horas);
+//	void actualizarEstadoPlan(Cliente cliente, Long horas);
+	public void actualizarHorasReservaEstadia(Cliente cliente, Estacionamiento estacionamiento);
+	
+	void actualizarHorasReservaHora(Cliente cliente, Estacionamiento estacionamiento);
+	
+	public void actualizarCantidadDeAutosPlan(Cliente cliente);
 	
 	public void actualizarPagoDeReserva(Estacionamiento estacionamiento);
 	

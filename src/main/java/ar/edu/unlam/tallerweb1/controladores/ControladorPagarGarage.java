@@ -160,7 +160,7 @@ public class ControladorPagarGarage {
 						servicioCobrarTickets.registrarTicket(est);
 						
 						if(cliente.getPlan() != null) {
-							servicioPlan.actualizarEstadoPlan(cliente, dias*24);
+							//servicioPlan.actualizarEstadoPlan(cliente, dias*24);
 						}
 						
 						return new ModelAndView("realizarReservaEstadia", modelo);
@@ -193,31 +193,33 @@ public class ControladorPagarGarage {
 					if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
 						servicioBilletera.pagarReservaEstadia(estacionamiento, billetera);					
 				}else {
+					
 					modelo.put("cliente", cliente);
 					modelo.put("garage", garage);
 					modelo.put("estacionamiento", estacionamiento);
 					return new ModelAndView("saldoInsuficiente", modelo);
 				}
 				
+			}else {
+				servicioPlan.actualizarHorasReservaEstadia(cliente, estacionamiento);
 			}
-			
+				modelo.put("cliente", cliente);
+				modelo.put("garage", garage);
+				modelo.put("estacionamiento", estacionamiento);
+				Long id = estacionamiento.getId();
+				//Devuelve LA IP DEL DUEÑO DE LA PC
+				String ip = servQr.devolverIp();
+		        //TEXTO DEL QR
+				String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
+				//GENERA EL QR
+				String imagenQr = servQr.generateQR(text).toString();
+				
+				//Guardo en Un String  la direccion de la Imagen de QR
+				servicioEst.meterImagenQr(estacionamiento, imagenQr);
+				modelo.put("file", imagenQr);
+				return new ModelAndView("confirmacionReservaEstadia", modelo);	
 		}
-			servicioPlan.actualizarPagoDeReserva(estacionamiento);
-			modelo.put("cliente", cliente);
-			modelo.put("garage", garage);
-			modelo.put("estacionamiento", estacionamiento);
-			Long id = estacionamiento.getId();
-			//Devuelve LA IP DEL DUEÑO DE LA PC
-			String ip = servQr.devolverIp();
-	        //TEXTO DEL QR
-			String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
-			//GENERA EL QR
-			String imagenQr = servQr.generateQR(text).toString();
 			
-			//Guardo en Un String  la direccion de la Imagen de QR
-			servicioEst.meterImagenQr(estacionamiento, imagenQr);
-			modelo.put("file", imagenQr);
-			return new ModelAndView("confirmacionReservaEstadia", modelo);
 	}
 		
 		return new ModelAndView("redirect:/login");
@@ -308,7 +310,7 @@ public class ControladorPagarGarage {
 				
 				
 				if(cliente.getPlan() != null) {
-					servicioPlan.actualizarEstadoPlan(cliente, horas);
+					//servicioPlan.actualizarEstadoPlan(cliente, horas);
 				}
 				
 				return new ModelAndView("realizarReservaHora", modelo);
@@ -332,41 +334,43 @@ public class ControladorPagarGarage {
 		Cliente cliente = servicioCliente.consultarClientePorId(idCliente);
 		if(rol != null && rol.equals("cliente"))
 			if(cliente != null) {
-		ModelMap modelo = new ModelMap();
-		Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
-		Garage garage = servicioGarage.buscarGarage(idGarage);
-		Auto auto = servicioAuto.buscarAuto(idAuto);
-		Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
-		
-			if(billetera != null && garage != null && auto != null) {
-				if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
+				ModelMap modelo = new ModelMap();
+				Billetera billetera = servicioBilletera.consultarBilleteraDeCliente(cliente);
+				Garage garage = servicioGarage.buscarGarage(idGarage);
+				Auto auto = servicioAuto.buscarAuto(idAuto);
+				Estacionamiento estacionamiento = servicioEst.buscarEstacionamientoPorAuto(auto);
+				
+				if(billetera != null && garage != null && auto != null) {
 					if(cliente.getPlan() == null) {
-						servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
+						if(billetera.getSaldo() > estacionamiento.getPrecioAPagar()) {
+							servicioBilletera.pagarReservaPorHora(estacionamiento, billetera);
+						}else {
+							modelo.put("cliente", cliente);
+							modelo.put("garage", garage);
+							modelo.put("estacionamiento", estacionamiento);
+							return new ModelAndView("saldoInsuficiente", modelo);
 					}
-					
-				}else {
-					
-					return new ModelAndView("saldoInsuficiente", modelo);
-				}
-					servicioPlan.actualizarPagoDeReserva(estacionamiento);
-					modelo.put("cliente", cliente);
-					modelo.put("garage", garage);
-					modelo.put("estacionamiento", estacionamiento);
-					
-					Long id = estacionamiento.getId();
-					//Devuelve LA IP DEL DUEÑO DE LA PC
-					String ip = servQr.devolverIp();
-			        //TEXTO DEL QR
-					String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
-					//GENERA EL QR
-					String imagenQr = servQr.generateQR(text).toString();
-					
-					//Guardo en Un String  la direccion de la Imagen de QR
-					servicioEst.meterImagenQr(estacionamiento, imagenQr);
-	
-					return new ModelAndView("confirmacionReservaPorHora", modelo);
-			}
+						servicioPlan.actualizarHorasReservaHora(cliente, estacionamiento);
+						modelo.put("cliente", cliente);
+						modelo.put("garage", garage);
+						modelo.put("estacionamiento", estacionamiento);
+						
+						Long id = estacionamiento.getId();
+						//Devuelve LA IP DEL DUEÑO DE LA PC
+						String ip = servQr.devolverIp();
+				        //TEXTO DEL QR
+						String text = ip+":8080/proyecto-garage/GaragePorQR/"+ idCliente +"/"+ idAuto +"/" + idGarage + "/"+id;
+						//GENERA EL QR
+						String imagenQr = servQr.generateQR(text).toString();
+						
+						//Guardo en Un String  la direccion de la Imagen de QR
+						servicioEst.meterImagenQr(estacionamiento, imagenQr);
 		
+						return new ModelAndView("confirmacionReservaPorHora", modelo);
+					}
+						
+				}
+			
 
 			}
 					return new ModelAndView("redirect:/login");
