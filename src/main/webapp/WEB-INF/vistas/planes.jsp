@@ -18,7 +18,9 @@
 
 	<div class="container mt-3">
 		<h1>  Hola ${cliente.nombre}, ¿qué plan querés elegir?</h1>
+		<c:if test="${not empty billetera }">
 		<h3>  Tu saldo es: $${billetera.saldo}</h3> <a href="formularioSaldo">Recargar billetera</a>
+		</c:if>
 		<table class="table table-hover">
 
 

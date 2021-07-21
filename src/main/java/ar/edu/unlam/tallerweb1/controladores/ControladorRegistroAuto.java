@@ -148,5 +148,11 @@ public class ControladorRegistroAuto {
 		this.servicioAuto = servicioAutoMock;
 		
 	}
+
+
+	public void setServicioPlan(ServicioPlan servicioPlanMock) {
+		this.servicioPlan = servicioPlanMock;
+		
+	}
 	
 }

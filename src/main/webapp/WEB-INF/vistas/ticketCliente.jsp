@@ -25,10 +25,7 @@
 </div>
 	<div class="container col-6">
 		<div class="border mt-3 mb-3 shadow p-3 mb-5 bg-body rounded">
-		<h5>Cliente: ${cliente.nombre} ${cliente.apellido}</h5>
-		<h5>Email: ${cliente.email}</h5>
-		<h5>Localidad: ${cliente.localidad}</h5>
-		<h5>Plan contratado: ${cliente.plan.nombre}</h5>
+		<h3 style="text-align:center;"><strong>¡Escanea el código QR para poder ingresar al garage!</strong></h3>
 		</div>
 	</div>
 	
@@ -50,8 +47,7 @@
                 <tr> <th scope="col">Garage</th><td><b>${estacionamiento.garage1.nombre}</b> </tr>
                 <tr> <th scope="col">Localidad</th><td><b>${estacionamiento.garage1.localidad}</b></td> </tr>
                 <tr> <th scope="col">Monto pagado</th> <td><b>$${estacionamiento.precioAPagar}</b> </td> </tr>
-                <tr> <th scope="col"></th> <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"> </td> </tr>   
-	    
+                 <th scope="col"></th> <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"> </td> 
 	  </thead>
 	  <tbody>
 	                    
@@ -62,7 +58,8 @@
 	</table>
 	
 </div> 
-	
+
+
 	<c:if test="${empty estacionamiento}">
 		<div class="alert alert-warning" role="alert">
   			${mensaje}
@@ -78,10 +75,11 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
-<script src="custom.js"></script>
+<script src="custom.js"></script> 
 
 <script type="text/javascript">
   
+
   $(document).on('click','#btn',function(){
 let pdf = new jsPDF('2','mm',[297, 210]);
 
@@ -99,10 +97,9 @@ let page= function() {
 pdf.addHTML(section,page);
 
 })
-</script>
-	
 
-	
+</Script>
+</div>
 </body>
 
 </html>
