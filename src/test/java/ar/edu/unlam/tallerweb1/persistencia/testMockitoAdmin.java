@@ -1,4 +1,6 @@
 package ar.edu.unlam.tallerweb1.persistencia;
+
+import static org.mockito.Mockito.*;
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.controladores.ControladorAdmin;
 import ar.edu.unlam.tallerweb1.controladores.ControladorGarage;
@@ -15,7 +17,7 @@ import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +47,7 @@ public class testMockitoAdmin extends SpringTest {
 	private Garage garageMock;
 	private Auto autoMock;
 	private Cliente clienteMock;
-	 Estacionamiento estMock;
+	private Estacionamiento estMock;
 	@Before
 
 	public void init() {
