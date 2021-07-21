@@ -21,7 +21,7 @@
 		</c:if> 
 		<c:if test="${not empty cantidad  && cantidad >=limite}">
 						<div class="alert alert-danger " role="alert">
-		 			 	<strong>LLegaste al Limite de Autos Permitidos</strong>
+		 			 	<strong>LLegaste al limite de autos permitidos Podés aumentarlo contratando un plan <a href="planes">aquí.</a></strong>
 						</div>
 						</c:if> 
 	  

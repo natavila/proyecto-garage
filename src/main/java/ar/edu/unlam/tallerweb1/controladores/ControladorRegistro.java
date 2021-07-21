@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.controladores;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,8 +13,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
+import ar.edu.unlam.tallerweb1.modelo.Localidad;
 import ar.edu.unlam.tallerweb1.modelo.Usuario;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioLocalidad;
 import ar.edu.unlam.tallerweb1.servicios.ServicioLogin;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
@@ -22,12 +26,14 @@ public class ControladorRegistro {
 	private ServicioRegistro servicioRegistro;
 	private ServicioLogin servicioLogin;
 	private ServicioCliente servicioCliente;
+	private ServicioLocalidad servicioLocalidad;
 	
 	@Autowired
-	public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioLogin servicioLogin, ServicioCliente servicioCliente){
+	public ControladorRegistro(ServicioRegistro servicioRegistro, ServicioLogin servicioLogin, ServicioCliente servicioCliente, ServicioLocalidad servicioLocalidad){
 		this.servicioRegistro = servicioRegistro;
 		this.servicioLogin = servicioLogin;
 		this.servicioCliente = servicioCliente;
+		this.servicioLocalidad = servicioLocalidad;
 	}
 	
 	
@@ -35,7 +41,9 @@ public class ControladorRegistro {
 	public 	ModelAndView registro() {
 		ModelMap modelo = new ModelMap(); //Agrupa todo para mandarlo a vista
 		Cliente cliente = new Cliente();//Se crea un usuario vacio para mandarlo vacio para que el formulario se vaya llenando
+		List<String> listaLocalidades = servicioLocalidad.devolverNombresDeLocalidades();
 		modelo.put("cliente", cliente);
+		modelo.put("localidades", listaLocalidades);
 		return new ModelAndView("registro", modelo); //Se le envia a la vista registro el modelo con el objeto usuario
 	}
 	@RequestMapping(path="/procesarRegistro", method=RequestMethod.POST)

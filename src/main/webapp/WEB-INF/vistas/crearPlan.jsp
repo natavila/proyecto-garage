@@ -23,6 +23,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
+<%@ include file="headerAdmin.jsp" %>
 	<main class="container">
 		<!-- Clase de Bootstrap. Hace que los elementos no lleguen hasta el borde -->
 		<form:form action="procesarCrearPlan" method="POST" modelAttribute="plan"

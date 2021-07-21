@@ -17,13 +17,15 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPlan;
 
 public class testMockitoRegistrarAuto extends SpringTest{
 
 	private ServicioCliente servicioCliente;	
 	private ServicioAuto servicioAuto;
+	private ServicioPlan servicioPlan;
 	
-	private ControladorRegistroAuto controladorRegistroAuto = new ControladorRegistroAuto(servicioCliente, servicioAuto);
+	private ControladorRegistroAuto controladorRegistroAuto = new ControladorRegistroAuto(servicioCliente, servicioAuto, servicioPlan);
 	
 	Cliente clienteMock;
 	Auto autoMock;
@@ -32,6 +34,7 @@ public class testMockitoRegistrarAuto extends SpringTest{
 	private HttpSession sessionMock;
 	private ServicioCliente servicioClienteMock;
 	private ServicioAuto servicioAutoMock;
+	private ServicioPlan servicioPlanMock;
 	
 	@Before
 	public void init() {
@@ -41,8 +44,10 @@ public class testMockitoRegistrarAuto extends SpringTest{
 		sessionMock = mock(HttpSession.class);
 		servicioClienteMock = mock(ServicioCliente.class);
 		servicioAutoMock = mock(ServicioAuto.class);
+		servicioPlanMock = mock(ServicioPlan.class);
 		controladorRegistroAuto.setServicioCliente(servicioClienteMock);
 		controladorRegistroAuto.setServicioAuto(servicioAutoMock);
+		controladorRegistroAuto.setServicioPlan(servicioPlanMock);
 	}
 	
 	@Test

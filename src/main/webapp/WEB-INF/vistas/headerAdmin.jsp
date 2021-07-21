@@ -19,16 +19,16 @@
 		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 		        <li class="nav-item">
-		          <a class="nav-link active" aria-current="page" href="home">Home</a>
+		          <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/home">Home</a>
 		        </li>
 		         <li class="nav-item">
-		          <a class="nav-link" href="lista">Garages</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/lista">Garages</a>
 		        </li>
 		        <li class="nav-item">	       
-		          <a class="nav-link" href="mostrarClientes">Clientes</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/mostrarClientes">Clientes</a>
 		        </li>
 		        <li class="nav-item">	       
-		          <a class="nav-link" href="planesAdmin">Planes</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/planesAdmin">Planes</a>
 		        </li>
 		      </ul>
 		    </div>

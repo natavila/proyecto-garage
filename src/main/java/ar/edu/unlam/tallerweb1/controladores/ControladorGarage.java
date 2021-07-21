@@ -131,7 +131,7 @@ public class ControladorGarage {
 		if(cliente != null)
 			if(rol.equals("cliente")) {
 				if(autosDeCliente != null) {
-					List<Auto> autosSinGarage = servicioAuto.consultarAutosSinGarage();
+					List<Auto> autosSinGarage = servicioAuto.consultarAutosSinGarageDeCliente(cliente);
 					//Cliente cliente = servicioLogin.consultarClientePorId(id);				
 
 					modelo.put("cliente", cliente);
