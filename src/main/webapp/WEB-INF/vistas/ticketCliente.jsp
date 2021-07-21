@@ -44,8 +44,7 @@
                 <tr> <th scope="col">Garage</th><td><b>${estacionamiento.garage1.nombre}</b> </tr>
                 <tr> <th scope="col">Localidad</th><td><b>${estacionamiento.garage1.localidad}</b></td> </tr>
                 <tr> <th scope="col">Monto pagado</th> <td><b>$${estacionamiento.precioAPagar}</b> </td> </tr>
-                <tr> <th scope="col"></th> <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"> </td> </tr>   
-	    
+                <!--  <tr> <th scope="col"></th> <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"> </td> </tr>   -->
 	  </thead>
 	  <tbody>
 	                    
@@ -56,9 +55,10 @@
 	</table>
 	
 </div> 
+<button  class ="btn btn-dark mb-3" role="button" id="btn">Imprimir Ticket</button>
 <div id="elementH"></div>
 	
-	 <button  class ="btn btn-dark mb-3" role="button" id="btn">Imprimir Ticket</button>
+	 
 	 <a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
 	</div>
 	<c:if test="${empty estacionamiento}">
