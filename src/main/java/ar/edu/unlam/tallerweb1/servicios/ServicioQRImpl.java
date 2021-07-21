@@ -47,7 +47,7 @@ public class ServicioQRImpl implements ServicioQR{
 
 	            String filePath = "C:\\Users\\Gaston Mica y juan\\eclipse-workspace\\proyecto-garage\\src\\main\\webapp\\imagenes\\";
 	            //String filePath = directorioTrabajo(); 
-	            String fileType = "jpg";
+	            String fileType = "JPG";
 	            int size = 300;
 	            //UUID uuid = UUID.randomUUID();
 	            String randomUUIDString = random();

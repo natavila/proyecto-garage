@@ -20,8 +20,9 @@
 <title>Tickets</title>
 </head>
 <body>
+<div class="container-fluid col-12">
 <%@ include file="header.jsp" %>
-
+</div>
 	<div class="container col-6">
 		<div class="border mt-3 mb-3 shadow p-3 mb-5 bg-body rounded">
 		<h5>Cliente: ${cliente.nombre} ${cliente.apellido}</h5>
@@ -30,6 +31,8 @@
 		<h5>Plan contratado: ${cliente.plan.nombre}</h5>
 		</div>
 	</div>
+	
+	
 	<div class="container col-4">
 	
 	<div id="text" >
@@ -60,16 +63,16 @@
 	
 </div> 
 	
-	 <button  class ="btn btn-dark mb-3" role="button" id="btn">Imprimir Ticket</button>
-	 <a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
-	</div>
 	<c:if test="${empty estacionamiento}">
 		<div class="alert alert-warning" role="alert">
   			${mensaje}
 		</div>
 	</c:if>
 	
-	
+	<div class="container-fluid col-12">
+	 <button  class ="btn btn-dark mb-3" role="button" id="btn">Imprimir Ticket</button>
+	 <a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
+	</div>
 	
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -83,20 +86,23 @@
 let pdf = new jsPDF('2','mm',[297, 210]);
 
 
-let section=$('#text');
+let section=$('body');
 
 
 
 let page= function() {
 	
-    pdf.save('ticket.pdf');
-   
+    
+	pdf.save('ticket.pdf');
 };
+
 pdf.addHTML(section,page);
+
 })
 </script>
 	
 
 	
 </body>
+
 </html>
