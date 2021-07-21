@@ -20,13 +20,16 @@
 <title>Tickets</title>
 </head>
 <body>
+<div class="container-fluid col-12">
 <%@ include file="header.jsp" %>
-
+</div>
 	<div class="container col-6">
 		<div class="border mt-3 mb-3 shadow p-3 mb-5 bg-body rounded">
 		<h3 style="text-align:center;"><strong>¡Escanea el código QR para poder ingresar al garage!</strong></h3>
 		</div>
 	</div>
+	
+	
 	<div class="container col-4">
 	
 	<div id="text" >
@@ -44,7 +47,7 @@
                 <tr> <th scope="col">Garage</th><td><b>${estacionamiento.garage1.nombre}</b> </tr>
                 <tr> <th scope="col">Localidad</th><td><b>${estacionamiento.garage1.localidad}</b></td> </tr>
                 <tr> <th scope="col">Monto pagado</th> <td><b>$${estacionamiento.precioAPagar}</b> </td> </tr>
-                <!--  <tr> <th scope="col"></th> <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"> </td> </tr>   -->
+                 <th scope="col"></th> <td><img src="<%=request.getContextPath()%>/imagenes/${estacionamiento.imagenQR}"> </td> 
 	  </thead>
 	  <tbody>
 	                    
@@ -55,60 +58,48 @@
 	</table>
 	
 </div> 
-<button  class ="btn btn-dark mb-3" role="button" id="btn">Imprimir Ticket</button>
-<div id="elementH"></div>
-	
-	 
-	 <a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
-	</div>
+
+
 	<c:if test="${empty estacionamiento}">
 		<div class="alert alert-warning" role="alert">
   			${mensaje}
 		</div>
 	</c:if>
 	
-	
+	<div class="container-fluid col-12">
+	 <button  class ="btn btn-dark mb-3" role="button" id="btn">Imprimir Ticket</button>
+	 <a class="btn btn-dark mb-3" role="button" href="javascript:history.back()"> Volver</a>
+	</div>
 	
 	
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js"></script>
 <script src="custom.js"></script> 
-<div id="elementH">
-	<script type="text/javascript">
-	$(document).on('click','#btn',function(){
-	var doc = new jsPDF();
-	var elementHTML = $('#text').html();
-	var specialElementHandlers = {
-	    '#elementH': function (element, renderer) {
-	        return true;
-	    }
-	};
-	doc.fromHTML(elementHTML, 15, 15, {
-	    'width': 170,
-	    'elementHandlers': specialElementHandlers
-	});
 
-	// Save the PDF
-	doc.save('ticket.pdf');
-	})
-	</script>
-</div>
-<!--<script type="text/javascript">
+<script type="text/javascript">
   
-		  $(document).on('click','#btn',function()
-				  {
-		let pdf = new jsPDF([595.28, 841.89]);
-		let section=$('#text');
-		let page= function() {
-    		   
-		};
-		pdf.addHTML(section,page);
-		pdf.save('ticket.pdf');
-		})
-	</script>-->
-	
 
+  $(document).on('click','#btn',function(){
+let pdf = new jsPDF('2','mm',[297, 210]);
+
+
+let section=$('body');
+
+
+
+let page= function() {
 	
+    
+	pdf.save('ticket.pdf');
+};
+
+pdf.addHTML(section,page);
+
+})
+
+</Script>
+</div>
 </body>
+
 </html>

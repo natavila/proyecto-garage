@@ -20,6 +20,7 @@
 	      <th scope="col">Nombre</th>
 	      <th scope="col">Apellido</th>
 	      <th scope="col">Email</th>
+	      <th scope="col">PLAN</th>
 	       <th scope="col"></th>
 	    </tr>
 	  </thead>
@@ -32,6 +33,7 @@
 	                    <td>${cliente.nombre}</td>
 	                    <td>${cliente.apellido}</td>
 	                    <td>${cliente.email}</td>
+	                    <td>${cliente.plan.nombre}</td>
 	                    <td><a class="btn btn-success justify-content-md-end" href="${pageContext.request.contextPath}/misAutosAdmin/${cliente.id}">Mostrar Autos</a></td>
 						
 						<td><a class="btn btn-danger justify-content-md-end" href="${pageContext.request.contextPath}/mostrarClientes/eliminar/${cliente.id}">Eliminar Cliente</a></td>
