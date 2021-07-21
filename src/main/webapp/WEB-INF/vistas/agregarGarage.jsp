@@ -5,11 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- Bootstrap core CSS -->
-	    <link href="css/bootstrap.min.css" rel="stylesheet" >
-	    <!-- Bootstrap theme -->
-	    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-		<meta charset="ISO-8859-1">
+	<meta charset="ISO-8859-1">
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
 		<title>Registro Garage</title>
 </head>
 <body>
@@ -50,9 +47,9 @@
 					<a role="button"class="btn btn-primary"  href="https://www.google.com/maps/" target="_blank">Buscar Coordenadas?</a>
 					<hr class="colorgraph"><br>
 					<p><b>LATITUD</b></p>
-					<form:input path="latitud" id="latitud" name="latitud" type="number" class="form-control"/>
+					<form:input path="latitud" id="latitud" name="latitud" type="text" class="form-control"/>
 					<p><b>LONGITUD</b></p>	
-					<form:input path="longitud" id="longitud" name="longitud" type="number" class="form-control"/>
+					<form:input path="longitud" id="longitud" name="longitud" type="text" class="form-control"/>
 					<br>
 					
 					<button class="btn btn-lg btn-success btn-block" Type="Submit">Agregar</button>
