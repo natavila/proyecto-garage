@@ -31,7 +31,7 @@
 					<td> ${garage.nombre} </td>
 					<td> ${garage.calle} ${garage.numero} ${garage.localidad} </td>
 					<td><c:if test="${empty cliente.plan}">
-					 ${estacionamiento.precioAPagar}
+					 $${estacionamiento.precioAPagar}
 					</c:if>
 					<c:if test="${not empty cliente.plan}">
 						${cliente.plan.nombre}
@@ -42,7 +42,9 @@
 				</tr>
 			</tbody>
 		</table>
-		<a class="btn btn-primary mt-5" role="button" href="javascript:history.back()"> Volver</a>
+		<a class="btn btn-dark" role="button" href="javascript:history.back()"> Volver</a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/ticketsCliente" role="button">Imprimir Mi Ticket<a>
+		
 	</div>
 	
 </body>

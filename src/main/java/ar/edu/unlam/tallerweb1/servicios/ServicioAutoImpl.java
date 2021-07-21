@@ -144,6 +144,12 @@ public class ServicioAutoImpl implements ServicioAuto {
 		}
 	}
 
+	@Override
+	public List<Auto> consultarAutosSinGarageDeCliente(Cliente cliente) {
+		
+		return repositorioAuto.consultarAutosSinGarageDeCliente(cliente);
+	}
+
 	
 
 }

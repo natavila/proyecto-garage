@@ -26,7 +26,7 @@
 
 			</div>
 		</c:if>
-<a class="btn btn-dark mt-5" role="button" href="javascript:history.back()"> Volver</a>
+<a class="btn btn-dark mt-5" role="button" href="home"> Volver</a>
 	</div>
 
 </body>
