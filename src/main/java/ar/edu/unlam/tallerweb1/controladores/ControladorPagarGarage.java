@@ -351,6 +351,7 @@ public class ControladorPagarGarage {
 							return new ModelAndView("saldoInsuficiente", modelo);
 					}
 						servicioPlan.actualizarHorasReservaHora(cliente, estacionamiento);
+					}
 						modelo.put("cliente", cliente);
 						modelo.put("garage", garage);
 						modelo.put("estacionamiento", estacionamiento);
@@ -372,7 +373,7 @@ public class ControladorPagarGarage {
 				}
 			
 
-			}
+			
 					return new ModelAndView("redirect:/login");
 			
 	}

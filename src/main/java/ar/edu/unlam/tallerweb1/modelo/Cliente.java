@@ -22,8 +22,8 @@ public class Cliente {
 	private Boolean activo = true;
 	private Integer contAutos;
 	private String localidad;
-	private Long cantidadAutosRestantes;
-	private Long cantidadHorasRestantes;
+	private Long cantidadAutosRestantes=(long) 0;
+	private Long cantidadHorasRestantes=(long) 0;
 	
 	@ManyToOne
 	private Plan plan;

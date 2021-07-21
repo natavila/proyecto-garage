@@ -83,6 +83,14 @@ public class Plan {
 		return estaActivo;
 	}
 
+	public void setCantidadAutosPermitidos(Long cantidadAutosPermitidos) {
+		this.cantidadAutosPermitidos = cantidadAutosPermitidos;
+	}
+
+	public void setCantidadHorasPermitidas(Long cantidadHorasPermitidas) {
+		this.cantidadHorasPermitidas = cantidadHorasPermitidas;
+	}
+
 	public void setEstaActivo(Boolean estaActivo) {
 		this.estaActivo = estaActivo;
 	}
