@@ -15,6 +15,7 @@ import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.modelo.Estacionamiento;
 import ar.edu.unlam.tallerweb1.modelo.Garage;
 import ar.edu.unlam.tallerweb1.modelo.Plan;
+import ar.edu.unlam.tallerweb1.servicios.ServicioCobrarTicketsImpl;
 
 @Repository("repositorioPlan")
 public class RepositorioPlanImpl implements RepositorioPlan {
@@ -80,19 +81,60 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 
 	}
 
-	@Override
-	public void actualizarPlan(Plan plan) {
-		final Session session = sessionFactory.getCurrentSession();
-		session.update(plan);
-		
-		
-	}
+//	@Override
+//	public void actualizarPlan(Plan plan) {
+//		final Session session = sessionFactory.getCurrentSession();
+//		session.update(plan);
+//		
+//		
+//	}
 
 	@Override
 	public void actualizarPagoDeReserva(Estacionamiento estacionamiento) {
 		final Session session = sessionFactory.getCurrentSession();
 		estacionamiento.setEstaPagado(true);
 		session.update(estacionamiento);
+	}
+
+	@Override
+	public void actualizarHorasReservaEstadia(Cliente cliente, Estacionamiento estacionamiento) {
+		final Session session = sessionFactory.getCurrentSession();
+		
+		RepositorioEstacionamientoImpl repositorioEstacionamiento = new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioCobrarTicketsImpl servicioCobrarTickets = new ServicioCobrarTicketsImpl(repositorioEstacionamiento);
+		
+		Long horas = servicioCobrarTickets.calcularDias(estacionamiento.getFechaDesde(), estacionamiento.getFechaHasta())*24;
+		Long horasRestantes = cliente.getCantidadHorasRestantes() - horas;
+		cliente.setCantidadHorasRestantes(horasRestantes);
+		
+		session.update(cliente);
+		
+	}
+
+	@Override
+	public void actualizarCantidadDeAutosPlan(Cliente cliente) {
+		final Session session = sessionFactory.getCurrentSession();
+		
+		Long cantidadDeAutos = cliente.getCantidadAutosRestantes();
+		--cantidadDeAutos;
+		cliente.setCantidadAutosRestantes(cantidadDeAutos);
+		session.update(cliente);
+		
+	}
+
+	@Override
+	public void actualizarHorasReservaHora(Cliente cliente, Estacionamiento estacionamiento) {
+		final Session session = sessionFactory.getCurrentSession();
+		
+		RepositorioEstacionamientoImpl repositorioEstacionamiento = new RepositorioEstacionamientoImpl(sessionFactory);
+		ServicioCobrarTicketsImpl servicioCobrarTickets = new ServicioCobrarTicketsImpl(repositorioEstacionamiento);
+		
+		Long horas = servicioCobrarTickets.calcularHoras(estacionamiento.getHoraDesde(), estacionamiento.getHoraHasta());
+		Long horasRestantes = cliente.getCantidadHorasRestantes() - horas;
+		cliente.setCantidadHorasRestantes(horasRestantes);
+		
+		session.update(cliente);
+		
 	}
 
 

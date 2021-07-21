@@ -18,21 +18,23 @@ import ar.edu.unlam.tallerweb1.modelo.Auto;
 import ar.edu.unlam.tallerweb1.modelo.Cliente;
 import ar.edu.unlam.tallerweb1.servicios.ServicioAuto;
 import ar.edu.unlam.tallerweb1.servicios.ServicioCliente;
+import ar.edu.unlam.tallerweb1.servicios.ServicioPlan;
 import ar.edu.unlam.tallerweb1.servicios.ServicioRegistro;
 
 @Controller
 public class ControladorRegistroAuto {
 	
 	private ServicioCliente servicioCliente;
-	
+	private ServicioPlan servicioPlan;
 	private ServicioAuto servicioAuto;
 	
 	
 	@Autowired
-	public ControladorRegistroAuto(ServicioCliente servicioCliente, ServicioAuto servicioAuto){
+	public ControladorRegistroAuto(ServicioCliente servicioCliente, ServicioAuto servicioAuto, ServicioPlan servicioPlan){
 
 		this.servicioCliente = servicioCliente;
 		this.servicioAuto = servicioAuto;
+		this.servicioPlan = servicioPlan;
 	}
 	
 	
@@ -71,20 +73,39 @@ public class ControladorRegistroAuto {
 		if(cliente != null && rol.equals("cliente")) {
 		 if(auto.getPatente() != "") {
 			 if(autoRegistrado == null) {
-			 
-				 	modelo.put("cliente", cliente);
-					auto.setCliente(cliente);
-					modelo.put("auto", auto);
-					auto.setEnUso(true);
-					auto.setUsandoGarage(false);
-					auto.setReservado(false);
-					servicioAuto.registrarAuto(auto);
-					
+				 	if(cliente.getPlan() == null) {
+					 	modelo.put("cliente", cliente);
+						auto.setCliente(cliente);
+						modelo.put("auto", auto);
+						auto.setEnUso(true);
+						auto.setUsandoGarage(false);
+						auto.setReservado(false);
+						servicioAuto.registrarAuto(auto);
 
-					modelo.put("mensaje", "Auto Registrado correctamente");
-			 		
-					return new ModelAndView("redirect:/misAutos");
-			 }else {
+						modelo.put("mensaje", "Auto Registrado correctamente");
+				 		
+						return new ModelAndView("redirect:/misAutos");
+						
+				 	}else if(cliente.getCantidadAutosRestantes() <= cliente.getPlan().getCantidadAutosPermitidos()){
+				 		modelo.put("cliente", cliente);
+						auto.setCliente(cliente);
+						modelo.put("auto", auto);
+						auto.setEnUso(true);
+						auto.setUsandoGarage(false);
+						auto.setReservado(false);
+						servicioAuto.registrarAuto(auto);
+				 		servicioPlan.actualizarCantidadDeAutosPlan(cliente);
+				 		modelo.put("mensaje", "Auto Registrado correctamente");
+				 		return new ModelAndView("redirect:/misAutos");
+				 		
+						}else {
+							modelo.put("cliente", cliente);
+					 		modelo.put("auto", auto);
+							modelo.put("mensaje", "Usted alcanzo el limite de autos permitidos.");
+							return new ModelAndView("registroAuto", modelo);
+						}
+				 	
+				 	}else {
 			 		modelo.put("cliente", cliente);
 			 		modelo.put("auto", auto);
 			 		modelo.put("mensaje", "Patente ya registrada. Ingrese otra patente.");

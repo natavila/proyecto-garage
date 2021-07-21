@@ -20,7 +20,11 @@ public interface RepositorioPlan {
 
 	void asignarPlanACliente(Cliente cliente, Plan plan);
 
-	void actualizarPlan(Plan plan);
+	void actualizarHorasReservaEstadia(Cliente cliente, Estacionamiento estacionamiento);
+	
+	void actualizarHorasReservaHora(Cliente cliente, Estacionamiento estacionamiento);
+	
+	void actualizarCantidadDeAutosPlan(Cliente cliente);
 	
 	void actualizarPagoDeReserva(Estacionamiento estacionamiento);
 
