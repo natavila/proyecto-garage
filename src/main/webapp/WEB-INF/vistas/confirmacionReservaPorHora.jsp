@@ -10,7 +10,6 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-
 	<div class="container" style="margin-top:50px;">
 	<h1 style="text-align:center;">Reserva exitosa!</h1>
 		<table class="table" style="margin-top:50px;">
