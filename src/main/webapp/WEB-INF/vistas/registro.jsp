@@ -49,9 +49,7 @@
 		    <form:input type="text" class="form-control" id="apellido" path="apellido" placeholder="Apellido"/>
 		  </div>
 		  <div class="col-dm-12">
-					<form:select path = "localidad" id="localidad" name="localidad" class="form-select" >
-                     <form:options items = "${localidades}" />
-                    </form:select>  
+			<form:input type="text" class="form-control" path = "localidad" id="localidad" name="localidad" placeholder="Localidad"/>        
 		  </div>
 		  <div class="col-dm-12">
 		    <form:input type="email" class="form-control" id="email" path="email" placeholder="usuario@ejemplo.com"/>

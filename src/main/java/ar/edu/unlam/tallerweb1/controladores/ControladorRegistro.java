@@ -41,9 +41,7 @@ public class ControladorRegistro {
 	public 	ModelAndView registro() {
 		ModelMap modelo = new ModelMap(); //Agrupa todo para mandarlo a vista
 		Cliente cliente = new Cliente();//Se crea un usuario vacio para mandarlo vacio para que el formulario se vaya llenando
-		List<String> listaLocalidades = servicioLocalidad.devolverNombresDeLocalidades();
 		modelo.put("cliente", cliente);
-		modelo.put("localidades", listaLocalidades);
 		return new ModelAndView("registro", modelo); //Se le envia a la vista registro el modelo con el objeto usuario
 	}
 	@RequestMapping(path="/procesarRegistro", method=RequestMethod.POST)
@@ -56,13 +54,12 @@ public class ControladorRegistro {
 		Usuario usuario = new Usuario();
 		Cliente verif = servicioLogin.verificarCorreo(cliente);
 		Boolean verificarPass = servicioCliente.verificarPassword(cliente);
-		
+		List<String> listaLocalidades = servicioLocalidad.devolverNombresDeLocalidades();
 		if(cliente.getNombre() != "" && cliente.getApellido() != "" && cliente.getLocalidad() != ""){
 			if(verif == null) {
 				if(verificarPass == true) {
 					if(cliente.getPassword().equals(repass)) {
 					modelo.put("cliente", cliente);
-					modelo.put("mensaje", "Usuario registrado correctamente " + cliente.getEmail());
 					cliente.setRoll("cliente");
 					usuario.setEmail(cliente.getEmail());
 					usuario.setPassword(cliente.getPassword());

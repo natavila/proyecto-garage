@@ -20,7 +20,7 @@
 <title>Tickets</title>
 </head>
 <body>
-<div class="container-fluid col-12">
+<div>
 <%@ include file="header.jsp" %>
 </div>
 	<div class="container col-6">
@@ -81,7 +81,7 @@
   
 
   $(document).on('click','#btn',function(){
-let pdf = new jsPDF('2','mm',[297, 210]);
+let pdf = new jsPDF('2','mm',[595.28, 841.89]);
 
 
 let section=$('body');
@@ -98,7 +98,7 @@ pdf.addHTML(section,page);
 
 })
 
-</Script>
+</script>
 </div>
 </body>
 

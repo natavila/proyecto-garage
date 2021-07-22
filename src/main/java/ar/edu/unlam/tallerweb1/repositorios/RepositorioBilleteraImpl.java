@@ -51,6 +51,7 @@ public class RepositorioBilleteraImpl implements RepositorioBilletera{
 		Double montoAPagar = billetera.getSaldo() - servicioCobrarTickets.calcularPrecioPorEstadia(estacionamiento.getPrecioAPagar(), estacionamiento.getFechaDesde(), estacionamiento.getFechaHasta());
 		billetera.setSaldo(montoAPagar);
 		estacionamiento.setEstaPagado(true);
+		estacionamiento.setReservado(true);
 		session.update(estacionamiento);
 		session.update(billetera);
 	}
@@ -64,6 +65,7 @@ public class RepositorioBilleteraImpl implements RepositorioBilletera{
 		Double montoAPagar = billetera.getSaldo() - servicioCobrarTickets.calcularPrecioPorHora(estacionamiento.getPrecioAPagar(), estacionamiento.getHoraDesde(), estacionamiento.getHoraHasta());
 		billetera.setSaldo(montoAPagar);
 		estacionamiento.setEstaPagado(true);
+		estacionamiento.setReservado(true);
 		session.update(estacionamiento);
 		session.update(billetera);
 	}
