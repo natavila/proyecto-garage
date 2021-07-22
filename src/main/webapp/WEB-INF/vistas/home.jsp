@@ -67,27 +67,24 @@
 		</div>
 		<div class="container" style="display:grid; grid-template-columns:200px 20px 200px 20px 200x; grid-template-rows: 250px; margin-top:50px;">
 		<div class="card" style="width: 18rem; grid-column:1; grid-row:1;">
-		  <img src="..." class="card-img-top" alt="...">
 		  <div class="card-body">
 		    <h5 class="card-title">Plan plata</h5>
-		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-		    <a href="#" class="btn btn-primary">Suscribirme</a>
+		    <p class="card-text">Disfruta los beneficios del Plan Plata!</p>
+		    <a href="planes" class="btn btn-primary">Suscribirme</a>
 		  </div>
 		</div>
 		<div class="card" style="width: 18rem; grid-column:3; grid-row:1;">
-		  <img src="..." class="card-img-top" alt="...">
 		  <div class="card-body">
 		    <h5 class="card-title">Plan oro</h5>
-		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-		    <a href="#" class="btn btn-primary">Suscribirme</a>
+		    <p class="card-text">Disfruta los beneficios del Plan Oro!</p>
+		    <a href="planes" class="btn btn-primary">Suscribirme</a>
 		  </div>
 		</div>
 		<div class="card" style="width: 18rem; grid-column:5; grid-row:1;">
-		  <img src="..." class="card-img-top" alt="...">
 		  <div class="card-body">
 		    <h5 class="card-title">Plan platino</h5>
-		    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-		    <a href="#" class="btn btn-primary">Suscribirme</a>
+		    <p class="card-text">Disfruta los beneficios del Plan Platino!</p>
+		    <a href="planes" class="btn btn-primary">Suscribirme</a>
 		  </div>
 		</div>
 		</div>
