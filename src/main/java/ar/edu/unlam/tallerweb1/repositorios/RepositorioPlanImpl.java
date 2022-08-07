@@ -106,8 +106,10 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 		Long horas = servicioCobrarTickets.calcularDias(estacionamiento.getFechaDesde(), estacionamiento.getFechaHasta())*24;
 		Long horasRestantes = cliente.getCantidadHorasRestantes() - horas;
 		cliente.setCantidadHorasRestantes(horasRestantes);
-		
+		estacionamiento.setEstaPagado(true);
+		estacionamiento.setReservado(true);
 		session.update(cliente);
+		session.update(estacionamiento);
 		
 	}
 
@@ -116,7 +118,7 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 		final Session session = sessionFactory.getCurrentSession();
 		
 		Long cantidadDeAutos = cliente.getCantidadAutosRestantes();
-		--cantidadDeAutos;
+		cantidadDeAutos--;
 		cliente.setCantidadAutosRestantes(cantidadDeAutos);
 		session.update(cliente);
 		
@@ -132,8 +134,10 @@ public class RepositorioPlanImpl implements RepositorioPlan {
 		Long horas = servicioCobrarTickets.calcularHoras(estacionamiento.getHoraDesde(), estacionamiento.getHoraHasta());
 		Long horasRestantes = cliente.getCantidadHorasRestantes() - horas;
 		cliente.setCantidadHorasRestantes(horasRestantes);
-		
+		estacionamiento.setEstaPagado(true);
+		estacionamiento.setReservado(true);
 		session.update(cliente);
+		session.update(estacionamiento);
 		
 	}
 

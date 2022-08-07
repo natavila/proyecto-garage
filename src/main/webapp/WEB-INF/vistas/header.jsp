@@ -19,7 +19,11 @@
 		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 		        <li class="nav-item">
+<<<<<<< HEAD
 		          <a class="nav-link active" aria-current="${pageContext.request.contextPath}/page" href="home">Home</a>
+=======
+		          <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/home">Home</a>
+>>>>>>> 004ba0028884f0ad66fb7684207a520bc1072a93
 		        </li>
 		         <li class="nav-item">
 		          <a class="nav-link" href="${pageContext.request.contextPath}/datosCliente">Mi perfil</a>
