@@ -210,30 +210,7 @@ public class testMockitoAdmin extends SpringTest {
 		
 	}
 
-	@Test
-	@Rollback(true)
-	@Transactional
-	public void irAVistaSacarAuto() {
-		Long idClienteMock = 1L;
-		Long idGarageMock= 1L;
-		Long idAutoMock = 1L;
-		Long idEstMock = 1L;
-		List<Auto> listaMock = new ArrayList<>();
-		listaMock.add(autoMock);
-		
-		when(requestMock.getSession()).thenReturn(sessionMock);
-		when(requestMock.getSession().getAttribute("roll")).thenReturn("admin");
-		when(requestMock.getSession().getAttribute("id")).thenReturn(idClienteMock);
-		when(servicioClienteMock.consultarClientePorId(idClienteMock)).thenReturn(clienteMock);
-		when(servicioGarageMock.buscarGarage(idGarageMock)).thenReturn(garageMock);
-		when(servicioEstMock.buscarAutosQueEstenActivosEnUnGarage(garageMock)).thenReturn((ArrayList<Auto>) listaMock);
-		when(servicioEstMock.buscarEstacionamiento(idEstMock)).thenReturn(estMock);
-		
-		
-		
-		ModelAndView vista = controladorAdmin.SacarAutoDeGaragePorTicket(requestMock,idClienteMock,idEstMock);
-		assertThat(vista.getViewName()).isEqualTo("confirmacionSacarTicket");
-	}
+	
 	@Test
 	@Rollback(true)
 	@Transactional

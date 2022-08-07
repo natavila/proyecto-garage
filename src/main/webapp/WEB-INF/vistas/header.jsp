@@ -19,19 +19,19 @@
 		    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 		        <li class="nav-item">
-		          <a class="nav-link active" aria-current="page" href="home">Home</a>
+		          <a class="nav-link active" aria-current="${pageContext.request.contextPath}/page" href="home">Home</a>
 		        </li>
 		         <li class="nav-item">
-		          <a class="nav-link" href="datosCliente">Mi perfil</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/datosCliente">Mi perfil</a>
 		        </li>
 		        <li class="nav-item">	       
-		          <a class="nav-link" href="mostrarBilletera">Mi billetera</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/mostrarBilletera">Mi billetera</a>
 		        </li>
 		        <li class="nav-item">	       
-		          <a class="nav-link" href="misAutos">Mis autos</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/misAutos">Mis autos</a>
 		        </li>
 		        <li class="nav-item">	       
-		          <a class="nav-link" href="ElegirAuto">Reservar</a>
+		          <a class="nav-link" href="${pageContext.request.contextPath}/ElegirAuto">Reservar</a>
 		        </li>
 		      </ul>
 		    </div>

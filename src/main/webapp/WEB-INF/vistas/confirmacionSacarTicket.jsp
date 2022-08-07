@@ -10,12 +10,13 @@
 <title>Confirmacion Sacar Ticket</title>
 </head>
 <body>
+<%@ include file="headerAdmin.jsp" %>
 	<main>
 		<div class="alert alert-success" role="alert">
  					${error}
 		<br>
 		</div>
-		<a class="btn btn-primary" href="home" role="button">Volver</a>
+		<a class="btn btn-primary" href="${pageContext.request.contextPath}/home" role="button">Volver</a>
 	</main>
 </body>
 </html>
